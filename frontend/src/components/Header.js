@@ -1,10 +1,9 @@
 import React from 'react';
 // import ReactDOM from 'react-dom/client';
 import {
-  Container, Nav, Navbar, NavDropdown, Button
+  Container, Button, Nav, Navbar, NavDropdown, Form
 } from "react-bootstrap";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Form from "./Form";
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Header() {
   let drop = 1;
@@ -12,12 +11,13 @@ function Header() {
     return (
       <Navbar fixed="top" bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
         <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
+          <Navbar.Brand href="#home">Bill Cipher</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="me-auto">
               <Nav.Link href="#home">Home</Nav.Link>
-              <Nav.Link href="#link">Link</Nav.Link>
+              <Nav.Link href="#contact">Contact</Nav.Link>
+              <Nav.Link href="#about">About</Nav.Link>
               <NavDropdown title="Dropdown" id="basic-nav-dropdown">
                 <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                 <NavDropdown.Item href="#action/3.2">
@@ -29,6 +29,21 @@ function Header() {
                   Separated link
                 </NavDropdown.Item>
               </NavDropdown>
+            </Nav>
+            <Form className="d-flex">
+              <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+              />
+              <Button variant="outline-success">Search</Button>
+            </Form>
+            <Nav>
+              <Nav.Link href="#">More deets</Nav.Link>
+              <Nav.Link eventKey={2} href="#">
+                Dank memes
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
