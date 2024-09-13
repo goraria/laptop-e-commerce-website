@@ -5,12 +5,12 @@ import {
 import './App.css';
 
 const products = [
-    { id: 1, name: 'Sản phẩm 1', price: '500.000đ', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về sản phẩm 1' },
-    { id: 2, name: 'Sản phẩm 2', price: '600.000đ', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về sản phẩm 2' },
-    { id: 3, name: 'Sản phẩm 3', price: '700.000đ', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về sản phẩm 3' },
-    { id: 4, name: 'Sản phẩm 4', price: '800.000đ', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về sản phẩm 4' },
-    { id: 5, name: 'Sản phẩm 5', price: '900.000đ', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về sản phẩm 5' },
-    { id: 6, name: 'Sản phẩm 6', price: '1.000.000đ', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về sản phẩm 6' },
+    { id: 1, name: 'Product 1', price: '$5', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
+    { id: 2, name: 'Product 2', price: '$6', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2' },
+    { id: 3, name: 'Product 3', price: '$7', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3' },
+    { id: 4, name: 'Product 4', price: '$8', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4' },
+    { id: 5, name: 'Product 5', price: '$9', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5' },
+    { id: 6, name: 'Product 6', price: '$10', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6' },
 ];
 
 let Test = () => {
