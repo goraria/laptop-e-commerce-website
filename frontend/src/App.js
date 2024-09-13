@@ -6,11 +6,13 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 // import logo from './logo.svg';
 import './App.css';
 import './Test';
+import './pages/Home';
 
 import Header from './components/Header';
 import FormComponent from './components/Form';
 import Footer from './components/Footer';
 import Test from "./Test";
+import Home from "./pages/Home";
 
 function App() {
     const [users, setUsers] = useState([]);
@@ -25,7 +27,6 @@ function App() {
       <div>
         <Header />
         <div className="container">
-          <FormComponent />
             <Test />
         </div>
         <Footer />
