@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {
     Container, Carousel, Row, Col, Card, Button
 } from 'react-bootstrap';
@@ -20,7 +20,7 @@ let Test = () => {
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src="https://via.placeholder.com/1200x400"
+                        src="../resources/images/mbp.jpg"
                         alt="First slide"
                     />
                     <Carousel.Caption>
@@ -46,7 +46,7 @@ let Test = () => {
                     {products.map(product => (
                         <Col key={product.id} sm={12} md={6} lg={4} className="mb-4">
                             <Card>
-                                <Card.Img variant="top" src={product.img} />
+                                <Card.Img variant="top" src={product.img}/>
                                 <Card.Body>
                                     <Card.Title>{product.name}</Card.Title>
                                     <Card.Text>
@@ -62,5 +62,13 @@ let Test = () => {
         </div>
     );
 }
+
+// class Test extends Component {
+//     render() {
+//         return (
+//
+//         )
+//     }
+// }
 
 export default Test;

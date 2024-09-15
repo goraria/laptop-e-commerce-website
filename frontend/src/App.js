@@ -6,12 +6,14 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 // import logo from './logo.svg';
 import './App.css';
 import './Test';
+import './Example';
 import './pages/Home';
 
 import Header from './components/Header';
 import FormComponent from './components/Form';
 import Footer from './components/Footer';
 import Test from "./Test";
+import Example from "./Example";
 import Home from "./pages/Home";
 
 function App() {
