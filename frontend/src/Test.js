@@ -5,17 +5,14 @@ import {
 import {BrowserRouter, Link, Route, Router, Routes} from "react-router-dom";
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 // import * as byPrefixAndName from "@fortawesome/free-solid-svg-icons";
-import './App.css';
-import './pages/Home';
-import './pages/UserProfile';
-import './pages/Cart';
-import Home from "./pages/Home";
-import UserProfile from "./pages/UserProfile";
-import Cart from "./pages/Cart";
 import Header from "./components/Header";
+import Home from "./pages/Home";
 import Footer from "./components/Footer";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
+import ListProducts from "./pages/ListProducts";
+import Cart from "./pages/Cart";
+import UserProfile from "./pages/UserProfile";
 
 const products = [
     { id: 1, name: 'Product 1', price: '$5', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
@@ -111,8 +108,12 @@ class Test extends Component {
                     <main>
                         <Routes>
                             <Route path="/" element={<Home />} />
-                            <Route path="/about/about" element={<About />} />
+                            <Route path="/about" element={<About />} />
                             <Route path="/contact" element={<Contact />} />
+                            <Route path="/product" element={<ListProducts />} />
+                            <Route path="/search" element={<ListProducts />} />
+                            <Route path="/cart" element={<Cart />} />
+                            <Route path="/profile" element={<UserProfile />} />
                         </Routes>
                     </main>
                     <Footer />
