@@ -22,7 +22,7 @@ const categories = [
     {categorical:'CPU',varient: 'danger', item: ['a','b','c'] },
     {categorical:'RAM',varient: 'danger', item: ['a','b','c'] },
     {categorical:'GPU',varient: 'danger', item: ['a','b','c'] },
-    {categorical:'Ổ cứng',varient: 'danger', item: ['a','b','s',"sssssssssssssssssssssss"] },
+    {categorical:'Ổ cứng',varient: 'danger', item: ['a','b','s',"d"] },
     {categorical:'Màn hình',varient: 'danger', item: ['a','b','c'] },
 
 ]
