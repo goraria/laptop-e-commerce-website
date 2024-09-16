@@ -28,7 +28,7 @@ const categories = [
 ]
 
 
-class Example extends Component {
+class Demo extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -119,4 +119,4 @@ class Example extends Component {
     }
 }
 
-export default Example;
+export default Demo;
