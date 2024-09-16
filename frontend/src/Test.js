@@ -1,6 +1,8 @@
 import React from 'react';
+import FloatingLabel from 'react-bootstrap/FloatingLabel';
+import Form from 'react-bootstrap/Form';
 import {
-    Container, Carousel, Row, Col, Card, Button
+    Container, Carousel, Row, Col, Card, Button, Dropdown, DropdownButton, ButtonGroup
 } from 'react-bootstrap';
 import './App.css';
 
@@ -16,6 +18,7 @@ const products = [
 let Test = () => {
     return (
         <div>
+            {/*  */}
             <Carousel>
                 <Carousel.Item>
                     <img
@@ -59,6 +62,7 @@ let Test = () => {
                     ))}
                 </Row>
             </Container>
+            
         </div>
     );
 }
