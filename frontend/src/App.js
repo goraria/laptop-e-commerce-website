@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Button, Table } from 'react-bootstrap';
-import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 // import logo from './logo.svg';
@@ -10,7 +9,6 @@ import './Example';
 import './pages/Home';
 
 import Header from './components/Header';
-import FormComponent from './components/FormComponent';
 import Footer from './components/Footer';
 import Test from "./Test";
 import Demo from "./Demo";
@@ -27,7 +25,7 @@ function App() {
       <div>
         <Header />
         <div className="container">
-          <Example/>
+          <Test/>
         </div>
         <Footer />
       </div>
