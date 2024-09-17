@@ -10,7 +10,8 @@ import {faShoppingCart, faUser, faSearch} from "@fortawesome/free-solid-svg-icon
 class Header extends Component {
     render() {
         const search = {
-
+            color: 'white',
+            margin: '0 8px'
         }
         return (
             <Navbar fixed="top" bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
@@ -52,7 +53,8 @@ class Header extends Component {
                             id="dropdown-menu-align-responsive-1">
                             <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
                             <NavDropdown.Item href="#action/3.2">Bill</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Log out</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="/cart">Full Cart</NavDropdown.Item>
                         </DropdownButton>
                         <DropdownButton
                             as={ButtonGroup}
@@ -61,9 +63,9 @@ class Header extends Component {
                             title={<FontAwesomeIcon icon={faUser}/>}
                             style={{ color: 'white' }}
                             id="dropdown-menu-align-responsive-1">
-                            <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2"></NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.3">Log out</NavDropdown.Item>
+                            <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+                            <NavDropdown.Item href="/bill">Bill</NavDropdown.Item>
+                            <NavDropdown.Item href="#">Log out</NavDropdown.Item>
                         </DropdownButton>
                     </Navbar.Collapse>
                 </Container>
