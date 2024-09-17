@@ -65,7 +65,7 @@ class Footer extends Component{
                             <h5>Phản hồi, góp ý, khiếu nại</h5>
                             <p>Phản hồi nóng về chất lượng sản phẩm và dịch vụ. Đội ngũ Kiểm Soát Chất Lượng của chúng tôi
                                 sẵn sàng lắng nghe quý khách.</p>
-                            <Button href="https://onwardtogether.one/listen" variant="primary">
+                            <Button href="#" variant="danger">
                                 Gửi phản hồi ngay
                             </Button>
                         </Col>
