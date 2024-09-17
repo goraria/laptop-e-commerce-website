@@ -3,10 +3,10 @@ import React, {Component} from "react";
 
 import mbp from "../resources/images/mbp.jpg"
 import mba from "../resources/images/mba.jpeg"
-import sfc from "../resources/images/sfc.avif"
-import xps from "../resources/images/xps.avif"
-import prn from "../resources/images/prn.avif"
-import uls from "../resources/images/uls.avif"
+// import sfc from "../resources/images/sfc.avif"
+// import xps from "../resources/images/xps.avif"
+// import prn from "../resources/images/prn.avif"
+// import uls from "../resources/images/uls.avif"
 
 const products = [
     { id: 1, name: 'Product 1', price: '$5', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
@@ -20,10 +20,10 @@ const products = [
 const banners = [
     { id: 1, name: mbp, alt: "First slide", title: "Sale Off 5%", description: "Developer love Mac" },
     { id: 2, name: mba, alt: "Second slide", title: "Sale Off 10%", description: "The best display ever in a laptop." },
-    { id: 3, name: xps, alt: "Third slide", title: "Sale Off 12%", description: "Most beautiful Ultrabook" },
-    { id: 4, name: prn, alt: "Fourth slide", title: "Sale Off 8%", description: "The best Workstation" },
-    { id: 5, name: sfc, alt: "Fifth slide", title: "Sale Off 15%", description: "Surface x Copilot" },
-    { id: 6, name: uls, alt: "Sixth slide", title: "Sale Off 20%", description: "XDR Display" },
+    // { id: 3, name: xps, alt: "Third slide", title: "Sale Off 12%", description: "Most beautiful Ultrabook" },
+    // { id: 4, name: prn, alt: "Fourth slide", title: "Sale Off 8%", description: "The best Workstation" },
+    // { id: 5, name: sfc, alt: "Fifth slide", title: "Sale Off 15%", description: "Surface x Copilot" },
+    // { id: 6, name: uls, alt: "Sixth slide", title: "Sale Off 20%", description: "XDR Display" },
 ]
 
 class Home extends Component {
