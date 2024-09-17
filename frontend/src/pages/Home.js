@@ -5,7 +5,7 @@ import mbp from "../resources/images/mbp.jpeg"
 import mba from "../resources/images/mba.jpeg"
 import sfc from "../resources/images/sfc.jpeg"
 import xps from "../resources/images/xps.jpeg"
-import prn from "../resources/images/prn.jpeg"
+import pri from "../resources/images/pri.jpeg"
 import uls from "../resources/images/uls.jpeg"
 
 const products = [
@@ -21,7 +21,7 @@ const banners = [
     { id: 1, name: mbp, alt: "First slide", title: "Sale Off 5%", description: "Developer love Mac" },
     { id: 2, name: mba, alt: "Second slide", title: "Sale Off 10%", description: "The best display ever in a laptop." },
     { id: 3, name: xps, alt: "Third slide", title: "Sale Off 12%", description: "Most beautiful Ultrabook" },
-    { id: 4, name: prn, alt: "Fourth slide", title: "Sale Off 8%", description: "The best Workstation" },
+    { id: 4, name: pri, alt: "Fourth slide", title: "Sale Off 8%", description: "The best Workstation" },
     { id: 5, name: sfc, alt: "Fifth slide", title: "Sale Off 15%", description: "Surface x Copilot" },
     { id: 6, name: uls, alt: "Sixth slide", title: "Sale Off 20%", description: "XDR Display" },
 ]
