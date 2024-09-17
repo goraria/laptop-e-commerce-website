@@ -1,12 +1,12 @@
 import {Button, Card, Carousel, Col, Container, Row, Image} from "react-bootstrap";
 import React, {Component} from "react";
 
-import mbp from "../resources/images/mbp.jpg"
+import mbp from "../resources/images/mbp.jpeg"
 import mba from "../resources/images/mba.jpeg"
-import sfc from "../resources/images/sfc.avif"
-import xps from "../resources/images/xps.avif"
-import prn from "../resources/images/prn.avif"
-import uls from "../resources/images/uls.avif"
+import sfc from "../resources/images/sfc.jpeg"
+import xps from "../resources/images/xps.jpeg"
+import prn from "../resources/images/prn.jpeg"
+import uls from "../resources/images/uls.jpeg"
 
 const products = [
     { id: 1, name: 'Product 1', price: '$5', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
@@ -27,10 +27,11 @@ const banners = [
 ]
 
 class Home extends Component {
-    // eslint-disable-next-line no-useless-constructor
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {
+
+        }
     }
 
     render() {

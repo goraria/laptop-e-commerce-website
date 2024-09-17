@@ -10,7 +10,8 @@ import {faShoppingCart, faUser, faSearch} from "@fortawesome/free-solid-svg-icon
 class Header extends Component {
     render() {
         const search = {
-
+            color: 'white',
+            margin: '0 8px'
         }
         return (
             <Navbar fixed="top" bg="dark" data-bs-theme="dark" expand="lg" className="bg-body-tertiary">
