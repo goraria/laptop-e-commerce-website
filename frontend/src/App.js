@@ -3,6 +3,7 @@ import { Container, Button, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "bootstrap/dist/js/bootstrap.bundle.min";
 // import logo from './logo.svg';
+import './App.css';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -18,13 +19,13 @@ function App() {
             .catch(error => console.error('Error:', error));
     }, []);
     return (
-        <div>
-            <Header />
-            <div className="container">
-                <Test/>
-            </div>
-            <Footer />
+      <div>
+        <Header />
+        <div className="container">
+          <Demo/>
         </div>
+        <Footer />
+      </div>
     );
 }
 
