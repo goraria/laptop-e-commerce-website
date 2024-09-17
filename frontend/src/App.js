@@ -10,11 +10,10 @@ import './Example';
 import './pages/Home';
 
 import Header from './components/Header';
-import FormComponent from './components/Form';
+import FormComponent from './components/FormComponent';
 import Footer from './components/Footer';
 import Test from "./Test";
-import Example from "./Example";
-import Home from "./pages/Home";
+import Demo from "./Demo";
 
 function App() {
     const [users, setUsers] = useState([]);
