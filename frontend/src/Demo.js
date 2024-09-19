@@ -26,6 +26,7 @@ const categories = [
     { categorical: 'Màn hình', varient: 'danger', item: ['a', 'b', 'c'] },
 
 ]
+const brand_list = ['Apple', 'Dell', 'Acer', 'Lenovo', 'Asus', 'Microsolf', 'HP', 'MSI']
 
 
 class Demo extends Component {
@@ -37,54 +38,32 @@ class Demo extends Component {
 
     render() {
         return (
-            <div>
-                <Carousel>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src="https://via.placeholder.com/1200x400"
-                            alt="First slide"
-                        />
-                        <Carousel.Caption>
-                            <h3>Sale Off 50%</h3>
-                            <p>Sale off all product in September</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src="https://via.placeholder.com/1200x400"
-                            alt="First slide"
-                        />
-                        <Carousel.Caption>
-                            <h3>Sale Off 50%</h3>
-                            <p>Sale off all product in September</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src="https://via.placeholder.com/1200x400"
-                            alt="First slide"
-                        />
-                        <Carousel.Caption>
-                            <h3>Sale Off 50%</h3>
-                            <p>Sale off all product in September</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                    <Carousel.Item>
-                        <img
-                            className="d-block w-100"
-                            src="https://via.placeholder.com/1200x400"
-                            alt="Second slide"
-                        />
-                        <Carousel.Caption>
-                            <h3>Newest</h3>
-                            <p>Famous Brand in our website</p>
-                        </Carousel.Caption>
-                    </Carousel.Item>
-                </Carousel>
 
+            <div style={{ marginTop: 112 }}>
+                <Container>
+                    <Row style={{padding:'15px 12px 0px 12px',margin: '0',borderRadius: 10, backgroundColor: '#eaedf0'}}>
+                        <h1>Laptop</h1>
+                        <p>
+                            Laptop là một thiết bị máy tính có kích thước nhỏ gọn và di động.
+                            Nó được thiết kế để sử dụng trong các hoạt động làm việc,
+                            giải trí hoặc học tập khi di chuyển mà không cần phải sử dụng những chiếc máy tính để bàn cồng kềnh.
+                        </p>
+                        <Dropdown.Divider />
+                
+                        <Row className="justify-content-center my-3">
+                            <Container>
+                                {['Lenovo', 'Dell', 'HP', 'Acer', 'Microsoft', 'Asus', 'LG', 'Apple', 'Razer', 'Samsung'].map((brand) => (
+                                    <Button variant="outline-danger" key={brand} style={{margin:10 }}>
+                                        {brand}
+                                    </Button>
+                                ))}
+                            </Container>
+                        </Row>
+                    </Row>
+
+
+
+                </Container>
                 <Container style={{ marginTop: 3.5 + 'em' }}>
                     <Stack direction="horizontal" gap={3}>
                         <div className="p-2">Chọn theo tiêu chí</div>
@@ -98,11 +77,11 @@ class Demo extends Component {
                 <Container className="my-3">
                     <h2 className="text-center mb-4">Sản phẩm nổi bật</h2>
                     <Row>
-                        
+
                         {products.map(product =>
-                        <Col key={product.id} sm={12} md={6} lg={3} className="mb-3">
-                         <ProductItem obj={product} />
-                         </Col>
+                            <Col key={product.id} sm={12} md={6} lg={3} className="mb-3">
+                                <ProductItem obj={product} />
+                            </Col>
                         )}
                     </Row>
                 </Container>
