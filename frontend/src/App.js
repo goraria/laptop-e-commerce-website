@@ -15,6 +15,15 @@ import ListProducts from "./pages/ListProducts";
 import Cart from "./pages/Cart";
 import UserProfile from "./pages/UserProfile";
 
+import Administrator from "./managements/Administrator";
+import Dashboard from "./managements/Dashboard";
+import Statistic from "./managements/Statistic";
+import Setting from "./managements/Setting";
+
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Register from "./components/Register";
+
 // function App() {
 //     const [users, setUsers] = useState([]);
 //     useEffect(() => {
@@ -54,6 +63,15 @@ class App extends Component {
                             <Route path="/search" element={<ListProducts />} />
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/profile" element={<UserProfile />} />
+
+                            <Route path="/manage" element={<Administrator />} />
+                            <Route path="/dashboard" element={<Dashboard />} />
+                            <Route path="/statistic" element={<Statistic />} />
+                            <Route path="/setting" element={<Setting />} />
+
+                            <Route path="/login" element={<Login />} />
+                            <Route path="/signup" element={<Signup />} />
+                            <Route path="/register" element={<Register />} />
                         </Routes>
                     </main>
                     <Footer />

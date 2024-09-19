@@ -1,13 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import './index.css';
-import 'bootstrap/dist/css/bootstrap.css';
 import App from './App';
-import Test from './Test';
 import reportWebVitals from './reportWebVitals';
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import Demo from './Demo';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
