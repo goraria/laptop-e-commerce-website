@@ -1,6 +1,8 @@
 import {Button, Card, Carousel, Col, Container, Row, Image} from "react-bootstrap";
 import React, {Component} from "react";
 
+import ProductItem from "../elements/ProductItem";
+
 import mbp from "../resources/images/mbp.jpeg"
 import mba from "../resources/images/mba.jpeg"
 import sfc from "../resources/images/sfc.jpeg"
@@ -9,12 +11,12 @@ import pri from "../resources/images/pri.jpeg"
 import uls from "../resources/images/uls.jpeg"
 
 const products = [
-    { id: 1, name: 'Product 1', price: '$5', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
-    { id: 2, name: 'Product 2', price: '$6', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2' },
-    { id: 3, name: 'Product 3', price: '$7', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3' },
-    { id: 4, name: 'Product 4', price: '$8', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4' },
-    { id: 5, name: 'Product 5', price: '$9', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5' },
-    { id: 6, name: 'Product 6', price: '$10', img: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6' },
+    { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
+    { id: 2, name: 'Product 2', price: '6', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2' },
+    { id: 3, name: 'Product 3', price: '7', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3' },
+    { id: 4, name: 'Product 4', price: '8', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4' },
+    { id: 5, name: 'Product 5', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5' },
+    { id: 6, name: 'Product 6', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6' },
 ];
 
 const banners = [
@@ -82,16 +84,7 @@ class Home extends Component {
                     <Row>
                         {products.map(product => (
                             <Col key={product.id} sm={12} md={6} lg={4} className="mb-4">
-                                <Card>
-                                    <Card.Img variant="top" src={product.img}/>
-                                    <Card.Body>
-                                        <Card.Title>{product.name}</Card.Title>
-                                        <Card.Text>
-                                            {product.description}. Giá: {product.price}
-                                        </Card.Text>
-                                        <Button variant="primary">Mua ngay</Button>
-                                    </Card.Body>
-                                </Card>
+                                <ProductItem obj={product} />
                             </Col>
                         ))}
                     </Row>
