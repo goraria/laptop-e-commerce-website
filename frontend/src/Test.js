@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Home from "./pages/Home";
 import Footer from "./components/Footer";
@@ -8,7 +8,7 @@ import Contact from "./pages/Contact";
 import ListProducts from "./elements/ListProducts";
 import Cart from "./pages/Cart";
 import UserProfile from "./pages/UserProfile";
-
+import axios from 'axios';
 class Test extends Component {
     constructor(props) {
         super(props);

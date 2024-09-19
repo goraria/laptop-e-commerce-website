@@ -5,9 +5,12 @@
   "scripts": {
     "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
     "start:backend": "cd backend && npm run watch",
-    "start:frontend": "cd frontend && npm run build"
+    "start:frontend": "cd frontend && npm start"
   },
   "devDependencies": {
     "concurrently": "^9.0.0"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3"
   }
 }

@@ -13,7 +13,7 @@ import ListProducts from './elements/ListProducts';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <ListProducts />
+        <App />
     </React.StrictMode>
 );
 
