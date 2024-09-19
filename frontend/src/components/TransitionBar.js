@@ -18,7 +18,7 @@ class TransitionBar extends Component {
     render() {
         const { classification } = this.props;
         return (
-            <Navbar fixed="top" bg="light" data-bs-theme="light" expand="lg" className="bg-body-tertiary">
+            <Navbar fixed="top" bg="light" data-bs-theme="light" expand="lg" className="bg-body-tertiary" style={{marginTop:56}}>
                 <Container>
                     <Stack direction="horizontal" gap={3}>
 
