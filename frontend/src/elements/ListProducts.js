@@ -47,7 +47,7 @@ class ListProducts extends Component {
 
     render() {
         return (
-            <div style={{ marginTop: 112 }}>
+            <div style={{ marginTop: 168 }}>
                 <TransitionBar classification = {classification}/>
                 <div >
                     <Container>
