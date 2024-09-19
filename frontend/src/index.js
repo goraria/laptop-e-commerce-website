@@ -2,6 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import Demo from './Demo';
+import ListProducts from './elements/ListProducts';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
