@@ -11,8 +11,9 @@ import Footer from './components/Footer';
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Contact from "./pages/Contact";
-import ListProducts from "./pages/ListProducts";
+import ListProducts from "./elements/ListProducts";
 import Cart from "./pages/Cart";
+import Product from "./pages/Product";
 import UserProfile from "./pages/UserProfile";
 
 import Administrator from "./managements/Administrator";
@@ -59,7 +60,7 @@ class App extends Component {
                             <Route path="/" element={<Home />} />
                             <Route path="/about" element={<About />} />
                             <Route path="/contact" element={<Contact />} />
-                            <Route path="/product" element={<ListProducts />} />
+                            <Route path="/product" element={<Product />} />
                             <Route path="/search" element={<ListProducts />} />
                             <Route path="/cart" element={<Cart />} />
                             <Route path="/profile" element={<UserProfile />} />
