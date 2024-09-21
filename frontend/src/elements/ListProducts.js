@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
-     faLaptop, faKeyboard, faMouse
+    faLaptop, faKeyboard, faMouse
 } from '@fortawesome/free-solid-svg-icons';
 import {
     Container, Button, Form, ButtonGroup, DropdownButton, Dropdown, Row, Col, Card, Image, Stack, Carousel,
@@ -11,14 +11,14 @@ import CustomDropDown from '../elements/CustomDropDown'
 import ProductItem from "../elements/ProductItem"
 import TransitionBar from '../components/TransitionBar';
 const products = [
-    { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
-    { id: 2, name: 'Product 2', price: '6', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2' },
-    { id: 3, name: 'Product 3', price: '7', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3' },
-    { id: 4, name: 'Product 4', price: '8', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4' },
-    { id: 5, name: 'Product 5', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5' },
-    { id: 6, name: 'Product 6', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6' },
-    { id: 7, name: 'Product 7', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 7' },
-    { id: 8, name: 'Product 8', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 8' },
+    { id: 1, name: 'Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 ', price: '50000', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' , rating: 3.5},
+    { id: 2, name: 'Product 2', price: '90000', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 ', rating:0 },
+    { id: 3, name: 'Product 3', price: '7', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3', rating: 1.1 },
+    { id: 4, name: 'Product 4', price: '8', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4', rating: 4.2},
+    { id: 5, name: 'Product 5', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5', rating: 2.7 },
+    { id: 6, name: 'Product 6', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6', rating: 5 },
+    { id: 7, name: 'Product 7', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 7', rating: 3.6 },
+    { id: 8, name: 'Product 8', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 8' , rating: 0.2},
 ];
 
 const categories = [
@@ -26,18 +26,13 @@ const categories = [
     { categorical: 'CPU', varient: 'danger', item: ['a', 'b', 'c'] },
     { categorical: 'RAM', varient: 'danger', item: ['a', 'b', 'c'] },
     { categorical: 'GPU', varient: 'danger', item: ['a', 'b', 'c'] },
-    { categorical: 'Ổ cứng', varient: 'danger', item: ['a', 'b', 's', "sssssssssssssssssssssss"] },
+    { categorical: 'Ổ cứng', varient: 'danger', item: ['a', 'b', 's', "c"] },
     { categorical: 'Màn hình', varient: 'danger', item: ['a', 'b', 'c'] },
 
 ]
 const brand_list = ['Apple', 'Dell', 'Acer', 'Lenovo', 'Asus', 'Microsolf', 'HP', 'MSI']
 
-const classification = [
-    { category: "Laptop", icon: faLaptop, items: ['#a', '#b', '#c',] },
-    { category: "Chuột", icon: faMouse, items: ['#action1', '#action1', '#action1',] },
-    { category: "Bàn phím", icon: faKeyboard, items: ['#action1', '#action1', '#action1',] },
 
-]
 class ListProducts extends Component {
     constructor(props) {
         super(props)
@@ -48,7 +43,7 @@ class ListProducts extends Component {
     render() {
         return (
             <div style={{ marginTop: 168 }}>
-                <TransitionBar classification = {classification}/>
+                <TransitionBar />
                 <div >
                     <Container>
                         <Row style={{ padding: '15px 12px 0px 12px', margin: '0', borderRadius: 10, backgroundColor: '#f8f9fa' }}>
@@ -63,24 +58,26 @@ class ListProducts extends Component {
                             <Row className="justify-content-center my-3">
                                 <Container>
                                     {['Lenovo', 'Dell', 'HP', 'Acer', 'Microsoft', 'Asus', 'LG', 'Apple', 'Razer', 'Samsung'].map((brand) => (
-                                        <Button variant="outline-danger" key={brand} style={{ marginRight: 16 }}>
+                                        <Button variant="outline-danger" key={brand} style={{ margin: '0px 16px 16px 0px' }}>
                                             {brand}
                                         </Button>
                                     ))}
                                 </Container>
                             </Row>
                         </Row>
-
-
-
                     </Container>
+                    
                     <Container style={{ marginTop: 3.5 + 'em' }}>
-                        <Stack direction="horizontal" gap={3}>
-                            <div className="p-2">Chọn theo tiêu chí</div>
-                            {categories.map(
-                                (category) => CustomDropDown(category)
+                        
+                        <Row style={{ padding: '15px 12px 0px 12px', margin: '0', borderRadius: 10, backgroundColor: '#f8f9fa' }}>
+                            <h4 className="p-2">Chọn theo tiêu chí</h4>
+                            <div>
+                                {categories.map(
+                                (category) => <CustomDropDown category={category} />
                             )}
-                        </Stack>
+                            </div>
+                            
+                        </Row>
                     </Container>
 
 
