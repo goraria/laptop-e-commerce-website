@@ -1,0 +1,4 @@
+ProductItem{
+    name: TÊN HÃNG + NAME 
+    description:MÀN, CPU, RAM, SSD, GPU
+}

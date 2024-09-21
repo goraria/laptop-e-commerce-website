@@ -8,6 +8,13 @@ import {
     faCreditCard, faCheck, faTruck, faShieldAlt, faShoppingBag, faMoneyBills, faLaptop, faKeyboard, faMouse
 } from '@fortawesome/free-solid-svg-icons';
 
+
+const clsifications = [
+            { category: "Laptop", icon: faLaptop, items: ['#a', '#b', '#c',] },
+            { category: "Chuột", icon: faMouse, items: ['#action1', '#action1', '#action1',] },
+            { category: "Bàn phím", icon: faKeyboard, items: ['#action1', '#action1', '#action1',] },
+
+        ]
 class TransitionBar extends Component {
     constructor(props) {
         super(props)
@@ -16,13 +23,12 @@ class TransitionBar extends Component {
     }
 
     render() {
-        const { classification } = this.props;
         return (
-            <Navbar fixed="top" bg="light" data-bs-theme="light" expand="lg" className="bg-body-tertiary" style={{marginTop:56}}>
+            <Navbar fixed="top" bg="light" data-bs-theme="light" expand="lg" className="bg-body-tertiary" style={{ marginTop: 56, zIndex:1 }}>
                 <Container>
                     <Stack direction="horizontal" gap={3}>
 
-                        {classification.map((brandS) => <DropdownButton
+                        {clsifications.map((brandS) => <DropdownButton
                             id="dropdown-basic-button"
                             title={<><FontAwesomeIcon icon={brandS.icon} style={{ width: 24 }} />{' '}{brandS.category}</>}
                             variant="outline-danger"
