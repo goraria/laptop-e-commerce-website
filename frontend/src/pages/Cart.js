@@ -1,14 +1,9 @@
+
 import React, { Component } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCreditCard, faCheck, faTruck, faShieldAlt, faShoppingBag, faMoneyBills, faLaptop, faKeyboard, faMouse
-} from '@fortawesome/free-solid-svg-icons';
-import {
-    Container, Button, Form, ButtonGroup, DropdownButton, Dropdown, Row, Col, Card, Image, Stack, Carousel,
-    DropdownItem
-} from 'react-bootstrap';
+import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
 import TransitionBar from '../components/TransitionBar';
 import CardItem from '../elements/CartItem';
+
 const products = [
     { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
     { id: 2, name: 'Product 2', price: '6', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2' },
@@ -20,51 +15,56 @@ const products = [
     { id: 8, name: 'Product 8', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 8' },
 ];
 
+var pre_total = 0
+products.map((item) => pre_total += Number(item['price']))
 
-
-
+var discount = 0.5
+var total = pre_total - (discount * pre_total)
 class Cart extends Component {
     constructor(props) {
         super(props)
         this.state = {
         }
     }
-
     render() {
-        const { obj } = this.props;
         return (
-
             <div>
-                <TransitionBar/>
-                <Container style={{marginTop:168}}>
+                <TransitionBar />
+                <Container style={{ marginTop: 168 }}>
                     <h4>Giỏ hàng </h4>
                     <Row>
-                        <Col sm={12} md={6} lg={8} className="mb-3" >
-                            {products.map(
-                                (item) => <CardItem item = {item}/>
-                            )}
+                        {/* Product List Section */}
+                        <Col sm={12} md={6} lg={8} className="mb-3">
+                            {products.map((item) => <CardItem key={item.id} item={item} />)}
                         </Col>
 
-
+                        {/* Payment Summary Section */}
                         <Col sm={12} md={6} lg={4} className="mb-2">
-                            <Card className="p-3">
+                            <Card className="p-3 sticky-summary" style={{ position: 'sticky', top: 120 }}>
                                 <h5>Khuyến mãi</h5>
-                                <Button variant="outline-secondary" className="mb-3">
-                                    Chọn hoặc nhập khuyến mãi
-                                </Button>
+                                <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
+                                    <option> Chọn hoặc nhập khuyến mãi</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </Form.Select>
 
                                 <h5>Tóm tắt đơn hàng</h5>
                                 <div className="d-flex justify-content-between">
                                     <span>Tạm tính</span>
-                                    <span>subtotal</span>
+                                    <span>{pre_total}$</span>
+                                </div>
+                                <div className="d-flex justify-content-between">
+                                    <span>Được giảm</span>
+                                    <span>{pre_total * discount}$</span>
                                 </div>
 
                                 <div className="d-flex justify-content-between mt-2">
                                     <span>Tổng cộng</span>
-                                    <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>50$</span>
+                                    <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>{total}$</span>
                                 </div>
 
-                                <Button className="w-100 mt-3" variant="danger" size="lg" onClick>
+                                <Button className="w-100 mt-3" variant="danger" size="lg">
                                     Đặt hàng
                                 </Button>
                             </Card>
@@ -72,8 +72,8 @@ class Cart extends Component {
                     </Row>
                 </Container>
             </div>
-        )
+        );
     }
 }
 
-export default Cart
+export default Cart;
