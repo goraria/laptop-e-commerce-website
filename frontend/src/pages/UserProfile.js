@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 import {Alert, Button, Col, Container, Form, Image, InputGroup, Nav, Row} from "react-bootstrap";
 import jp from "../resources/images/jp.jpeg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -6,32 +6,8 @@ import {
     faAt, faBullseye, faCity, faGift, faHistory, faLocationDot, faMapMarkerAlt, faMapPin,
     faPhone, faQuestionCircle, faSignOutAlt, faStar, faUser
 } from "@fortawesome/free-solid-svg-icons";
-
-const sidebarLinks = [
-    { id: 1, title: "Account Information", href: '/profile', icon: faUser },
-    { id: 2, title: "Order History", href: '/bill', icon: faHistory },
-    { id: 3, title: "Voucher Wallet", href: '', icon: faGift },
-    { id: 4, title: "Address", href: '', icon: faMapPin },
-    { id: 5, title: "Rating", href: '', icon: faStar },
-    { id: 6, title: "Faq", href: '', icon: faQuestionCircle },
-    { id: 7, title: "Log out", href: '', icon: faSignOutAlt },
-]
-
-class SidebarAccount extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
-    }
-
-    render() {
-        const {directory} = this.props
-        return (
-            <Nav.Link href={directory.href} className="d-flex align-items-center" style={{color: '#dc3545'}}>
-                <FontAwesomeIcon icon={directory.icon} className="me-2" style={{width: 28}} />{directory.title}
-            </Nav.Link>
-        )
-    }
-}
+import UserSidebar from "../components/UserSidebar";
+import AccountInfo from "../components/AccountInfo";
 
 class UserProfile extends Component {
     constructor(props) {
@@ -39,214 +15,183 @@ class UserProfile extends Component {
         this.state = {}
     }
 
+
+
     render() {
+        // const [sidebarTop, setSidebarTop] = useState(56);
+        //
+        // useEffect(() => {
+        //     const handleScroll = () => {
+        //         const scrollY = window.scrollY;
+        //
+        //         if (scrollY > 32) {
+        //             setSidebarTop(24);
+        //         } else {
+        //             setSidebarTop(56 - scrollY);
+        //         }
+        //     };
+        //     window.addEventListener("scroll", handleScroll);
+        //
+        //     return () => {
+        //         window.removeEventListener("scroll", handleScroll);
+        //     };
+        // }, []);
+
         return (
             <div style={{marginTop: 112}}>
-                <div>
-                    <Container style={{padding: '0, 12px'}}>
-                        <Row lg="8"  style={{
+                <Container style={{padding: '0 12px'}}>
+                    <Row lg="8"
+                    style={{
+                        margin: '0'
+                    }}>
+                        <Col
+                        sm={12} md={3} lg={3}
+                        className="bg-light p-3 mb-4"
+                        style={{
                             padding: '15px 12px 15px 12px',
-                            margin: '0',
                             borderRadius: 10,
-                            backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0'
+                            // position: "fixed",
+                            top: 80,
+                            backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
                         }}>
-                            <Col md={3} className="bg-light p-3">
-                                <Nav defaultActiveKey="/account" className="flex-column">
-                                    {/*<Nav.Link href="/account" className="d-flex align-items-center">*/}
-                                    {/*    <FontAwesomeIcon icon={faUser} className="me-2" />*/}
-                                    {/*    Thông tin tài khoản*/}
-                                    {/*</Nav.Link>*/}
-                                    {/*<Nav.Link href="/orders" className="d-flex align-items-center">*/}
-                                    {/*    <FontAwesomeIcon icon={faHistory} className="me-2" />*/}
-                                    {/*    Lịch sử đơn hàng*/}
-                                    {/*</Nav.Link>*/}
-                                    {/*<Nav.Link href="/voucher" className="d-flex align-items-center">*/}
-                                    {/*    <FontAwesomeIcon icon={faGift} className="me-2" />*/}
-                                    {/*    Ví voucher*/}
-                                    {/*</Nav.Link>*/}
-                                    {/*<Nav.Link href="/address" className="d-flex align-items-center">*/}
-                                    {/*    <FontAwesomeIcon icon={faMapMarkerAlt} className="me-2" />*/}
-                                    {/*    Số địa chỉ*/}
-                                    {/*</Nav.Link>*/}
-                                    {/*<Nav.Link href="/reviews" className="d-flex align-items-center">*/}
-                                    {/*    <FontAwesomeIcon icon={faStar} className="me-2" />*/}
-                                    {/*    Đánh giá & nhận xét*/}
-                                    {/*</Nav.Link>*/}
-                                    {/*<Nav.Link href="/faq" className="d-flex align-items-center">*/}
-                                    {/*    <FontAwesomeIcon icon={faQuestionCircle} className="me-2" />*/}
-                                    {/*    Câu hỏi thường gặp*/}
-                                    {/*</Nav.Link>*/}
-                                    {/*<Nav.Link href="/logout" className="d-flex align-items-center">*/}
-                                    {/*    <FontAwesomeIcon icon={faSignOutAlt} className="me-2" />*/}
-                                    {/*    Đăng xuất*/}
-                                    {/*</Nav.Link>*/}
-                                    {/*<SidebarAccount directory={sidebarLink} />*/}
-                                    {
-                                        sidebarLinks.map(sidebarLink => (
-                                            <SidebarAccount directory={sidebarLink} />
-                                        ))
-                                    }
-                                </Nav>
-                            </Col>
-                            <Col md={9} className="p-4">
-                                <h2>Account Information</h2>
-                                {/*<Form>*/}
-                                {/*    <Form.Group className="mb-3" controlId="formName">*/}
-                                {/*        <Form.Label>Tên của bạn</Form.Label>*/}
-                                {/*        <div className="d-flex align-items-center">*/}
-                                {/*            <FontAwesomeIcon icon={faUser} className="me-2" />*/}
-                                {/*            <Form.Control type="text" defaultValue="Truong Giang Pham" />*/}
-                                {/*        </div>*/}
-                                {/*    </Form.Group>*/}
-
-                                {/*    <Form.Group className="mb-3" controlId="formEmail">*/}
-                                {/*        <Form.Label>Email</Form.Label>*/}
-                                {/*        <div className="d-flex align-items-center">*/}
-                                {/*            <FontAwesomeIcon icon={faEnvelope} className="me-2" />*/}
-                                {/*            <Form.Control type="email" defaultValue="truonggiangpham.workspace@gmail.com" />*/}
-                                {/*        </div>*/}
-                                {/*    </Form.Group>*/}
-
-                                {/*    <Form.Group className="mb-3" controlId="formPhone">*/}
-                                {/*        <Form.Label>Số điện thoại</Form.Label>*/}
-                                {/*        <div className="d-flex align-items-center">*/}
-                                {/*            <FontAwesomeIcon icon={faPhone} className="me-2" />*/}
-                                {/*            <Form.Control type="text" placeholder="Nhập số điện thoại" />*/}
-                                {/*        </div>*/}
-                                {/*    </Form.Group>*/}
-                                {/*</Form>*/}
-                                <Form noValidate>
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} md="4" controlId="validationCustom01">
-                                            <Form.Label>First name</Form.Label>
-                                            <Form.Control
-                                                required
-                                                type="text"
-                                                placeholder="First name"
-                                                defaultValue=""
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                            <Form.Label>Last name</Form.Label>
-                                            <Form.Control
-                                                required
-                                                type="text"
-                                                placeholder="Last name"
-                                                defaultValue=""
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                                            <Form.Label>Username</Form.Label>
-                                            <InputGroup hasValidation>
-                                                <InputGroup.Text id="inputGroupPrepend">
-                                                    <FontAwesomeIcon icon={faAt} />
-                                                </InputGroup.Text>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="username"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    required
-                                                />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please choose a username.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Row>
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} md="3" controlId="validationCustom05">
-                                            <Form.Label>Address</Form.Label>
-                                            {/*<Form.Control type="text" placeholder="Address" required />*/}
-                                            <InputGroup hasValidation>
-                                                <InputGroup.Text id="inputGroupPrepend">
-                                                    <FontAwesomeIcon icon={faLocationDot} />
-                                                </InputGroup.Text>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Address"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    required
-                                                />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid address.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom03">
-                                            <Form.Label>City</Form.Label>
-                                            {/*<Form.Control type="text" placeholder="City" required />*/}
-                                            <InputGroup hasValidation>
-                                                <InputGroup.Text id="inputGroupPrepend">
-                                                    <FontAwesomeIcon icon={faCity} />
-                                                </InputGroup.Text>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="City"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    required
-                                                />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid city.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom04">
-                                            <Form.Label>State</Form.Label>
-                                            {/*<Form.Control type="text" placeholder="State" required />*/}
-                                            <InputGroup hasValidation>
-                                                <InputGroup.Text id="inputGroupPrepend">
-                                                    <FontAwesomeIcon icon={faBullseye} />
-                                                </InputGroup.Text>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="State"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    required
-                                                />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid state.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom04">
-                                            <Form.Label>Phone</Form.Label>
-                                            {/*<Form.Control type="list-number" placeholder="Phone" required />*/}
-                                            <InputGroup hasValidation>
-                                                <InputGroup.Text id="inputGroupPrepend">
-                                                    <FontAwesomeIcon icon={faPhone} />
-                                                </InputGroup.Text>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="Phone"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    required
-                                                />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please provide a valid state.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Row>
-                                    <Form.Group className="mb-3">
-                                        <Form.Check
-                                            required
-                                            label="Agree to terms and conditions"
-                                            feedback="You must agree before submitting."
-                                            feedbackType="invalid"
-                                        />
-                                    </Form.Group>
-                                    <Button variant="danger" type="submit" className="mb-3" style={{width: '100%'}}>
-                                        Change Password
-                                    </Button>
-                                </Form>
-                            </Col>
-                        </Row>
-                    </Container>
-                </div>
+                            <UserSidebar/>
+                        </Col>
+                        <Col
+                        sm={12} md={9} lg={9}
+                        className="bg-light p-3 mb-4"
+                        style={{
+                            padding: '15px 12px 15px 12px',
+                            borderRadius: 10,
+                            // height: '100vh',
+                            backgroundColor: '#000', // backgroundColor: '#eaedf0'
+                        }}>
+                            <AccountInfo/>
+                        </Col>
+                    </Row>
+                    {/*<Row>*/}
+                    {/*    /!* Sidebar *!/*/}
+                    {/*    <Col*/}
+                    {/*        sm={12}*/}
+                    {/*        md={3}*/}
+                    {/*        lg={3}*/}
+                    {/*        className="p-3"*/}
+                    {/*        style={{*/}
+                    {/*            backgroundColor: "#e9ecef",*/}
+                    {/*            borderRadius: 10,*/}
+                    {/*            position: "fixed",*/}
+                    {/*            display: "none",*/}
+                    {/*            top: `${89}px`, // Dynamic top, dựa theo vị trí cuộn*/}
+                    {/*        }}*/}
+                    {/*    >*/}
+                    {/*        <UserSidebar />*/}
+                    {/*    </Col>*/}
+                    {/*    <Col*/}
+                    {/*        sm={12}*/}
+                    {/*        md={9}*/}
+                    {/*        lg={9}*/}
+                    {/*        className="p-3"*/}
+                    {/*        style={{*/}
+                    {/*            backgroundColor: "#f8f9fa",*/}
+                    {/*            borderRadius: 10,*/}
+                    {/*            marginLeft: "auto",*/}
+                    {/*            border: "1px solid #dee2e6",*/}
+                    {/*            height: '100vh'*/}
+                    {/*        }}*/}
+                    {/*    >*/}
+                    {/*        <AccountInfo />*/}
+                    {/*    </Col>*/}
+                    {/*</Row>*/}
+                </Container>
             </div>
         )
+
+        // return (
+        //     <div style={{ marginTop: 112 }}>
+        //         <Container style={{ padding: 0 }}>
+        //             <Row lg="8" style={{ margin: "0" }}>
+        //                 {/* Sidebar */}
+        //                 <Col
+        //                     sm={12}
+        //                     md={3}
+        //                     lg={3}
+        //                     className="p-3"
+        //                     style={{
+        //                         padding: "15px 12px",
+        //                         backgroundColor: "#f8f9fa",
+        //                         borderRadius: 10,
+        //                         position: "sticky",
+        //                         top: "112px", // Offset for marginTop of main div
+        //                         height: "fit-content", // Sidebar height matches content
+        //                     }}
+        //                 >
+        //                     <UserSidebar />
+        //                 </Col>
+        //
+        //                 {/* Account Info */}
+        //                 <Col
+        //                     sm={12}
+        //                     md={9}
+        //                     lg={9}
+        //                     className="p-3"
+        //                     style={{
+        //                         padding: "15px 12px",
+        //                         backgroundColor: "#fff",
+        //                         borderRadius: 10,
+        //                         height: "100%",
+        //                     }}
+        //                 >
+        //                     <AccountInfo />
+        //                 </Col>
+        //             </Row>
+        //         </Container>
+        //     </div>
+        // );
+
+        // return (
+        //     <div style={{ marginTop: 112 }}>
+        //         <Container style={{ padding: "0 24px" }}> {/* Căn lề cho toàn bộ trang */}
+        //             <Row style={{ margin: "0" }}>
+        //                 {/* Sidebar */}
+        //                 <Col
+        //                     sm={12}
+        //                     md={3}
+        //                     lg={3}
+        //                     className="p-3"
+        //                     style={{
+        //                         backgroundColor: "#e9ecef", // Màu nền cho sidebar
+        //                         borderRadius: 10,
+        //                         position: "fixed", // Sidebar cố định
+        //                         top: "24px", // Dừng lại khi cách header 24px
+        //                         width: "23%", // Đảm bảo căn lề 2 bên và phù hợp với khối bên cạnh
+        //                         height: "auto", // Sidebar cao vừa đủ theo nội dung
+        //                     }}
+        //                 >
+        //                     <UserSidebar />
+        //                 </Col>
+        //
+        //                 {/* Khoảng cách giữa 2 khối 24px */}
+        //                 <Col sm={0} md={1} lg={1}></Col>
+        //
+        //                 {/* Account Info */}
+        //                 <Col
+        //                     sm={12}
+        //                     md={8}
+        //                     lg={8}
+        //                     className="p-3"
+        //                     style={{
+        //                         backgroundColor: "#f8f9fa", // Màu nền cho account info
+        //                         borderRadius: 10,
+        //                         marginLeft: "auto", // Căn lề bên phải
+        //                         border: "1px solid #dee2e6", // Bo viền giống sidebar
+        //                         height: "auto", // Chiều cao tự động theo nội dung
+        //                     }}
+        //                 >
+        //                     <AccountInfo />
+        //                 </Col>
+        //             </Row>
+        //         </Container>
+        //     </div>
+        // );
     }
 }
 
