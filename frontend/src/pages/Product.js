@@ -1,120 +1,190 @@
-import React, {Component} from "react";
-import {Button, Col, Container, Form, Image, InputGroup, Row} from "react-bootstrap";
-import jp from "../resources/images/jp.jpeg";
+import { Component } from "react";
+import {
+  Container, Button, Form, ButtonGroup, DropdownButton, Dropdown, Row, Col, Card, Image, Stack, Carousel, ListGroup
 
-const user = {
-    firstname: 'Japtor',
-    lastname: 'de Gortheia',
+} from 'react-bootstrap';
 
-}
+const imageList = [
+  { id: 1, src: 'https://via.placeholder.com/300x200', alt: 'Image 1' },
+  { id: 2, src: 'https://via.placeholder.com/300x200', alt: 'Image 2' },
+  { id: 3, src: 'https://via.placeholder.com/300x200', alt: 'Image 3' },
+  { id: 4, src: 'https://via.placeholder.com/300x200', alt: 'Image 4' },
+  { id: 5, src: 'https://via.placeholder.com/300x200', alt: 'Image 5' },
+];
 
 class Product extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
+  constructor(props) {
+    super(props)
+    this.state = {
     }
+  }
 
-    render() {
-        return (
-            <div style={{marginTop: 112}}>
-                <div>
-                    <Container style={{padding: '0, 12px'}}>
-                        <Row style={{
-                            padding: '15px 12px 15px 12px',
-                            margin: '0',
-                            borderRadius: 10,
-                            backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0'
-                        }}>
-                            <div>
-                                <h3>Product</h3>
-                                <div style={{display: "flex", marginBottom: 16, justifyContent: 'center'}}>
-                                    <Image
-                                        className="d-block"
-                                        src={jp}
-                                        alt="Second slide"
-                                        style={{objectFit: 'cover', width: 224, height: 224, borderRadius: '5px'}}
-                                    />
-                                </div>
-                                <Form noValidate>
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} md="4" controlId="validationCustom01">
-                                            <Form.Label>First name</Form.Label>
-                                            <Form.Control
-                                                required
-                                                type="text"
-                                                placeholder="First name"
-                                                defaultValue=""
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="4" controlId="validationCustom02">
-                                            <Form.Label>Last name</Form.Label>
-                                            <Form.Control
-                                                required
-                                                type="text"
-                                                placeholder="Last name"
-                                                defaultValue=""
-                                            />
-                                            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="4" controlId="validationCustomUsername">
-                                            <Form.Label>Username</Form.Label>
-                                            <InputGroup hasValidation>
-                                                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-                                                <Form.Control
-                                                    type="text"
-                                                    placeholder="username"
-                                                    aria-describedby="inputGroupPrepend"
-                                                    required
-                                                />
-                                                <Form.Control.Feedback type="invalid">
-                                                    Please choose a username.
-                                                </Form.Control.Feedback>
-                                            </InputGroup>
-                                        </Form.Group>
-                                    </Row>
-                                    <Row className="mb-3">
-                                        <Form.Group as={Col} md="6" controlId="validationCustom05">
-                                            <Form.Label>Address</Form.Label>
-                                            <Form.Control type="text" placeholder="Address" required/>
-                                            <Form.Control.Feedback type="invalid">
-                                                Please provide a valid address.
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom03">
-                                            <Form.Label>City</Form.Label>
-                                            <Form.Control type="text" placeholder="City" required/>
-                                            <Form.Control.Feedback type="invalid">
-                                                Please provide a valid city.
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
-                                        <Form.Group as={Col} md="3" controlId="validationCustom04">
-                                            <Form.Label>State</Form.Label>
-                                            <Form.Control type="text" placeholder="State" required/>
-                                            <Form.Control.Feedback type="invalid">
-                                                Please provide a valid state.
-                                            </Form.Control.Feedback>
-                                        </Form.Group>
-                                    </Row>
-                                    <Form.Group className="mb-3">
-                                        <Form.Check
-                                            required
-                                            label="Agree to terms and conditions"
-                                            feedback="You must agree before submitting."
-                                            feedbackType="invalid"
-                                        />
-                                    </Form.Group>
-                                    <Button variant="danger" type="submit" className="mb-3" style={{width: '100%'}}>
-                                        Register
-                                    </Button>
-                                </Form>
-                            </div>
-                        </Row>
-                    </Container>
-                </div>
+  render() {
+
+    return (
+      <Container style={{marginTop:112}}>
+        <Row>
+          <Col sm={12} md={6} lg={8} style={{ alignItems: 'center' }}>
+            <div style={{ display: "flex", marginBottom: 16, justifyContent: 'center' }}>
+              <Image
+                className="d-block"
+                src='https://via.placeholder.com/500x400'
+                alt="Second slide"
+                style={{ objectFit: 'cover', width: 224, height: 224, borderRadius: '5px' }}
+              />
             </div>
-        )
-    }
+            <Card className="my-3 p-3">
+              <Card.Body>
+                {/* Section: Cấu hình đặc điểm */}
+                <Card.Title>Cấu hình đặc điểm</Card.Title>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Loại switch:</strong></Col>
+                      <Col md={8}>AKKO cream yellow pro</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Kết nối qua:</strong></Col>
+                      <Col md={8}>Bluetooth/Wireless/USB C</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Loại kết nối:</strong></Col>
+                      <Col md={8}>Không Dây/Có dây, Bluetooth/Wireless/USB C</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Chất liệu khung:</strong></Col>
+                      <Col md={8}>Nhôm</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Số nút bấm:</strong></Col>
+                      <Col md={8}>82 Nút</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Loại bàn phím:</strong></Col>
+                      <Col md={8}>Phím cơ Custom</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Layout:</strong></Col>
+                      <Col md={8}>75%</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Tương thích:</strong></Col>
+                      <Col md={8}>Windows/MacOS</Col>
+                    </Row>
+                  </ListGroup.Item>
+                </ListGroup>
+                <Button variant="link" className="p-0">Xem cấu hình chi tiết</Button>
+
+                {/* Section: Sẵn hàng & Trung bày */}
+                <Card.Title className="mt-4">Sẵn hàng & Trung bày</Card.Title>
+                <Button variant="link" className="p-0">1 chi nhánh</Button>
+
+                {/* Section: Vận chuyển */}
+                <Card.Title className="mt-4">Vận chuyển</Card.Title>
+                <Button variant="link" className="p-0">Miễn phí HN, TP HCM</Button>
+
+                {/* Section: Bảo hành & đổi trả */}
+                <Card.Title className="mt-4">Bảo hành & đổi trả</Card.Title>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>Bảo hành <strong>12 tháng</strong> tại chuỗi cửa hàng</ListGroup.Item>
+                  <ListGroup.Item>Đổi mới trong 15 ngày đầu tiên</ListGroup.Item>
+                </ListGroup>
+              </Card.Body>
+            </Card>
+          </Col>
+
+          <Col sm={12} md={6} lg={4}>
+            <Card className="my-3 p-3">
+              <Card.Body>
+                {/* Section: Cấu hình đặc điểm */}
+                <Card.Title>Cấu hình đặc điểm</Card.Title>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Loại switch:</strong></Col>
+                      <Col md={8}>AKKO cream yellow pro</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Kết nối qua:</strong></Col>
+                      <Col md={8}>Bluetooth/Wireless/USB C</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Loại kết nối:</strong></Col>
+                      <Col md={8}>Không Dây/Có dây, Bluetooth/Wireless/USB C</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Chất liệu khung:</strong></Col>
+                      <Col md={8}>Nhôm</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Số nút bấm:</strong></Col>
+                      <Col md={8}>82 Nút</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Loại bàn phím:</strong></Col>
+                      <Col md={8}>Phím cơ Custom</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Layout:</strong></Col>
+                      <Col md={8}>75%</Col>
+                    </Row>
+                  </ListGroup.Item>
+                  <ListGroup.Item>
+                    <Row>
+                      <Col md={4}><strong>Tương thích:</strong></Col>
+                      <Col md={8}>Windows/MacOS</Col>
+                    </Row>
+                  </ListGroup.Item>
+                </ListGroup>
+                <Button variant="link" className="p-0">Xem cấu hình chi tiết</Button>
+
+                {/* Section: Sẵn hàng & Trung bày */}
+                <Card.Title className="mt-4">Sẵn hàng & Trung bày</Card.Title>
+                <Button variant="link" className="p-0">1 chi nhánh</Button>
+
+                {/* Section: Vận chuyển */}
+                <Card.Title className="mt-4">Vận chuyển</Card.Title>
+                <Button variant="link" className="p-0">Miễn phí HN, TP HCM</Button>
+
+                {/* Section: Bảo hành & đổi trả */}
+                <Card.Title className="mt-4">Bảo hành & đổi trả</Card.Title>
+                <ListGroup variant="flush">
+                  <ListGroup.Item>Bảo hành <strong>12 tháng</strong> tại chuỗi cửa hàng</ListGroup.Item>
+                  <ListGroup.Item>Đổi mới trong 15 ngày đầu tiên</ListGroup.Item>
+                </ListGroup>
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
+      </Container>
+    )
+  }
 }
 
 export default Product
