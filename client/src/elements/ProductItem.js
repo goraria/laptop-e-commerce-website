@@ -1,0 +1,87 @@
+import { Component } from "react";
+import { Button, Card } from "react-bootstrap";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar, faStarHalfAlt} from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons';
+
+
+const obj_test = {
+    name: "Product 1",
+    price: "5$",
+    description: "A long description that should be truncated...",
+    image: "src",
+    rating: 4.5 // Example rating
+};
+
+class ProductItem extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {};
+    }
+    
+    // Function to render stars based on rating using Font Awesome
+    renderStars(rating) {
+        // Sanitize rating to be between 0 and 5
+        const sanitizedRating = Math.max(0, Math.min(rating, 5));
+        const fullStars = Math.floor(sanitizedRating); // Full stars count
+        const halfStar = sanitizedRating % 1 >= 0.1 ? 1 : 0; // Half-star check
+        const emptyStars = 5 - fullStars - halfStar; // Remaining empty stars
+
+        // Ensure valid star counts
+        return (
+
+            <>
+                {/* Full stars */}
+                {Array.from({ length: fullStars }).map((_, i) => (
+                    <FontAwesomeIcon key={`full-${i}`} icon={faStar} color="#f39c12" />
+                ))}
+                {/* Half star */}
+                {halfStar === 1 && <FontAwesomeIcon icon={faStarHalfAlt} color="#f39c12" />}
+                {/* Empty stars */}
+                {Array.from({ length: emptyStars }).map((_, i) => (
+                    <FontAwesomeIcon key={`empty-${i}`} icon={faStarEmpty} color="#f39c12" />
+                ))}
+            </>
+        );
+    }
+
+    render() {
+        const { obj } = this.props;
+        return (
+            <Card>
+                <Card.Img variant="top" src={obj.image} />
+                <Card.Body>
+                    {/* Price and Name in the same line */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        <Card.Title style={{
+                            marginBottom: '0', 
+                            whiteSpace: 'nowrap', 
+                            overflow: 'hidden', 
+                            textOverflow: 'ellipsis'
+                        }}>
+                            {obj.name}
+                        </Card.Title>
+                        <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>${obj.price}</span>
+                    </div>
+
+                    {/* Truncated Description */}
+                    <Card.Text style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {obj.description}
+                    </Card.Text>
+
+                    {/* Rating and Buy Button */}
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                        {/* Rating Section */}
+                        <div style={{ color: '#f39c12', fontSize: '1.2rem' }}>
+                        {this.renderStars(obj.rating)}
+                        </div>
+                        {/* Buy Button */}
+                        <Button variant="danger">Buy now</Button>
+                    </div>
+                </Card.Body>
+            </Card>
+        );
+    }
+}
+
+export default ProductItem;
