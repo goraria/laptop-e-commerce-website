@@ -1,18 +1,17 @@
 Japtor Goraria el Destinia Ichibulup de Gortheia
 
 Installation {
-    cd /
-    npm i
     cd backend
     npm i
     cd frontend
     npm i
+    cd client
+    npm i
+    cd server
+    npm i
 }
 
 Start {
-    cd frontend
-    npm run build
-
     cd ..
     npm start
 }
