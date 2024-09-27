@@ -8,7 +8,7 @@ import {
     faAt, faLocationDot, faCity, faBullseye, faPhone
 } from '@fortawesome/free-solid-svg-icons';
 
-import SocialFormButton from "../elements/SocialFormButton";
+import SocialFormButton from "../elements/SocialFormButton.jsx";
 
 import jp from '../resources/images/jp.jpeg'
 

@@ -6,24 +6,24 @@ import './App.css';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import {  } from 'react-bootstrap';
 
-import Header from './components/Header';
-import Footer from './components/Footer';
-import Home from "./pages/Home";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import ListProducts from "./elements/ListProducts";
-import Cart from "./pages/Cart";
-import Product from "./pages/Product";
-import UserProfile from "./pages/UserProfile";
+import Header from './components/Header.jsx';
+import Footer from './components/Footer.jsx';
+import Home from "./pages/Home.jsx";
+import About from "./pages/About.jsx";
+import Contact from "./pages/Contact.jsx";
+import ListProducts from "./elements/ListProducts.jsx";
+import Cart from "./pages/Cart.jsx";
+import Product from "./pages/Product.jsx";
+import UserProfile from "./pages/UserProfile.jsx";
 
-import Administrator from "./managements/Administrator";
-import Dashboard from "./managements/Dashboard";
-import Statistic from "./managements/Statistic";
-import Setting from "./managements/Setting";
+import Administrator from "./managements/Administrator.jsx";
+import Dashboard from "./managements/Dashboard.jsx";
+import Statistic from "./managements/Statistic.jsx";
+import Setting from "./managements/Setting.jsx";
 
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Register from "./components/Register";
+import Login from "./components/Login.jsx";
+import Signup from "./components/Signup.jsx";
+import Register from "./components/Register.jsx";
 
 // function App() {
 //     const [users, setUsers] = useState([]);

@@ -1,14 +1,12 @@
 import React, {Component} from "react";
-import { Link } from 'react-router-dom';
-import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
+import {Button, Carousel, Col, Container, Dropdown, Form, Image, Row} from "react-bootstrap";
 import {
     faApple, faMeta, faGoogle, faTwitter, faXTwitter, faGithub
 } from '@fortawesome/free-brands-svg-icons';
+import SocialFormButton from "../elements/SocialFormButton.jsx";
 
-import SocialFormButton from "../elements/SocialFormButton";
-
-import jp from '../resources/images/jp.jpeg'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import jp from "../resources/images/jp.jpeg";
+import {Link} from "react-router-dom";
 
 const sclItems = [
     // { id: 0, name: "Github", icon: faGithub, color: "secondary" },
@@ -18,7 +16,7 @@ const sclItems = [
     // { id: 4, name: "Twitter", icon: faTwitter },
 ]
 
-class Login extends Component {
+class Signup extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -38,7 +36,7 @@ class Login extends Component {
                             backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0'
                         }}>
                             <div>
-                                <h3>Log in</h3>
+                                <h3>Sign up</h3>
                                 <div style={{display: "flex", marginBottom: 16, justifyContent: 'center'}}>
                                     <Image
                                         className="d-block"
@@ -72,45 +70,29 @@ class Login extends Component {
                                             </Button>
                                         </Col>
                                     </Row>
-                                    <Link to="/">
+                                    <Link to="/register">
                                         <Button variant="danger" type="submit" className="mb-3" style={{width: '100%'}}>
-                                            Log in
+                                            Sign up
                                         </Button>
                                     </Link>
                                     <hr/>
-                                    <div className="text-center" style={{marginBottom: 16}}>or sign in with</div>
+                                    <div className="text-center" style={{marginBottom: 16}}>or sign up with</div>
                                     <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
-                                        {/*<Button variant="primary" type="button"*/}
-                                        {/*        style={{flex: '1', margin: '0 5px 10px 0', minWidth: '120px'}}>*/}
-                                        {/*    <i className="fab fa-facebook" style={{marginRight: 8}}></i> Facebook*/}
-                                        {/*</Button>*/}
-                                        {/*<Button variant="outline-dark" type="button"*/}
-                                        {/*        style={{flex: '1', margin: '0 5px 10px 0', minWidth: '120px'}}>*/}
-                                        {/*    <i className="fab fa-google" style={{marginRight: 8}}></i> Google*/}
-                                        {/*</Button>*/}
-                                        {/*<Button variant="info" type="button"*/}
-                                        {/*        style={{flex: '1', margin: '0 5px 10px 0', minWidth: '120px'}}>*/}
-                                        {/*    <i className="fab fa-twitter" style={{marginRight: 8}}></i> Twitter*/}
-                                        {/*</Button>*/}
-                                        {/*<Button variant="secondary" type="button"*/}
-                                        {/*        style={{flex: '1', margin: '0 5px 10px 0', minWidth: '120px'}}>*/}
-                                        {/*    <i className="fab fa-linkedin" style={{marginRight: 8}}></i> LinkedIn*/}
-                                        {/*</Button>*/}
                                         {sclItems.map(socialItem => (
                                             <SocialFormButton key={socialItem.id} socialItems={socialItem}/>
                                         ))}
                                     </div>
                                     <hr/>
                                     <div className="text-center" style={{marginBottom: 16}}>
-                                        you don't have an acoount
-                                        <Link to="/signup">
+                                        you have an acoount
+                                        <Link to="/login">
                                             <Button variant="link" style={{
                                                 padding: 0,
                                                 color: '#dc3545',
                                                 textDecoration: "none",
                                                 fontWeight: 'bold',
                                                 paddingLeft: 4
-                                            }}>Sign up</Button>
+                                            }}>Log in</Button>
                                         </Link>
                                     </div>
                                 </Form>
@@ -123,9 +105,4 @@ class Login extends Component {
     }
 }
 
-export default Login
-
-// a. Bạn có muốn thêm tooltip khi hover vào các nút mạng xã hội không?
-//     b. Bạn có muốn sử dụng hiệu ứng khi bấm nút để tăng tính thẩm mỹ không?
-//     c. Bạn có muốn thêm hiệu ứng hover để làm nổi bật các nút mạng xã hội khi di chuột qua không?
-//     d. Bạn có muốn thay đổi màu sắc cho từng nút mạng xã hội (để đồng bộ với thương hiệu từng mạng như màu xanh của Facebook, màu đỏ của Google, v.v.) không?
+export default Signup

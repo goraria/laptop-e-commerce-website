@@ -1,8 +1,8 @@
 
 import React, { Component } from 'react';
 import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
-import TransitionBar from '../components/TransitionBar';
-import CardItem from '../elements/CartItem';
+import TransitionBar from '../components/TransitionBar.jsx';
+import CardItem from '../elements/CartItem.jsx';
 
 const products = [
     { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },

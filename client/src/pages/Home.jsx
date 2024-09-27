@@ -1,7 +1,7 @@
 import {Button, Card, Carousel, Col, Container, Row, Image} from "react-bootstrap";
 import React, {Component} from "react";
 
-import ProductItem from "../elements/ProductItem";
+import ProductItem from "../elements/ProductItem.jsx";
 
 import mbp from "../resources/images/mbp.jpeg"
 import mba from "../resources/images/mba.jpeg"

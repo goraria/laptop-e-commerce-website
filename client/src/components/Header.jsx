@@ -10,7 +10,7 @@ import {
     faShoppingCart, faUser, faSearch
 } from "@fortawesome/free-solid-svg-icons";
 
-import DropdownConfig from "../elements/DropdownConfig";
+import DropdownConfig from "../elements/DropdownConfig.jsx";
 
 const dropdownContains = [
     {id: 1, title: <FontAwesomeIcon icon={faShoppingCart}/>, align: 'end', item: [
