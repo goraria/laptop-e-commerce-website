@@ -6,6 +6,8 @@ import {
 
 } from 'react-bootstrap';
 import ProductItem from "../elements/ProductItem";
+import TransitionBar from "../components/TransitionBar";
+import { config } from "@fortawesome/fontawesome-svg-core";
 
 const imageList = [
   { id: 1, src: 'https://via.placeholder.com/300x200', alt: 'Image 1' },
@@ -28,16 +30,36 @@ const products = [
 const Items = [
   {
     id: 1,
-    name: 'Lenovo ThinkPad X1 Carbon Gen 8',
-    main_description: 'Laptop Asus Vivobook 15 X1504ZA-NJ517W thuộc dòng laptop Asus Vivobook với giá thành phải chăng nhưng hiệu năng lại cực kỳ ấn tượng. Vi xử lý Intel Core i5 1235U cùng với 16GB RAM và ổ cứng SSD 512GB đem đến sức mạnh phần cứng đáng kinh ngạc để xử lý mượt mà không chỉ tác vụ văn phòng mà còn có tác vụ đồ họa và chơi game eSports thoải mái',
-    sub_description: 'Giống như những laptop Asus Vivobook khác, chiếc laptop này cũng sở hữu thiết kế đơn giản với gam màu bạc tinh tế, thanh lịch. Asus đã rất nỗ lực để tối ưu độ mỏng chỉ còn 17.9mm và trọng lượng khoảng 1.7kg để thuận tiện cho việc di chuyển. Nhờ đó, sinh viên và dân văn phòng có thể mang theo máy đi học, đi làm mỗi ngày chỉ cần một chiếc balo hoặc túi xách, không hề cồng kềnh hay nặng nề.',
-    version: ['i7 10610U, 16GB, 512GB, FHD', ' i7 10610U, 16GB, 256GB, FHD', 'i5 10310U, 16GB, 256GB, FHD+'],
-    rating: 4.5,
-    color: 'black',
-    price: 1000,
-    configuation: {
+    products_name: 'Lenovo ThinkPad X1 Carbon Gen 8',
+    brand: 'Lenovo',
+    category: 'laptop',
+    configuation: [
+      {
+        idconfiguration: 1,
+        cpu: 'AMD Ryzen 7',
+        ram: '16GB',
+        gpu: null,
+        storage: '512 SSD',
+        screen: '15 inch',
+        resolution: '1920x1080',
+        price: 999
+      },
 
-    }
+    ],
+    rating: [
+        {
+          score:5,
+          comment:'ok'
+        }
+
+    ],
+    description: {
+      title_description: "Laptop",
+      sub_description: "ngon bổ rẻ",
+      img_description: "ảnh laptop"
+    },
+    color: ['black', 'silver'],
+    
   }
 ]
 
@@ -53,10 +75,11 @@ class Product extends Component {
   render() {
 
     return (
-      <Container style={{ marginTop: 112 }}>
+      <Container style={{ margin: '168px auto 56px auto' }}>
+        <TransitionBar />
         <Row>
-          <Col sm={12} md={8} lg={8} style={{ alignItems: 'center', marginTop: 16 }}>
-            <div style={{ display: "flex", marginBottom: 16, justifyContent: 'center' }}>
+          <Col sm={12} md={8} lg={8} style={{ alignItems: 'center' }}>
+            <div style={{ display: "flex", marginBottom: 24, justifyContent: 'center' }}>
               <Image
                 className="d-block"
                 src='https://cdn.tgdd.vn/Products/Images/44/325242/Slider/dell-inspiron-15-3520-i5-1235u-16gb-512gb-120hz-officehs-win11-n5i5052w1638557748484267591.jpg'
@@ -64,14 +87,14 @@ class Product extends Component {
                 style={{ objectFit: 'cover', width: '100%', height: '100%', borderRadius: '5px' }}
               />
             </div>
-            <Card className="my-3 p-3">
+            <Card className="my-3 p-3" style={{ border: 'none', backgroundColor: '#f8f9fa' }}>
               <Card.Body>
                 {/* Section: Cấu hình đặc điểm */}
                 <Card.Title>Cấu hình đặc điểm</Card.Title>
                 <ListGroup variant="flush">
                   <ListGroup.Item>
                     <Row>
-                      <Col md={4}><strong>Loại switch:</strong></Col>
+                      <Col md={4}><strong>Loại CPU:</strong></Col>
                       <Col md={8}>AKKO cream yellow pro</Col>
                     </Row>
                   </ListGroup.Item>
@@ -122,7 +145,7 @@ class Product extends Component {
               </Card.Body>
             </Card>
 
-            <Card className="my-3 p-3">
+            <Card className="my-3 p-3" style={{ border: 'none', backgroundColor: '#f8f9fa' }}>
               <Card.Body>
                 <Row className="mt-4">
                   <Col>
@@ -136,11 +159,11 @@ class Product extends Component {
               </Card.Body>
             </Card>
 
-            <Card className="my-3 p-3">
+            <Card className="my-3 p-3" style={{ border: 'none', backgroundColor: '#f8f9fa' }}>
               <Card.Body>
                 {/* Section: Cấu hình đặc điểm */}
                 <Card.Title> Mô tả sản phẩm</Card.Title>
-                <div style={{ display: "flex", marginBottom: 16, justifyContent: 'center' }}>
+                <div style={{ display: "flex", marginBottom: 24, justifyContent: 'center' }}>
                   <Image
                     className="d-block"
                     src='https://cdn.tgdd.vn/Products/Images/44/325242/Slider/dell-inspiron-15-3520-i5-1235u-16gb-512gb-120hz-officehs-win11-n5i5052w1638557748484267591.jpg'
@@ -168,7 +191,7 @@ class Product extends Component {
 
                   </p>
                 </div>
-                <div style={{ display: "flex", marginBottom: 16, justifyContent: 'center' }}>
+                <div style={{ display: "flex", marginBottom: 24, justifyContent: 'center' }}>
                   <Image
                     className="d-block"
                     src='https://cdn.tgdd.vn/Products/Images/44/325242/Slider/dell-inspiron-15-3520-i5-1235u-16gb-512gb-120hz-officehs-win11-n5i5052w1638557748484267591.jpg'
@@ -176,17 +199,14 @@ class Product extends Component {
                     style={{ objectFit: 'cover', width: '100%', height: '100%', borderRadius: '5px' }}
                   />
                 </div>
-                <div style={{ display: "flex" }}>
-                  <h4>Đánh giá sản phẩm</h4>
-                  <Button variant="primary" className="mb-3" style={{ marginLeft: 50 }}>Đánh giá</Button>
-                </div>
+
 
               </Card.Body>
             </Card>
           </Col>
 
           <Col sm={12} md={4} lg={4}>
-            <Card className="my-3 p-3" style={{ border: 'none', backgroundColor: '#f8f9fa' }}>
+            <Card className=" p-3" style={{ border: 'none', backgroundColor: '#f8f9fa', position: 'sticky', top: 136 }}>
               <Container>
                 {/* Product Title */}
                 <Row className="mt-4">
@@ -228,9 +248,7 @@ class Product extends Component {
                       <h5>Màu</h5>
                       <Button variant="dark" className="mb-3">Black</Button>
 
-                      {/* Product Condition */}
-                      <h5>Loại hàng</h5>
-                      <Badge bg="info">Used, Nhập khẩu</Badge>
+
                     </Form>
                   </Col>
                 </Row>
@@ -247,11 +265,17 @@ class Product extends Component {
 
                 {/* Action Buttons */}
                 <Row className="mt-3">
-                  <Col>
-                    <Button variant="secondary" className="me-2">Thêm vào giỏ</Button>
-                    <Button variant="danger">Mua ngay</Button>
+                  <Col sm={12} md={6} lg={6} className="mb-3">
+                    <Button variant="outline-danger" className="me-2" style={{ width: '100%' }}>Thêm vào giỏ</Button>
+                  </Col>
+                  <Col sm={12} md={3} lg={6} className="mb-3">
+                    <Button variant="danger" style={{ width: '100%' }}>Mua ngay</Button>
                   </Col>
                 </Row>
+
+                <h5>Đánh giá sản phẩm</h5>
+                <Button variant="primary" className="mb-3" style={{ width: '100%' }}>Đánh giá</Button>
+
               </Container>
             </Card>
 
@@ -323,7 +347,6 @@ class Product extends Component {
             <h4>Sản phẩm tương tự</h4>
 
             <Row>
-
               {products.map(product =>
                 <Col key={product.id} sm={12} md={6} lg={3} className="mb-3">
                   <ProductItem obj={product} />

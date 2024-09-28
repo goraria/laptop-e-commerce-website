@@ -10,6 +10,7 @@ import {
 import CustomDropDown from '../elements/CustomDropDown'
 import ProductItem from "../elements/ProductItem"
 import TransitionBar from "../components/TransitionBar"
+
 const products = [
     { id: 1, name: 'Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 ', price: '50000', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' , rating: 3.5},
     { id: 2, name: 'Product 2', price: '90000', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 ', rating:0 },
