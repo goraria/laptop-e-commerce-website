@@ -1,6 +1,6 @@
-import React, {Component} from "react";
-import {Alert, Button, Col, Container, Form, Image, InputGroup, Nav, Row} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React, { Component } from "react";
+import { Alert, Button, Col, Container, Form, Image, InputGroup, Nav, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faAt, faBullseye, faCity, faGift, faHistory, faLocationDot, faMapMarkerAlt, faMapPin,
     faPhone, faQuestionCircle, faSignOutAlt, faStar, faUser
@@ -23,10 +23,10 @@ class AccountSidebar extends Component {
     }
 
     render() {
-        const {directory} = this.props
+        const { directory } = this.props
         return (
-            <Button href={directory.href} className="d-flex align-items-center btn btn-light" style={{color: '#dc3545'}}>
-                <FontAwesomeIcon icon={directory.icon} className="me-2" style={{width: 28}} />{directory.title}
+            <Button href={directory.href} className="d-flex align-items-center btn btn-light" style={{ color: '#dc3545' }}>
+                <FontAwesomeIcon icon={directory.icon} className="me-2" style={{ width: 28 }} />{directory.title}
             </Button>
         )
     }
