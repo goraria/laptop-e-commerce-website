@@ -1,8 +1,9 @@
 import { Component } from "react";
 import { Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faStarHalfAlt} from '@fortawesome/free-solid-svg-icons';
+import { faStar, faStarHalfAlt, faCartPlus} from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons';
+import { noAuto } from "@fortawesome/fontawesome-svg-core";
 
 
 const obj_test = {
@@ -48,7 +49,8 @@ class ProductItem extends Component {
     render() {
         const { obj } = this.props;
         return (
-            <Card>
+            <a href={`/product?id=${obj.id}`} style={{textDecoration:'none'}}>
+                <Card style={{ border: 'none', backgroundColor: '#f8f9fa'}}>
                 <Card.Img variant="top" src={obj.image} />
                 <Card.Body>
                     {/* Price and Name in the same line */}
@@ -76,10 +78,14 @@ class ProductItem extends Component {
                         {this.renderStars(obj.rating)}
                         </div>
                         {/* Buy Button */}
-                        <Button variant="danger">Buy now</Button>
+                        <Button variant="danger">
+                            <FontAwesomeIcon icon={faCartPlus} style={{width:56}} />
+                        </Button>
                     </div>
                 </Card.Body>
             </Card>
+            </a>
+            
         );
     }
 }
