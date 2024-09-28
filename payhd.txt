@@ -1,0 +1,6 @@
+dependentcies{
+    express-session
+    mysql2
+    sequelize
+}
+

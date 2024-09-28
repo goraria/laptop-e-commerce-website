@@ -1,4 +1,4 @@
-import {Component} from "react";
+import { Component } from "react";
 
 class Administrator extends Component {
     constructor(props) {
@@ -7,6 +7,13 @@ class Administrator extends Component {
 
         }
     }
-}
+    render() {
+        return (
+            <>
 
-export default Administrator
+            </>
+        )
+    }
+}
+export default Administrator;
+
