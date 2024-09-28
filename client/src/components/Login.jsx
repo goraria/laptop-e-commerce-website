@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import { Link } from 'react-router-dom';
-import {Button, Col, Container, Form, Image, Row} from "react-bootstrap";
+import { Link, useNavigate } from 'react-router-dom';
+import {Button, Col, Container, FloatingLabel, Form, Image, Row} from "react-bootstrap";
 import {
     faApple, faMeta, faGoogle, faTwitter, faXTwitter, faGithub
 } from '@fortawesome/free-brands-svg-icons';
@@ -9,6 +9,7 @@ import SocialFormButton from "../elements/SocialFormButton.jsx";
 
 import jp from '../resources/images/jp.jpeg'
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import axios from "axios";
 
 const sclItems = [
     // { id: 0, name: "Github", icon: faGithub, color: "secondary" },
@@ -22,7 +23,39 @@ class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            username: '',
+            password: '',
+            error: null,
+        };
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        this.setState({ [event.target.name]: event.target.value });
+    }
+
+    async handleSubmit(event) {
+        event.preventDefault();
+        const { username, password } = this.state;
+
+        try {
+            const response = await axios.post('http://localhost:5172/api/auth/login', {
+                username,
+                password
+            });
+
+            const data = response.data;
+            if (data.token) {
+                localStorage.setItem('token', data.token);
+                alert('Login successful');
+
+                // useNavigate('/');
+            }
+        } catch (error) {
+            this.setState({ error: error.response ? error.response.data.message : 'Login failed' });
+            console.log('fail')
         }
     }
 
@@ -48,23 +81,48 @@ class Login extends Component {
                                     />
                                 </div>
                                 <Form>
+                                    {/*<FloatingLabel*/}
+                                    {/*    controlId="floatingInput"*/}
+                                    {/*    label="Email address"*/}
+                                    {/*    className="mb-3 mt-3"*/}
+                                    {/*>*/}
+                                    {/*    <Form.Control type="email" placeholder="name@example.com" required/>*/}
+                                    {/*    <Form.Control.Feedback type="invalid">*/}
+                                    {/*        Please enter your password.*/}
+                                    {/*    </Form.Control.Feedback>*/}
+                                    {/*</FloatingLabel>*/}
                                     <Form.Group className="mb-3" controlId="formBasicEmail">
                                         <Form.Label>Email address</Form.Label>
                                         <Form.Control type="email" placeholder="Enter email"/>
                                         {/*<Form.Text className="text-muted">*/}
                                         {/*    We'll never share your email with anyone else.*/}
                                         {/*</Form.Text>*/}
+                                        <Form.Control.Feedback type="invalid">
+                                            Please enter your password.
+                                        </Form.Control.Feedback>
                                     </Form.Group>
                                     <Form.Group className="mb-3" controlId="formBasicPassword">
                                         <Form.Label>Password</Form.Label>
                                         <Form.Control type="password" placeholder="Password"/>
+                                        <Form.Control.Feedback type="invalid">
+                                            Please enter your password.
+                                        </Form.Control.Feedback>
                                     </Form.Group>
-                                    {/*<Form.Group className="mb-3" controlId="formBasicCheckbox">*/}
-                                    {/*    <Form.Check type="checkbox" label="Remember Account"/>*/}
-                                    {/*</Form.Group>*/}
+                                    {/*<FloatingLabel*/}
+                                    {/*    controlId="floatingInput"*/}
+                                    {/*    label="Password"*/}
+                                    {/*    className="mb-3 mt-3"*/}
+                                    {/*>*/}
+                                    {/*    <Form.Control type="password" placeholder="password" required/>*/}
+                                    {/*    <Form.Control.Feedback type="invalid">*/}
+                                    {/*        Please enter your password.*/}
+                                    {/*    </Form.Control.Feedback>*/}
+                                    {/*</FloatingLabel>*/}
                                     <Row className="mb-3">
                                         <Col xs={6}>
-                                            <Form.Check type="checkbox" label="Remember Account"/>
+                                            <Form.Group controlId="formBasicCheckbox">
+                                                <Form.Check type="checkbox" label="Remember Account"/>
+                                            </Form.Group>
                                         </Col>
                                         <Col xs={6} className="text-end">
                                             <Button variant="link" style={{padding: 0, color: '#dc3545', textDecoration: "none", fontWeight: 'bold'}}>
@@ -72,11 +130,11 @@ class Login extends Component {
                                             </Button>
                                         </Col>
                                     </Row>
-                                    <Link to="/">
-                                        <Button variant="danger" type="submit" className="mb-3" style={{width: '100%'}}>
-                                            Log in
-                                        </Button>
-                                    </Link>
+                                    {/*<Link to="/">*/}
+                                    <Button variant="danger" type="submit" className="mb-3" style={{width: '100%'}}>
+                                        Log in
+                                    </Button>
+                                    {/*</Link>*/}
                                     <hr/>
                                     <div className="text-center" style={{marginBottom: 16}}>or sign in with</div>
                                     <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
@@ -102,7 +160,7 @@ class Login extends Component {
                                     </div>
                                     <hr/>
                                     <div className="text-center" style={{marginBottom: 16}}>
-                                        you don't have an acoount
+                                        you don&#39;t have an acoount
                                         <Link to="/signup">
                                             <Button variant="link" style={{
                                                 padding: 0,
@@ -124,8 +182,3 @@ class Login extends Component {
 }
 
 export default Login
-
-// a. Bạn có muốn thêm tooltip khi hover vào các nút mạng xã hội không?
-//     b. Bạn có muốn sử dụng hiệu ứng khi bấm nút để tăng tính thẩm mỹ không?
-//     c. Bạn có muốn thêm hiệu ứng hover để làm nổi bật các nút mạng xã hội khi di chuột qua không?
-//     d. Bạn có muốn thay đổi màu sắc cho từng nút mạng xã hội (để đồng bộ với thương hiệu từng mạng như màu xanh của Facebook, màu đỏ của Google, v.v.) không?

@@ -126,8 +126,8 @@ class Footer extends Component {
                         <Col md={3}>
                             <h5>Payment diversity</h5>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
-                                {paymentIcons.map(paymentIcon => (
-                                    <li>
+                                {paymentIcons.map((paymentIcon, index) => (
+                                    <li key={index}>
                                         <FooterLink item={paymentIcon} />
                                     </li>
                                 ))}
@@ -136,8 +136,8 @@ class Footer extends Component {
                         <Col md={3}>
                             <h5>Thông tin hữu ích</h5>
                             <ul style={{listStyle: 'none', padding: 0}}>
-                                {usefulInfo.map(useful => (
-                                    <li>
+                                {usefulInfo.map((useful, index) => (
+                                    <li key={index}>
                                         <FooterLink item={useful}/>
                                     </li>
                                 ))}
@@ -146,8 +146,8 @@ class Footer extends Component {
                         <Col md={3}>
                             <h5>Social networks</h5>
                             <ul style={{listStyle: 'none', padding: 0}}>
-                                {socialIcons.map(socialIcon => (
-                                    <li>
+                                {socialIcons.map((socialIcon, index) => (
+                                    <li key={index}>
                                         <FooterLink item={socialIcon}/>
                                     </li>
                                 ))}
