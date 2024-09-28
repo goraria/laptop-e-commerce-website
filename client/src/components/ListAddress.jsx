@@ -1,14 +1,9 @@
-import React, {Component, useState} from "react";
-import { Container, Form, Row, Col, InputGroup, Button } from "react-bootstrap";
-
+import React, {Component} from "react";
+import {Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {
-    faAt, faBullseye, faCity, faGift, faHistory, faLocationDot, faMapMarkerAlt, faMapPin,
-    faPhone, faQuestionCircle, faSignOutAlt, faStar, faUser
-} from "@fortawesome/free-solid-svg-icons";
+import {faAt, faBullseye, faCity, faLocationDot, faPhone, faUser} from "@fortawesome/free-solid-svg-icons";
 
-class AccountInfo extends Component {
-// function AccountInfo() {
+class ListAddress extends Component {
     constructor(parameters) {
         super(parameters);
         this.state = {
@@ -32,7 +27,7 @@ class AccountInfo extends Component {
         return (
             <Container>
                 <h2>Account Information</h2>
-                <Form>
+                <Form noValidate validated={validated} onSubmit={handleSubmit}>
                     <Row className="mb-3">
                         <Form.Group as={Col} md={7} controlId="firstname">
                             <Form.Label>Email address</Form.Label>
@@ -130,7 +125,7 @@ class AccountInfo extends Component {
                 </Form>
             </Container>
         )
-    }
+    }Z
 }
 
-export default AccountInfo;
+export default ListAddress
