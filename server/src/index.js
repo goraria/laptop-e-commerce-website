@@ -2,10 +2,10 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const path = require('path');
-// const { Session } = require('inspector');
-// const session = require('express-session');
+const { Session } = require('inspector');
+const session = require('express-session');
 
-const {Sequelize} = require("sequelize");
+const { Sequelize } = require("sequelize");
 
 const sequelize0 = new Sequelize(
     'wt_proj',
@@ -32,10 +32,10 @@ sequelize.authenticate().then(() => {
 
 const app = express();
 const corsOptions = {
-    origin: ['https://localhost:5173']
+    origin: ['*']
 }
 const port = 5172;
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, '../frontend/build')));
@@ -51,7 +51,6 @@ app.post('/submit', (req, res) => {
     console.log('Received data:', { name, email });
     res.json({ message: 'Data received successfully', data: { name, email } });
 });
-
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
