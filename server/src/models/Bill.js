@@ -1,6 +1,8 @@
 // models/Bill.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Account = require('./Account');
+const Discount = require('./Discount');
 
 const Bill = sequelize.define('Bill', {
     idbill: {
@@ -10,19 +12,29 @@ const Bill = sequelize.define('Bill', {
     },
     idaccount: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        references: {
+            model: Account,
+            key: 'idaccount',
+        }
     },
     iddiscount: {
         type: DataTypes.INTEGER,
+        references: {
+            model: Discount,
+            key: 'iddiscount',
+        },
         allowNull: true,
     },
     date: {
         type: DataTypes.DATE,
         allowNull: false,
-    }
+    },
 }, {
     tableName: 'bill',
     timestamps: false,
 });
 
-export default Bill;
+Account.hasMany(Bill, { foreignKey: 'idaccount' });
+Bill.belongsTo(Account, { foreignKey: 'idaccount' });
+
+module.exports = Bill;

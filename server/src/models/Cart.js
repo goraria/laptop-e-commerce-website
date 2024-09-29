@@ -1,6 +1,7 @@
 // models/Cart.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Account = require('./Account');
 
 const Cart = sequelize.define('Cart', {
     idcart: {
@@ -10,11 +11,17 @@ const Cart = sequelize.define('Cart', {
     },
     idaccount: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        references: {
+            model: Account,
+            key: 'idaccount',
+        }
     }
 }, {
     tableName: 'cart',
     timestamps: false,
 });
 
-export default Cart;
+Account.hasOne(Cart, { foreignKey: 'idaccount' });
+Cart.belongsTo(Account, { foreignKey: 'idaccount' });
+
+module.exports = Cart;

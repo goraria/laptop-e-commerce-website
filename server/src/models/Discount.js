@@ -21,4 +21,4 @@ const Discount = sequelize.define('Discount', {
     timestamps: false,
 });
 
-export default Discount;
+module.exports = Discount;
