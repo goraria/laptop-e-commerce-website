@@ -1,5 +1,5 @@
 import {Button, Card, Carousel, Col, Container, Row, Image} from "react-bootstrap";
-import React, {Component} from "react";
+import React, {Component, useEffect, useState} from "react";
 
 import ProductItem from "../elements/ProductItem.jsx";
 
@@ -9,6 +9,7 @@ import sfc from "../resources/images/sfc.jpeg"
 import xps from "../resources/images/xps.jpeg"
 import pri from "../resources/images/pri.jpeg"
 import uls from "../resources/images/uls.jpeg"
+import axios from "axios";
 
 const products = [
     { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
@@ -28,70 +29,95 @@ const banners = [
     { id: 6, name: uls, alt: "Sixth slide", title: "Sale Off 20%", description: "XDR Display" },
 ]
 
-class Home extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
+function Home() {
+    // const [users, setUsers] = useState([]);
+    const [count, setCount] = useState(0);
+    const [arrayG, setArray] = useState([]);
 
-        }
+    const fetchAPI = async () => {
+        const response = await axios.get("http://localhost:5172/api")
+        // console.log(response.data.name)
+        setArray(response.data.name)
     }
 
-    render() {
-        return (
-            <div>
-                <Carousel style={{marginTop: 56}}>
-                    {/*<Carousel.Item>*/}
-                    {/*    <Image*/}
-                    {/*        className="d-block w-100"*/}
-                    {/*        src={mbp}*/}
-                    {/*        alt="First slide"*/}
-                    {/*        style={{ objectFit: 'cover', height: '500px' }}*/}
-                    {/*    />*/}
-                    {/*    <Carousel.Caption>*/}
-                    {/*        <h3>Sale Off 50%</h3>*/}
-                    {/*        <p>Sale off all product in September</p>*/}
-                    {/*    </Carousel.Caption>*/}
-                    {/*</Carousel.Item>*/}
-                    {/*<Carousel.Item>*/}
-                    {/*    <Image*/}
-                    {/*        className="d-block w-100"*/}
-                    {/*        src="https://via.placeholder.com/1200x400"*/}
-                    {/*        alt="Second slide"*/}
-                    {/*        style={{ objectFit: 'cover', height: '500px' }}*/}
-                    {/*    />*/}
-                    {/*    <Carousel.Caption>*/}
-                    {/*        <h3>Newest</h3>*/}
-                    {/*        <p>Famous Brand in our website</p>*/}
-                    {/*    </Carousel.Caption>*/}
-                    {/*</Carousel.Item>*/}
-                    {banners.map(banner => (
-                        <Carousel.Item>
-                            <Image
-                                className="d-block w-100"
-                                src={banner.name}
-                                alt={banner.alt}
-                                style={{ objectFit: 'cover', height: '480px' }}
-                            />
-                            <Carousel.Caption>
-                                <h3>{banner.title}</h3>
-                                <p>{banner.description}</p>
-                            </Carousel.Caption>
-                        </Carousel.Item>
+    useEffect(() => {
+        fetchAPI()
+    }, []);
+
+    return (
+        <div>
+            <Carousel style={{marginTop: 56}}>
+                {/*<Carousel.Item>*/}
+                {/*    <Image*/}
+                {/*        className="d-block w-100"*/}
+                {/*        src={mbp}*/}
+                {/*        alt="First slide"*/}
+                {/*        style={{ objectFit: 'cover', height: '500px' }}*/}
+                {/*    />*/}
+                {/*    <Carousel.Caption>*/}
+                {/*        <h3>Sale Off 50%</h3>*/}
+                {/*        <p>Sale off all product in September</p>*/}
+                {/*    </Carousel.Caption>*/}
+                {/*</Carousel.Item>*/}
+                {/*<Carousel.Item>*/}
+                {/*    <Image*/}
+                {/*        className="d-block w-100"*/}
+                {/*        src="https://via.placeholder.com/1200x400"*/}
+                {/*        alt="Second slide"*/}
+                {/*        style={{ objectFit: 'cover', height: '500px' }}*/}
+                {/*    />*/}
+                {/*    <Carousel.Caption>*/}
+                {/*        <h3>Newest</h3>*/}
+                {/*        <p>Famous Brand in our website</p>*/}
+                {/*    </Carousel.Caption>*/}
+                {/*</Carousel.Item>*/}
+                {banners.map((banner, index) => (
+                    <Carousel.Item key={index}>
+                        <Image
+                            className="d-block w-100"
+                            src={banner.name}
+                            alt={banner.alt}
+                            style={{ objectFit: 'cover', height: '480px' }}
+                        />
+                        <Carousel.Caption>
+                            <h3>{banner.title}</h3>
+                            <p>{banner.description}</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                ))}
+            </Carousel>
+            <Container className="my-4">
+                <h2 className="text-center mb-4">Sản phẩm nổi bật</h2>
+                <Row style={{height: 100}}>
+                    {arrayG.map((product, index) => (
+                        <Col key={index} sm={12} md={6} lg={4} className="mb-4">
+                            <h1>{product}</h1>
+                        </Col>
                     ))}
-                </Carousel>
-                <Container className="my-4">
-                    <h2 className="text-center mb-4">Sản phẩm nổi bật</h2>
-                    <Row>
-                        {products.map(product => (
-                            <Col key={product.id} sm={12} md={6} lg={4} className="mb-4">
-                                <ProductItem obj={product} />
-                            </Col>
-                        ))}
-                    </Row>
-                </Container>
-            </div>
-        )
-    }
+                </Row>
+                <Row>
+                    {products.map(product => (
+                        <Col key={product.id} sm={12} md={6} lg={4} className="mb-4">
+                            <ProductItem obj={product} />
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
+        </div>
+    )
 }
+
+// class Home extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//
+//         }
+//     }
+//
+//     render() {
+//
+//     }
+// }
 
 export default Home

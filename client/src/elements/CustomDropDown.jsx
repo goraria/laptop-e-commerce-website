@@ -25,8 +25,8 @@ class CustomDropDown extends Component {
             style={{marginRight: 16}}
         >
             {category.item.map(
-                (product) => (
-                    <Dropdown.Item eventKey="1">{product}</Dropdown.Item>
+                (product,index) => (
+                    <Dropdown.Item eventKey="1" key={index}>{product}</Dropdown.Item>
                 )
             )}
             <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
