@@ -28,12 +28,13 @@ class TransitionBar extends Component {
                 <Container>
                     <Stack direction="horizontal" gap={3}>
 
-                        {clsifications.map((brandS) => <DropdownButton
+                        {clsifications.map((brandS,index) => <DropdownButton
+                            key={index}
                             id="dropdown-basic-button"
                             title={<><FontAwesomeIcon icon={brandS.icon} style={{ width: 24 }} />{' '}{brandS.category}</>}
                             variant="outline-danger"
                         >
-                            {brandS.items.map((item) => (<Dropdown.Item as="a" href="#action1">{item}</Dropdown.Item>))}
+                            {brandS.items.map((item,index) => (<Dropdown.Item as="a" href="#action1" key={index}>{item}</Dropdown.Item>))}
 
                         </DropdownButton>)}
 
