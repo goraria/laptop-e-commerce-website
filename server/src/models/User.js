@@ -1,6 +1,7 @@
-// models/Account.js
+// models/User.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Account = require('./Account');
 
 const User = sequelize.define('User', {
     iduser: {
@@ -9,7 +10,10 @@ const User = sequelize.define('User', {
     },
     idaccount: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        references: {
+            model: Account,
+            key: 'idaccount',
+        }
     },
     firstname: {
         type: DataTypes.STRING,
@@ -23,7 +27,7 @@ const User = sequelize.define('User', {
         type: DataTypes.STRING(15),
         allowNull: false,
     },
-    avater: {
+    avatar: {
         type: DataTypes.STRING,
         allowNull: true,
     }
@@ -32,4 +36,7 @@ const User = sequelize.define('User', {
     timestamps: false,
 });
 
-export default User;
+Account.hasOne(User, { foreignKey: 'idaccount' });
+User.belongsTo(Account, { foreignKey: 'idaccount' });
+
+module.exports = User;

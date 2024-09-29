@@ -1,15 +1,12 @@
 // models/Address.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Account = require('./Account');
 
 const Address = sequelize.define('Address', {
     idaddress: {
         type: DataTypes.INTEGER,
         primaryKey: true,
-    },
-    idaccount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
     },
     tower: {
         type: DataTypes.STRING,
@@ -34,10 +31,20 @@ const Address = sequelize.define('Address', {
     country: {
         type: DataTypes.STRING,
         allowNull: false,
-    }
+    },
+    idaccount: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Account,
+            key: 'idaccount',
+        }
+    },
 }, {
     tableName: 'address',
     timestamps: false,
 });
 
-export default Address;
+Account.hasMany(Address, { foreignKey: 'idaccount' });
+Address.belongsTo(Account, { foreignKey: 'idaccount' });
+
+module.exports = Address;

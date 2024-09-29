@@ -1,3 +1,4 @@
+// models/Configuration.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -30,13 +31,13 @@ const Configuration = sequelize.define('Configuration', {
         type: DataTypes.STRING,
         allowNull: false,
     },
-    price:{
+    price: {
         type: DataTypes.INTEGER,
-        allowNull: true
+        allowNull: false,
     }
 }, {
-    tableName: 'configuratiion',
+    tableName: 'configuration',
     timestamps: false,
 });
 
-export default Configuration;
+module.exports = Configuration;

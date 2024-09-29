@@ -18,15 +18,17 @@ const Account = sequelize.define('Account', {
     },
     role: {
         type: DataTypes.TINYINT,
+        allowNull: false,
         defaultValue: 0,
     },
     status: {
         type: DataTypes.TINYINT,
+        allowNull: false,
         defaultValue: 0,
-    }
+    },
 }, {
     tableName: 'account',
     timestamps: false,
 });
 
-export default Account;
+module.exports = Account;

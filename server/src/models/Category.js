@@ -1,3 +1,4 @@
+// models/Category.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 
@@ -7,14 +8,13 @@ const Category = sequelize.define('Category', {
         primaryKey: true,
         autoIncrement: true,
     },
-    categoryname: {
+    category_name: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    
+    }
 }, {
     tableName: 'category',
     timestamps: false,
 });
 
-export default Category;
+module.exports = Category;

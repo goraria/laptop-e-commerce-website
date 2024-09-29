@@ -1,23 +1,36 @@
+// models/BillDetail.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
+const Bill = require('./Bill');
+const Product = require('./Product');
+const Configuration = require('./Configuration');
 
 const BillDetail = sequelize.define('BillDetail', {
-    idbilldetail: {
+    idbill_details: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true,
     },
     idbill: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        references: {
+            model: Bill,
+            key: 'idbill',
+        }
     },
     idproduct: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        references: {
+            model: Product,
+            key: 'idproduct',
+        }
     },
     idconfiguration: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        references: {
+            model: Configuration,
+            key: 'idconfiguration',
+        }
     },
     quantity: {
         type: DataTypes.INTEGER,
@@ -32,4 +45,7 @@ const BillDetail = sequelize.define('BillDetail', {
     timestamps: false,
 });
 
-export default BillDetail;
+Bill.hasMany(BillDetail, { foreignKey: 'idbill' });
+BillDetail.belongsTo(Bill, { foreignKey: 'idbill' });
+
+module.exports = BillDetail;
