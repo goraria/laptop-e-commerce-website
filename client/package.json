@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "proxy": "http://localhost:5172",
   "overrides": {
     "postcss": "8.4.31",
     "nth-check": "2.0.1"

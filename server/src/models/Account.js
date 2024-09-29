@@ -1,13 +1,8 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = require('../config/database');  // Kết nối Sequelize
+// models/Account.js
+const { DataTypes } = require('sequelize');
+const sequelize = require('../config/database');
 
-class Account extends Model {
-    constructor() {
-        super();
-    }
-}
-
-Account.init({
+const Account = sequelize.define('Account', {
     idaccount: {
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -22,30 +17,16 @@ Account.init({
         allowNull: false,
     },
     role: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TINYINT,
         defaultValue: 0,
     },
-    full_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    phone_number: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     status: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TINYINT,
         defaultValue: 0,
     }
 }, {
-    sequelize,
-    modelName: 'Account',
     tableName: 'account',
     timestamps: false,
 });
 
-module.exports = Account;
+export default Account;
