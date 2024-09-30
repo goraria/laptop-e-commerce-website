@@ -1,10 +1,10 @@
 Japtor Goraria el Destinia Ichibulup de Gortheia
 
 Installation {
-    cd backend
-    npm i
-    cd frontend
-    npm i
+    // cd backend
+    // npm i
+    // cd frontend
+    // npm i
     cd client
     npm i
     cd server
@@ -14,4 +14,11 @@ Installation {
 Start {
     cd ..
     npm start
+}
+
+Routes {
+    Authentication
+    Home
+    User
+    Account
 }
