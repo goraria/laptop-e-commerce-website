@@ -1,9 +1,5 @@
 const {Sequelize} = require("sequelize");
 
-const Account = require('../models/Account');
-const Address = require('../models/Address');
-const Bill = require('../models/Bill');
-
 const sequelize = new Sequelize('wt_proj', 'root', 'Japtor@1999', {
     host: 'localhost',
     dialect: 'mysql',
