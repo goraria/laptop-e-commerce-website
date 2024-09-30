@@ -88,13 +88,13 @@ function Home() {
             </Carousel>
             <Container className="my-4">
                 <h2 className="text-center mb-4">Sản phẩm nổi bật</h2>
-                <Row style={{height: 100}}>
-                    {arrayG.map((product, index) => (
-                        <Col key={index} sm={12} md={6} lg={4} className="mb-4">
-                            <h1>{product}</h1>
-                        </Col>
-                    ))}
-                </Row>
+                {/*<Row style={{height: 100}}>*/}
+                {/*    {arrayG.map((product, index) => (*/}
+                {/*        <Col key={index} sm={12} md={6} lg={4} className="mb-4">*/}
+                {/*            <h1>{product}</h1>*/}
+                {/*        </Col>*/}
+                {/*    ))}*/}
+                {/*</Row>*/}
                 <Row>
                     {products.map(product => (
                         <Col key={product.id} sm={12} md={6} lg={4} className="mb-4">
