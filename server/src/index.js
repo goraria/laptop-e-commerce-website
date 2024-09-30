@@ -5,7 +5,8 @@ const path = require('path');
 const { Session } = require('inspector');
 const session = require('express-session');
 
-
+const sequelize = require('./config/database');
+const routes = require("./routes/routes");
 
 const app = express();
 const corsOptions = {
@@ -26,13 +27,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //     res.send('Hello from the backend!');
 // });
 
-app.get("/api", (req, res) => {
-    // const { name, email } = req.body;
-    //
-    // console.log('Received data:', { name, email });
-    // res.json({ message: 'Data received successfully', data: { name, email } });
-    res.json({name: ['Japtor', 'Goraria', 'Ichibulup'] });
-});
+routes(app)
+// app.use('/login', AuthenticationRoute);
+// app.get("/api", (req, res) => {
+//     // const { name, email } = req.body;
+//     //
+//     // console.log('Received data:', { name, email });
+//     // res.json({ message: 'Data received successfully', data: { name, email } });
+//     res.json({name: ['Japtor', 'Goraria', 'Ichibulup'] });
+// });
+
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
