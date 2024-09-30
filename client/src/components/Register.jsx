@@ -96,7 +96,7 @@ function Register() {const [validated, setValidated] = useState(false);
                                                 <FontAwesomeIcon icon={faAt}/>
                                             </InputGroup.Text>
                                             <Form.Control
-                                                // required
+                                                required
                                                 type="email"
                                                 name="email"
                                                 placeholder="email@email.com"
