@@ -8,6 +8,13 @@ const Address = sequelize.define('Address', {
         type: DataTypes.INTEGER,
         primaryKey: true,
     },
+    idaccount: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Account,
+            key: 'idaccount',
+        }
+    },
     tower: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -31,13 +38,6 @@ const Address = sequelize.define('Address', {
     country: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
-    idaccount: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Account,
-            key: 'idaccount',
-        }
     },
 }, {
     tableName: 'address',

@@ -7,6 +7,13 @@ const Description = sequelize.define('Description', {
         type: DataTypes.INTEGER,
         primaryKey: true,
     },
+    idproduct:{
+        type: DataTypes.INTEGER,
+        references: {
+            model: Product,
+            key: 'idproduct'
+        }
+    },
     title_description: {
         type: DataTypes.STRING,
         allowNull: true,

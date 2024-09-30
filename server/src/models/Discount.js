@@ -15,6 +15,14 @@ const Discount = sequelize.define('Discount', {
     percentage_discount: {
         type: DataTypes.INTEGER,
         allowNull: false,
+    },
+    start_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
+    },
+    end_date: {
+        type: DataTypes.DATE,
+        allowNull: false,
     }
 }, {
     tableName: 'discount',

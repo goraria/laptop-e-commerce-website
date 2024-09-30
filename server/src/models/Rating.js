@@ -30,6 +30,10 @@ const Rating = sequelize.define('Rating', {
     comment: {
         type: DataTypes.STRING(1023),
         allowNull: true,
+    },
+    rating_date: {
+        type: DataTypes.DATE,
+        allowNull: true,
     }
 }, {
     tableName: 'rating',
