@@ -42,7 +42,7 @@ function ListProducts() {
     const [arrayG, setArray] = useState([]);
 
     const fetchAPI = async () => {
-        const response = await axios.get("http://localhost:5172/api")
+        const response = await axios.get("http://localhost:5172/api/search")
         console.log(response.data.name)
         setArray(response.data.name)
     }

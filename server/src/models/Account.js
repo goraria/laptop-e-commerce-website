@@ -16,6 +16,10 @@ const Account = sequelize.define('Account', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
     role: {
         type: DataTypes.TINYINT,
         allowNull: false,
