@@ -1,5 +1,5 @@
 const Account = require('../models/Account');
-const User = require('../models/Account');
+const User = require('../models/User');
 const bcrypt = require('bcrypt');  // Sử dụng bcrypt cho mã hóa mật khẩu
 const jwt = require('jsonwebtoken');
 
@@ -63,7 +63,7 @@ class AuthenticationController {
         // }
 
         const { username, password } = req.body;
-        // console.log(username, password);
+        console.log(username, password);
         try {
             const account = await Account.findOne({ where: { username, password } });
 
@@ -151,7 +151,7 @@ class AuthenticationController {
         //     return res.status(500).json({ message: 'Server error' });
         // }
 
-        const { username, password, firstname, lastname, phone, avatar } = req.body;
+        const { username, password, email, firstname, lastname, phone, avatar } = req.body;
 
         console.log(req.body);
         try {
@@ -165,6 +165,7 @@ class AuthenticationController {
             const newAccount = await Account.create({
                 username,
                 password: hashedPassword,
+                email,
                 role: 0,
                 status: 0,
             });
@@ -174,7 +175,7 @@ class AuthenticationController {
                 firstname,
                 lastname,
                 phone_number: phone,
-                avatar,
+                avatar: null,
             });
 
             return res.status(201).json({
