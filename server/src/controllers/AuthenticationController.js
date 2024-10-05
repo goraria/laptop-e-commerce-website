@@ -1,83 +1,33 @@
 const Account = require('../models/Account');
 const User = require('../models/User');
-const bcrypt = require('bcrypt');  // Sử dụng bcrypt cho mã hóa mật khẩu
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 class AuthenticationController {
     async login(req, res) {
-        // const { username, password } = req.body;
-        //
-        // try {
-        //     const user = await Account.findOne({ where: { username } });
-        //     if (!user) {
-        //         return res.status(401).json({ message: 'Invalid username or password' });
-        //     }
-        //
-        //     const validPassword = await bcrypt.compare(password, user.password);
-        //     if (!validPassword) {
-        //         return res.status(401).json({ message: 'Invalid username or password' });
-        //     }
-        //
-        //     // Tạo JWT Token nếu đăng nhập thành công
-        //     const token = jwt.sign(
-        //         { id: user.idaccount, role: user.role },
-        //         process.env.JWT_SECRET,  // Khóa bí mật JWT từ biến môi trường
-        //         { expiresIn: '1h' }
-        //     );
-        //
-        //     return res.json({
-        //         message: 'Login successful',
-        //         token: token,
-        //         user: {
-        //             id: user.idaccount,
-        //             username: user.username,
-        //             email: user.email,
-        //             role: user.role,
-        //         }
-        //     });
-        // } catch (error) {
-        //     console.error(error);
-        //     return res.status(500).json({ message: 'Server error' });
-        // }
-
-        // const { username, password } = req.body;
-        //
-        // try {
-        //     const user = await Account.findOne({ where: { username } });
-        //
-        //     if (!user) {
-        //         return res.status(404).json({ message: 'User not found' });
-        //     }
-        //
-        //     const validPassword = await bcrypt.compare(password, user.password);
-        //     if (!validPassword) {
-        //         return res.status(401).json({ message: 'Invalid credentials' });
-        //     }
-        //
-        //     const token = jwt.sign({ id: user.idaccount, username: user.username }, 'your_jwt_secret', { expiresIn: '1h' });
-        //
-        //     res.json({ message: 'Login successful', token });
-        // } catch (error) {
-        //     console.error(error);
-        //     res.status(500).json({ message: 'Server error' });
-        // }
-
         const { username, password } = req.body;
         console.log(username, password);
         try {
-            const account = await Account.findOne({ where: { username, password } });
+            const account = await Account.findOne({ where: { username } });
 
             if (!account) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
 
-            // const validPassword = await bcrypt.compare(password, user.password);
-            const validPassword = password === account.password;
+            const validPassword = await bcrypt.compare(password, account.password);
+            // const validPassword = password === account.password;
             if (!validPassword) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
 
-            const token = jwt.sign({ id: account.idaccount, username: account.username }, 'japtor', { expiresIn: '1h' });
+            await Account.update({ status: 1 }, { where: { idaccount: account.idaccount } });
+
+            const token = jwt.sign({
+                id: account.idaccount,
+                username: account.username,
+                role: account.role,
+            }, process.env.JWT_SECRET || 'gorth', { expiresIn: '1h' });
+            // const token = jwt.sign({ id: account.idaccount, username: account.username }, 'gorth', { expiresIn: '1h' });
 
             return res.json({ message: 'Login successful', token });
         } catch (error) {
@@ -87,70 +37,6 @@ class AuthenticationController {
     }
 
     async register(req, res) {
-        // const { username, password } = req.body;
-        // // console.log(username, password);
-        // try {
-        //     const account = await Account.findOne({ where: { username, password } });
-        //
-        //     if (!account) {
-        //         return res.status(401).json({ message: 'Invalid username or password' });
-        //     }
-        //
-        //     // const validPassword = await bcrypt.compare(password, user.password);
-        //     const validPassword = password === account.password;
-        //     if (!validPassword) {
-        //         return res.status(401).json({ message: 'Invalid username or password' });
-        //     }
-        //
-        //     const token = jwt.sign({ id: account.idaccount, username: account.username }, 'japtor', { expiresIn: '1h' });
-        //
-        //     return res.json({ message: 'Register successful', token });
-        // } catch (error) {
-        //     console.error(error);
-        //     return res.status(500).json({ message: 'Server error' });
-        // }
-
-        // const { username, password, email, firstname, lastname, phone } = req.body;
-        //
-        // try {
-        //     const existingUser = await Account.findOne({ where: { username } });
-        //     if (existingUser) {
-        //         return res.status(400).json({ message: 'Username already exists' });
-        //     }
-        //
-        //     // const hashedPassword = await bcrypt.hash(password, 10);
-        //
-        //     const newAccount = await Account.create({
-        //         username,
-        //         // password: hashedPassword,
-        //         password,
-        //         role: 0,
-        //         status: 0,
-        //     });
-        //
-        //     const newUser = await User.create({
-        //         email,
-        //         firstname,
-        //         lastname,
-        //         phone,
-        //     });
-        //
-        //     return res.status(201).json({
-        //         message: 'User registered successfully',
-        //         user: {
-        //             id: newAccount.idaccount,
-        //             username: newAccount.username,
-        //             email: newAccount.email,
-        //             firstname: newAccount.firstname,
-        //             lastname: newAccount.lastname,
-        //             phone: newAccount.phone,
-        //         }
-        //     });
-        // } catch (error) {
-        //     console.error(error);
-        //     return res.status(500).json({ message: 'Server error' });
-        // }
-
         const { username, password, email, firstname, lastname, phone, avatar } = req.body;
 
         console.log(req.body);
@@ -187,6 +73,35 @@ class AuthenticationController {
         } catch (error) {
             return res.status(500).json({ error: 'Error registering user' });
         }
+    }
+
+    async logout(req, res) {
+        const { userId } = req.user;
+
+        try {
+            await Account.update({ status: 0 }, { where: { idaccount: userId } });
+
+            return res.json({ message: 'Logout successful' });
+        } catch (error) {
+            res.status(500).json({ message: 'Logout failed', error });
+        }
+
+        // try {
+        //     const userId = req.user.id; // Lấy userId từ token hoặc session
+        //     const account = await Account.findByPk(userId);
+        //
+        //     if (!account) {
+        //         return res.status(404).json({ message: 'User not found' });
+        //     }
+        //
+        //     // Cập nhật status về 0
+        //     account.status = 0;
+        //     await account.save();
+        //
+        //     res.json({ message: 'Logged out successfully' });
+        // } catch (error) {
+        //     return res.status(500).json({ message: 'Server error', error });
+        // }
     }
 }
 
