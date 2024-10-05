@@ -1,6 +1,6 @@
 import React, {Component, useEffect, useState} from "react";
 import {Alert, Button, Card, Col, Container, Form, Image, InputGroup, Nav, Row} from "react-bootstrap";
-import jp from "../resources/images/jp.jpeg";
+import jp from "../assets/images/jp.jpeg";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
     faAt, faBullseye, faCity, faGift, faHistory, faLocationDot, faMapMarkerAlt, faMapPin,

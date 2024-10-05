@@ -9,7 +9,7 @@ import axios from "axios";
 
 import SocialFormButton from "../elements/SocialFormButton.jsx";
 
-import jp from '../resources/images/jp.jpeg'
+import jp from '../assets/images/jp.jpeg'
 
 const sclItems = [
     // { id: 0, name: "Github", icon: faGithub, color: "secondary" },
@@ -47,9 +47,8 @@ function Login() {
                     password: formData.password
                 });
 
-                const data = response.data;
-                if (data.token) {
-                    localStorage.setItem('token', data.token);
+                if (response.data.token) {
+                    localStorage.setItem('token', response.data.token);
                     alert('Login successful');
                     navigate('/');
                 }
@@ -183,7 +182,7 @@ function Login() {
                                 <hr/>
                                 <div className="text-center" style={{marginBottom: 16}}>
                                     you don&#39;t have an acoount
-                                    <Link to="/signup">
+                                    <Link to="/register">
                                         <Button variant="link" style={{
                                             padding: 0,
                                             color: '#dc3545',

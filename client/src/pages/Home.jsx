@@ -3,12 +3,12 @@ import React, {Component, useEffect, useState} from "react";
 
 import ProductItem from "../elements/ProductItem.jsx";
 
-import mbp from "../resources/images/mbp.jpeg"
-import mba from "../resources/images/mba.jpeg"
-import sfc from "../resources/images/sfc.jpeg"
-import xps from "../resources/images/xps.jpeg"
-import pri from "../resources/images/pri.jpeg"
-import uls from "../resources/images/uls.jpeg"
+import mbp from "../assets/images/mbp.jpeg"
+import mba from "../assets/images/mba.jpeg"
+import sfc from "../assets/images/sfc.jpeg"
+import xps from "../assets/images/xps.jpeg"
+import pri from "../assets/images/pri.jpeg"
+import uls from "../assets/images/uls.jpeg"
 import axios from "axios";
 
 const products = [
@@ -31,18 +31,18 @@ const banners = [
 
 function Home() {
     // const [users, setUsers] = useState([]);
-    const [count, setCount] = useState(0);
-    const [arrayG, setArray] = useState([]);
-
-    const fetchAPI = async () => {
-        const response = await axios.get("http://localhost:5172/api")
-        // console.log(response.data.name)
-        setArray(response.data.name)
-    }
-
-    useEffect(() => {
-        fetchAPI()
-    }, []);
+    // const [count, setCount] = useState(0);
+    // const [array, setArray] = useState([]);
+    //
+    // const fetchAPI = async () => {
+    //     const response = await axios.get("http://localhost:5172/api")
+    //     // console.log(response.data.name)
+    //     setArray(response.data.name)
+    // }
+    //
+    // useEffect(() => {
+    //     fetchAPI()
+    // }, []);
 
     return (
         <div>
@@ -89,7 +89,7 @@ function Home() {
             <Container className="my-4">
                 <h2 className="text-center mb-4">Sản phẩm nổi bật</h2>
                 {/*<Row style={{height: 100}}>*/}
-                {/*    {arrayG.map((product, index) => (*/}
+                {/*    {array.map((product, index) => (*/}
                 {/*        <Col key={index} sm={12} md={6} lg={4} className="mb-4">*/}
                 {/*            <h1>{product}</h1>*/}
                 {/*        </Col>*/}

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {ButtonGroup, DropdownButton, DropdownItem, DropdownMenu} from "react-bootstrap";
+import {ButtonGroup, DropdownButton, DropdownItem, DropdownMenu, NavDropdown} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faShoppingCart} from "@fortawesome/free-solid-svg-icons";
 
@@ -19,15 +19,17 @@ class DropdownConfig extends Component {
         const { dropdownContains } = this.props;
         return (
             <DropdownButton
-                title={dropdownContains.title} as={ButtonGroup}
+                as={ButtonGroup}
+                title={dropdownContains.title}
                 align={{ lg: dropdownContains.align }}
                 variant={'danger'}
+                className={dropdownContains.className}
                 id="dropdown-menu-align-responsive-1">
-                <DropdownMenu style={{padding: 0}}>
-                    {dropdownContains.item.map((dropdownItem) => (
-                        <DropdownItem key={dropdownItem.key} href={dropdownItem.href}>{dropdownItem.name}</DropdownItem>
-                    ))}
-                </DropdownMenu>
+                {/*<DropdownMenu style={{padding: 0}}>*/}
+                {dropdownContains.item.map((dropdownItem) => (
+                    <DropdownItem key={dropdownItem.key} href={dropdownItem.href}>{dropdownItem.name}</DropdownItem>
+                ))}
+                {/*</DropdownMenu>*/}
             </DropdownButton>
         )
     }

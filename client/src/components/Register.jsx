@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {Button, Col, Container, Form, Image, InputGroup, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
@@ -11,7 +11,7 @@ import {
 
 import SocialFormButton from "../elements/SocialFormButton.jsx";
 
-import jp from '../resources/images/jp.jpeg'
+import jp from '../assets/images/jp.jpeg'
 import axios from "axios";
 
 const sclItems = [
@@ -223,7 +223,7 @@ function Register() {const [validated, setValidated] = useState(false);
                                     <Col xs={6}>
                                         <Form.Group controlId="formBasicCheckbox">
                                             <Form.Check
-                                                // required
+                                                required
                                                 type="checkbox"
                                                 label="Agree to terms and conditions"
                                                 feedback="You must agree before submitting."
@@ -239,125 +239,27 @@ function Register() {const [validated, setValidated] = useState(false);
                                         </Button>
                                     </Col>
                                 </Row>
+                                <hr/>
+                                <div className="text-center" style={{marginBottom: 16}}>or sign up with</div>
+                                <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
+                                    {sclItems.map(socialItem => (
+                                        <SocialFormButton key={socialItem.id} socialItems={socialItem}/>
+                                    ))}
+                                </div>
+                                <hr/>
+                                <div className="text-center" style={{marginBottom: 16}}>
+                                    you have an acoount
+                                    <Link to="/login">
+                                        <Button variant="link" style={{
+                                            padding: 0,
+                                            color: '#dc3545',
+                                            textDecoration: "none",
+                                            fontWeight: 'bold',
+                                            paddingLeft: 4
+                                        }}>Log in</Button>
+                                    </Link>
+                                </div>
                             </Form>
-                            {/*<Form noValidate validated={validated} onSubmit={handleSubmit}>*/}
-                            {/*    <Row className="mb-3">*/}
-                            {/*        <Form.Group as={Col} md="4" controlId="validationCustom01">*/}
-                            {/*            <Form.Label>First name</Form.Label>*/}
-                            {/*            <Form.Control*/}
-                            {/*                required*/}
-                            {/*                type="text"*/}
-                            {/*                placeholder="First name"*/}
-                            {/*                defaultValue=""*/}
-                            {/*            />*/}
-                            {/*            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>*/}
-                            {/*        </Form.Group>*/}
-                            {/*        <Form.Group as={Col} md="4" controlId="validationCustom02">*/}
-                            {/*            <Form.Label>Last name</Form.Label>*/}
-                            {/*            <Form.Control*/}
-                            {/*                required*/}
-                            {/*                type="text"*/}
-                            {/*                placeholder="Last name"*/}
-                            {/*                defaultValue=""*/}
-                            {/*            />*/}
-                            {/*            <Form.Control.Feedback>Looks good!</Form.Control.Feedback>*/}
-                            {/*        </Form.Group>*/}
-                            {/*        <Form.Group as={Col} md="4" controlId="validationCustomUsername">*/}
-                            {/*            <Form.Label>Username</Form.Label>*/}
-                            {/*            <InputGroup hasValidation>*/}
-                            {/*                <InputGroup.Text id="inputGroupPrepend">*/}
-                            {/*                    <FontAwesomeIcon icon={faAt} />*/}
-                            {/*                </InputGroup.Text>*/}
-                            {/*                <Form.Control*/}
-                            {/*                    type="text"*/}
-                            {/*                    placeholder="username"*/}
-                            {/*                    aria-describedby="inputGroupPrepend"*/}
-                            {/*                    required*/}
-                            {/*                />*/}
-                            {/*                <Form.Control.Feedback type="invalid">*/}
-                            {/*                    Please choose a username.*/}
-                            {/*                </Form.Control.Feedback>*/}
-                            {/*            </InputGroup>*/}
-                            {/*        </Form.Group>*/}
-                            {/*    </Row>*/}
-                            {/*    <Row className="mb-3">*/}
-                            {/*        <Form.Group as={Col} md="3" controlId="validationCustom05">*/}
-                            {/*            <Form.Label>Address</Form.Label>*/}
-                            {/*            /!*<Form.Control type="text" placeholder="Address" required />*!/*/}
-                            {/*            <InputGroup hasValidation>*/}
-                            {/*                <InputGroup.Text id="inputGroupPrepend">*/}
-                            {/*                    <FontAwesomeIcon icon={faLocationDot} />*/}
-                            {/*                </InputGroup.Text>*/}
-                            {/*                <Form.Control*/}
-                            {/*                    type="text"*/}
-                            {/*                    placeholder="Address"*/}
-                            {/*                    aria-describedby="inputGroupPrepend"*/}
-                            {/*                    required*/}
-                            {/*                />*/}
-                            {/*                <Form.Control.Feedback type="invalid">*/}
-                            {/*                    Please provide a valid address.*/}
-                            {/*                </Form.Control.Feedback>*/}
-                            {/*            </InputGroup>*/}
-                            {/*        </Form.Group>*/}
-                            {/*        <Form.Group as={Col} md="3" controlId="validationCustom03">*/}
-                            {/*            <Form.Label>City</Form.Label>*/}
-                            {/*            /!*<Form.Control type="text" placeholder="City" required />*!/*/}
-                            {/*            <InputGroup hasValidation>*/}
-                            {/*                <InputGroup.Text id="inputGroupPrepend">*/}
-                            {/*                    <FontAwesomeIcon icon={faCity} />*/}
-                            {/*                </InputGroup.Text>*/}
-                            {/*                <Form.Control*/}
-                            {/*                    type="text"*/}
-                            {/*                    placeholder="City"*/}
-                            {/*                    aria-describedby="inputGroupPrepend"*/}
-                            {/*                    required*/}
-                            {/*                />*/}
-                            {/*                <Form.Control.Feedback type="invalid">*/}
-                            {/*                    Please provide a valid city.*/}
-                            {/*                </Form.Control.Feedback>*/}
-                            {/*            </InputGroup>*/}
-                            {/*        </Form.Group>*/}
-                            {/*        <Form.Group as={Col} md="3" controlId="validationCustom04">*/}
-                            {/*            <Form.Label>State</Form.Label>*/}
-                            {/*            /!*<Form.Control type="text" placeholder="State" required />*!/*/}
-                            {/*            <InputGroup hasValidation>*/}
-                            {/*                <InputGroup.Text id="inputGroupPrepend">*/}
-                            {/*                    <FontAwesomeIcon icon={faBullseye} />*/}
-                            {/*                </InputGroup.Text>*/}
-                            {/*                <Form.Control*/}
-                            {/*                    type="text"*/}
-                            {/*                    placeholder="State"*/}
-                            {/*                    aria-describedby="inputGroupPrepend"*/}
-                            {/*                    required*/}
-                            {/*                />*/}
-                            {/*                <Form.Control.Feedback type="invalid">*/}
-                            {/*                    Please provide a valid state.*/}
-                            {/*                </Form.Control.Feedback>*/}
-                            {/*            </InputGroup>*/}
-                            {/*        </Form.Group>*/}
-                            {/*        <Form.Group as={Col} md="3" controlId="validationCustom04">*/}
-                            {/*            <Form.Label>Phone</Form.Label>*/}
-                            {/*            /!*<Form.Control type="list-number" placeholder="Phone" required />*!/*/}
-                            {/*            <InputGroup hasValidation>*/}
-                            {/*                <InputGroup.Text id="inputGroupPrepend">*/}
-                            {/*                    <FontAwesomeIcon icon={faPhone} />*/}
-                            {/*                </InputGroup.Text>*/}
-                            {/*                <Form.Control*/}
-                            {/*                    type="text"*/}
-                            {/*                    placeholder="Phone"*/}
-                            {/*                    aria-describedby="inputGroupPrepend"*/}
-                            {/*                    required*/}
-                            {/*                />*/}
-                            {/*                <Form.Control.Feedback type="invalid">*/}
-                            {/*                    Please provide a valid state.*/}
-                            {/*                </Form.Control.Feedback>*/}
-                            {/*            </InputGroup>*/}
-                            {/*        </Form.Group>*/}
-                            {/*    </Row>*/}
-                            {/*    <Button variant="danger" type="submit" className="mb-3" style={{width: '100%'}}>*/}
-                            {/*        Register*/}
-                            {/*    </Button>*/}
-                            {/*</Form>*/}
                         </div>
                     </Row>
                 </Container>

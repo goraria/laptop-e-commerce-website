@@ -4,12 +4,12 @@ import {
     Carousel, Container, Dropdown, Image, Row
 } from "react-bootstrap";
 
-import jp from '../resources/images/jp.jpeg'
-import sfc from '../resources/images/sfc.jpeg'
-import asusStore from '../resources/images/asus-store.jpg'
-import dellStore from '../resources/images/dell-store.jpg'
-import rogStore from '../resources/images/rog-store.jpeg'
-import lenovoStore from '../resources/images/lenovo-store.jpg'
+import jp from '../assets/images/jp.jpeg'
+import sfc from '../assets/images/sfc.jpeg'
+import asusStore from '../assets/images/asus-store.jpg'
+import dellStore from '../assets/images/dell-store.jpg'
+import rogStore from '../assets/images/rog-store.jpeg'
+import lenovoStore from '../assets/images/lenovo-store.jpg'
 
 const imgItems = [
     { id: 0, name: "jg", src: jp, },

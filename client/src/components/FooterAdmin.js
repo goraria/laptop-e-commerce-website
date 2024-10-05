@@ -21,7 +21,7 @@ import React from "react";
 // reactstrap components
 import { Container, Nav, NavItem, NavLink } from "reactstrap";
 
-function Footer() {
+function FooterAdmin() {
   return (
     <footer className="footer">
       <Container fluid>
@@ -58,4 +58,4 @@ function Footer() {
   );
 }
 
-export default Footer;
+export default FooterAdmin;
