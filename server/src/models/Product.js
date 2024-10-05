@@ -29,21 +29,8 @@ const Product = sequelize.define('Product', {
             model: Category,
             key: 'idcategory',
         }
-    },
-    idconfiguration: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Configuration,
-            key: 'idconfiguration',
-        }
-    },
-    iddescription: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Description,
-            key: 'iddescription',
-        }
     }
+   
 }, {
     tableName: 'product',
     timestamps: false,
@@ -51,5 +38,6 @@ const Product = sequelize.define('Product', {
 
 Category.hasMany(Product, { foreignKey: 'idcategory' });
 Product.belongsTo(Category, { foreignKey: 'idcategory' });
-
+Product.hasOne(Description, {foreignKey: 'idproduct'});
+Description.belongsTo(Product, {foreignKey: 'idproduct'})
 module.exports = Product;

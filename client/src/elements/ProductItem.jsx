@@ -1,10 +1,11 @@
+import {Link} from 'react-router-dom'
 import { Component } from "react";
 import { Button, Card } from "react-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar, faStarHalfAlt, faCartPlus} from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarEmpty} from '@fortawesome/free-regular-svg-icons';
-import { noAuto } from "@fortawesome/fontawesome-svg-core";
-
+import { faStar, faStarHalfAlt, faCartPlus } from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
+import { noAuto } from "@fortawesome/fontawesome-svg-core"
+import jp from '../resources/images/jp.jpeg'
 
 const obj_test = {
     name: "Product 1",
@@ -19,7 +20,7 @@ class ProductItem extends Component {
         super(props);
         this.state = {};
     }
-    
+
     // Function to render stars based on rating using Font Awesome
     renderStars(rating) {
         // Sanitize rating to be between 0 and 5
@@ -48,44 +49,46 @@ class ProductItem extends Component {
 
     render() {
         const { obj } = this.props;
+        const { cardWidth } = this.state;
+        const imageHeight = (1/ 8) * cardWidth;
         return (
-            <a href={`/product?id=${obj.id}`} style={{textDecoration:'none'}}>
-                <Card style={{ border: 'none', backgroundColor: '#f8f9fa'}}>
-                <Card.Img variant="top" src={obj.image} />
-                <Card.Body>
-                    {/* Price and Name in the same line */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        <Card.Title style={{
-                            marginBottom: '0', 
-                            whiteSpace: 'nowrap', 
-                            overflow: 'hidden', 
-                            textOverflow: 'ellipsis'
-                        }}>
-                            {obj.name}
-                        </Card.Title>
-                        <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>${obj.price}</span>
-                    </div>
-
-                    {/* Truncated Description */}
-                    <Card.Text style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                        {obj.description}
-                    </Card.Text>
-
-                    {/* Rating and Buy Button */}
-                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                        {/* Rating Section */}
-                        <div style={{ color: '#f39c12', fontSize: '1.2rem' }}>
-                        {this.renderStars(obj.rating)}
+            <Link to={`/product?id=${obj.id}`} style={{ textDecoration: 'none' }}>
+                <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius:10 }}>
+                    <Card.Img variant="top" src={jp} style={{height:{imageHeight}, width:{cardWidth}, objectFit:'cover'}} />
+                    <Card.Body>
+                        {/* Price and Name in the same line */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Card.Title style={{
+                                marginBottom: '0',
+                                whiteSpace: 'nowrap',
+                                overflow: 'hidden',
+                                textOverflow: 'ellipsis'
+                            }}>
+                                {obj.product_name}
+                            </Card.Title>
+                            <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>${obj.price}</span>
                         </div>
-                        {/* Buy Button */}
-                        <Button variant="danger">
-                            <FontAwesomeIcon icon={faCartPlus} style={{width:56}} />
-                        </Button>
-                    </div>
-                </Card.Body>
-            </Card>
-            </a>
-            
+
+                        {/* Truncated Description */}
+                        <Card.Text style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                            {obj.description}
+                        </Card.Text>
+
+                        {/* Rating and Buy Button */}
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            {/* Rating Section */}
+                            <div style={{ color: '#f39c12', fontSize: '1.2rem' }}>
+                                {this.renderStars(obj.rating)}
+                            </div>
+                            {/* Buy Button */}
+                            <Button variant="danger">
+                                <FontAwesomeIcon icon={faCartPlus} style={{ width: 56 }} />
+                            </Button>
+                        </div>
+                    </Card.Body>
+                </Card>
+            </Link>
+
         );
     }
 }

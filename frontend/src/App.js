@@ -1,10 +1,10 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, { useState, useEffect, Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 // import logo from './logo.svg';
 import './App.css';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
-import {  } from 'react-bootstrap';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { } from 'react-bootstrap';
 
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -54,7 +54,12 @@ class App extends Component {
         return (
             <BrowserRouter>
                 <div>
-                    <Header />
+                    <Routes>
+                        <Route path="/login" element={<Login />} />
+                        <Route path="/signup" element={<Signup />} />
+                        <Route path="/register" element={<Register />} />
+                    </Routes>
+                    {/* <Header /> */}
                     <main>
                         <Routes>
                             <Route path="/" element={<Home />} />
@@ -70,12 +75,11 @@ class App extends Component {
                             <Route path="/statistic" element={<Statistic />} />
                             <Route path="/setting" element={<Setting />} />
 
-                            <Route path="/login" element={<Login />} />
-                            <Route path="/signup" element={<Signup />} />
-                            <Route path="/register" element={<Register />} />
                         </Routes>
                     </main>
-                    <Footer />
+                    {/* <Footer /> */}
+
+
                 </div>
             </BrowserRouter>
         )

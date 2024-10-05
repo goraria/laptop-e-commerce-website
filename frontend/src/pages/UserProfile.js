@@ -8,16 +8,24 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import UserSidebar from "../components/UserSidebar";
 import AccountInfo from "../components/AccountInfo";
+import axios from 'axios';
 
-class UserProfile extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {}
+function UserProfile() {
+    const [arrayG, setArray] = useState([]);
+
+
+    const fetchAPI = async () => {
+        const response = await axios.get("http://localhost:5172/profile")
+        console.log(response.data)
+        setArray(response.data)
     }
 
+    useEffect(() => {
+        fetchAPI()
+    }, []);
 
 
-    render() {
+
         // const [sidebarTop, setSidebarTop] = useState(56);
         //
         // useEffect(() => {
@@ -193,6 +201,5 @@ class UserProfile extends Component {
         //     </div>
         // );
     }
-}
 
 export default UserProfile

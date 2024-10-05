@@ -1,18 +1,21 @@
-const mysql = require('mysql');
+const {Sequelize} = require("sequelize");
 
-const connection = mysql.createConnection({
+const sequelize = new Sequelize('wt_proj', 'root', 'Locpro@1997', {
     host: 'localhost',
-    user: 'root',
-    password: 'password',
-    database: 'mydb'
+    dialect: 'mysql',
+    logging: false,
 });
 
-connection.connect((err) => {
-    if (err) {
-        console.error('Error connecting to MySQL:', err.stack);
-        return;
-    }
-    console.log('Connected to MySQL as id ' + connection.threadId);
+// sequelize.sync({ force: true }).then(() => {
+//     console.log("Database & tables created!");
+// }).catch(error => {
+//     console.log("Error syncing models:", error);
+// });
+
+sequelize.authenticate().then(() => {
+    console.log('Connection has been established successfully.');
+}).catch((error) => {
+    console.error('Unable to connect to the database: ', error);
 });
 
-module.exports = connection;
+module.exports = sequelize;
