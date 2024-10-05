@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const productController = require('../controllers/ProductController');
+const profileController = require('../controllers/ProfileController');
 
 // Route để lấy tất cả người dùng
-router.get('/load-product', productController.loadProduct);
+router.get('/:idaccount', profileController.getProfile);
 module.exports = router;
