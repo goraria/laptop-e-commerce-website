@@ -1,5 +1,10 @@
-import { Route, Routes } from "react-router-dom";
-// Layout
+import { React, useState, useEffect, Component } from 'react';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { } from 'react-bootstrap';
+import axios from "axios";
+
+///////////////////////////////////////
+
 import { WithoutMenuPage } from "../pages/layouts/WithoutMenuPage";
 import { WithoutNavbarPage } from "../pages/layouts/WithoutNavbarPage";
 import { ContainerPage } from "../pages/layouts/ContainerPage";
@@ -48,11 +53,50 @@ import { DashboardPage } from "../pages/DashboardPage";
 import { PerfectScrollbarPage } from "../pages/extended-ui/PerfectScrollbar";
 import { TextDividerPage } from "../pages/extended-ui/TextDividerPage";
 
-const AppRoutes = () => {
+///////////////////////////////////////
+
+// import Header from "../components/Header.jsx";
+// import Copyright from "../layouts/Copyright.jsx";
+
+// import Home from "../pages/Home.jsx";
+// import About from "../pages/About.jsx";
+// import Contact from "../pages/Contact.jsx";
+
+// import Product from "../pages/Product.jsx";
+// import ListProducts from "../pages/ListProducts.jsx";
+// import Cart from "../pages/Cart.jsx";
+// import Login from "../components/Login.jsx";
+// import Register from "../components/Register.jsx";
+// import UserProfile from "../pages/UserProfile.jsx";
+
+// import Protected from "../utils/Protected.jsx";
+// import Manager from "../utils/Manager.jsx";
+// import NotFound from "../pages/NotFound.jsx";
+
+///////////////////////////////////////
+
+const AdministratorRoutes = () => {
+    // const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const [userRole, setUserRole] = useState(null);
+    //
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     if (token) {
+    //         axios.get('/api/auth/check', { headers: { Authorization: token } })
+    //             .then(response => {
+    //                 setIsAuthenticated(true);
+    //                 setUserRole(response.data.role);
+    //                 console.log(response.data.role)
+    //             })
+    //             .catch(() => {
+    //                 setIsAuthenticated(false);
+    //             });
+    //     }
+    // }, []);
     return (
         <Routes>
             <Route path="/" element={<DashboardPage />} />
-            
+
             <Route path="/layout/without-menu" element={<WithoutMenuPage />} />
             <Route path="/layout/without-navbar" element={<WithoutNavbarPage />} />
             <Route path="/layout/container" element={<ContainerPage />} />
@@ -91,7 +135,7 @@ const AppRoutes = () => {
 
             <Route path="/misc/error" element={<ErrorPage />} />
             <Route path="/misc/under-maintenance" element={<MaintenancePage />} />
-            
+
             <Route path="/extended-ui/perfect-scrollbar" element={<PerfectScrollbarPage />} />
             <Route path="/extended-ui/text-divider" element={<TextDividerPage />} />
 
@@ -99,12 +143,45 @@ const AppRoutes = () => {
 
             <Route path="/form/basic-inputs" element={<BasicInputPage />} />
             <Route path="/form/input-groups" element={<InputGroupPage />} />
-            
+
             <Route path="/form-layout/horizontal-form" element={<HorizontalFormPage />} />
             <Route path="/form-layout/vertical-form" element={<VerticalFormPage />} />
 
             <Route path="/tables" element={<TablesPage />} />
+
+
+
+            {/*<Header />*/}
+            {/*<main>*/}
+            {/*    <Routes>*/}
+            {/*        <Route path="/home" element={<Home />} />*/}
+            {/*        <Route path="/about" element={<About />} />*/}
+            {/*        <Route path="/contact" element={<Contact />} />*/}
+            {/*        <Route path="/product" element={<Product />} />*/}
+            {/*        <Route path="/search" element={<ListProducts />} />*/}
+            {/*        <Route path="/cart" element={<Cart />} />*/}
+
+            {/*        <Route path="/login" element={<Login />} />*/}
+            {/*        /!*<Route path="/signup" element={<Signup />} />*!/*/}
+            {/*        <Route path="/register" element={<Register />} />*/}
+
+            {/*        <Route path="/profile" element={*/}
+            {/*            <Protected isAuthenticated={isAuthenticated}>*/}
+            {/*                <UserProfile />*/}
+            {/*            </Protected>*/}
+            {/*        } />*/}
+
+            {/*        <Route path="/admin" element={*/}
+            {/*            <Manager isAuthenticated={isAuthenticated} userRole={userRole}>*/}
+            {/*                <DashboardPage />*/}
+            {/*            </Manager>*/}
+            {/*        } />*/}
+
+            {/*        <Route path="/404" element={<NotFound />} />*/}
+            {/*    </Routes>*/}
+            {/*</main>*/}
+            {/*<Copyright />*/}
         </Routes>
     )
 }
-export default AppRoutes;
+export default AdministratorRoutes;

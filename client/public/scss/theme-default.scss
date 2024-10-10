@@ -100,7 +100,7 @@ $primary-color: #696cff;
   }
 }
 
-// Footer
+// Copyright
 // ---------------------------------------------------------------------------
 @include template-footer-style('.bg-footer-theme', $body-bg, $color: $body-color, $active-color: $headings-color);
 

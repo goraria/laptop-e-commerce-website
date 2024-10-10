@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Sidebar from './Sidebar';
 import Navbar from './Navbar';
-import Footer from './Footer';
+import Copyright from './Copyright.jsx';
 
 const Layout = ({ children }) => {
   useEffect(() => {
@@ -17,7 +17,7 @@ const Layout = ({ children }) => {
             <div className="container-xxl flex-grow-1 container-p-y">
             {children}
             </div>
-            <Footer />
+            <Copyright />
           </div>
         </div>
       <div className="layout-overlay layout-menu-toggle"></div>

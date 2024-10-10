@@ -909,7 +909,7 @@ export const TablesPage = () => {
 
             <hr className="my-5" />
 
-            {/* <!-- Bootstrap Table with Header - Footer --> */}
+            {/* <!-- Bootstrap Table with Header - Copyright --> */}
             <div className="card">
                 <h5 className="card-header">Table Header & Footer</h5>
                 <div className="table-responsive text-nowrap">
@@ -1140,7 +1140,7 @@ export const TablesPage = () => {
                     </table>
                 </div>
             </div>
-            {/* <!-- Bootstrap Table with Header - Footer --> */}
+            {/* <!-- Bootstrap Table with Header - Copyright --> */}
 
             <hr className="my-5" />
 

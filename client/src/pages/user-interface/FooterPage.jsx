@@ -35,7 +35,7 @@ export const FooterPage = () => {
             {/* <!--/ Basic footer --> */}
             <hr className="container-m-nx my-5" />
 
-            {/* <!-- Footer with components --> */}
+            {/* <!-- Copyright with components --> */}
             <section id="component-footer">
                 <h5 className="pb-1 mb-4">Footer with Elements</h5>
 
@@ -82,7 +82,7 @@ export const FooterPage = () => {
                     </div>
                 </footer>
             </section>
-            {/* <!--/ Footer with components --> */}
+            {/* <!--/ Copyright with components --> */}
         </>
     )
 }
