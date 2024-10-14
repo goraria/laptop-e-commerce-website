@@ -6,38 +6,71 @@
                 "text": "Dashboard",
                 "icon": "bx bx-home",
                 "available": true,
-                "link": "/admin/"
+                "link": "/"
             },
             {
                 "text": "Layouts",
                 "icon": "bx bx-layout",
                 "available": true,
-                "link": "/admin/ui",
+                "link": "/ui",
                 "submenu": [
                     {
                         "text": "Without menu",
                         "available": true,
-                        "link": "/admin/layout/without-menu"
+                        "link": "/layout/without-menu"
                     },
                     {
                         "text": "Without navbar",
                         "available": true,
-                        "link": "/admin/layout/without-navbar"
+                        "link": "/layout/without-navbar"
                     },
                     {
                         "text": "Container",
                         "available": true,
-                        "link": "/admin/layout/container"
+                        "link": "/layout/container"
                     },
                     {
                         "text": "Fluid",
                         "available": true,
-                        "link": "/admin/layout/fluid"
+                        "link": "/layout/fluid"
                     },
                     {
                         "text": "Blank",
                         "available": true,
-                        "link": "/admin/layout/blank"
+                        "link": "/layout/blank"
+                    }
+                ]
+            },
+            {
+                "text": "Front Pages",
+                "icon": "bx bx-store",
+                "available": false,
+                "link": "",
+                "submenu": [
+                    {
+                        "text": "Landing",
+                        "available": true,
+                        "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/landing-page.html"
+                    },
+                    {
+                        "text": "Pricing",
+                        "available": true,
+                        "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/pricing-page.html"
+                    },
+                    {
+                        "text": "Payment",
+                        "available": true,
+                        "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/payment-page.html"
+                    },
+                    {
+                        "text": "Checkout",
+                        "available": true,
+                        "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/checkput-page.html"
+                    },
+                    {
+                        "text": "Help Center",
+                        "available": true,
+                        "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/front-pages/help-center-landing.html"
                     }
                 ]
             }
@@ -47,6 +80,30 @@
         "header": "APPS & PAGES",
         "items": [
             {
+                "text": "Email",
+                "icon": "bx bx-envelope",
+                "available": false,
+                "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-email.html"
+            },
+            {
+                "text": "Chat",
+                "icon": "bx bx-chat",
+                "available": false,
+                "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-chat.html"
+            },
+            {
+                "text": "Calendar",
+                "icon": "bx bx-calendar",
+                "available": false,
+                "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-calendar.html"
+            },
+            {
+                "text": "Kanban",
+                "icon": "bx bx-grid",
+                "available": false,
+                "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/app-kanban.html"
+            },
+            {
                 "text": "Account Setting",
                 "icon": "bx bx-dock-top",
                 "available": true,
@@ -55,17 +112,17 @@
                     {
                         "text": "Account",
                         "available": true,
-                        "link": "/admin/account/settings"
+                        "link": "/account/settings"
                     },
                     {
                         "text": "Notification",
                         "available": true,
-                        "link": "/admin/account/notifications"
+                        "link": "/account/notifications"
                     },
                     {
                         "text": "Connetctions",
                         "available": true,
-                        "link": "/admin/account/connections"
+                        "link": "/account/connections"
                     }
                 ]
             },
@@ -78,17 +135,17 @@
                     {
                         "text": "Login",
                         "available": true,
-                        "link": "/admin/auth/login"
+                        "link": "/auth/login"
                     },
                     {
                         "text": "Register",
                         "available": true,
-                        "link": "/admin/auth/register"
+                        "link": "/auth/register"
                     },
                     {
                         "text": "Forgot Password",
                         "available": true,
-                        "link": "/admin/auth/forgot-password"
+                        "link": "/auth/forgot-password"
                     }
                 ]
             },
@@ -101,12 +158,12 @@
                     {
                         "text": "Error",
                         "available": true,
-                        "link": "/admin/misc/error"
+                        "link": "/misc/error"
                     },
                     {
                         "text": "Under Maintenance",
                         "available": true,
-                        "link": "/admin/misc/under-maintenance"
+                        "link": "/misc/under-maintenance"
                     }
                 ]
             }
@@ -124,92 +181,92 @@
                     {
                         "text": "Accordion",
                         "available": true,
-                        "link": "/admin/ui/accordion"
+                        "link": "/ui/accordion"
                     },
                     {
                         "text": "Alerts",
                         "available": true,
-                        "link": "/admin/ui/alerts"
+                        "link": "/ui/alerts"
                     },
                     {
                         "text": "Badges",
                         "available": true,
-                        "link": "/admin/ui/badges"
+                        "link": "/ui/badges"
                     },
                     {
                         "text": "Buttons",
                         "available": true,
-                        "link": "/admin/ui/buttons"
+                        "link": "/ui/buttons"
                     },
                     {
                         "text": "Cards",
                         "available": true,
-                        "link": "/admin/ui/cards"
+                        "link": "/ui/cards"
                     },
                     {
                         "text": "Carrousel",
                         "available": true,
-                        "link": "/admin/ui/carousel"
+                        "link": "/ui/carousel"
                     },
                     {
                         "text": "Collapse",
                         "available": true,
-                        "link": "/admin/ui/collapse"
+                        "link": "/ui/collapse"
                     },
                     {
                         "text": "Dropdown",
                         "available": true,
-                        "link": "/admin/ui/dropdown"
+                        "link": "/ui/dropdown"
                     },
                     {
                         "text": "List Group",
                         "available": true,
-                        "link": "/admin/ui/list-group"
+                        "link": "/ui/list-group"
                     },
                     {
                         "text": "Modals",
                         "available": true,
-                        "link": "/admin/ui/modals"
+                        "link": "/ui/modals"
                     },
                     {
                         "text": "Navbar",
                         "available": true,
-                        "link": "/admin/ui/navbar"
+                        "link": "/ui/navbar"
                     },
                     {
                         "text": "Pagination & Breadcrumbs",
                         "available": true,
-                        "link": "/admin/ui/pagination-breadcrumbs"
+                        "link": "/ui/pagination-breadcrumbs"
                     },
                     {
                         "text": "Progress",
                         "available": true,
-                        "link": "/admin/ui/progress"
+                        "link": "/ui/progress"
                     },
                     {
                         "text": "Spinners",
                         "available": true,
-                        "link": "/admin/ui/spinners"
+                        "link": "/ui/spinners"
                     },
                     {
                         "text": "Tabs & Pills",
                         "available": true,
-                        "link": "/admin/ui/tabs-pills"
+                        "link": "/ui/tabs-pills"
                     },
                     {
                         "text": "Toasts",
                         "available": true,
-                        "link": "/admin/ui/toasts"
+                        "link": "/ui/toasts"
                     },
                     {
                         "text": "Tooltips & popovers",
                         "available": true,
-                        "link": "/admin/ui/tooltips-popovers"
+                        "link": "/ui/tooltips-popovers"
                     },
                     {
                         "text": "Typography",
                         "available": true,
-                        "link": "/admin/ui/typography"
+                        "link": "/ui/typography"
                     }
                 ]
             },
@@ -217,17 +274,17 @@
                 "text": "Extended UI",
                 "icon": "bx bx-copy",
                 "available": true,
-                "link": "/admin/extended-ui",
+                "link": "/extended-ui",
                 "submenu": [
                     {
                         "text": "Perfect Scrollbar",
                         "available": true,
-                        "link": "/admin/extended-ui/perfect-scrollbar"
+                        "link": "/extended-ui/perfect-scrollbar"
                     },
                     {
                         "text": "Text Divider",
                         "available": true,
-                        "link": "/admin/extended-ui/text-divider"
+                        "link": "/extended-ui/text-divider"
                     }
                 ]
             },
@@ -235,7 +292,7 @@
                 "text": "Boxicons",
                 "icon": "bx bx-table",
                 "available": true,
-                "link": "/admin/boxicons"
+                "link": "/boxicons"
             }
         ]
     },
@@ -251,12 +308,12 @@
                     {
                         "text": "Basic Input",
                         "available": true,
-                        "link": "/admin/form/basic-inputs"
+                        "link": "/form/basic-inputs"
                     },
                     {
                         "text": "Input Groups",
                         "available": true,
-                        "link": "/admin/form/input-groups"
+                        "link": "/form/input-groups"
                     }
                 ]
             },
@@ -269,25 +326,31 @@
                     {
                         "text": "Vertical Form",
                         "available": true,
-                        "link": "/admin/form-layout/vertical-form"
+                        "link": "/form-layout/vertical-form"
                     },
                     {
                         "text": "Horizontal Form",
                         "available": true,
-                        "link": "/admin/form-layout/horizontal-form"
+                        "link": "/form-layout/horizontal-form"
                     }
                 ]
+            },
+            {
+                "text": "Validation",
+                "icon": "bx bx-list-check",
+                "available": false,
+                "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/form-validation.html"
             },
             {
                 "text": "Tables",
                 "icon": "bx bx-table",
                 "available": true,
-                "link": "/admin/tables"
+                "link": "/tables"
             },
             {
                 "text": "Datatablse",
                 "icon": "bx bx-grid",
-                "available": true,
+                "available": false,
                 "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/tables-datatables-basic.html"
             }
         ]
@@ -296,46 +359,22 @@
         "header": "MISC",
         "items": [
             {
-                "text": "Japtor",
+                "text": "Support Sneat",
                 "icon": "bx bx-support",
                 "available": true,
-                "link": "#"
+                "link": "https://github.com/themeselection/sneat-html-admin-template-free/issues"
             },
             {
-                "text": "Payhd",
+                "text": "Support Engineer",
                 "icon": "bx bx-support",
                 "available": true,
-                "link": "#"
+                "link": "https://github.com/11Dwiwijaya/react-sneat-bootstrap-admin-template/issues"
             },
             {
-                "text": "Locst",
-                "icon": "bx bx-support",
-                "available": true,
-                "link": "#"
-            },
-            {
-                "text": "Goraria",
+                "text": "Documentation",
                 "icon": "bx bx-file",
                 "available": true,
-                "link": "#"
-            },
-            {
-                "text": "Ichibulup",
-                "icon": "bx bx-file",
-                "available": true,
-                "link": "#"
-            },
-            {
-                "text": "Schweitzenburg",
-                "icon": "bx bx-file",
-                "available": true,
-                "link": "#"
-            },
-            {
-                "text": "Braunschweig",
-                "icon": "bx bx-file",
-                "available": true,
-                "link": "#"
+                "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/documentation/"
             }
         ]
     }

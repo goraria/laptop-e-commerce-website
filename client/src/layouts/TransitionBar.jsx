@@ -32,7 +32,7 @@ class TransitionBar extends Component {
                             key={index}
                             id="dropdown-basic-button"
                             title={<><FontAwesomeIcon icon={brandS.icon} style={{ width: 24 }} />{' '}{brandS.category}</>}
-                            variant="outline-danger"
+                            variant="outline-primary"
                         >
                             {brandS.items.map((item,index) => (<Dropdown.Item as="a" href="#action1" key={index}>{item}</Dropdown.Item>))}
 

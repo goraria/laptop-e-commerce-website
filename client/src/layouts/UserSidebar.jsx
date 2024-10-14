@@ -25,7 +25,7 @@ class AccountSidebar extends Component {
     render() {
         const { directory } = this.props
         return (
-            <Button href={directory.href} className="d-flex align-items-center btn btn-light" style={{ color: '#dc3545' }}>
+            <Button href={directory.href} className="d-flex align-items-center btn" style={{ color: '#696cff', backgroundColor: '#f8f9fa', border: "none", boxShadow: "none" }}>
                 <FontAwesomeIcon icon={directory.icon} className="me-2" style={{ width: 28 }} />{directory.title}
             </Button>
         )

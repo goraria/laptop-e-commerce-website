@@ -10,12 +10,12 @@ import Home from "../pages/overview/Home.jsx";
 import About from "../pages/overview/About.jsx";
 import Contact from "../pages/overview/Contact.jsx";
 
-import Product from "../pages/product/Product.jsx";
-import ListProducts from "../pages/product/ListProducts.jsx";
-import Cart from "../pages/user-infomation/Cart.jsx";
+import Product from "../pages/overview/Product.jsx";
+import ListProducts from "../pages/overview/ListProducts.jsx";
+import Cart from "../pages/user-component/Cart.jsx";
 import Login from "../pages/authentication/Login.jsx";
 import Register from "../pages/authentication/Register.jsx";
-import UserProfile from "../pages/user-infomation/UserProfile.jsx";
+import UserProfile from "../pages/user-component/UserProfile.jsx";
 
 import Protected from "../utils/Protected.jsx";
 import Manager from "../utils/Manager.jsx";
@@ -54,7 +54,9 @@ function App() {
             {/* <Route path="/signup" element={<Signup />} /> */}
             <Route path="/register" element={<Register />} />
 
-            <Route path="/profile" element={
+            <Route path="/profile" element={<UserProfile />} />
+
+            {/* <Route path="/profile" element={
                 <Protected isAuthenticated={isAuthenticated}>
                     <UserProfile />
                 </Protected>
@@ -64,7 +66,7 @@ function App() {
                 <Manager isAuthenticated={isAuthenticated} userRole={userRole}>
                     <Login />
                 </Manager>
-            } />
+            } /> */}
 
             <Route path="/404" element={<NotFound />} />
         </Routes>

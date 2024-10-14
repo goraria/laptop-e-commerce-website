@@ -124,7 +124,7 @@ class Footer extends Component {
                         {/*    </ul>*/}
                         {/*</Col>*/}
                         <Col md={3}>
-                            <h5>Payment diversity</h5>
+                            <h5 style={{color: "white"}}>Payment diversity</h5>
                             <ul style={{ listStyle: 'none', padding: 0 }}>
                                 {paymentIcons.map((paymentIcon, index) => (
                                     <li key={index}>
@@ -134,7 +134,7 @@ class Footer extends Component {
                             </ul>
                         </Col>
                         <Col md={3}>
-                            <h5>Thông tin hữu ích</h5>
+                            <h5 style={{color: "white"}}>Thông tin hữu ích</h5>
                             <ul style={{listStyle: 'none', padding: 0}}>
                                 {usefulInfo.map((useful, index) => (
                                     <li key={index}>
@@ -144,7 +144,7 @@ class Footer extends Component {
                             </ul>
                         </Col>
                         <Col md={3}>
-                            <h5>Social networks</h5>
+                            <h5 style={{color: "white"}}>Social networks</h5>
                             <ul style={{listStyle: 'none', padding: 0}}>
                                 {socialIcons.map((socialIcon, index) => (
                                     <li key={index}>
@@ -154,11 +154,11 @@ class Footer extends Component {
                             </ul>
                         </Col>
                         <Col md={3}>
-                            <h5>Phản hồi, góp ý, khiếu nại</h5>
+                            <h5 style={{color: "white"}}>Phản hồi, góp ý, khiếu nại</h5>
                             <p>Phản hồi nóng về chất lượng sản phẩm và dịch vụ. Đội ngũ Kiểm Soát Chất Lượng của chúng
                                 tôi
                                 sẵn sàng lắng nghe quý khách.</p>
-                            <Button href="#" variant="danger">
+                            <Button href="#" variant="primary">
                             Gửi phản hồi ngay
                             </Button>
                         </Col>

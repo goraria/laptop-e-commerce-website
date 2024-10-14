@@ -10,7 +10,6 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 function AccountInfo() {
-
     const [validated, setValidated] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
@@ -139,13 +138,13 @@ function AccountInfo() {
                 <hr/>
                 <Row>
                     <Col sm={12} md={5} lg={4}>
-                        <Button variant="danger" type="reset" className="mb-2" style={{width: '100%'}}>
+                        <Button variant="primary" type="reset" className="mb-2" style={{width: '100%'}}>
                             Change Password
                         </Button>
                     </Col>
                     <Col sm={0} md={2} lg={4}></Col>
                     <Col sm={12} md={5} lg={4}>
-                        <Button variant="danger" type="submit" className="mb-2" style={{width: '100%'}}>
+                        <Button variant="primary" type="submit" className="mb-2" style={{width: '100%'}}>
                             Save
                         </Button>
                     </Col>

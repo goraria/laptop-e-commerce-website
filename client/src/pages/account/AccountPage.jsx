@@ -29,7 +29,6 @@ export const AccountPage = () => {
     return (
         <AccountWrapper title="Account" >
             <>
-
                 <div className="card mb-4">
                     <h5 className="card-header">Profile Details</h5>
                     <div className="card-body">
