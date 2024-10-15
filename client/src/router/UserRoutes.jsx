@@ -20,6 +20,7 @@ import UserProfile from "../pages/user-component/UserProfile.jsx";
 import Protected from "../utils/Protected.jsx";
 import Manager from "../utils/Manager.jsx";
 import NotFound from "../pages/overview/NotFound.jsx";
+import AddressManagement from '../pages/user-infomation/AddressManagement.jsx';
 
 
 function App() {
@@ -55,6 +56,7 @@ function App() {
             <Route path="/register" element={<Register />} />
 
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/address" element={<AddressManagement />} />
 
             {/* <Route path="/profile" element={
                 <Protected isAuthenticated={isAuthenticated}>
