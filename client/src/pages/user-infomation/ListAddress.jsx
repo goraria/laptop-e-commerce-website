@@ -4,8 +4,8 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faAt, faBullseye, faCity, faLocationDot, faPhone, faUser} from "@fortawesome/free-solid-svg-icons";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import UserSidebar from "./UserSidebar.jsx";
-import AddressItem from "../elements/AddressItem.jsx";
+import UserSidebar from "../../layouts/UserSidebar.jsx";
+import AddressItem from "./AddressItem.jsx";
 
 function ListAddress() {
     return (

@@ -165,8 +165,8 @@ class Footer extends Component {
                     </Row>
                     <Row style={{margin: '24px 0'}}>
                         <Col className="text-center">  {/* text-muted */}
-                            <h5>Copyright &copy; 2020 - 2024 Gorth Inc. All rights reserved.</h5>
-                            <h6>Address: La Gorta, San Siro, Milano, Italia. Hotline: 999-9999999</h6>
+                            <h5 style={{color: "white"}}>Copyright &copy; 2020 - 2025 Gorth Inc. All rights reserved.</h5>
+                            <h6 style={{color: "white"}}>Address: La Gorta, San Siro, Milano, Italia. Hotline: 999-9999999</h6>
                         </Col>
                     </Row>
                 </Container>

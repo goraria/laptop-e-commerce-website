@@ -10,7 +10,7 @@ const sidebarLinks = [
     { id: 1, title: "Account Information", href: '/profile', icon: faUser },
     { id: 2, title: "Order History", href: '/bill', icon: faHistory },
     { id: 3, title: "Voucher Wallet", href: '', icon: faGift },
-    { id: 4, title: "Address", href: '', icon: faMapPin },
+    { id: 4, title: "Address", href: '/address', icon: faMapPin },
     { id: 5, title: "Rating", href: '', icon: faStar },
     { id: 6, title: "Faq", href: '', icon: faQuestionCircle },
     { id: 7, title: "Log out", href: '', icon: faSignOutAlt },

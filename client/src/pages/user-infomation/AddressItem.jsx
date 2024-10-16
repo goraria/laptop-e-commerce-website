@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import {Container, Button, Form, Row, Col, Image, Card, InputGroup} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {faPlus, faMinus, faAt, faUser, faPhone} from "@fortawesome/free-solid-svg-icons";
-import jp from "../assets/images/jp.jpeg";
-import UserSidebar from "../components/UserSidebar.jsx";
-import AccountInfo from "../components/AccountInfo.jsx";
+import jp from "../../assets/images/jp.jpeg";
+import UserSidebar from "../../layouts/UserSidebar.jsx";
+import AccountInfo from "./AccountInfo.jsx";
 
 class AddressItem extends Component {
     constructor(props) {
