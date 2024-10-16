@@ -29,49 +29,50 @@ class Cart extends Component {
     render() {
         return (
             <div>
-                <TransitionBar />
-                <Container style={{ marginTop: 168 }}>
-                    <h4>Giỏ hàng </h4>
-                    <Row>
-                        {/* Product List Section */}
-                        <Col sm={12} md={6} lg={8} className="mb-3">
-                            {products.map((item) => <CardItem key={item.id} item={item} />)}
-                        </Col>
+            <TransitionBar />
+            <Container style={{ marginTop: 168 }}>
+                <h4>Giỏ hàng </h4>
+                <Row>
+                    {/* Left Section */}
+                    <Col sm={12} md={6} lg={8} className="mb-3">
+                        {/* Product List */}
+                            {products.map((item) => <Card className="p-3"><CardItem key={item.id} item={item} /></Card> )}
+                    </Col>
 
-                        {/* Payment Summary Section */}
-                        <Col sm={12} md={6} lg={4} className="mb-2">
-                            <Card className="p-3 sticky-summary" style={{ position: 'sticky', top: 120 }}>
-                                <h5>Khuyến mãi</h5>
-                                <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
-                                    <option> Chọn hoặc nhập khuyến mãi</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </Form.Select>
+                    {/* Right Section: Order Summary */}
+                    <Col sm={12} md={6} lg={4} className="mb-2">
+                        <Card className="p-3 sticky-summary" style={{ position: 'sticky', top: 120 }}>
+                            <h5>Khuyến mãi</h5>
+                            <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
+                                <option> Chọn hoặc nhập khuyến mãi</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                            </Form.Select>
 
-                                <h5>Tóm tắt đơn hàng</h5>
-                                <div className="d-flex justify-content-between">
-                                    <span>Tạm tính</span>
-                                    <span>{pre_total}$</span>
-                                </div>
-                                <div className="d-flex justify-content-between">
-                                    <span>Được giảm</span>
-                                    <span>{pre_total * discount}$</span>
-                                </div>
+                            <h5>Tóm tắt đơn hàng</h5>
+                            <div className="d-flex justify-content-between">
+                                <span>Tạm tính</span>
+                                <span>{pre_total}$</span>
+                            </div>
+                            <div className="d-flex justify-content-between">
+                                <span>Được giảm</span>
+                                <span>{pre_total * discount}$</span>
+                            </div>
 
-                                <div className="d-flex justify-content-between mt-2">
-                                    <span>Tổng cộng</span>
-                                    <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>{total}$</span>
-                                </div>
+                            <div className="d-flex justify-content-between mt-2">
+                                <span>Tổng cộng</span>
+                                <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>{total}$</span>
+                            </div>
 
-                                <Button className="w-100 mt-3" variant="danger" size="lg">
-                                    Đặt hàng
-                                </Button>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+                            <Button className="w-100 mt-3" variant="danger" size="lg">
+                                Đặt hàng
+                            </Button>
+                        </Card>
+                    </Col>
+                </Row>
+            </Container>
+        </div>
         );
     }
 }
