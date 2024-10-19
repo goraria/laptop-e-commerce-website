@@ -1,11 +1,11 @@
 {
-  "name": "project-root",
+  "name": "root",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
-    "start:backend": "cd backend && npm run watch",
-    "start:frontend": "cd frontend && npm start"
+    "start": "concurrently \"npm run start:server\" \"npm run start:client\"",
+    "start:server": "cd server && npm run dev",
+    "start:client": "cd client && npm run dev"
   },
   "devDependencies": {
     "concurrently": "^9.0.0"
