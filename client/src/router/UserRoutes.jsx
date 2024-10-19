@@ -20,6 +20,8 @@ import UserProfile from "../pages/user-component/UserProfile.jsx";
 import Protected from "../utils/Protected.jsx";
 import Manager from "../utils/Manager.jsx";
 import NotFound from "../pages/overview/NotFound.jsx";
+import Order from '../pages/user-component/Order.jsx';
+import CheckOut from '../pages/user-component/Checkout.jsx';
 
 
 function App() {
@@ -55,6 +57,9 @@ function App() {
             <Route path="/register" element={<Register />} />
 
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/order" element={<Order />} />
+            <Route path="/checkout" element={<CheckOut />} />
+
 
             {/* <Route path="/profile" element={
                 <Protected isAuthenticated={isAuthenticated}>
