@@ -1,12 +1,15 @@
 <p align="center">
    <a href="#" target="_blank">
-      <img src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci9lZDQwMmM1NjY2YjJlNjUxMTIyOWE4ZjM0NDdkNWMzYT9zaXplPTQ5NiZkZWZhdWx0PXJldHJvIn0.37HzV5jk9qm3y0yABAg-65jGiYRBG5FTCxVlwnefA9E" alt="logo" width="60px" height="auto">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/540px-Npm-logo.svg.png" alt="logo" width="60px" height="auto">
+   </a>
+   <a href="#" target="_blank">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Yarn-logo-kitten.svg/2560px-Yarn-logo-kitten.svg.png" alt="logo" width="60px" height="auto">
    </a>
 </p>
 
 <h1 align="center">
    <a href="#" target="_blank" align="center">
-      DataTables Template
+        Laptop E-Commerce Website
    </a>
 </h1>
 
@@ -34,16 +37,17 @@ Please [visit](#) our docs for installation guide.
   - jQuery
   - JavaScript
 - Options
-  - Japtor
-  - Goraria
+  - **Japtor**
+  - **Goraria**
 - API
-  - Ichibulup
+  - **Locst**
+  - **Ichibulup**
 - Search
   - **Schweitzenburg**
 - Styling
   - **Braunschweig**
 - Events
-  - Click
+  - **Payhd**
 - Server-side processing
   - Einmalow
 - Security
@@ -55,17 +59,19 @@ Please [visit](#) our docs for installation guide.
 - Vue
   - Next
 - Plug-in development
-  - 
+  - ?
 - Technical notes
-  - 
+  - ?
 - Development
   - Administrator
 
 ## Premium 💎
 
-| ASP.NET Framework | jQuery | Ajax |
-| ----------------- | ----------------- | ----------------- |
-| JavaScript | - | - |
+| Author | Framework | IDEA                         |
+| ------ | --------- | ---------------------------- |
+| Japtor | ViteJs    | JetBrains WebStorm           |
+| Payhd  | ReactJs   | Microsoft Visual Studio Code |
+| Locst  | NodeJs    | Microsoft Visual Studio      |
 
 ## Documentation 📜
 
@@ -117,37 +123,34 @@ For free products, enjoy community support via GitHub issues. Upgrade to Premium
 ## Also Available In
 
 <p>
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:figma.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="html" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:nextjs-icon.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:react.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:vitejs.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="vue" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:vue.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="vue" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:nodejs-icon.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:django-icon.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="html_django" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:laravel.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="html_laravel" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="64px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:dotnet.svg"><source width="auto" height="64px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="64px" alt="net_core" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:nextjs-icon.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:react.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:vitejs.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="vue" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:vue.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="vue" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:nodejs-icon.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:django-icon.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="html_django" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:laravel.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="html_laravel" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:dotnet.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="net_core" src=""></picture></img></a>&nbsp;&nbsp;
 </p>
 
 <!-- Add other pro variants here. You can get the logo URL from here: https://icones.js.org/collection/logos -->
 
-## Looking For Premium Admin Templates ?? 👀
+## Looking For Premium ?? 👀
 
-**[ThemeSelection](#)** provides Selected high quality, modern design, professional and easy-to-use **Fully Coded Dashboard Templates & UI Kits** to create your applications faster!
+**[Bill Cipher](#)** provides Selected high quality, modern design, professional and easy-to-use **Fully Coded Dashboard Templates & UI Kits** to create your applications faster!
 
-- [Bootstrap Admin Templates](#)
-- [VueJS Admin Templates](#)
-- [Laravel Admin Templates](#)
-- [Django Admin Templates](#)
-- [React (NextJS) Admin Templates](#)
-- [ASP.Net Core Admin Templates](#)
-- [Free UI Kits](#)
+- [Bootstrap](#)
+- [ViteJs](#)
+- [ReactJS](#)
+- [NodeJS](#)
+- [MySQL](#)
 
-If you want to [Download Templates](#) like Japtor then do visit [DataTables](#).
+If you want to [Download Templates](#) like Japtor then do visit [Bill Chipher](#).
 
 ## Useful Links 🎁
 
-* [Github]()
-* [Download]()
+- [Github]()
+- [Download]()
 
 ## Social Media :earth_africa:
 
