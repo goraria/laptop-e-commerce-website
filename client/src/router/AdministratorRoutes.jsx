@@ -25,7 +25,7 @@ import { AlertPage } from "../pages/user-interface/AlertPage";
 import { BadgesPage } from "../pages/user-interface/BadgePage";
 import { ButtonPage } from "../pages/user-interface/ButtonPage";
 import { CarouselPage } from "../pages/user-interface/CarouselPage";
-import { CardsPage } from   "../pages/user-interface/CardsPage";
+import { CardsPage } from "../pages/user-interface/CardsPage";
 import { CollapsePage } from "../pages/user-interface/CollapsePage";
 import { DropdownPage } from "../pages/user-interface/DropdownPage";
 import { FooterPage } from "../pages/user-interface/FooterPage";
@@ -124,6 +124,7 @@ const AdministratorRoutes = () => {
             <Route path="/admin/ui/toasts" element={<ToastPage />} />
             <Route path="/admin/ui/tooltips-popovers" element={<TooltipPopoverPage />} />
             <Route path="/admin/ui/typography" element={<TypographyPage />} />
+
 
             <Route path="/admin/auth/login" element={<LoginPage />} />
             <Route path="/admin/auth/register" element={<RegisterPage />} />

@@ -12,10 +12,11 @@ import Protected from "./utils/Protected.jsx";
 import { DashboardPage } from "./pages/DashboardPage.jsx";
 import Home from "./pages/overview/Home.jsx";
 
+import DataTable from "./pages/DataTable.jsx";
 function App() {
     // const location = useLocation();
     // const isAuthPath = location.pathname.includes("auth") || location.pathname.includes("error") || location.pathname.includes("under-maintenance") | location.pathname.includes("blank");
-    
+
     const user = {
         isAuthenticated: true,
         role: 1
@@ -32,12 +33,14 @@ function App() {
             {/*        <AdministratorRoutes />*/}
             {/*    </Layout>*/}
             {/*)}*/}
-            {/* <Layout>
-                <AdministratorRoutes />
-            </Layout> */}
-            <Frame>
-                <UserRoutes />
-            </Frame>
+
+            {/* {user.isAuthenticated && user.role === 1 && (
+                <Layout><AdministratorRoutes /></Layout>
+            )}
+
+            {user.isAuthenticated && user.role === 0 && (
+                <Frame><UserRoutes /></Frame>
+            )} */}
 
             {/* <Router>
                 <Routes>
@@ -70,7 +73,25 @@ function App() {
                     />
                 </Routes>
             </Router> */}
+
+            <div className="container mt-5">
+                <DataTable />
+            </div>
+
+            {/* <Protected
+                isAllowed={user.isAuthenticated && user.role === 1}
+                redirectTo="/login"
+            >
+                <Layout><AdministratorRoutes /></Layout>
+            </Protected>
+            <Protected
+                isAllowed={user.isAuthenticated && user.role === 0}
+                redirectTo="/login"
+            >
+                <Frame><UserRoutes /></Frame>
+            </Protected> */}
         </>
+
     );
 }
 
