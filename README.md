@@ -1,9 +1,9 @@
 <p align="center">
    <a href="#" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/540px-Npm-logo.svg.png" alt="logo" width="60px" height="auto">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Npm-logo.svg/540px-Npm-logo.svg.png" alt="logo" width="96px" height="auto">
    </a>
    <a href="#" target="_blank">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Yarn-logo-kitten.svg/2560px-Yarn-logo-kitten.svg.png" alt="logo" width="60px" height="auto">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Yarn-logo-kitten.svg/2560px-Yarn-logo-kitten.svg.png" alt="logo" width="96px" height="auto">
    </a>
 </p>
 
@@ -13,7 +13,7 @@
    </a>
 </h1>
 
-<p align="center">Add advanced interaction controls to your HTML tables the free & easy way!</p>
+<p align="center">Add advanced interaction controls web app easy way!</p>
 
 ![GitHub](https://img.shields.io/github/license/goraria/datatables) ![GitHub release (latest by date)](https://img.shields.io/github/v/release/goraria/datatables) ![GitHub issues](https://img.shields.io/github/issues/goraria/datatables) ![GitHub closed issues](https://img.shields.io/github/issues-closed/goraria/datatables) ![Twitter Follow](https://img.shields.io/twitter/follow/Gortheia?style=social)
 
@@ -21,9 +21,9 @@
 
 ## Introduction 🚀
 
-[**DataTables**](#) is a [Javascript](#) HTML table enhancing library. It is a highly flexible tool, built upon the foundations of progressive enhancement, that adds all of these advanced features to any HTML table.
+[**Bill Cipher**](#) is a [Javascript](#) HTML table enhancing library. It is a highly flexible tool, built upon the foundations of progressive enhancement, that adds all of these advanced features to any HTML table.
 
-Including [Ajax](#) and [jQuery](#) in [ASP.NET Project](#).
+Including [NodeJS](#) and [Reacjs](#) in [JavaScript Project](#).
 
 ## Installation ⚒️
 
@@ -123,11 +123,11 @@ For free products, enjoy community support via GitHub issues. Upgrade to Premium
 ## Also Available In
 
 <p>
-   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:nextjs-icon.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:react.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
    <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:vitejs.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="vue" src=""></picture></img></a>&nbsp;&nbsp;
-   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:vue.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="vue" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:react.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
    <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:nodejs-icon.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:nextjs-icon.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="next.js" src=""></picture></img></a>&nbsp;&nbsp;
+   <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:vue.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="vue" src=""></picture></img></a>&nbsp;&nbsp;
    <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:django-icon.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="html_django" src=""></picture></img></a>&nbsp;&nbsp;
    <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:laravel.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="html_laravel" src=""></picture></img></a>&nbsp;&nbsp;
    <a href="#" target="_blank"><picture><source width="auto" height="48px" media="(prefers-color-scheme: dark)" srcset="https://api.iconify.design/logos:dotnet.svg"><source width="auto" height="48px" media="(prefers-color-scheme: light)" srcset=""><img width="auto" height="48px" alt="net_core" src=""></picture></img></a>&nbsp;&nbsp;
