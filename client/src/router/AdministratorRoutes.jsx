@@ -53,6 +53,14 @@ import { DashboardPage } from "../pages/DashboardPage";
 import { PerfectScrollbarPage } from "../pages/extended-ui/PerfectScrollbar";
 import { TextDividerPage } from "../pages/extended-ui/TextDividerPage";
 
+import { Category } from "../pages/management/Category"
+import { UserManagement } from "../pages/management/UserManagement"
+import { ProductName } from "../pages/management/ProductName"
+import { ProductConfiguration } from "../pages/management/ProductConfiguration"
+import { ProductAccessory } from "../pages/management/ProductAccessory"
+import { ProductDescription } from "../pages/management/ProductDescription"
+import { ProductColor } from "../pages/management/ProductColor"
+
 ///////////////////////////////////////
 
 // import Header from "../components/Header.jsx";
@@ -149,8 +157,14 @@ const AdministratorRoutes = () => {
             <Route path="/admin/form-layout/vertical-form" element={<VerticalFormPage />} />
 
             <Route path="/admin/tables" element={<TablesPage />} />
-
-
+            <Route path="/admin/profile" element={<AccountPage />} />
+            <Route path="/admin/users" element={<UserManagement />} />
+            <Route path="/admin/categories" element={<Category />} />
+            <Route path="/admin/product/name" element={<ProductName />} />
+            <Route path="/admin/product/accessory" element={<ProductAccessory />} />
+            <Route path="/admin/product/configurarion" element={<ProductConfiguration />} />
+            <Route path="/admin/product/color" element={<ProductColor />} />
+            <Route path="/admin/product/description" element={<ProductDescription />} />
 
             {/*<Header />*/}
             {/*<main>*/}

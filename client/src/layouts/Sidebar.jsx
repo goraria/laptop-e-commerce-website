@@ -1,6 +1,197 @@
 import React, { useEffect, useState } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import menuData from '../data/menuData.json'
+// import menuData from '../data/menuData.json'
+
+const menuData = [
+    {
+        "header": "",
+        "items": [
+            {
+                "text": "Dashboard",
+                "icon": "bx bx-home",
+                "available": true,
+                "link": "/admin/"
+            },
+            {
+                "text": "Layouts",
+                "icon": "bx bx-layout",
+                "available": true,
+                "link": "/admin/ui",
+                "submenu": [
+                    {
+                        "text": "Without menu",
+                        "available": true,
+                        "link": "/admin/layout/without-menu"
+                    },
+                    {
+                        "text": "Without navbar",
+                        "available": true,
+                        "link": "/admin/layout/without-navbar"
+                    },
+                    {
+                        "text": "Container",
+                        "available": true,
+                        "link": "/admin/layout/container"
+                    },
+                    {
+                        "text": "Fluid",
+                        "available": true,
+                        "link": "/admin/layout/fluid"
+                    },
+                    {
+                        "text": "Blank",
+                        "available": true,
+                        "link": "/admin/layout/blank"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "header": "MANAGEMENTS",
+        "items": [
+            {
+                "text": "Account Setting",
+                "icon": "bx bx-dock-top",
+                "available": true,
+                "link": "",
+                "submenu": [
+                    {
+                        "text": "Account",
+                        "available": true,
+                        "link": "/admin/account/settings"
+                    },
+                    {
+                        "text": "Notification",
+                        "available": true,
+                        "link": "/admin/account/notifications"
+                    },
+                    {
+                        "text": "Connetctions",
+                        "available": true,
+                        "link": "/admin/account/connections"
+                    }
+                ]
+            },
+            {
+                "text": "Account Setting",
+                "icon": "bx bx-user",
+                "available": true,
+                "link": "/admin/profile"
+            },
+            {
+                "text": "User Management",
+                "icon": "bx bx-layout",
+                "available": true,
+                "link": "/admin/users"
+            },
+            {
+                "text": "Category",
+                "icon": "bx bx-category",
+                "available": true,
+                "link": "/admin/categories"
+            },
+            {
+                "text": "Product Configuration",
+                "icon": "bx bx-layer",
+                "available": true,
+                "link": "/admin/products"
+            },
+            {
+                "text": "Product",
+                "icon": "bx bx-layer",
+                "available": true,
+                "link": "/admin/product",
+                "submenu": [
+                    {
+                        "text": "Name",
+                        "available": true,
+                        "link": "/admin/product/name"
+                    },
+                    {
+                        "text": "Accessory",
+                        "available": true,
+                        "link": "/admin/product/accessory"
+                    },
+                    {
+                        "text": "Configuration",
+                        "available": true,
+                        "link": "/admin/product/configurarion"
+                    },
+                    {
+                        "text": "Color",
+                        "available": true,
+                        "link": "/admin/product/color"
+                    },
+                    {
+                        "text": "Description",
+                        "available": true,
+                        "link": "/admin/product/description"
+                    }
+                ]
+            },
+            {
+                "text": "Tables",
+                "icon": "bx bx-table",
+                "available": true,
+                "link": "/admin/tables"
+            },
+            {
+                "text": "Datatablse",
+                "icon": "bx bx-grid",
+                "available": false,
+                "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/tables-datatables-basic.html"
+            }
+        ]
+    },
+    {
+        "header": "AUTHORS",
+        "items": [
+            {
+                "text": "Japtor",
+                "icon": "bx bx-support",
+                "available": true,
+                "link": "#"
+            },
+            {
+                "text": "Payhd",
+                "icon": "bx bx-support",
+                "available": true,
+                "link": "#"
+            },
+            {
+                "text": "Locst",
+                "icon": "bx bx-support",
+                "available": true,
+                "link": "#"
+            },
+            {
+                "text": "Goraria",
+                "icon": "bx bx-file",
+                "available": true,
+                "link": "#"
+            },
+            {
+                "text": "Ichibulup",
+                "icon": "bx bx-file",
+                "available": true,
+                "link": "#"
+            },
+            {
+                "text": "Schweitzenburg",
+                "icon": "bx bx-file",
+                "available": true,
+                "link": "#"
+            },
+            {
+                "text": "Braunschweig",
+                "icon": "bx bx-file",
+                "available": true,
+                "link": "#"
+            }
+        ]
+    }
+]
 
 const Sidebar = () => {
     return (
@@ -57,7 +248,7 @@ const MenuItem = (item) => {
                 )}
             </NavLink>
             {item.submenu && (
-                <ul className="menu-sub">{item.submenu.map(MenuItem)}</ul>
+                <ul className="menu-sub">{item.submenu.map(MenuItem)}</ul> /** need key */
             )}
         </li>
     );
