@@ -1,45 +1,41 @@
 const express = require('express');
 const app = express();
 const db = require('../config/database.js')
+const Account = require('../models/Account.js');
+class AdminController {
+    async getUser(req, res) {
+        try {
 
-
-const deleteUser = async (userId) => {
-    try {
-        // Tìm người dùng theo ID
-        const user = await User.findByPk(userId);
-
-        // Kiểm tra xem người dùng có tồn tại không
-        if (!user) {
-            return { success: false, message: 'User not found' };
+            const account = await Account.findAll();
+            res.status(200).json(account);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching account', error });
         }
 
-        // Xóa người dùng
-        await user.destroy();
-
-        return { success: true, message: 'User deleted successfully' };
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        return { success: false, message: 'Error deleting user' };
     }
-};
-const updateUser = async (userId, updatedData) => {
-    try {
-        // Tìm người dùng theo ID
-        const user = await User.findByPk(userId);
 
-        // Kiểm tra xem người dùng có tồn tại không
-        if (!user) {
-            return { success: false, message: 'User not found' };
+    async deleteUser(req, res, idaccount) {
+        try {
+            const account = await Account.findByPk(idaccount);
+            // Xóa người dùng
+            await account.destroy();
+            res.status(200).json({ success: true, message: 'User deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting user:', error);
+            res.status(500).json({ success: false, message: 'Error deleting user', error });
         }
-
-        // Cập nhật thông tin người dùng
-        await user.update(updatedData);
-
-        return { success: true, message: 'User updated successfully', data: user };
-    } catch (error) {
-        console.error('Error updating user:', error);
-        return { success: false, message: 'Error updating user' };
     }
-};
+    async updateUser(req, res, idaccount) {
+        try {
+            const account = await Account.findByPk(idaccount);
 
+            await account.update(updatedData);
+            res.status(200).json({ success: true, message: 'User updated successfully', data: updatedData });
+        } catch (error) {
+            console.error('Error updating user:', error);
+            res.status(500).json({ success: false, message: 'Error updating user' });
+        }
+    }
 
+}
+module.exports = new AdminController();    
