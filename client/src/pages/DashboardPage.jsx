@@ -1,4 +1,5 @@
-import { useEffect } from "react";
+import { React, useEffect } from "react";
+import { DataTables } from "../components/datatables/DataTables";
 
 export const DashboardPage = () => {
     useEffect(() => {
@@ -6,6 +7,11 @@ export const DashboardPage = () => {
     }, [])
     return (
         <>
+            <div className="row">
+                <div className="col-lg-12 mb-4 order-0">
+                    <DataTables/>
+                </div>
+            </div>
             <div className="row">
                 <div className="col-lg-8 mb-4 order-0">
                     <div className="card">
@@ -21,8 +27,8 @@ export const DashboardPage = () => {
                                     </p>
 
                                     <a aria-label="view badges"
-                                        href="#"
-                                        className="btn btn-sm btn-outline-primary"
+                                       href="#"
+                                       className="btn btn-sm btn-outline-primary"
                                     >
                                         View Badges
                                     </a>
@@ -31,11 +37,11 @@ export const DashboardPage = () => {
                             <div className="col-sm-5 text-center text-sm-left">
                                 <div className="card-body pb-0 px-0 px-md-4">
                                     <img aria-label='dsahboard icon image'
-                                        src="/assets/img/illustrations/man-with-laptop-light.png"
-                                        height="140"
-                                        alt="View Badge User"
-                                        data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                        data-app-light-img="illustrations/man-with-laptop-light.png"
+                                         src="/assets/img/illustrations/man-with-laptop-light.png"
+                                         height="140"
+                                         alt="View Badge User"
+                                         data-app-dark-img="illustrations/man-with-laptop-dark.png"
+                                         data-app-light-img="illustrations/man-with-laptop-light.png"
                                     />
                                 </div>
                             </div>
@@ -50,19 +56,19 @@ export const DashboardPage = () => {
                                     <div className="card-title d-flex align-items-start justify-content-between">
                                         <div className="avatar flex-shrink-0">
                                             <img aria-label='dsahboard icon image'
-                                                src="/assets/img/icons/unicons/chart-success.png"
-                                                alt="chart success"
-                                                className="rounded"
+                                                 src="/assets/img/icons/unicons/chart-success.png"
+                                                 alt="chart success"
+                                                 className="rounded"
                                             />
                                         </div>
                                         <div className="dropdown">
                                             <button aria-label='Click me'
-                                                className="btn p-0"
-                                                type="button"
-                                                id="cardOpt3"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
+                                                    className="btn p-0"
+                                                    type="button"
+                                                    id="cardOpt3"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
                                             >
                                                 <i className="bx bx-dots-vertical-rounded"></i>
                                             </button>
@@ -93,19 +99,19 @@ export const DashboardPage = () => {
                                     <div className="card-title d-flex align-items-start justify-content-between">
                                         <div className="avatar flex-shrink-0">
                                             <img aria-label='dsahboard icon image'
-                                                src="/assets/img/icons/unicons/wallet-info.png"
-                                                alt="Credit Card"
-                                                className="rounded"
+                                                 src="/assets/img/icons/unicons/wallet-info.png"
+                                                 alt="Credit Card"
+                                                 className="rounded"
                                             />
                                         </div>
                                         <div className="dropdown">
                                             <button aria-label='Click me'
-                                                className="btn p-0"
-                                                type="button"
-                                                id="cardOpt6"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
+                                                    className="btn p-0"
+                                                    type="button"
+                                                    id="cardOpt6"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
                                             >
                                                 <i className="bx bx-dots-vertical-rounded"></i>
                                             </button>
@@ -144,12 +150,12 @@ export const DashboardPage = () => {
                                     <div className="text-center">
                                         <div className="dropdown">
                                             <button aria-label='Years selection 2022'
-                                                className="btn btn-sm btn-outline-primary dropdown-toggle"
-                                                type="button"
-                                                id="growthReportId"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
+                                                    className="btn btn-sm btn-outline-primary dropdown-toggle"
+                                                    type="button"
+                                                    id="growthReportId"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
                                             >
                                                 2022
                                             </button>
@@ -175,7 +181,8 @@ export const DashboardPage = () => {
                                     62% Company Growth
                                 </div>
 
-                                <div className="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
+                                <div
+                                    className="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
                                     <div className="d-flex">
                                         <div className="me-2">
                                             <span className="badge bg-label-primary p-2">
@@ -211,19 +218,19 @@ export const DashboardPage = () => {
                                     <div className="card-title d-flex align-items-start justify-content-between">
                                         <div className="avatar flex-shrink-0">
                                             <img aria-label='dsahboard icon image'
-                                                src="/assets/img/icons/unicons/paypal.png"
-                                                alt="Credit Card"
-                                                className="rounded"
+                                                 src="/assets/img/icons/unicons/paypal.png"
+                                                 alt="Credit Card"
+                                                 className="rounded"
                                             />
                                         </div>
                                         <div className="dropdown">
                                             <button aria-label='Click me'
-                                                className="btn p-0"
-                                                type="button"
-                                                id="cardOpt4"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
+                                                    className="btn p-0"
+                                                    type="button"
+                                                    id="cardOpt4"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
                                             >
                                                 <i className="bx bx-dots-vertical-rounded"></i>
                                             </button>
@@ -254,19 +261,19 @@ export const DashboardPage = () => {
                                     <div className="card-title d-flex align-items-start justify-content-between">
                                         <div className="avatar flex-shrink-0">
                                             <img aria-label='dsahboard icon image'
-                                                src="/assets/img/icons/unicons/cc-primary.png"
-                                                alt="Credit Card"
-                                                className="rounded"
+                                                 src="/assets/img/icons/unicons/cc-primary.png"
+                                                 alt="Credit Card"
+                                                 className="rounded"
                                             />
                                         </div>
                                         <div className="dropdown">
                                             <button aria-label='Click me'
-                                                className="btn p-0"
-                                                type="button"
-                                                id="cardOpt1"
-                                                data-bs-toggle="dropdown"
-                                                aria-haspopup="true"
-                                                aria-expanded="false"
+                                                    className="btn p-0"
+                                                    type="button"
+                                                    id="cardOpt1"
+                                                    data-bs-toggle="dropdown"
+                                                    aria-haspopup="true"
+                                                    aria-expanded="false"
                                             >
                                                 <i className="bx bx-dots-vertical-rounded"></i>
                                             </button>
@@ -293,7 +300,8 @@ export const DashboardPage = () => {
                             <div className="card">
                                 <div className="card-body">
                                     <div className="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                                        <div className="d-flex flex-sm-column flex-row align-items-start justify-content-between">
+                                        <div
+                                            className="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                                             <div className="card-title">
                                                 <h5 className="text-nowrap mb-2">Profile Report</h5>
                                                 <span className="badge bg-label-warning rounded-pill">
@@ -325,12 +333,12 @@ export const DashboardPage = () => {
                             </div>
                             <div className="dropdown">
                                 <button aria-label='Click me'
-                                    className="btn p-0"
-                                    type="button"
-                                    id="orederStatistics"
-                                    data-bs-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
+                                        className="btn p-0"
+                                        type="button"
+                                        id="orederStatistics"
+                                        data-bs-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
                                 >
                                     <i className="bx bx-dots-vertical-rounded"></i>
                                 </button>
@@ -365,7 +373,8 @@ export const DashboardPage = () => {
                                             <i className="bx bx-mobile-alt"></i>
                                         </span>
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <h6 className="mb-0">Electronic</h6>
                                             <small className="text-muted">Mobile, Earbuds, TV</small>
@@ -381,7 +390,8 @@ export const DashboardPage = () => {
                                             <i className="bx bx-closet"></i>
                                         </span>
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <h6 className="mb-0">Fashion</h6>
                                             <small className="text-muted">
@@ -399,7 +409,8 @@ export const DashboardPage = () => {
                                             <i className="bx bx-home-alt"></i>
                                         </span>
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <h6 className="mb-0">Decor</h6>
                                             <small className="text-muted">Fine Art, Dining</small>
@@ -415,7 +426,8 @@ export const DashboardPage = () => {
                                             <i className="bx bx-football"></i>
                                         </span>
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <h6 className="mb-0">Sports</h6>
                                             <small className="text-muted">
@@ -533,12 +545,12 @@ export const DashboardPage = () => {
                             <h5 className="card-title m-0 me-2">Transactions</h5>
                             <div className="dropdown">
                                 <button aria-label='Transactions'
-                                    className="btn p-0"
-                                    type="button"
-                                    id="transactionID"
-                                    data-bs-toggle="dropdown"
-                                    aria-haspopup="true"
-                                    aria-expanded="false"
+                                        className="btn p-0"
+                                        type="button"
+                                        id="transactionID"
+                                        data-bs-toggle="dropdown"
+                                        aria-haspopup="true"
+                                        aria-expanded="false"
                                 >
                                     <i className="bx bx-dots-vertical-rounded"></i>
                                 </button>
@@ -563,12 +575,13 @@ export const DashboardPage = () => {
                                 <li className="d-flex mb-4 pb-1">
                                     <div className="avatar flex-shrink-0 me-3">
                                         <img aria-label='dsahboard icon image'
-                                            src="/assets/img/icons/unicons/paypal.png"
-                                            alt="User"
-                                            className="rounded"
+                                             src="/assets/img/icons/unicons/paypal.png"
+                                             alt="User"
+                                             className="rounded"
                                         />
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <small className="text-muted d-block mb-1">Paypal</small>
                                             <h6 className="mb-0">Send money</h6>
@@ -582,12 +595,13 @@ export const DashboardPage = () => {
                                 <li className="d-flex mb-4 pb-1">
                                     <div className="avatar flex-shrink-0 me-3">
                                         <img aria-label='dsahboard icon image'
-                                            src="/assets/img/icons/unicons/wallet.png"
-                                            alt="User"
-                                            className="rounded"
+                                             src="/assets/img/icons/unicons/wallet.png"
+                                             alt="User"
+                                             className="rounded"
                                         />
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <small className="text-muted d-block mb-1">Wallet</small>
                                             <h6 className="mb-0">Mac'D</h6>
@@ -601,12 +615,13 @@ export const DashboardPage = () => {
                                 <li className="d-flex mb-4 pb-1">
                                     <div className="avatar flex-shrink-0 me-3">
                                         <img aria-label='dsahboard icon image'
-                                            src="/assets/img/icons/unicons/chart.png"
-                                            alt="User"
-                                            className="rounded"
+                                             src="/assets/img/icons/unicons/chart.png"
+                                             alt="User"
+                                             className="rounded"
                                         />
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <small className="text-muted d-block mb-1">
                                                 Transfer
@@ -622,12 +637,13 @@ export const DashboardPage = () => {
                                 <li className="d-flex mb-4 pb-1">
                                     <div className="avatar flex-shrink-0 me-3">
                                         <img aria-label='dsahboard icon image'
-                                            src="/assets/img/icons/unicons/cc-success.png"
-                                            alt="User"
-                                            className="rounded"
+                                             src="/assets/img/icons/unicons/cc-success.png"
+                                             alt="User"
+                                             className="rounded"
                                         />
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <small className="text-muted d-block mb-1">
                                                 Credit Card
@@ -643,12 +659,13 @@ export const DashboardPage = () => {
                                 <li className="d-flex mb-4 pb-1">
                                     <div className="avatar flex-shrink-0 me-3">
                                         <img aria-label='dsahboard icon image'
-                                            src="/assets/img/icons/unicons/wallet.png"
-                                            alt="User"
-                                            className="rounded"
+                                             src="/assets/img/icons/unicons/wallet.png"
+                                             alt="User"
+                                             className="rounded"
                                         />
                                     </div>
-                                    <div className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                    <div
+                                        className="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                         <div className="me-2">
                                             <small className="text-muted d-block mb-1">Wallet</small>
                                             <h6 className="mb-0">Starbucks</h6>
@@ -660,43 +677,6 @@ export const DashboardPage = () => {
                                     </div>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-lg-12 mb-4 order-0">
-                    <div className="card">
-                        <div className="d-flex align-items-end row">
-                            <div className="col-sm-7">
-                                <div className="card-body">
-                                    <h5 className="card-title text-primary">
-                                        Congratulations John! 🎉
-                                    </h5>
-                                    <p className="mb-4">
-                                        You have done <span className="fw-medium">72%</span> more
-                                        sales today. Check your new badge in your profile.
-                                    </p>
-
-                                    <a aria-label="view badges"
-                                        href="#"
-                                        className="btn btn-sm btn-outline-primary"
-                                    >
-                                        View Badges
-                                    </a>
-                                </div>
-                            </div>
-                            <div className="col-sm-5 text-center text-sm-left">
-                                <div className="card-body pb-0 px-0 px-md-4">
-                                    <img aria-label='dsahboard icon image'
-                                        src="/assets/img/illustrations/man-with-laptop-light.png"
-                                        height="140"
-                                        alt="View Badge User"
-                                        data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                        data-app-light-img="illustrations/man-with-laptop-light.png"
-                                    />
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
