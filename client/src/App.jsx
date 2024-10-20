@@ -13,6 +13,7 @@ import { DashboardPage } from "./pages/DashboardPage.jsx";
 import Home from "./pages/overview/Home.jsx";
 
 import DataTable from "./pages/DataTable.jsx";
+import { DataTables } from "./components/datatables/DataTables.jsx";
 function App() {
     // const location = useLocation();
     // const isAuthPath = location.pathname.includes("auth") || location.pathname.includes("error") || location.pathname.includes("under-maintenance") | location.pathname.includes("blank");
@@ -75,9 +76,9 @@ function App() {
             </Router> */}
             <Layout><AdministratorRoutes /></Layout>
             {/* <div className="container mt-5">
-                <DataTable />
+                <DataTables />
             </div> */}
-
+            
             {/* <Protected
                 isAllowed={user.isAuthenticated && user.role === 1}
                 redirectTo="/login"
