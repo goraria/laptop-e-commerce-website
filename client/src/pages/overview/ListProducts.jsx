@@ -13,16 +13,7 @@ import CustomDropDown from "../../components/button/CustomDropDown"
 import ProductItem from "../../components/product/ProductItem"
 import TransitionBar from "../../layouts/TransitionBar"
 
-const products = [
-    { id: 1, name: 'Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 ', price: '50000', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1', rating: 3.5 },
-    { id: 2, name: 'Product 2', price: '90000', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 ', rating: 0 },
-    { id: 3, name: 'Product 3', price: '7', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3', rating: 1.1 },
-    { id: 4, name: 'Product 4', price: '8', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4', rating: 4.2 },
-    { id: 5, name: 'Product 5', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5', rating: 2.7 },
-    { id: 6, name: 'Product 6', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6', rating: 5 },
-    { id: 7, name: 'Product 7', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 7', rating: 3.6 },
-    { id: 8, name: 'Product 8', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 8', rating: 0.2 },
-];
+
 
 const categories = [
     { categorical: 'Thương hiệu', varient: 'danger', item: ['a', 'b', 'c'] },
@@ -42,7 +33,7 @@ function ListProducts() {
     const [arrayG, setArray] = useState([]);
 
     const fetchAPI = async () => {
-        const response = await axios.get("http://localhost:5172/load-product")
+        const response = await axios.get("http://localhost:5172/products/load-product")
         console.log(response.data)
         setArray(response.data)
     };
@@ -71,9 +62,7 @@ function ListProducts() {
                         <Row className="justify-content-center my-3">
                             <Container>
 
-                                {arrayG.map((item, index) => (
-                                    <h1 key={index}>{item}</h1>
-                                ))}
+                                
                                 {['Lenovo', 'Dell', 'HP', 'Acer', 'Microsoft', 'Asus', 'LG', 'Apple', 'Razer', 'Samsung'].map((brand, index) => (
                                     <Button variant="outline-danger" key={index} style={{ margin: '0px 16px 16px 0px' }}>
                                         {brand}
@@ -102,9 +91,9 @@ function ListProducts() {
                     <h2 className="text-center mb-4">Sản phẩm nổi bật</h2>
                     <Row>
 
-                        {products.map(product =>
-                            <Col key={product.id} sm={12} md={6} lg={3} className="mb-3">
-                                <ProductItem obj={product} />
+                        {arrayG.map(product =>
+                            <Col key={product.idproduct} sm={12} md={6} lg={3} className="mb-3">
+                                <ProductItem obj={product} state={count} />
                             </Col>
                         )}
                     </Row>
