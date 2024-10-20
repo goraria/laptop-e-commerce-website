@@ -17,6 +17,11 @@ app.use(cors(corsOptions));
 const port = 5172;
 
 // app.use(cors());
+app.use(session({
+    secret: 'gorth',  // Khóa bí mật để mã hóa session
+    resave: false,            // Không lưu lại session nếu không thay đổi
+    saveUninitialized: false,  // Lưu session ngay cả khi nó chưa được khởi tạo
+}));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
