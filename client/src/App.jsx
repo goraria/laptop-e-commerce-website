@@ -73,10 +73,10 @@ function App() {
                     />
                 </Routes>
             </Router> */}
-
-            <div className="container mt-5">
+            <Layout><AdministratorRoutes /></Layout>
+            {/* <div className="container mt-5">
                 <DataTable />
-            </div>
+            </div> */}
 
             {/* <Protected
                 isAllowed={user.isAuthenticated && user.role === 1}
