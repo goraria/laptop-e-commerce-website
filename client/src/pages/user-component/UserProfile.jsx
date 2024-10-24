@@ -36,12 +36,9 @@ class UserProfile extends Component {
         // }, []);
 
         return (
-            <div style={{margin: '112px 0 56px 0'}}>
-                <Container style={{padding: '0'}}>
-                    <Row lg="8"
-                    style={{
-                        margin: '0'
-                    }}>
+            <div>
+                <Container style={{marginTop: 112, marginBottom: 56}}>
+                    <Row lg="8">
                         <Col sm={12} md={3} lg={3}>
                             <Card
                                 className="sticky-summary"

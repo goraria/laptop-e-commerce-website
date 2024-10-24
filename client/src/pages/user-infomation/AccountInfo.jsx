@@ -52,7 +52,7 @@ function AccountInfo() {
     };
 
     return (
-        <Container>
+        <Container style={{padding: '0 8px'}}>
             <h2>Account Information</h2>
             <Form noValidate validated={validated} onSubmit={handleSubmit}>
                 <Row className="mb-3">

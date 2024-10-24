@@ -147,46 +147,28 @@ function Login() {
                                             </Form.Group>
                                         </Col>
                                         <Col xs={6} className="text-end">
-                                            <Button variant="link" style={{padding: 0, color: '#dc3545', textDecoration: "none", fontWeight: 'bold'}}>
+                                            <Button variant="link" style={{padding: 0, color: '#696cff', textDecoration: "none", fontWeight: 'bold'}}>
                                                 Forgot password?
                                             </Button>
                                         </Col>
                                     </Row>
-                                    {/*<Link to="/">*/}
-                                    <Button variant="danger" type="submit" className="mb-3" style={{width: '100%'}}>
+                                    <Button variant="primary" type="submit" style={{width: '100%'}}>
                                         Log in
                                     </Button>
-                                    {/*</Link>*/}
                                     <hr/>
-                                    <div className="text-center" style={{marginBottom: 16}}>or sign in with</div>
-                                    <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
-                                        {/*<Button variant="primary" type="button"*/}
-                                        {/*        style={{flex: '1', margin: '0 5px 10px 0', minWidth: '120px'}}>*/}
-                                        {/*    <i className="fab fa-facebook" style={{marginRight: 8}}></i> Facebook*/}
-                                        {/*</Button>*/}
-                                        {/*<Button variant="outline-dark" type="button"*/}
-                                        {/*        style={{flex: '1', margin: '0 5px 10px 0', minWidth: '120px'}}>*/}
-                                        {/*    <i className="fab fa-google" style={{marginRight: 8}}></i> Google*/}
-                                        {/*</Button>*/}
-                                        {/*<Button variant="info" type="button"*/}
-                                        {/*        style={{flex: '1', margin: '0 5px 10px 0', minWidth: '120px'}}>*/}
-                                        {/*    <i className="fab fa-twitter" style={{marginRight: 8}}></i> Twitter*/}
-                                        {/*</Button>*/}
-                                        {/*<Button variant="secondary" type="button"*/}
-                                        {/*        style={{flex: '1', margin: '0 5px 10px 0', minWidth: '120px'}}>*/}
-                                        {/*    <i className="fab fa-linkedin" style={{marginRight: 8}}></i> LinkedIn*/}
-                                        {/*</Button>*/}
-                                        {sclItems.map(socialItem => (
-                                            <SocialFormButton key={socialItem.id} socialItems={socialItem}/>
-                                        ))}
-                                    </div>
-                                    <hr/>
+                                    {/*<div className="text-center" style={{marginBottom: 16}}>or sign in with</div>*/}
+                                    {/*<div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>*/}
+                                    {/*    {sclItems.map(socialItem => (*/}
+                                    {/*        <SocialFormButton key={socialItem.id} socialItems={socialItem}/>*/}
+                                    {/*    ))}*/}
+                                    {/*</div>*/}
+                                    {/*<hr/>*/}
                                     <div className="text-center" style={{marginBottom: 16}}>
                                         you don&#39;t have an acoount
                                         <Link to="/register">
                                             <Button variant="link" style={{
                                                 padding: 0,
-                                                color: '#dc3545',
+                                                color: '#696cff',
                                                 textDecoration: "none",
                                                 fontWeight: 'bold',
                                                 paddingLeft: 4

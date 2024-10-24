@@ -235,25 +235,25 @@ function Register() {const [validated, setValidated] = useState(false);
                                     </Row>
                                     <Row>
                                         <Col>
-                                            <Button variant="danger" type="submit" className="mb-2" style={{width: '100%'}}>
+                                            <Button variant="primary" type="submit" style={{width: '100%'}}>
                                                 Register
                                             </Button>
                                         </Col>
                                     </Row>
                                     <hr/>
-                                    <div className="text-center" style={{marginBottom: 16}}>or sign up with</div>
-                                    <div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>
-                                        {sclItems.map(socialItem => (
-                                            <SocialFormButton key={socialItem.id} socialItems={socialItem}/>
-                                        ))}
-                                    </div>
-                                    <hr/>
+                                    {/*<div className="text-center" style={{marginBottom: 16}}>or sign up with</div>*/}
+                                    {/*<div style={{display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap'}}>*/}
+                                    {/*    {sclItems.map(socialItem => (*/}
+                                    {/*        <SocialFormButton key={socialItem.id} socialItems={socialItem}/>*/}
+                                    {/*    ))}*/}
+                                    {/*</div>*/}
+                                    {/*<hr/>*/}
                                     <div className="text-center" style={{marginBottom: 16}}>
                                         you have an acoount
                                         <Link to="/login">
                                             <Button variant="link" style={{
                                                 padding: 0,
-                                                color: '#dc3545',
+                                                color: '#696cff',
                                                 textDecoration: "none",
                                                 fontWeight: 'bold',
                                                 paddingLeft: 4
