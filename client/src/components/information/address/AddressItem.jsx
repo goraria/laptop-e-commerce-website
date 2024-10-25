@@ -8,19 +8,32 @@ import AccountInfo from "../../../pages/user-infomation/AccountInfo.jsx";
 import AddressForm from "./AddressForm.jsx";
 
 let AddressItem = (props) => {
+    const [selectedAddress, setSelectedAddress] = useState(null);
     const [modalShow, setModalShow] = useState(false);
     const { item } = props;
+
+    const handleCardClick = (address) => {
+        setSelectedAddress(address);
+        setModalShow(true);
+    };
+
+    const handleModalClose = () => {
+        setModalShow(false);
+        setSelectedAddress(null);
+    };
+
     return (
         <>
             <Container style={{padding: '0 8px'}}>
                 <div style={{display: "flex", textAlign: "center", alignItems: "center", justifyContent: "center"}}> {/**/}
                     <h4 style={{margin: '0 0 0 8px'}}>Address</h4>
-                    <Button variant="warning" onClick={() => setModalShow(true)} style={{marginLeft: 'auto'}}>
+                    <Button variant="warning" onClick={() => handleCardClick(item)} style={{marginLeft: 'auto'}}>
                         <FontAwesomeIcon icon={faEdit} className="me-2"/>
                         <span>Edit Address</span>
                     </Button>
                 </div>
                 <div>
+                    <h6 style={{margin: 8}}>{item.tower}</h6>
                     <h6 style={{margin: 8}}>{item.street}</h6>
                     <h6 style={{margin: 8}}>{item.district}</h6>
                     <h6 style={{margin: 8}}>{item.city}</h6>
@@ -30,7 +43,9 @@ let AddressItem = (props) => {
             </Container>
             <AddressForm
                 show={modalShow}
-                onHide={() => setModalShow(false)}
+                // onHide={() => setModalShow(false)}
+                onHide={handleModalClose}
+                address={selectedAddress}
             />
         </>
     );

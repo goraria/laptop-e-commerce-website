@@ -117,7 +117,7 @@ For free products, enjoy community support via GitHub issues. Upgrade to Premium
 - Licensed under [MIT](#)
 - All our free items are Open Source and licensed under MIT. You can use our free items for personal as well as commercial purposes. We just need an attribution from your end. Copy the below link and paste it at the footer of your web application or project.
   ```html
-  <a href="#">DataTables</a>
+  <a href="#">JavaScript</a>
   ```
 
 ## Also Available In
