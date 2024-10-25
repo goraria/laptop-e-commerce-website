@@ -10,7 +10,7 @@ import axios from 'axios';
 import ProductItem from "../../components/product/ProductItem.jsx";
 import TransitionBar from "../../layouts/TransitionBar.jsx";
 import { config } from "@fortawesome/fontawesome-svg-core";
-
+import { useNavigate } from 'react-router-dom';
 const imageList = [
     { id: 1, src: 'https://via.placeholder.com/300x200', alt: 'Image 1' },
     { id: 2, src: 'https://via.placeholder.com/300x200', alt: 'Image 2' },
@@ -68,12 +68,50 @@ const Items = [
 
 
 function Product() {
+    const { id } = req.params; // Lấy id từ URL
+    const fetchProductDetails = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/load-productid/${id}`);
+            const data = await response.json();
+            setProduct(data); // Cập nhật thông tin sản phẩm từ backend
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+        }
+    };
+    const fetchProductDecription = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/load-description/${id}`);
+            const data = await response.json();
+            setArray(data); // Cập nhật thông tin sản phẩm từ backend
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
+    // const fetchProductColor = async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:5172/load-productid/${id}`);
+    //         const data = await response.json();
+    //         setProduct(data); // Cập nhật thông tin sản phẩm từ backend
+    //     } catch (error) {
+    //         console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+    //     }
+    // };
+    const fetchProductConfiguration = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/load-configuration/${id}`);
+            const data = await response.json();
+            setconfig(data); // Cập nhật thông tin sản phẩm từ backend
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+        }
+    };
 
     // const [descriptions, setArray] = useState([]);
     // const currentUrl = window.location.href;
     // const url = new URL(currentUrl);
     // const params = new URLSearchParams(url.search);
     // const id = params.get('id');
+
 
     // const fetchAPI = async () => {
     //     const response = await axios.get(`http://localhost:5172/products/load-product/${id}`)

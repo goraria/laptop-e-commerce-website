@@ -74,11 +74,11 @@ function App() {
                     />
                 </Routes>
             </Router> */}
-            <Layout><AdministratorRoutes /></Layout>
+            {/* <Layout><AdministratorRoutes /></Layout> */}
             {/* <div className="container mt-5">
                 <DataTables />
             </div> */}
-            
+
             {/* <Protected
                 isAllowed={user.isAuthenticated && user.role === 1}
                 redirectTo="/login"
@@ -91,6 +91,7 @@ function App() {
             >
                 <Frame><UserRoutes /></Frame>
             </Protected> */}
+            <Frame><UserRoutes /></Frame>
         </>
 
     );

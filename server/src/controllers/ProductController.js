@@ -54,7 +54,8 @@ class ProductController {
     }
 
     async loadConfiguration(req, res) {
-        const { idProduct } = req.params; // Retrieve idProduct from request parameters
+        console.log(req.params)
+        const { idProduct } = req.params.idProduct; // Retrieve idProduct from request parameters
 
         try {
             // Find descriptions where idProduct matches the provided id
