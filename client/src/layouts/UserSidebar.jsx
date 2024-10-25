@@ -7,13 +7,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 const sidebarLinks = [
-    { id: 1, title: "Account Information", href: '/profile', icon: faUser },
-    { id: 2, title: "Order History", href: '/bill', icon: faHistory },
-    { id: 3, title: "Voucher Wallet", href: '', icon: faGift },
-    { id: 4, title: "Address", href: '/address', icon: faMapPin },
-    { id: 5, title: "Rating", href: '', icon: faStar },
-    { id: 6, title: "Faq", href: '', icon: faQuestionCircle },
-    { id: 7, title: "Log out", href: '', icon: faSignOutAlt },
+    { id: 1, title: "Account Information", href: '/profile', icon: faUser, isActive: false },
+    { id: 2, title: "Order History", href: '/bill', icon: faHistory, isActive: false },
+    { id: 3, title: "Voucher Wallet", href: '', icon: faGift, isActive: false },
+    { id: 4, title: "Address", href: '/address', icon: faMapPin, isActive: false },
+    { id: 5, title: "Rating", href: '', icon: faStar, isActive: false },
+    { id: 6, title: "Faq", href: '', icon: faQuestionCircle, isActive: false },
+    { id: 7, title: "Log out", href: '', icon: faSignOutAlt, isActive: false },
 ]
 
 class AccountSidebar extends Component {
@@ -25,7 +25,10 @@ class AccountSidebar extends Component {
     render() {
         const { directory } = this.props
         return (
-            <Button href={directory.href} className="d-flex align-items-center btn" style={{ color: '#696cff', backgroundColor: '#f8f9fa', border: "none", boxShadow: "none" }}>
+            <Button
+                href={directory.href}
+                className="d-flex align-items-center btn"
+                style={{ color: '#696cff', backgroundColor: '#f8f9fa', justifyContent: "left", border: "none", boxShadow: "none" }}>
                 <FontAwesomeIcon icon={directory.icon} className="me-2" style={{ width: 28 }} />{directory.title}
             </Button>
         )

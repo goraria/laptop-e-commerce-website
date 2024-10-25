@@ -7,7 +7,7 @@ import {
     faPhone, faQuestionCircle, faSignOutAlt, faStar, faUser
 } from "@fortawesome/free-solid-svg-icons";
 import UserSidebar from "./UserSidebar";
-import ListAddress from "./ListAddress.jsx";
+import ListAddress from "../../../pages/user-infomation/ListAddress.jsx";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 

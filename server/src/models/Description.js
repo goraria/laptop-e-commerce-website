@@ -7,6 +7,7 @@ const Description = sequelize.define('Description', {
     iddescription: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     idproduct:{
         type: DataTypes.INTEGER,

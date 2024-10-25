@@ -8,6 +8,7 @@ const Rating = sequelize.define('Rating', {
     idrating: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     idaccount: {
         type: DataTypes.INTEGER,

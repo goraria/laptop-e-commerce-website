@@ -303,10 +303,12 @@ export const DataTables = () => {
                                             </Dropdown.Menu>
                                         </Dropdown>
                                     </div>
-                                    <Button variant="primary" type="button" className="btn btn-secondary create-new btn-primary" style={{ display: "flex", textAlign: "center" }}>
-                                        <FontAwesomeIcon icon={faPlus} style={{ marginRight: 10 }} />
-                                        Add New Record
-                                    </Button>
+                                    <div>
+                                        <Button variant="primary" type="button" className="btn btn-secondary create-new btn-primary" style={{ display: "flex", textAlign: "center" }}>
+                                            <FontAwesomeIcon icon={faPlus} style={{ marginRight: 10 }} />
+                                            Add New Record
+                                        </Button>
+                                    </div>
                                 </div>
                             </div>
                         </div>

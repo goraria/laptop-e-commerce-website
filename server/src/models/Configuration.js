@@ -6,6 +6,7 @@ const Configuration = sequelize.define('Configuration', {
     idconfiguration: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     idproduct:{
         type: DataTypes.INTEGER,

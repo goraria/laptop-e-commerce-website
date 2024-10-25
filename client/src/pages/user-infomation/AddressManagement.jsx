@@ -8,7 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import UserSidebar from "../../layouts/UserSidebar";
 import ListAddress from "./ListAddress";
-import AddressItem from "./AddressItem.jsx";
+import AddressItem from "../../components/information/address/AddressItem.jsx";
 import axios from "axios";
 
 function AddressManagement() {
@@ -18,7 +18,7 @@ function AddressManagement() {
     useEffect(() => {
         const fetchAddresses = async () => {
             try {
-                const response = await axios.get('http://localhost:5172/address/addresses');
+                const response = await axios.get('http://localhost:5172/address/list');
                 console.log(response.data)
                 setAddresses(response.data);
             } catch (error) {
@@ -34,12 +34,9 @@ function AddressManagement() {
     //     return <p>Đang tải dữ liệu...</p>;
     // }
     return (
-        <div style={{margin: '112px 0 56px 0'}}>
-            <Container style={{padding: '0'}}>
-                <Row lg="8"
-                     style={{
-                         margin: '0'
-                     }}>
+        <div>
+            <Container style={{marginTop: 112, marginBottom: 56}}>
+                <Row lg="8">
                     <Col sm={12} md={3} lg={3}>
                         <Card
                             className="sticky-summary"
@@ -63,28 +60,30 @@ function AddressManagement() {
                                 padding: '15px 12px 15px 12px',
                                 borderRadius: 10,
                                 top: 80,
+                                zIndex: 1,
                                 border: "none",
                                 backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
                             }}>
                             <ListAddress/>
                         </Card>
-                        <div>
+                        <Row>
                             {addresses.map((address, index) => (
-                                <Card
-                                    className="sticky-summary mb-4"
-                                    key={index}
-                                    style={{
-                                        position: "sticky",
-                                        padding: '15px 12px 15px 12px',
-                                        borderRadius: 10,
-                                        top: 80,
-                                        border: "none",
-                                        backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
-                                    }}>
-                                    <AddressItem item={address}/>
-                                </Card>
+                                <Col key={index} sm={12} md={12} lg={6}>
+                                    <Card
+                                        className="sticky-summary mb-4"
+                                        style={{
+                                            position: "sticky",
+                                            padding: '15px 12px 15px 12px',
+                                            borderRadius: 10,
+                                            top: 80,
+                                            border: "none",
+                                            backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
+                                        }}>
+                                        <AddressItem item={address}/>
+                                    </Card>
+                                </Col>
                             ))}
-                        </div>
+                        </Row>
                     </Col>
                 </Row>
             </Container>
