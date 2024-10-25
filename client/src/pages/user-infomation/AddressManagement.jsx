@@ -18,7 +18,7 @@ function AddressManagement() {
     useEffect(() => {
         const fetchAddresses = async () => {
             try {
-                const response = await axios.get('http://localhost:5172/address/addresses');
+                const response = await axios.get('http://localhost:5172/address/list');
                 console.log(response.data)
                 setAddresses(response.data);
             } catch (error) {
@@ -68,10 +68,9 @@ function AddressManagement() {
                         </Card>
                         <Row>
                             {addresses.map((address, index) => (
-                                <Col sm={12} md={6} lg={6}>
+                                <Col key={index} sm={12} md={12} lg={6}>
                                     <Card
                                         className="sticky-summary mb-4"
-                                        key={index}
                                         style={{
                                             position: "sticky",
                                             padding: '15px 12px 15px 12px',

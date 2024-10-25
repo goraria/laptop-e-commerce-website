@@ -1,65 +1,93 @@
 import {Button, Col, Form, InputGroup, Modal, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {
-    faAt,
     faBuilding,
     faCheck,
     faCity,
-    faEdit, faFlag,
+    faFlag,
     faGlobe,
     faRoad,
     faUser,
     faXmark
 } from "@fortawesome/free-solid-svg-icons";
-import React, {useState} from "react";
-import {useNavigate} from "react-router-dom";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 
-let AddressForm = (props) => {
+let AddressForm = ({ address, show, onHide }) => {
     const [validated, setValidated] = useState(false);
     const [formData, setFormData] = useState({
-        username: '',
-        password: ''
+        tower: '',
+        street: '',
+        district: '',
+        city: '',
+        state: '',
+        country: ''
     });
     const [error, setError] = useState(null);
 
-    const navigate = useNavigate();
+    useEffect(() => {
+        if (address) {
+            setFormData({
+                tower: address.tower || '',
+                street: address.street || '',
+                district: address.district || '',
+                city: address.city || '',
+                state: address.state || '',
+                country: address.country || ''
+            });
+        } else {
+            setFormData({
+                tower: '',
+                street: '',
+                district: '',
+                city: '',
+                state: '',
+                country: ''
+            });
+        }
+    }, [address]);
 
     const handleChange = (event) => {
-        setFormData({ ...formData, [event.target.name]: event.target.value });
+        const { name, value } = event.target;
+        setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
     const handleSubmit = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
         const form = event.currentTarget;
-
         if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        } else {
-            event.preventDefault();
-            try {
-                const response = await axios.post('http://localhost:5172/login/authentication', {
-                    username: formData.username,
-                    password: formData.password
-                });
+            setValidated(true);
+            return;
+        }
 
-                const data = response.data;
-                if (data.token) {
-                    localStorage.setItem('token', data.token);
-                    alert('Login successful');
-                    navigate('/');
-                }
-            } catch (error) {
-                alert('Login fail');
-                setError(error.response ? error.response.data.message : 'Login failed');
+        try {
+            // const url = address ?
+            //     `http://localhost:5172/address/update/${address.idaddress}` :
+            //     'http://localhost:5172/address/addition';
+
+            // const method = address ? 'put' : 'post';
+
+            const response = address ?
+                await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
+                await axios.post('http://localhost:5172/address/addition', formData);
+
+            if (response.status === 200 || response.status === 201) {
+                alert(address ? 'Address updated successfully' : 'Address added successfully');
+                onHide();
             }
+        } catch (err) {
+            setError(err.response ? err.response.data.message : 'Failed to save address');
         }
         setValidated(true);
     };
 
     return (
         <Modal
-            {...props}
+            {...address}
+            show={show}
+            onHide={onHide} //
             size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
@@ -87,8 +115,9 @@ let AddressForm = (props) => {
                                 <Form.Control
                                     required
                                     type="text"
-                                    placeholder="Gorth"
-                                    defaultValue=""
+                                    name="tower"
+                                    value={formData.tower}
+                                    onChange={handleChange}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Please choose a building.
@@ -102,10 +131,11 @@ let AddressForm = (props) => {
                                     <FontAwesomeIcon icon={faRoad}/>
                                 </InputGroup.Text>
                                 <Form.Control
-                                    type="text"
-                                    placeholder="Henovia"
-                                    aria-describedby="street"
                                     required
+                                    type="text"
+                                    name="street"
+                                    value={formData.street}
+                                    onChange={handleChange}
                                 />
                                 <Form.Control.Feedback type="invalid">
                                     Please choose a road.
@@ -120,8 +150,9 @@ let AddressForm = (props) => {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    placeholder="San Siro"
-                                    aria-describedby="district"
+                                    name="district"
+                                    value={formData.district}
+                                    onChange={handleChange}
                                     required
                                 />
                                 <Form.Control.Feedback type="invalid">
@@ -139,8 +170,9 @@ let AddressForm = (props) => {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Milano"
-                                    aria-describedby="city"
+                                    name="city"
+                                    value={formData.city}
+                                    onChange={handleChange}
                                     required
                                 />
                                 <Form.Control.Feedback type="invalid">
@@ -157,8 +189,9 @@ let AddressForm = (props) => {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Madonnina"
-                                    aria-describedby="state"
+                                    name="state"
+                                    value={formData.state}
+                                    onChange={handleChange}
                                     required
                                 />
                                 <Form.Control.Feedback type="invalid">
@@ -175,8 +208,9 @@ let AddressForm = (props) => {
                                 </InputGroup.Text>
                                 <Form.Control
                                     type="text"
-                                    placeholder="Italy"
-                                    aria-describedby="country"
+                                    name="country"
+                                    value={formData.country}
+                                    onChange={handleChange}
                                     required
                                 />
                                 <Form.Control.Feedback type="invalid">
@@ -198,14 +232,24 @@ let AddressForm = (props) => {
                     {/*</Row>*/}
                 </Form>
             </Modal.Body>
+            {/*<Modal.Footer>*/}
+            {/*    <Button variant="secondary" onClick={onHide}>*/}
+            {/*        <FontAwesomeIcon icon={faXmark} className="me-2" />*/}
+            {/*        Close*/}
+            {/*    </Button>*/}
+            {/*    <Button type="submit" variant="info">*/}
+            {/*        <FontAwesomeIcon icon={faCheck} className="me-2" />*/}
+            {/*        {address ? 'Save Changes' : 'Add Address'}*/}
+            {/*    </Button>*/}
+            {/*</Modal.Footer>*/}
             <Modal.Footer>
-                <Button onClick={props.onHide} style={{marginRight: "auto"}}>
-                    <FontAwesomeIcon icon={faXmark} className="me-2"/>
+                <Button onClick={onHide} variant="secondary" style={{ marginRight: "auto" }}>
+                    <FontAwesomeIcon icon={faXmark} className="me-2" />
                     <span>Close</span>
                 </Button>
-                <Button onClick={handleChange} variant="info" type="submit" className="mb-2">
-                    <FontAwesomeIcon icon={faCheck} className="me-2"/>
-                    <span>Save change</span>
+                <Button type="submit" onClick={handleSubmit} variant="info">
+                    <FontAwesomeIcon icon={faCheck} className="me-2" />
+                    <span>Save changes</span>
                 </Button>
             </Modal.Footer>
         </Modal>
