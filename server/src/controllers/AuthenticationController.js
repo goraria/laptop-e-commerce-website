@@ -6,7 +6,6 @@ const jwt = require('jsonwebtoken');
 class AuthenticationController {
     async login(req, res) {
         const { username, password } = req.body;
-        console.log(username, password);
         try {
             const account = await Account.findOne({ where: { username } });
 
