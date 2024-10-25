@@ -8,7 +8,7 @@ import { faStar, faStarHalfAlt, faCartPlus } from '@fortawesome/free-solid-svg-i
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import { noAuto } from "@fortawesome/fontawesome-svg-core"
 import jp from '../../assets/images/jp.jpeg'
-
+import { useParams } from 'react-router-dom';
 function renderStars(rating) {
     // Sanitize rating to be between 0 and 5
     const sanitizedRating = Math.max(0, Math.min(rating, 5));
@@ -38,7 +38,7 @@ function ProductItem(product, state) {
     const [descriptions, setArray] = useState([]);
     const [configurations, setconfig] = useState([]);
     const [ratings, setRating] = useState([]);
-
+    const [products, setProduct] = useState([]);
     var obj = product.obj;
     const fetchAPI = async () => {
         const response = await axios.get(`http://localhost:5172/products/load-description/${obj.idproduct}`)
@@ -54,15 +54,67 @@ function ProductItem(product, state) {
         setRating(response.data)
     };
 
+    // obj.forEach(idproduct => {
+    //     const fetchconfig = async () => {
+    //         try {
+    //             const response = await fetch(`http://localhost:5172/load-configuration/${idproduct}`);
+    //             const data = await response.json();
+    //             setConfig(data); // Cập nhật thông tin sản phẩm từ backend
+    //         } catch (error) {
+    //             console.error('Lỗi khi lấy dữ liệu cấu hình:', error);
+    //         }
+    //     };
+    // }
+    // );
+
+    const fetchProductDetails = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/load-productid/${id}`);
+            const data = await response.json();
+            setProduct(data); // Cập nhật thông tin sản phẩm từ backend
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+        }
+    };
+    const fetchProductDecription = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/load-description/${id}`);
+            const data = await response.json();
+            setArray(data); // Cập nhật thông tin sản phẩm từ backend
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
+    // const fetchProductColor = async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:5172/load-productid/${id}`);
+    //         const data = await response.json();
+    //         setProduct(data); // Cập nhật thông tin sản phẩm từ backend
+    //     } catch (error) {
+    //         console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+    //     }
+    // };
+    const fetchProductConfiguration = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/load-configuration/${id}`);
+            const data = await response.json();
+            setconfig(data); // Cập nhật thông tin sản phẩm từ backend
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+        }
+    };
+
     useEffect(() => {
+        fetchProductDetails();
+        fetchProductConfiguration();
+        fetchProductDecription();
         fetchAPI();
         fetchAPI1();
         fetchAPI2();
-
     }, []);
 
 
-   
+
     const totalScore = ratings.reduce((sum, rating) => sum + rating.score, 0);
     const averageScore = totalScore / ratings.length;
     const cardWidth = state;
