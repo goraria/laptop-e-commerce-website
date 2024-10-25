@@ -6,6 +6,7 @@ const Color = sequelize.define('Color', {
     idcolor: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     idproduct: {
         type: DataTypes.INTEGER,

@@ -7,6 +7,7 @@ const Address = sequelize.define('Address', {
     idaddress: {
         type: DataTypes.INTEGER,
         primaryKey: true,
+        autoIncrement: true,
     },
     idaccount: {
         type: DataTypes.INTEGER,
