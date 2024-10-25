@@ -2,6 +2,7 @@ const Address = require('../models/Address');
 
 class AddressController {
     async getAllAddresses(req, res) {
+        // const { id } = req.user;
         try {
             const addresses = await Address.findAll();
             res.json(addresses);

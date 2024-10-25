@@ -16,6 +16,7 @@ import Cart from "../pages/user-component/Cart.jsx";
 import Login from "../pages/authentication/Login.jsx";
 import Register from "../pages/authentication/Register.jsx";
 import UserProfile from "../pages/user-component/UserProfile.jsx";
+import AddressManagement from "../pages/user-infomation/AddressManagement.jsx";
 
 import Protected from "../utils/Protected.jsx";
 import Manager from "../utils/Manager.jsx";
@@ -57,17 +58,18 @@ function App() {
             <Route path="/register" element={<Register />} />
 
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/address" element={<AddressManagement />} />
             <Route path="/order" element={<Order />} />
             <Route path="/checkout" element={<CheckOut />} />
 
 
-            {/* <Route path="/profile" element={
+            <Route path="/profile" element={
                 <Protected isAuthenticated={isAuthenticated}>
                     <UserProfile />
                 </Protected>
             } />
 
-            <Route path="/admin" element={
+            {/* <Route path="/admin" element={
                 <Manager isAuthenticated={isAuthenticated} userRole={userRole}>
                     <Login />
                 </Manager>
