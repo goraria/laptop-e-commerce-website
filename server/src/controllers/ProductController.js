@@ -13,9 +13,9 @@ class ProductController {
             res.status(500).json({ message: 'Error fetching products', error });
         }
     }
+
     async loadProductWithID(req, res) {
         const { idProduct } = req.params; // Retrieve idProduct from request parameters
-
         try {
             const products = await Product.findAll({
                 where: {
@@ -32,7 +32,7 @@ class ProductController {
 
     async loadDescription(req, res) {
         const { idProduct } = req.params; // Retrieve idProduct from request parameters
-
+        console.log(req.params)
         try {
             // Find descriptions where idProduct matches the provided id
             const description = await Description.findAll({
@@ -54,7 +54,6 @@ class ProductController {
     }
 
     async loadConfiguration(req, res) {
-        console.log(req.params)
         const { idProduct } = req.params.idProduct; // Retrieve idProduct from request parameters
 
         try {

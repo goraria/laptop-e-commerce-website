@@ -3,12 +3,10 @@ const router = express.Router();
 const AdminController = require('../controllers/AdminController');
 
 router.get('/get-user', AdminController.getUser);
-router.post('/update-user', (req, res) => {
-    const idaccount = req.query.idaccount;
-    AdminController.updateUser(req, res, idaccount)
-});
-router.post('/detele-user', (req, res) => {
-    const idaccount = req.query.idaccount;
-    AdminController.deleteUser(req, res, idaccount)
-});
+router.get('/get-account', AdminController.getAccount);
+router.get('/get-userid/:idaccount', AdminController.getUserId);
+router.get('/get-accountid/:idaccount', AdminController.getAccountId);
+router.post('/update-user/:idaccount', AdminController.updateUser);
+router.post('/update-account/:idaccount', AdminController.updateAccount);
+router.post('/detele-user/:idaccount', AdminController.deleteUser);
 module.exports = router;

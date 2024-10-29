@@ -10,7 +10,7 @@ import axios from 'axios';
 import ProductItem from "../../components/product/ProductItem.jsx";
 import TransitionBar from "../../layouts/TransitionBar.jsx";
 import { config } from "@fortawesome/fontawesome-svg-core";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 const imageList = [
     { id: 1, src: 'https://via.placeholder.com/300x200', alt: 'Image 1' },
     { id: 2, src: 'https://via.placeholder.com/300x200', alt: 'Image 2' },
@@ -68,7 +68,14 @@ const Items = [
 
 
 function Product() {
-    const { id } = req.params; // Lấy id từ URL
+    const location = useLocation(); // Lấy thông tin URL hiện tại
+    const searchParams = new URLSearchParams(location.search);
+    const id = searchParams.get('id');
+    console.log(id)
+    const [descriptions, setArray] = useState([]);
+    const [configurations, setconfig] = useState([]);
+    const [ratings, setRating] = useState([]);
+    const [products, setProduct] = useState([]);
     const fetchProductDetails = async () => {
         try {
             const response = await fetch(`http://localhost:5172/load-productid/${id}`);
@@ -124,11 +131,11 @@ function Product() {
     //     // console.log(response.data)
     //     setArray(response.data[0])
     // };
-    // useEffect(() => {
-    //     fetchAPI();
-    //     fetchAPI1();
-
-    // }, []);
+    useEffect(() => {
+        // fetchAPI();
+        // fetchAPI1();
+        fetchProductDecription();
+    }, [id]);
 
     return (
         <Container style={{ margin: '168px auto 56px auto' }}>
