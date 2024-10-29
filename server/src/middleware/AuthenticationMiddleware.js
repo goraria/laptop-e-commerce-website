@@ -13,21 +13,19 @@ const AuthenticationMiddleware = async (req, res, next) => {
         return res.status(401).json({ message: 'Token format invalid' });
     }
 
-    jwt.verify(token, process.env.JWT_SECRET || 'gorth', (err, user) => {
-        if (err) {
-            return res.status(403).json({ message: 'Token is not valid' });
-        }
+    try {
+        jwt.verify(token, process.env.JWT_SECRET || 'gorth', (err, user) => {
+            req.user = user;
+            next();
+        });
 
-        req.user = user;
-        next();
-    });
+        // const decoded = jwt.verify(token, process.env.JWT_SECRET || 'gorth');
+        // req.token = decoded; // Lưu thông tin token vào req
+        // next();
+    } catch (error) {
+        res.status(401).json({ message: 'Invalid token' });
+    }
 
-    // const token = req.headers['authorization'];
-    //
-    // if (!token) {
-    //     return res.status(403).json({message: 'No token provided'});
-    // }
-    //
     // try {
     //     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'gorth');
     //     req.user = decoded;

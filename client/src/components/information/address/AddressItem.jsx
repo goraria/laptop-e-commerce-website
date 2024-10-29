@@ -5,9 +5,9 @@ import {faPlus, faMinus, faAt, faUser, faPhone, faEdit} from "@fortawesome/free-
 import jp from "../../../assets/images/jp.jpeg";
 import UserSidebar from "../../../layouts/UserSidebar.jsx";
 import AccountInfo from "../../../pages/user-infomation/AccountInfo.jsx";
-import AddressForm from "./AddressForm.jsx";
+import AddressForm from "../../modal/form/AddressForm.jsx";
 
-let AddressItem = (props) => {
+const AddressItem = (props) => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [modalShow, setModalShow] = useState(false);
     const { item } = props;
@@ -33,6 +33,7 @@ let AddressItem = (props) => {
                     </Button>
                 </div>
                 <div>
+                    <h6 style={{margin: 8}}>{item.idaddress}</h6>
                     <h6 style={{margin: 8}}>{item.tower}</h6>
                     <h6 style={{margin: 8}}>{item.street}</h6>
                     <h6 style={{margin: 8}}>{item.district}</h6>

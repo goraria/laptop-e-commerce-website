@@ -7,16 +7,46 @@ import {
     faPhone, faQuestionCircle, faSignOutAlt, faStar, faUser
 } from "@fortawesome/free-solid-svg-icons";
 import UserSidebar from "../../layouts/UserSidebar";
-import ListAddress from "./ListAddress";
+import AddressList from "./AddressList.jsx";
 import AddressItem from "../../components/information/address/AddressItem.jsx";
 import axios from "axios";
 
-function AddressManagement() {
+const AddressManagement = () => {
     const [addresses, setAddresses] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [reloadTrigger, setReloadTrigger] = useState(false); // State để trigger reload
+    const [showAddressForm, setShowAddressForm] = useState(false); // Modal state
+    const [selectedAddress, setSelectedAddress] = useState(null); // Địa chỉ được chọn
+    const [reloadAddressManagement, setReloadAddressManagement] = useState(0);
+
+    // Hàm reload được truyền vào AccountInfo dưới dạng callback
+    const handleReloadAccountInfo = () => {
+        setReloadAddressManagement(reloadAddressManagement + 1);  // Tăng giá trị để force re-render
+    };
 
     useEffect(() => {
         const fetchAddresses = async () => {
+            try {
+                const token = localStorage.getItem('token');
+                const response = await axios.get('http://localhost:5172/address/list', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                setAddresses(response.data);
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        const handleSaveSuccess = () => {
+            setReloadTrigger(!reloadTrigger); // Cập nhật reloadTrigger để làm mới danh sách
+            setShowAddressForm(false); // Đóng modal sau khi lưu thành công
+        };
+
+        const fetchAddresses0 = async () => {
             try {
                 const response = await axios.get('http://localhost:5172/address/list');
                 console.log(response.data)
@@ -28,7 +58,7 @@ function AddressManagement() {
             }
         };
         fetchAddresses();
-    }, []);
+    }, [reloadTrigger]);  // Khi reloadTrigger thay đổi, useEffect sẽ gọi lại API
 
     // if (loading) {
     //     return <p>Đang tải dữ liệu...</p>;
@@ -64,7 +94,7 @@ function AddressManagement() {
                                 border: "none",
                                 backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
                             }}>
-                            <ListAddress/>
+                            <AddressList/>
                         </Card>
                         <Row>
                             {addresses.map((address, index) => (
@@ -98,26 +128,6 @@ function AddressManagement() {
 //     }
 //
 //     render() {
-//         // const [sidebarTop, setSidebarTop] = useState(56);
-//         //
-//         // useEffect(() => {
-//         //     const handleScroll = () => {
-//         //         const scrollY = window.scrollY;
-//         //
-//         //         if (scrollY > 32) {
-//         //             setSidebarTop(24);
-//         //         } else {
-//         //             setSidebarTop(56 - scrollY);
-//         //         }
-//         //     };
-//         //     window.addEventListener("scroll", handleScroll);
-//         //
-//         //     return () => {
-//         //         window.removeEventListener("scroll", handleScroll);
-//         //     };
-//         // }, []);
-//
-//
 //     }
 // }
 

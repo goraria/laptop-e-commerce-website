@@ -92,7 +92,6 @@ function App() {
             >
                 <Frame><UserRoutes /></Frame>
             </Protected> */}
-            <Frame><UserRoutes /></Frame>
         </>
 
     );

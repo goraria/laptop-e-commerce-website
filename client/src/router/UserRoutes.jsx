@@ -32,7 +32,7 @@ function App() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            axios.get('/api/auth/check', { headers: { Authorization: token } })
+            axios.get('http://localhost:5172/authentication/check', { headers: { Authorization: token } })
                 .then(response => {
                     setIsAuthenticated(true);
                     setUserRole(response.data.role);
