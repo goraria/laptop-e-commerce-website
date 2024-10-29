@@ -16,12 +16,12 @@ import TransitionBar from "../../layouts/TransitionBar"
 
 
 const categories = [
-    { categorical: 'Thương hiệu', varient: 'danger', item: ['a', 'b', 'c'] },
-    { categorical: 'CPU', varient: 'danger', item: ['a', 'b', 'c'] },
-    { categorical: 'RAM', varient: 'danger', item: ['a', 'b', 'c'] },
-    { categorical: 'GPU', varient: 'danger', item: ['a', 'b', 'c'] },
-    { categorical: 'Ổ cứng', varient: 'danger', item: ['a', 'b', 's', "c"] },
-    { categorical: 'Màn hình', varient: 'danger', item: ['a', 'b', 'c'] },
+    { categorical: 'Thương hiệu', varient: 'danger', item: ['Lenovo', 'Dell', 'HP', 'Acer', 'Microsoft', 'Asus', 'LG', 'Apple', 'Razer', 'Samsung'] },
+    { categorical: 'CPU', varient: 'danger', item: ['Intel core i3', 'Intel core i5', 'Intel core i9','AMD Ryzen 5','AMD Ryzen 7','Apple M1','M2 Max','M1 Pro'] },
+    { categorical: 'RAM', varient: 'danger', item: ['4', '8', '16','32','64'] },
+    { categorical: 'GPU', varient: 'danger', item: ['RTX3050', 'RTX 3060',' RTX 3090','RTX 4060','RTX 4080','Apple M1 GPU'] },
+    { categorical: 'Ổ cứng', varient: 'danger', item: ['128', '256', '512', "1024",'2048','4096'] },
+    { categorical: 'Màn hình', varient: 'danger', item: ['1366X768', '1280X800', '1920X1080','2560X1440','2560X1600','3840X2400'] },
 
 ]
 const brand_list = ['Apple', 'Dell', 'Acer', 'Lenovo', 'Asus', 'Microsolf', 'HP', 'MSI']
@@ -79,7 +79,7 @@ function ListProducts() {
                         <h4 className="p-2">Chọn theo tiêu chí</h4>
                         <div>
                             {categories.map(
-                                (category, index) => <CustomDropDown key={index} category={category} />
+                                (category, index) => <CustomDropDown className="justify-content-center mb-3" key={index} category={category} />
                             )}
                         </div>
 
