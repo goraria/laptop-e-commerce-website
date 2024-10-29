@@ -67,11 +67,17 @@ Please [visit](#) our docs for installation guide.
 
 ## Premium 💎
 
-| Author | Framework | IDEA                         |
-| ------ | --------- | ---------------------------- |
-| Japtor | ViteJs    | JetBrains WebStorm           |
-| Payhd  | ReactJs   | Microsoft Visual Studio Code |
-| Locst  | NodeJs    | Microsoft Visual Studio      |
+| Author         | Framework    | IDEA                         |
+|----------------|--------------|------------------------------|
+| Japtor         | ViteJs       | JetBrains WebStorm           |
+| Payhd          | NodeJs       | Microsoft Visual Studio Code |
+| Locst          | ReactJs      | Microsoft Visual Studio      |
+| Schweitzenburg | TensorFlowJs | JetBrains Android Studio     |
+| Braunschweig   | NextJs       | JetBrains Aqua               |
+| Goraria        | VueJs        | JetBrains RustRover          |
+| Ichibulup      | Django       | JetBrains Pycharm            |
+| Destine        | Spring Boot  | JetBrains Intellij           |
+| Gortheia       | ASP.NET Core | JetBrains Rider              |
 
 ## Documentation 📜
 
@@ -114,8 +120,8 @@ For free products, enjoy community support via GitHub issues. Upgrade to Premium
 ## License &copy;
 
 - Copyright © [Gorth Inc.](#)
-- Licensed under [MIT](#)
-- All our free items are Open Source and licensed under MIT. You can use our free items for personal as well as commercial purposes. We just need an attribution from your end. Copy the below link and paste it at the footer of your web application or project.
+- Licensed under [GORTH](#)
+- All our free items are Open Source and licensed under GORTH. You can use our free items for personal as well as commercial purposes. We just need an attribution from your end. Copy the below link and paste it at the footer of your web application or project.
   ```html
   <a href="#">JavaScript</a>
   ```
@@ -152,7 +158,7 @@ If you want to [Download Templates](#) like Japtor then do visit [Bill Chipher](
 - [Github]()
 - [Download]()
 
-## Social Media :earth_africa:
+## Social Media 🌏
 
 - [Twitter](https://twitter.com/)
 - [Facebook](https://www.facebook.com/)

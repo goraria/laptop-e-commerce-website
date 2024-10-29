@@ -6,15 +6,9 @@ import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import AddressItem from "../../components/information/address/AddressItem.jsx";
-import AddressForm from "../../components/information/address/AddressForm.jsx";
+import AddressForm from "../../components/modal/form/AddressForm.jsx";
 
-let ListAddress = () => {
-    const [addresses] = useState([
-        { id: 1, tower: "Gorth", street: "Henovia", district: "San Siro", city: "Milano", state: "Madonnina", country: "Italy" },
-        { id: 2, tower: "Tower B", street: "Elm Street", district: "District 9", city: "New York", state: "New York", country: "USA" },
-        // Add more address data as needed
-    ]);
-
+let AddressList = () => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [modalShow, setModalShow] = useState(false);
 
@@ -47,4 +41,4 @@ let ListAddress = () => {
     )
 }
 
-export default ListAddress
+export default AddressList

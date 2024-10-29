@@ -3,7 +3,7 @@ const Address = require('../models/Address');
 class AddressController {
     async getAllAddresses(req, res) {
         try {
-            const addresses = await Address.findAll();
+            const addresses = await Address.findAll({ where: { idaccount: req.user.id } });
             res.json(addresses);
         } catch (error) {
             res.status(500).json({ error: 'Có lỗi xảy ra khi lấy dữ liệu' });
@@ -25,11 +25,18 @@ class AddressController {
     };
 
     async createAddress(req, res) {
+        const id = req.user.id;
         const { tower, street, district, city, state, country } = req.body;
-        console.log(req.body)
+        console.log(id, req.body);
         try {
             const newAddress = await Address.create({
-                tower, street, district, city, state, country
+                idaccount: id,
+                tower,
+                street,
+                district,
+                city,
+                state,
+                country
             });
             res.status(201).json(newAddress);
         } catch (error) {
@@ -38,8 +45,6 @@ class AddressController {
     };
 
     async updateAddress(req, res) {
-        // const { item } = req.params;
-        // console.log(item)
         try {
             const address = await Address.findByPk(req.params.idaddress);
             if (address) {
