@@ -74,7 +74,7 @@ function App() {
                     />
                 </Routes>
             </Router> */}
-            {/* <Layout><AdministratorRoutes /></Layout> */}
+             {/*<Layout><AdministratorRoutes /></Layout>*/}
             <Frame><UserRoutes /></Frame>
             {/* <div className="container mt-5">
                 <DataTables />

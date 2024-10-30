@@ -71,7 +71,7 @@ import { ProductColor } from "../pages/management/ProductColor"
 // import Contact from "../pages/Contact.jsx";
 
 // import Product from "../pages/Product.jsx";
-// import ListProducts from "../pages/ListProducts.jsx";
+// import ProductList from "../pages/ProductList.jsx";
 // import Cart from "../pages/Cart.jsx";
 // import Login from "../components/Login.jsx";
 // import Register from "../components/Register.jsx";
@@ -173,7 +173,7 @@ const AdministratorRoutes = () => {
             {/*        <Route path="/about" element={<About />} />*/}
             {/*        <Route path="/contact" element={<Contact />} />*/}
             {/*        <Route path="/product" element={<Product />} />*/}
-            {/*        <Route path="/search" element={<ListProducts />} />*/}
+            {/*        <Route path="/search" element={<ProductList />} />*/}
             {/*        <Route path="/cart" element={<Cart />} />*/}
 
             {/*        <Route path="/login" element={<Login />} />*/}

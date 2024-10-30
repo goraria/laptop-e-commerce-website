@@ -9,6 +9,8 @@ router.get('/addresses/:idaddress', AddressController.getAddressById);
 
 router.post('/addition', AuthenticationMiddleware, AddressController.createAddress);
 
-router.put('/update/:idaddress', AddressController.updateAddress);
+router.put('/update/:idaddress', AuthenticationMiddleware, AddressController.updateAddress);
+
+router.delete('/delete/:idaddress', AuthenticationMiddleware, AddressController.deleteAddress);
 
 module.exports = router;

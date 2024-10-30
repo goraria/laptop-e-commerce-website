@@ -8,7 +8,7 @@ import axios from "axios";
 import AddressItem from "../../components/information/address/AddressItem.jsx";
 import AddressForm from "../../components/modal/form/AddressForm.jsx";
 
-let AddressList = () => {
+let AddressList = ({ onReload }) => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [modalShow, setModalShow] = useState(false);
 
@@ -35,6 +35,7 @@ let AddressList = () => {
                 show={modalShow}
                 // onHide={() => setModalShow(false)}
                 onHide={handleModalClose}
+                onReload={onReload}
                 address={selectedAddress}
             />
         </>

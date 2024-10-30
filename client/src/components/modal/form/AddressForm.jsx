@@ -1,20 +1,22 @@
-import React, {useEffect, useState} from "react";
-import {Button, Col, Form, InputGroup, Modal, Row} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faBuilding,
     faCheck,
     faCity,
     faFlag,
     faGlobe,
+    faPlus,
     faRoad,
+    faTrash,
     faUser,
     faXmark
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import SaveChange from "../notify/SaveChange.jsx";
 
-const AddressForm = ({ address, show, onHide, reload }) => {
+const AddressForm = ({ address, show, onHide, onReload }) => {
     const [validated, setValidated] = useState(false);
     const [formData, setFormData] = useState({
         tower: '',
@@ -25,7 +27,8 @@ const AddressForm = ({ address, show, onHide, reload }) => {
         country: ''
     });
     const [error, setError] = useState(null);
-    const [showConfirmModal, setShowConfirmModal] = useState(false); // Trạng thái cho modal xác nhận
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
     useEffect(() => {
         if (address) {
@@ -54,6 +57,25 @@ const AddressForm = ({ address, show, onHide, reload }) => {
         setFormData(prevData => ({ ...prevData, [name]: value }));
     };
 
+    const handleInvalid = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const form = event.currentTarget;
+
+        if (form.checkValidity() === false) {
+            setValidated(true);
+        } else {
+            const allFieldsFilled = Object.values(formData).every(value => value.trim() !== "");
+
+            if (allFieldsFilled) {
+                setShowConfirmModal(true);
+            } else {
+                setValidated(true);
+            }
+        }
+    };
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         event.stopPropagation();
@@ -65,52 +87,67 @@ const AddressForm = ({ address, show, onHide, reload }) => {
         }
 
         try {
-            // const url = address ?
-            //     `http://localhost:5172/address/update/${address.idaddress}` :
-            //     'http://localhost:5172/address/addition';
-
-            // const method = address ? 'put' : 'post';
-
+            const token = localStorage.getItem('token');
             const response = address ?
                 await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
-                await axios.post('http://localhost:5172/address/addition', formData);
+                await axios.post('http://localhost:5172/address/addition', formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
 
             if (response.status === 200 || response.status === 201) {
                 // alert(address ? 'Address updated successfully' : 'Address added successfully');
                 onHide();
             }
+            onReload()
         } catch (err) {
             setError(err.response ? err.response.data.message : 'Failed to save address');
         }
-        setValidated(true);
-    };
-
-    const openConfirmModal = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            setValidated(true);
-            return;
-        }
-
-        setShowConfirmModal(true); // Mở modal xác nhận
+        // setValidated(true);
     };
 
     const handleConfirmSave = async () => {
         try {
-            const response = address ?
-                await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
-                await axios.post('http://localhost:5172/address/addition', formData);
+            const token = localStorage.getItem('token');
+            const response = address
+                ? await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData, {
+                    headers: { Authorization: `Bearer ${token}` }
+                })
+                : await axios.post('http://localhost:5172/address/addition', formData, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+
+            // const response = address ?
+            //     await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
+            //     await axios.post('http://localhost:5172/address/addition', formData, {
+            //         headers: {
+            //             Authorization: `Bearer ${token}`
+            //         }
+            //     });
 
             if (response.status === 200 || response.status === 201) {
                 // alert(address ? 'Address updated successfully' : 'Address added successfully');
-                setShowConfirmModal(false); // Đóng modal xác nhận
+                setShowConfirmModal(false)
                 onHide();
+                onReload()
             }
         } catch (err) {
             setError(err.response ? err.response.data.message : 'Failed to save address');
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            await axios.delete(`http://localhost:5172/address/delete/${address.idaddress}`, {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setShowConfirmDelete(false);
+            onHide();
+            onReload()
+        } catch (error) {
+            console.error("Error deleting address:", error);
         }
     };
 
@@ -134,7 +171,7 @@ const AddressForm = ({ address, show, onHide, reload }) => {
                     <p>
                         Enter invalid values of all input groups to help us know your location. Then we can deliver your package.
                     </p>
-                    <Form noValidate validated={validated} onSubmit={handleSubmit}> {/*onSubmit={handleSubmit, openConfirmModal}*/}
+                    <Form noValidate validated={validated} onSubmit={handleInvalid}> {/*onSubmit={handleSubmit, openConfirmModal}*/}
                         <Row className="mb-3">
                             <Form.Group as={Col} md={4} controlId="tower">
                                 <Form.Label>Tower</Form.Label>
@@ -150,7 +187,7 @@ const AddressForm = ({ address, show, onHide, reload }) => {
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please choose a building.
+                                        Please enter your building.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -168,7 +205,7 @@ const AddressForm = ({ address, show, onHide, reload }) => {
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please choose a road.
+                                        Please enter your road.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -186,7 +223,7 @@ const AddressForm = ({ address, show, onHide, reload }) => {
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please choose a district.
+                                        Please enter your district.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -206,7 +243,7 @@ const AddressForm = ({ address, show, onHide, reload }) => {
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please choose a city.
+                                        Please enter your city.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -225,7 +262,7 @@ const AddressForm = ({ address, show, onHide, reload }) => {
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please choose a state.
+                                        Please enter your state.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -244,7 +281,7 @@ const AddressForm = ({ address, show, onHide, reload }) => {
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please choose a country.
+                                        Please enter your country.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -258,138 +295,39 @@ const AddressForm = ({ address, show, onHide, reload }) => {
                         <FontAwesomeIcon icon={faXmark} className="me-2" />
                         <span>Close</span>
                     </Button>
-                    <Button type="submit" variant="info" onClick={handleSubmit}> {/*onClick={handleSubmit, openConfirmModal}*/}
-                        <FontAwesomeIcon icon={faCheck} className="me-2" />
-                        <span>Save changes</span>
-                    </Button>
+                    {/*<Button type="submit" variant="info"*/}
+                    {/*        onClick={handleSubmit}> /!*onClick={handleSubmit, openConfirmModal}*!/*/}
+                    {/*    <FontAwesomeIcon icon={faCheck} className="me-2"/>*/}
+                    {/*    <span>Save changes</span>*/}
+                    {/*</Button>*/}
+                    {address ?
+                        <>
+                            <Button onClick={() => setShowConfirmDelete(true)} variant="danger" className="me-3">
+                                <FontAwesomeIcon icon={faTrash} className="me-2"/>
+                                <span>Delete Address</span>
+                            </Button>
+                            <Button onClick={handleInvalid} variant="info">
+                                <FontAwesomeIcon icon={faCheck} className="me-2"/>
+                                <span>Save changes</span>
+                            </Button>
+                        </> : <>
+                            <Button type="submit" variant="success" onClick={handleInvalid}>
+                                <FontAwesomeIcon icon={faPlus} className="me-2"/>
+                                <span>Create Address</span>
+                            </Button>
+                        </>
+                    }
                 </Modal.Footer>
             </Modal>
-            {/*<SaveChange*/}
-            {/*    show={showConfirmModal}*/}
-            {/*    onHide={() => setShowConfirmModal(false)}*/}
-            {/*    onSave={handleConfirmSave}*/}
-            {/*/>*/}
-        </>
-    );
-}
-
-let AddressForm0 = ({ address, show, onHide }) => {
-    const [validated, setValidated] = useState(false);
-    const [formData, setFormData] = useState({
-        tower: '',
-        street: '',
-        district: '',
-        city: '',
-        state: '',
-        country: ''
-    });
-    const [error, setError] = useState(null);
-    const [showConfirmModal, setShowConfirmModal] = useState(false); // Trạng thái cho modal xác nhận
-
-    useEffect(() => {
-        if (address) {
-            setFormData({
-                tower: address.tower || '',
-                street: address.street || '',
-                district: address.district || '',
-                city: address.city || '',
-                state: address.state || '',
-                country: address.country || ''
-            });
-        } else {
-            setFormData({
-                tower: '',
-                street: '',
-                district: '',
-                city: '',
-                state: '',
-                country: ''
-            });
-        }
-    }, [address]);
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-        setFormData(prevData => ({ ...prevData, [name]: value }));
-    };
-
-    const openConfirmModal = (event) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            setValidated(true);
-            return;
-        }
-
-        setShowConfirmModal(true); // Mở modal xác nhận
-    };
-
-    const handleConfirmSave = async () => {
-        try {
-            const response = address ?
-                await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
-                await axios.post('http://localhost:5172/address/addition', formData);
-
-            if (response.status === 200 || response.status === 201) {
-                // alert(address ? 'Address updated successfully' : 'Address added successfully');
-                setShowConfirmModal(false); // Đóng modal xác nhận
-                onHide(); // Đóng modal chính
-            }
-        } catch (err) {
-            setError(err.response ? err.response.data.message : 'Failed to save address');
-        }
-    };
-
-    return (
-        <>
-            <Modal
-                show={show}
-                onHide={onHide}
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-            >
-                <Modal.Header closeButton>
-                    <Modal.Title>Address Details</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form noValidate validated={validated} onSubmit={openConfirmModal}>
-                        <hr/>
-                        {/*<Row>*/}
-                        {/*    <Col sm={0} md={0} lg={4}/>*/}
-                        {/*    <Col sm={0} md={0} lg={4}/>*/}
-                        {/*    <Col sm={12} md={5} lg={4}>*/}
-                        {/*        <Button onClick={handleChange} variant="info" type="submit" className="mb-2"*/}
-                        {/*                style={{width: '100%'}}>*/}
-                        {/*            Save change*/}
-                        {/*        </Button>*/}
-                        {/*    </Col>*/}
-                        {/*</Row>*/}
-                        <Button variant="info" type="submit">
-                            Save Changes
-                        </Button>
-                    </Form>
-                    {error && <p className="text-danger">{error}</p>}
-                </Modal.Body>
-                {/*<Modal.Footer>*/}
-                {/*    <Button variant="secondary" onClick={onHide}>*/}
-                {/*        <FontAwesomeIcon icon={faXmark} className="me-2" />*/}
-                {/*        Close*/}
-                {/*    </Button>*/}
-                {/*    <Button type="submit" variant="info">*/}
-                {/*        <FontAwesomeIcon icon={faCheck} className="me-2" />*/}
-                {/*        {address ? 'Save Changes' : 'Add Address'}*/}
-                {/*    </Button>*/}
-                {/*</Modal.Footer>*/}
-            </Modal>
-
-            {/* Modal xác nhận */}
             <SaveChange
                 show={showConfirmModal}
                 onHide={() => setShowConfirmModal(false)}
-                onSave={handleConfirmSave} // Hàm xác nhận lưu
+                onSave={handleConfirmSave}
+            />
+            <SaveChange
+                show={showConfirmDelete}
+                onHide={() => setShowConfirmDelete(false)}
+                onSave={handleDelete}
             />
         </>
     );

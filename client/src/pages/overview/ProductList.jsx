@@ -27,7 +27,7 @@ const categories = [
 const brand_list = ['Apple', 'Dell', 'Acer', 'Lenovo', 'Asus', 'Microsolf', 'HP', 'MSI']
 
 
-function ListProducts() {
+const ProductList = () => {
     // const [users, setUsers] = useState([]);
     const [count, setCount] = useState(0);
     const [arrayG, setArray] = useState([]);
@@ -104,4 +104,4 @@ function ListProducts() {
 }
 
 
-export default ListProducts;
+export default ProductList;
