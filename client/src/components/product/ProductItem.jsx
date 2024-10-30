@@ -71,18 +71,19 @@ function ProductItem(product, state) {
     // );
     const fetchProductDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/load-productid/${obj.idproduct}`);
+            const response = await fetch(`http://localhost:5172/products/load-productid/${obj.idproduct}`);
             const data = await response.json();
-            setProduct(data); // Cập nhật thông tin sản phẩm từ backend
+            setProduct(data[0]); // Cập nhật thông tin sản phẩm từ backend
+            console.log(data)
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
         }
     };
     const fetchProductDecription = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/load-description/${obj.idproduct}`);
+            const response = await fetch(`http://localhost:5172/products/load-description/${obj.idproduct}`);
             const data = await response.json();
-            setArray(data); // Cập nhật thông tin sản phẩm từ backend
+            setArray(data[0]); // Cập nhật thông tin sản phẩm từ backend
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }
@@ -98,7 +99,7 @@ function ProductItem(product, state) {
     // };
     const fetchProductConfiguration = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/load-configuration/${obj.idproduct}`);
+            const response = await fetch(`http://localhost:5172/products/load-configuration/${obj.idproduct}`);
             const data = await response.json();
             setconfig(data); // Cập nhật thông tin sản phẩm từ backend
         } catch (error) {
@@ -107,7 +108,7 @@ function ProductItem(product, state) {
     };
 
     useEffect(() => {
-        // fetchProductDetails();
+        fetchProductDetails();
         // fetchProductConfiguration();
         // fetchProductDecription();
         // fetchAPI();
@@ -124,7 +125,7 @@ function ProductItem(product, state) {
     const imageHeight = (1 / 8) * cardWidth;
     return (
         <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius: 10 }}>
-            <Card.Img variant="top" src={'https://cdn.tgdd.vn/Products/Images/44/272282/Slider/vi-vn-acer-nitro-5-tiger-an515-58-52sp-i5-nhqfhsv001-1.jpg'} style={{ height: { imageHeight }, width: { cardWidth }, objectFit: 'cover' }} />
+            <Card.Img variant="top" src={products.product_image} style={{ height: { imageHeight }, width: { cardWidth }, objectFit: 'cover' }} />
             <Card.Body>
                 {/* Price and Name in the same line */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

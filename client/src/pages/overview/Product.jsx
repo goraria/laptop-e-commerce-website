@@ -11,23 +11,8 @@ import ProductItem from "../../components/product/ProductItem.jsx";
 import TransitionBar from "../../layouts/TransitionBar.jsx";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import { useNavigate, useLocation } from 'react-router-dom';
-const imageList = [
-    { id: 1, src: 'https://via.placeholder.com/300x200', alt: 'Image 1' },
-    { id: 2, src: 'https://via.placeholder.com/300x200', alt: 'Image 2' },
-    { id: 3, src: 'https://via.placeholder.com/300x200', alt: 'Image 3' },
-    { id: 4, src: 'https://via.placeholder.com/300x200', alt: 'Image 4' },
-    { id: 5, src: 'https://via.placeholder.com/300x200', alt: 'Image 5' },
-];
-const products = [
-    { id: 1, name: 'Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 ', price: '50000', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1', rating: 3.5 },
-    { id: 2, name: 'Product 2', price: '90000', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 Product 1 ', rating: 0 },
-    { id: 3, name: 'Product 3', price: '7', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3', rating: 1.1 },
-    { id: 4, name: 'Product 4', price: '8', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4', rating: 4.2 },
-    { id: 5, name: 'Product 5', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5', rating: 2.7 },
-    { id: 6, name: 'Product 6', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6', rating: 5 },
-    { id: 7, name: 'Product 7', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 7', rating: 3.6 },
-    { id: 8, name: 'Product 8', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 8', rating: 0.2 },
-];
+import { Link } from 'react-router-dom'
+
 
 const Items = [
     {
@@ -74,45 +59,55 @@ function Product() {
     console.log(id)
     const [descriptions, setArray] = useState([]);
     const [configurations, setconfig] = useState([]);
+    const [default_config, setdefaultconfig] = useState([]);
+    const [colors, setcolor] = useState([]);
     const [ratings, setRating] = useState([]);
     const [products, setProduct] = useState([]);
     const fetchProductDetails = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/load-productid/${id}`);
+            const response = await fetch(`http://localhost:5172/products/load-productid/${id}`);
             const data = await response.json();
-            setProduct(data); // Cập nhật thông tin sản phẩm từ backend
+            setProduct(data[0]); // Cập nhật thông tin sản phẩm từ backend
+            console.log(data[0])
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
         }
     };
     const fetchProductDecription = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/load-description/${id}`);
+            const response = await fetch(`http://localhost:5172/products/load-description/${id}`);
             const data = await response.json();
-            setArray(data); // Cập nhật thông tin sản phẩm từ backend
+            setArray(data[0]); // Cập nhật thông tin sản phẩm từ backend
+            // console.log(data[0])
+
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }
     };
-    // const fetchProductColor = async () => {
-    //     try {
-    //         const response = await fetch(`http://localhost:5172/load-productid/${id}`);
-    //         const data = await response.json();
-    //         setProduct(data); // Cập nhật thông tin sản phẩm từ backend
-    //     } catch (error) {
-    //         console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
-    //     }
-    // };
-    const fetchProductConfiguration = async () => {
+    const fetchProductColor = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/load-configuration/${id}`);
+            const response = await fetch(`http://localhost:5172/products/load-color/${id}`);
             const data = await response.json();
-            setconfig(data); // Cập nhật thông tin sản phẩm từ backend
+            setcolor(data); // Cập nhật thông tin sản phẩm từ backend
+            console.log(data);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
         }
     };
-
+    const fetchProductConfiguration = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/products/load-configuration/${id}`);
+            const data = await response.json();
+            setconfig(data)
+            setdefaultconfig(data[0]); // Cập nhật thông tin sản phẩm từ backend
+            console.log(data)
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+        }
+    };
+    const handleConfigurationChange = (config) => {
+        setdefaultconfig(config);
+    };
     // const [descriptions, setArray] = useState([]);
     // const currentUrl = window.location.href;
     // const url = new URL(currentUrl);
@@ -134,7 +129,10 @@ function Product() {
     useEffect(() => {
         // fetchAPI();
         // fetchAPI1();
+        fetchProductConfiguration();
+        fetchProductDetails();
         fetchProductDecription();
+        fetchProductColor();
     }, [id]);
 
     return (
@@ -145,7 +143,7 @@ function Product() {
                     <div style={{ display: "flex", marginBottom: 24, justifyContent: 'center' }}>
                         <Image
                             className="d-block"
-                            src='https://cdn.tgdd.vn/Products/Images/44/325242/Slider/dell-inspiron-15-3520-i5-1235u-16gb-512gb-120hz-officehs-win11-n5i5052w1638557748484267591.jpg'
+                            src={products.product_image}
                             alt="Second slide"
                             style={{ objectFit: 'cover', width: '100%', height: '100%', borderRadius: '5px' }}
                         />
@@ -158,37 +156,37 @@ function Product() {
                                 <ListGroup.Item>
                                     <Row>
                                         <Col md={4}><strong>Loại CPU:</strong></Col>
-                                        <Col md={8}>AKKO cream yellow pro</Col>
+                                        <Col md={8}>{default_config.cpu}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
                                         <Col md={4}><strong>RAM:</strong></Col>
-                                        <Col md={8}>Bluetooth/Wireless/USB C</Col>
+                                        <Col md={8}>{default_config.ram}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
                                         <Col md={4}><strong>GPU:</strong></Col>
-                                        <Col md={8}>Không Dây/Có dây, Bluetooth/Wireless/USB C</Col>
+                                        <Col md={8}>{default_config.gpu}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
                                         <Col md={4}><strong>Storage:</strong></Col>
-                                        <Col md={8}>Nhôm</Col>
+                                        <Col md={8}>{default_config.storage}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
                                         <Col md={4}><strong>Screen:</strong></Col>
-                                        <Col md={8}>82 Nút</Col>
+                                        <Col md={8}>{default_config.screen}</Col>
                                     </Row>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
                                         <Col md={4}><strong>Revolution:</strong></Col>
-                                        <Col md={8}>Phím cơ Custom</Col>
+                                        <Col md={8}>{default_config.resolution}</Col>
                                     </Row>
                                 </ListGroup.Item>
 
@@ -218,40 +216,46 @@ function Product() {
                             <div style={{ display: "flex", marginBottom: 24, justifyContent: 'center' }}>
                                 <Image
                                     className="d-block"
-                                    src='https://cdn.tgdd.vn/Products/Images/44/325242/Slider/dell-inspiron-15-3520-i5-1235u-16gb-512gb-120hz-officehs-win11-n5i5052w1638557748484267591.jpg'
+                                    src={products.product_image}
                                     alt="Second slide"
                                     style={{ objectFit: 'cover', width: '100%', height: '100%', borderRadius: '5px' }}
                                 />
                             </div>
                             <div>
                                 <p>
-                                    Laptop Asus Vivobook 15 X1504ZA-NJ517W thuộc dòng laptop Asus Vivobook
-                                    với giá thành phải chăng nhưng hiệu năng lại cực kỳ ấn tượng.
-                                    Vi xử lý Intel Core i5 1235U cùng với 16GB RAM và ổ cứng SSD
-                                    512GB đem đến sức mạnh phần cứng đáng kinh ngạc để xử lý mượt
-                                    mà không chỉ tác vụ văn phòng mà còn có tác vụ đồ họa và chơi game eSports thoải mái.
+                                    {descriptions.img_description}
                                 </p>
                                 <h4>
                                     Thiết kế thời thượng, thuận tiện di chuyển
                                 </h4>
                                 <p>
-                                    Giống như những laptop Asus Vivobook khác, chiếc laptop này cũng sở hữu
-                                    thiết kế đơn giản với gam màu bạc tinh tế, thanh lịch. Asus đã rất nỗ lực
-                                    để tối ưu độ mỏng chỉ còn 17.9mm và trọng lượng khoảng 1.7kg để thuận tiện
-                                    cho việc di chuyển. Nhờ đó, sinh viên và dân văn phòng có thể mang theo máy
-                                    đi học, đi làm mỗi ngày chỉ cần một chiếc balo hoặc túi xách, không hề cồng kềnh hay nặng nề.
-
+                                    {descriptions.title_description}
                                 </p>
                             </div>
                             <div style={{ display: "flex", marginBottom: 24, justifyContent: 'center' }}>
-                                <Image
-                                    className="d-block"
-                                    src='https://cdn.tgdd.vn/Products/Images/44/325242/Slider/dell-inspiron-15-3520-i5-1235u-16gb-512gb-120hz-officehs-win11-n5i5052w1638557748484267591.jpg'
-                                    alt="Second slide"
-                                    style={{ objectFit: 'cover', width: '100%', height: '100%', borderRadius: '5px' }}
-                                />
-                            </div>
+                                {products.product_image ? (
+                                    <div style={{ display: "flex", marginBottom: 24, justifyContent: 'center' }}>
+                                        <Image
+                                            className="d-block"
+                                            src={products.product_image}
+                                            alt="Product image"
+                                            style={{ objectFit: 'cover', width: '100%', height: '100%', borderRadius: '5px' }}
+                                        />
+                                    </div>
+                                ) : (
+                                    <p>Image not available</p>
+                                )}
 
+                            </div>
+                            <div>
+
+                                <h4>
+                                    Phù hợp với mọi tác vụ
+                                </h4>
+                                <p>
+                                    {descriptions.sub_description}
+                                </p>
+                            </div>
 
                         </Card.Body>
                     </Card>
@@ -263,7 +267,7 @@ function Product() {
                             {/* Product Title */}
                             <Row className="mt-4">
                                 <Col>
-                                    <h2>Lenovo ThinkPad X1 Carbon Gen 8</h2>
+                                    <h2>{products.product_name}</h2>
                                     <p>Chưa có đánh giá</p>
                                 </Col>
                             </Row>
@@ -275,30 +279,36 @@ function Product() {
                                     <Form>
                                         {/* Version Options */}
                                         <div className="mb-3">
-                                            <Form.Check
-                                                type="radio"
-                                                label="i7 10610U, 16GB, 512GB, FHD"
-                                                name="version"
-                                                id="version1"
-                                            />
-                                            <Form.Check
-                                                type="radio"
-                                                label="i7 10610U, 16GB, 256GB, FHD"
-                                                name="version"
-                                                id="version2"
-                                                defaultChecked
-                                            />
-                                            <Form.Check
-                                                type="radio"
-                                                label="i5 10310U, 16GB, 256GB, FHD+"
-                                                name="version"
-                                                id="version3"
-                                            />
+                                            {configurations.map((config, index) =>
+
+                                                <Form.Check
+                                                    key={index}
+                                                    type="radio"
+                                                    label={config.cpu + " " + config.ram + "GB " + config.storage + "GB"}
+
+                                                    name="version"
+                                                    id="version1"
+                                                    checked={config.idconfiguration === default_config.idconfiguration}
+                                                    onChange={() => handleConfigurationChange(config)}
+                                                />
+                                            )}
+
+
                                         </div>
 
                                         {/* Color Selection */}
                                         <h5>Màu</h5>
-                                        <Button variant="dark" className="mb-3">Black</Button>
+                                        <div className="d-flex gap-3 mb-3">
+                                            {colors.map((colours,index) =>
+                                            <Button key= {index}
+                                             variant= {colours.color}
+                                              style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }
+                                              
+                                              } > {colours.color}</Button>) }
+                                            
+                                            
+                                        </div>
+
 
 
                                     </Form>
@@ -308,9 +318,9 @@ function Product() {
                             {/* Price Section */}
                             <Row className="mt-4">
                                 <Col>
-                                    <h3 className="text-danger">13.190.000</h3>
+                                    <h3 className="text-danger">${default_config.price}</h3>
                                     <h6 className="text-muted">
-                                        <del>24.790.000</del> <span className="text-danger">-47%</span>
+                                        <del>{default_config.price}</del> <span className="text-danger">-47%</span>
                                     </h6>
                                 </Col>
                             </Row>
@@ -320,9 +330,11 @@ function Product() {
                                 <Col sm={12} md={6} lg={6} className="mb-3">
                                     <Button variant="outline-danger" className="me-2" style={{ width: '100%' }}>Thêm vào giỏ</Button>
                                 </Col>
+                                <Link to={`/cart`} style={{ textDecoration: 'none' }}>
                                 <Col sm={12} md={3} lg={6} className="mb-3">
                                     <Button variant="danger" style={{ width: '100%' }}>Mua ngay</Button>
                                 </Col>
+                                </Link>
                             </Row>
 
                             <h5>Đánh giá sản phẩm</h5>
@@ -398,13 +410,13 @@ function Product() {
                 <div>
                     <h4>Sản phẩm tương tự</h4>
 
-                    <Row>
+                    {/* <Row>
                         {products.map(product =>
                             <Col key={product.id} sm={12} md={6} lg={3} className="mb-3">
                                 <ProductItem obj={product} />
                             </Col>
                         )}
-                    </Row>
+                    </Row> */}
                 </div>
             </Row>
         </Container>

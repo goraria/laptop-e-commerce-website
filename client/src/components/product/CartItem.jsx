@@ -106,13 +106,19 @@ class CardItem extends Component {
 
   render() {
     const { item } = this.props;
+    const { product_name } = this.props;
+
     return (
       <Row
-        className="align-items-center border-bottom py-3"
+        className="align-items-center py-3"
         style={{ display: "flex", flexWrap: "wrap" }}
       >
         {/* Product Image */}
-        <Col xs={12} md={2} className="d-flex justify-content-center justify-content-md-start">
+        <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
+        <Form.Check
+            type="checkbox"
+            className="me-3" // Adds space between checkbox and image
+          />
           <Image
             src={jp}
             alt="Product"
@@ -122,7 +128,7 @@ class CardItem extends Component {
 
         {/* Product Name and Specs */}
         <Col xs={12} md={6} className="d-flex flex-column justify-content-center text-md-start text-center">
-          <h5>{item.name}</h5>
+          <h5>{product_name}</h5>
           <p>{item.description}</p>
           <p>${item.price}</p>
           {item.gift && (
