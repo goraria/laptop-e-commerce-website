@@ -2,6 +2,7 @@ import { Component } from "react";
 import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
 import TransitionBar from '../../layouts/TransitionBar.jsx';
 import CardItem from '../../components/product/CartItem.jsx';
+import { Link } from 'react-router-dom'
 
 const products = [
     { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
@@ -132,10 +133,11 @@ var city = 'Hồ Chí Minh';
                                 <span>Tổng cộng</span>
                                 <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>{total}$</span>
                             </div>
-
+                            <Link to={`/checkout`} style={{ textDecoration: 'none' }}>
                             <Button className="w-100 mt-3" variant="danger" size="lg">
                                 Đặt hàng
                             </Button>
+                            </Link>
                         </Card>
                     </Col>
                 </Row>
