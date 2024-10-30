@@ -8,13 +8,13 @@ const Frame = ({ children }) => {
         Main();
     }, [])
     return (
-        <div>
+        <>
             <Header />
             <div style={{marginTop: 56}}>
                 {children}
             </div>
             <Footer />
-        </div>
+        </>
     );
 };
 
