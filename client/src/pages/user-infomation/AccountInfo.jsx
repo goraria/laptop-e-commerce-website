@@ -1,12 +1,12 @@
-import React, {Component, useEffect, useState} from "react";
+import React, { Component, useEffect, useState } from "react";
 import { Container, Form, Row, Col, InputGroup, Button } from "react-bootstrap";
 
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faAt, faBullseye, faCity, faGift, faHistory, faLocationDot, faMapMarkerAlt, faMapPin,
     faPhone, faQuestionCircle, faSignOutAlt, faStar, faUser
 } from "@fortawesome/free-solid-svg-icons";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SaveChange from "../../components/modal/notify/SaveChange.jsx";
 
@@ -28,10 +28,10 @@ function AccountInfo({ onReload }) {
         const fetchData = async () => {
             try {
                 const token = localStorage.getItem('token');
-                // if (!token) {
-                //     navigate('/login');
-                //     return;
-                // }
+                if (!token) {
+                    // navigate('/login');
+                    return;
+                }
 
                 const response = await axios.get('http://localhost:5172/account/get-info', {
                     headers: { Authorization: `Bearer ${token}` }
@@ -139,7 +139,7 @@ function AccountInfo({ onReload }) {
                             <Form.Label>Email address</Form.Label>
                             <InputGroup hasValidation>
                                 <InputGroup.Text id="inputGroupPrepend">
-                                    <FontAwesomeIcon icon={faAt}/>
+                                    <FontAwesomeIcon icon={faAt} />
                                 </InputGroup.Text>
                                 <Form.Control
                                     required
@@ -158,7 +158,7 @@ function AccountInfo({ onReload }) {
                             <Form.Label>Username</Form.Label>
                             <InputGroup hasValidation>
                                 <InputGroup.Text id="inputGroupPrepend">
-                                    <FontAwesomeIcon icon={faUser}/>
+                                    <FontAwesomeIcon icon={faUser} />
                                 </InputGroup.Text>
                                 <Form.Control
                                     required
@@ -223,16 +223,16 @@ function AccountInfo({ onReload }) {
                             </InputGroup>
                         </Form.Group>
                     </Row>
-                    <hr/>
+                    <hr />
                     <Row>
                         <Col sm={12} md={5} lg={4}>
-                            <Button variant="primary" type="reset" className="mb-2" style={{width: '100%'}}>
+                            <Button variant="primary" type="reset" className="mb-2" style={{ width: '100%' }}>
                                 Change Password
                             </Button>
                         </Col>
                         <Col sm={0} md={2} lg={4}></Col>
                         <Col sm={12} md={5} lg={4}>
-                            <Button variant="primary" type="submit" className="mb-2" style={{width: '100%'}}>
+                            <Button variant="primary" type="submit" className="mb-2" style={{ width: '100%' }}>
                                 Save
                             </Button>
                         </Col>
@@ -240,7 +240,7 @@ function AccountInfo({ onReload }) {
                 </Form>
                 {/*{error && <p className="text-danger">{error}</p>}*/}
             </Container>
-            <SaveChange show={showModal} onHide={() => setShowModal(false)} onSave={handleSaveChanges}/>
+            <SaveChange show={showModal} onHide={() => setShowModal(false)} onSave={handleSaveChanges} />
         </>
     );
 }
