@@ -8,6 +8,10 @@ router.get('/load-productid/:idProduct', productController.loadProductWithID);
 router.get('/load-description/:idProduct', productController.loadDescription);
 router.get('/load-configuration/:idProduct', productController.loadConfiguration);
 router.get('/load-rating/:idProduct', productController.loadRating);
+router.get('/load-color/:idProduct', productController.loadColor);
+router.get('/load-idconfiguration/:idConfiguration', productController.loadConfigurationByID);
+
+
 
 
 

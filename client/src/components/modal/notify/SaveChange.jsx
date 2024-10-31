@@ -1,7 +1,9 @@
 import {useState} from "react";
 import {Button, Modal} from "react-bootstrap";
 
-const SaveChange = ({ show, onHide, onSave }) => {
+const SaveChange = (
+    { show, onHide, onSave, title="Save Changes", text="Are you sure you want to save changes?", button="Save Changes" }
+) => {
     return (
         <Modal
             show={show}
@@ -10,16 +12,12 @@ const SaveChange = ({ show, onHide, onSave }) => {
             aria-labelledby="contained-modal-title-vcenter"
         >
             <Modal.Header closeButton>
-                <Modal.Title>Save Changes</Modal.Title>
+                <Modal.Title>{title}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Are you sure you want to save changes?</Modal.Body>
+            <Modal.Body>{text}</Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={onHide}>
-                    Cancel
-                </Button>
-                <Button variant="primary" onClick={onSave}>
-                    Save Changes
-                </Button>
+                <Button variant="secondary" onClick={onHide}>Cancel</Button>
+                <Button variant="primary" onClick={onSave}>{button}</Button>
             </Modal.Footer>
         </Modal>
     );

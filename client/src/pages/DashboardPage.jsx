@@ -1,12 +1,28 @@
 import { React, useEffect } from "react";
 import { DataTables } from "../components/datatables/DataTables";
+import Calendar from 'react-calendar';
+
+// type ValuePiece = Date | null;
+//
+// type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const DashboardPage = () => {
+    // const [value, onChange] = useState<Value>(new Date());
     useEffect(() => {
         dashboardAnalitics();
     }, [])
+
     return (
         <>
+            <div className="row">
+                <div className="col-lg-12 mb-4 order-0">
+                    <div className="card">
+                        <div className="d-flex align-items-end row">
+                            <Calendar/>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div className="row">
                 <div className="col-lg-12 mb-4 order-0">
                     <DataTables/>

@@ -6,8 +6,8 @@ class AccountController {
     async getAccountInfo(req, res) {
         try {
             const account = await Account.findByPk(req.user.id);
-            const accuser = await User.findByPk(req.user.id);
-
+            const accuser = await User.findOne({ where: { idaccount: req.user.id } });
+            console.log(account, accuser)
             if (account) {
                 res.json({
                     username: account.username,

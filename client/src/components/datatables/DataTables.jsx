@@ -171,6 +171,88 @@ export const DataTables = () => {
     const renderPagination = () => {
         const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
+        // Nếu chỉ có 1 trang, không cần hiển thị phân trang
+        if (totalPages <= 1) return null;
+
+        const paginationItems = [];
+        const addPageButton = (pageNumber) => (
+            <Pagination.Item
+                key={pageNumber}
+                active={pageNumber === currentPage}
+                onClick={() => setCurrentPage(pageNumber)}
+            >
+                {pageNumber}
+            </Pagination.Item>
+        );
+
+        // Thêm nút 'First' và 'Previous'
+        paginationItems.push(
+            <Pagination.First
+                key="first"
+                onClick={() => setCurrentPage(1)}
+                disabled={currentPage === 1}
+            />,
+            <Pagination.Prev
+                key="prev"
+                onClick={() => setCurrentPage(currentPage - 1)}
+                disabled={currentPage === 1}
+            />
+        );
+
+        if (totalPages <= 7) {
+            // Hiển thị tất cả các trang nếu số trang <= 7
+            for (let i = 1; i <= totalPages; i++) {
+                paginationItems.push(addPageButton(i));
+            }
+        } else {
+            // Hiển thị phân trang với dấu `...`
+            if (currentPage <= 4) {
+                // Trường hợp trang hiện tại nằm trong khoảng 1 - 4
+                for (let i = 1; i <= 5; i++) {
+                    paginationItems.push(addPageButton(i));
+                }
+                paginationItems.push(<Pagination.Ellipsis key="end-ellipsis" />);
+                paginationItems.push(addPageButton(totalPages));
+            } else if (currentPage >= totalPages - 3) {
+                // Trường hợp trang hiện tại nằm trong khoảng cuối (totalPages - 3 đến totalPages)
+                paginationItems.push(addPageButton(1));
+                paginationItems.push(<Pagination.Ellipsis key="start-ellipsis" />);
+                for (let i = totalPages - 4; i <= totalPages; i++) {
+                    paginationItems.push(addPageButton(i));
+                }
+            } else {
+                // Trường hợp trang hiện tại ở giữa
+                paginationItems.push(addPageButton(1));
+                paginationItems.push(<Pagination.Ellipsis key="start-ellipsis" />);
+                paginationItems.push(addPageButton(currentPage - 1));
+                paginationItems.push(addPageButton(currentPage));
+                paginationItems.push(addPageButton(currentPage + 1));
+                paginationItems.push(<Pagination.Ellipsis key="end-ellipsis" />);
+                paginationItems.push(addPageButton(totalPages));
+            }
+        }
+
+        // Thêm nút 'Next' và 'Last'
+        paginationItems.push(
+            <Pagination.Next
+                key="next"
+                onClick={() => setCurrentPage(currentPage + 1)}
+                disabled={currentPage === totalPages}
+            />,
+            <Pagination.Last
+                key="last"
+                onClick={() => setCurrentPage(totalPages)}
+                disabled={currentPage === totalPages}
+            />
+        );
+
+        return <Pagination>{paginationItems}</Pagination>;
+    };
+
+
+    const renderPagination0 = () => {
+        const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+
         if (totalPages <= 1) return null;
 
         const paginationItems = [];
@@ -341,7 +423,7 @@ export const DataTables = () => {
                                     placeholder="Search..."
                                     value={searchTerm}
                                     onChange={handleSearch}
-                                    style={{ width: "290px" }}
+                                    style={{ width: "295px" }}
                                 />
                             </div>
                         </div>
@@ -399,14 +481,22 @@ export const DataTables = () => {
                 </Table>
                 <div className="card-footer flex-column flex-md-row pb-0 pb-4">
                     <div className="row">
-                        <div className="col-sm-12 col-md-6" style={{ display: "flex" }}>
-                            <div className="dataTables_info" style={{ display: "flex", justifyContent: "left", alignItems: "center" }}>
+                        <div className="col-sm-12 col-md-6" style={{display: "flex"}}>
+                            {/*<div className="dataTables_info" style={{ display: "flex", justifyContent: "left", alignItems: "center" }}>*/}
+                            {/*    <div className="text-center mt-2">*/}
+                            {/*        Showing {currentItems.length} of {filteredData.length} entries*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            <div className="dataTables_info"
+                                 style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
                                 <div className="text-center mt-2">
-                                    Showing {currentItems.length} of {filteredData.length} entries
+                                    {/* Calculate starting and ending entries */}
+                                    {`Showing entries from ${indexOfFirstItem + 1} to ${Math.min(indexOfLastItem, filteredData.length)} of ${filteredData.length} entries`}
                                 </div>
                             </div>
                             <div className="ms-2 me-2"></div>
-                            <div className="dataTables_select" style={{ display: "flex", justifyContent: "left", alignItems: "center" }}>
+                            <div className="dataTables_select"
+                                 style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
                                 <div className="text-center mt-2">
                                     Selected {selectedEntries.length} entries
                                 </div>

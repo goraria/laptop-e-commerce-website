@@ -25,12 +25,12 @@ class AddressController {
     };
 
     async createAddress(req, res) {
-        const id = req.user.id;
+        const idaccount = req.user.id;
         const { tower, street, district, city, state, country } = req.body;
-        console.log(id, req.body);
+        console.log(idaccount, req.body);
         try {
             const newAddress = await Address.create({
-                idaccount: id,
+                idaccount,
                 tower,
                 street,
                 district,
@@ -57,6 +57,23 @@ class AddressController {
             res.status(500).json({ error: 'Có lỗi xảy ra khi cập nhật địa chỉ' });
         }
     };
+
+    async deleteAddress(req, res) {
+        try {
+            const address = await Address.findByPk(req.params.idaddress);
+
+            if (!address) {
+                return res.status(404).json({ error: "Address not found" });
+            }
+
+            await address.destroy();
+            res.status(200).json({ message: "Address deleted successfully" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Failed to delete address" });
+        }
+    }
+
 }
 
 module.exports = new AddressController();

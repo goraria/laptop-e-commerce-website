@@ -8,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import UserSidebar from "../../layouts/UserSidebar";
 import AccountInfo from "../user-infomation/AccountInfo";
+import Profile from "../../layouts/Profile.jsx";
 
 const UserProfile = () => {
     const [reloadAccountInfo, setReloadAccountInfo] = useState(0);
@@ -18,56 +19,21 @@ const UserProfile = () => {
     };
 
     return (
-        <div>
-            <Container style={{marginTop: 112, marginBottom: 56}}>
-                <Row lg="8">
-                    <Col sm={12} md={3} lg={3}>
-                        <Card
-                            className="sticky-summary"
-                            style={{
-                                position: "sticky",
-                                padding: '15px 12px 15px 12px',
-                                borderRadius: 10,
-                                // position: "fixed",
-                                top: 80,
-                                border: "none",
-                                backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
-                            }}>
-                            <UserSidebar/>
-                        </Card>
-                    </Col>
-                    <Col sm={12} md={9} lg={9}>
-                        <Card
-                            className="sticky-summary"
-                            style={{
-                                position: "sticky",
-                                padding: '15px 12px 15px 12px',
-                                borderRadius: 10,
-                                top: 80,
-                                border: "none",
-                                backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
-                            }}>
-                            <AccountInfo key={reloadAccountInfo} onReload={handleReloadAccountInfo}/>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+        <Profile>
+            <Card
+                className="sticky-summary"
+                style={{
+                    position: "sticky",
+                    padding: '15px 12px 15px 12px',
+                    borderRadius: 10,
+                    top: 80,
+                    border: "none",
+                    backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
+                }}>
+                <AccountInfo key={reloadAccountInfo} onReload={handleReloadAccountInfo}/>
+            </Card>
+        </Profile>
     )
 }
-
-// class UserProfile extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {}
-//     }
-//
-//     render() {
-//
-//         return (
-//
-//         )
-//     }
-// }
 
 export default UserProfile

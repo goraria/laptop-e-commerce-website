@@ -1,5 +1,6 @@
 const Account = require('../models/Account');
 const User = require('../models/User');
+const Cart = require('../models/Cart');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -23,8 +24,8 @@ class AuthenticationController {
 
             const token = jwt.sign({
                 id: account.idaccount,
-                username: account.username,
                 role: account.role,
+                status: account.status
             }, process.env.JWT_SECRET || 'gorth', { expiresIn: '1h' });
             // const token = jwt.sign({ id: account.idaccount, username: account.username }, 'gorth', { expiresIn: '1h' });
 
@@ -36,13 +37,11 @@ class AuthenticationController {
     }
 
     async logout(req, res) {
-        const { id } = req.user;
-        console.log(req.user)
         try {
-            await Account.update({ status: 0 }, { where: { idaccount: id } });
+            await Account.update({ status: 0 }, { where: { idaccount: req.user.id } });
             return res.json({ message: 'Logout successful' });
         } catch (error) {
-            res.status(500).json({ message: 'Logout failed J', error });
+            res.status(500).json({ message: 'Logout failed', error });
         }
 
         // try {
@@ -91,10 +90,15 @@ class AuthenticationController {
                 avatar: null,
             });
 
+            const newCart = await Cart.create({
+                idaccount: newAccount.idaccount
+            });
+
             return res.status(201).json({
                 message: 'User registered successfully',
                 account: newAccount,
-                user: newUser
+                user: newUser,
+                cart: newCart
             });
 
         } catch (error) {

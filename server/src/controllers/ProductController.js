@@ -3,6 +3,8 @@ const jwt = require('jsonwebtoken');
 const Description = require('../models/Description');
 const Configuration = require('../models/Configuration')
 const Rating = require("../models/Rating")
+const Color = require("../models/Color")
+
 class ProductController {
 
     async loadProduct(req, res) {
@@ -54,7 +56,7 @@ class ProductController {
     }
 
     async loadConfiguration(req, res) {
-        const { idProduct } = req.params.idProduct; // Retrieve idProduct from request parameters
+        const { idProduct } = req.params; // Retrieve idProduct from request parameters
 
         try {
             // Find descriptions where idProduct matches the provided id
@@ -76,6 +78,27 @@ class ProductController {
         }
     }
 
+    async loadConfigurationByID(req, res) {
+        const { idConfiguration } = req.params; // Retrieve idProduct from request parameters
+
+        try {
+            // Find descriptions where idProduct matches the provided id
+            const configuration = await Configuration.findAll({
+                where: {
+                    idconfiguration: idConfiguration
+                }
+            });
+
+            // If configurations are found, return them, otherwise return a 404
+            if (configuration.length > 0) {
+                res.status(200).json(configuration);
+            } 
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching configurations', error });
+        }
+    }
+
     async loadRating(req, res) {
         const { idProduct } = req.params; // Retrieve idProduct from request parameters
 
@@ -90,6 +113,29 @@ class ProductController {
             // If ratings are found, return them, otherwise return a 404
             if (rating.length > 0) {
                 res.status(200).json(rating);
+            } else {
+                res.status(404).json({ message: `No ratings found for product with id ${idProduct}` });
+            }
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching ratings', error });
+        }
+    }
+
+    async loadColor(req, res) {
+        const { idProduct } = req.params; // Retrieve idProduct from request parameters
+
+        try {
+            // Find descriptions where idProduct matches the provided id
+            const colors = await Color.findAll({
+                where: {
+                    idProduct: idProduct
+                }
+            });
+
+            // If ratings are found, return them, otherwise return a 404
+            if (colors.length > 0) {
+                res.status(200).json(colors);
             } else {
                 res.status(404).json({ message: `No ratings found for product with id ${idProduct}` });
             }

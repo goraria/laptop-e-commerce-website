@@ -22,14 +22,13 @@ class CustomDropDown extends Component {
             id={`dropdown-variants-${category.categorical}`}
             variant={category.varient}
             title={category.categorical}
-            style={{marginRight: 16}}
+            style={{margin: '0px 16px 16px 0px'}}
         >
             {category.item.map(
                 (product,index) => (
                     <Dropdown.Item eventKey="1" key={index}>{product}</Dropdown.Item>
                 )
             )}
-            <Dropdown.Item eventKey="4">Separated link</Dropdown.Item>
         </DropdownButton>
         
 

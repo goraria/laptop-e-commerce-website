@@ -51,17 +51,17 @@ function AccountInfo({ onReload }) {
         };
 
         fetchData();
-    }, [navigate]);
+    }, []);
 
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
 
-    const openModal = (event) => {
-        event.preventDefault();
-        setValidated(true);
-        setShowModal(true); // Mở modal khi nhấn nút Save
-    };
+    // const openModal = (event) => {
+    //     event.preventDefault();
+    //     setValidated(true);
+    //     setShowModal(true); // Mở modal khi nhấn nút Save
+    // };
 
     const handleSaveChanges = async () => {
         try {
@@ -78,6 +78,25 @@ function AccountInfo({ onReload }) {
         } catch (error) {
             // alert('Failed to update user information');
             setError(error.response ? error.response.data.message : 'Update failed');
+        }
+    };
+
+    const handleInvalid = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const form = event.currentTarget;
+
+        if (form.checkValidity() === false) {
+            setValidated(true);
+        } else {
+            const allFieldsFilled = Object.values(formData).every(value => value.trim() !== "");
+
+            if (allFieldsFilled) {
+                setShowModal(true);
+            } else {
+                setValidated(true);
+            }
         }
     };
 
@@ -114,7 +133,7 @@ function AccountInfo({ onReload }) {
         <>
             <Container style={{ padding: '0 8px' }}>
                 <h2>Account Information</h2>
-                <Form noValidate validated={validated} onSubmit={openModal}>
+                <Form noValidate validated={validated} onSubmit={handleInvalid}>
                     <Row className="mb-3">
                         <Form.Group as={Col} md={7} controlId="email">
                             <Form.Label>Email address</Form.Label>
@@ -219,7 +238,7 @@ function AccountInfo({ onReload }) {
                         </Col>
                     </Row>
                 </Form>
-                {error && <p className="text-danger">{error}</p>}
+                {/*{error && <p className="text-danger">{error}</p>}*/}
             </Container>
             <SaveChange show={showModal} onHide={() => setShowModal(false)} onSave={handleSaveChanges} />
         </>

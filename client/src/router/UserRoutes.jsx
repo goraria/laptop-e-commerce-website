@@ -11,7 +11,7 @@ import About from "../pages/overview/About.jsx";
 import Contact from "../pages/overview/Contact.jsx";
 
 import Product from "../pages/overview/Product.jsx";
-import ListProducts from "../pages/overview/ListProducts.jsx";
+import ProductList from "../pages/overview/ProductList.jsx";
 import Cart from "../pages/user-component/Cart.jsx";
 import Login from "../pages/authentication/Login.jsx";
 import Register from "../pages/authentication/Register.jsx";
@@ -50,7 +50,7 @@ function App() {
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/product" element={<Product />} />
-            <Route path="/search" element={<ListProducts />} />
+            <Route path="/search" element={<ProductList />} />
             <Route path="/cart" element={<Cart />} />
 
             <Route path="/login" element={<Login />} />

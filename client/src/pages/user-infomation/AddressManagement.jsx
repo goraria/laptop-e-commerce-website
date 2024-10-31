@@ -10,19 +10,13 @@ import UserSidebar from "../../layouts/UserSidebar";
 import AddressList from "./AddressList.jsx";
 import AddressItem from "../../components/information/address/AddressItem.jsx";
 import axios from "axios";
+import Profile from "../../layouts/Profile.jsx";
 
 const AddressManagement = () => {
     const [addresses, setAddresses] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [reloadTrigger, setReloadTrigger] = useState(false); // State để trigger reload
-    const [showAddressForm, setShowAddressForm] = useState(false); // Modal state
-    const [selectedAddress, setSelectedAddress] = useState(null); // Địa chỉ được chọn
-    const [reloadAddressManagement, setReloadAddressManagement] = useState(0);
-
-    // Hàm reload được truyền vào AccountInfo dưới dạng callback
-    const handleReloadAccountInfo = () => {
-        setReloadAddressManagement(reloadAddressManagement + 1);  // Tăng giá trị để force re-render
-    };
+    // const [reloadAddressManagement, setReloadAddressManagement] = useState(0);
+    const [reloadTrigger, setReloadTrigger] = useState(0);
 
     useEffect(() => {
         const fetchAddresses = async () => {
@@ -41,11 +35,6 @@ const AddressManagement = () => {
             }
         };
 
-        const handleSaveSuccess = () => {
-            setReloadTrigger(!reloadTrigger); // Cập nhật reloadTrigger để làm mới danh sách
-            setShowAddressForm(false); // Đóng modal sau khi lưu thành công
-        };
-
         const fetchAddresses0 = async () => {
             try {
                 const response = await axios.get('http://localhost:5172/address/list');
@@ -58,66 +47,49 @@ const AddressManagement = () => {
             }
         };
         fetchAddresses();
-    }, [reloadTrigger]);  // Khi reloadTrigger thay đổi, useEffect sẽ gọi lại API
+    }, [reloadTrigger]);  // Khi reloadTrigger thay đổi, useEffect sẽ gọi lại API //
+
+    const handleReload = () => {
+        setReloadTrigger(reloadTrigger + 1);
+    };
 
     // if (loading) {
     //     return <p>Đang tải dữ liệu...</p>;
     // }
     return (
-        <div>
-            <Container style={{marginTop: 112, marginBottom: 56}}>
-                <Row lg="8">
-                    <Col sm={12} md={3} lg={3}>
+        <Profile>
+            <Card
+                className="sticky-summary"
+                style={{
+                    position: "sticky",
+                    padding: '15px 12px 15px 12px',
+                    borderRadius: 10,
+                    top: 80,
+                    zIndex: 1,
+                    border: "none",
+                    backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
+                }}>
+                <AddressList key={reloadTrigger} onReload={handleReload}/>
+            </Card>
+            <Row>
+                {addresses.map((address, index) => (
+                    <Col key={index} sm={12} md={12} lg={6}>
                         <Card
-                            className="sticky-summary"
+                            className="sticky-summary mt-4"
                             style={{
                                 position: "sticky",
                                 padding: '15px 12px 15px 12px',
                                 borderRadius: 10,
-                                // position: "fixed",
                                 top: 80,
                                 border: "none",
                                 backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
                             }}>
-                            <UserSidebar/>
+                            <AddressItem item={address} key={reloadTrigger} onReload={handleReload}/>
                         </Card>
                     </Col>
-                    <Col sm={12} md={9} lg={9}>
-                        <Card
-                            className="sticky-summary mb-4"
-                            style={{
-                                position: "sticky",
-                                padding: '15px 12px 15px 12px',
-                                borderRadius: 10,
-                                top: 80,
-                                zIndex: 1,
-                                border: "none",
-                                backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
-                            }}>
-                            <AddressList/>
-                        </Card>
-                        <Row>
-                            {addresses.map((address, index) => (
-                                <Col key={index} sm={12} md={12} lg={6}>
-                                    <Card
-                                        className="sticky-summary mb-4"
-                                        style={{
-                                            position: "sticky",
-                                            padding: '15px 12px 15px 12px',
-                                            borderRadius: 10,
-                                            top: 80,
-                                            border: "none",
-                                            backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
-                                        }}>
-                                        <AddressItem item={address}/>
-                                    </Card>
-                                </Col>
-                            ))}
-                        </Row>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                ))}
+            </Row>
+        </Profile>
     )
 }
 
