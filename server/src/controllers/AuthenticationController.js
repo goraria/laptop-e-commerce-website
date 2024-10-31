@@ -105,6 +105,20 @@ class AuthenticationController {
             return res.status(500).json({ error: 'Error registering user' });
         }
     }
+
+    async checkRole(req, res) {
+        try {
+            const account = await Account.findByPk(req.user.id);
+
+            if (!account) {
+                return res.status(404).json({ message: 'User not found' });
+            }
+
+            res.json({ role: account.role });
+        } catch (error) {
+            return res.status(500).json({ message: 'Server error', error });
+        }
+    }
 }
 
 module.exports = new AuthenticationController()

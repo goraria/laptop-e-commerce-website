@@ -36,7 +36,7 @@ const LogoutButton = () => {
     const navigate = useNavigate();
 
     const handleLogout = async () => {
-        const token = localStorage.getItem('token');
+        // const token = localStorage.getItem('token');
         try {
             await axios.post('/api/logout', {}, {
                 headers: { Authorization: token },
@@ -52,7 +52,7 @@ const LogoutButton = () => {
 };
 
 const Header = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [showModalHeader, setShowModalHeader] = useState(false);
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -63,7 +63,7 @@ const Header = () => {
                 headers: { Authorization: `Bearer ${token}` }
             });
             localStorage.removeItem('token');  // Xóa JWT
-            setShowModal(false)
+            setShowModalHeader(false)
             navigate('/login');
         } catch (error) {
             console.error('Logout failed', error);
@@ -78,20 +78,9 @@ const Header = () => {
                     <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                     <Navbar.Collapse id="basic-navbar-nav">
                         <Nav className="me-auto">
-                            <Nav.Link><Link style={{color: "white"}} to={'/search'}>Product</Link></Nav.Link>
-                            <Nav.Link><Link style={{color: "white"}} to={'/contact'}>Contact</Link></Nav.Link>
-                            <Nav.Link><Link style={{color: "white"}} to={'/about'}>About</Link></Nav.Link>
-                            {/*<NavDropdown title="Dropdown" id="basic-nav-dropdown">*/}
-                            {/*    <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>*/}
-                            {/*    <NavDropdown.Item href="#action/3.2">*/}
-                            {/*        Another action*/}
-                            {/*    </NavDropdown.Item>*/}
-                            {/*    <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>*/}
-                            {/*    <NavDropdown.Divider />*/}
-                            {/*    <NavDropdown.Item href="#action/3.4">*/}
-                            {/*        Separated link*/}
-                            {/*    </NavDropdown.Item>*/}
-                            {/*</NavDropdown>*/}
+                            <Nav.Link as={Link} to={'/search'}>Product</Nav.Link>
+                            <Nav.Link as={Link} to={'/contact'}>Contact</Nav.Link>
+                            <Nav.Link as={Link} to={'/about'}>About</Nav.Link>
                         </Nav>
                         <Nav className="ms-auto d-flex">
                             <Form className="d-flex">
@@ -111,10 +100,10 @@ const Header = () => {
                                         variant={'primary'}
                                         title={<FontAwesomeIcon icon={faShoppingCart}/>}
                                         className="ms-2 me-2">
-                                        <NavDropdown.Item href="/product?id=1">Schweitzenburg</NavDropdown.Item>
-                                        <NavDropdown.Item href="/product?id=2">Braunschweig</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"/#"}>Schweitzenburg</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"#"}>Braunschweig</NavDropdown.Item>
                                         <NavDropdown.Divider />
-                                        <Link to={"/cart"}><NavDropdown.Item href="/cart">Full Cart</NavDropdown.Item></Link>
+                                        <NavDropdown.Item as={Link} to={"/cart"}>Full Cart</NavDropdown.Item>
                                     </DropdownButton>
                                 </> :
                                 <>
@@ -124,7 +113,7 @@ const Header = () => {
                                         variant={'primary'}
                                         title={<FontAwesomeIcon icon={faShoppingCart}/>}
                                         className="ms-2 me-2">
-                                        <Link to={"/"}><NavDropdown.Item href="/">Nothing in here now!</NavDropdown.Item></Link>
+                                        <NavDropdown.Item as={Link} to={"/"}>Nothing in here now!</NavDropdown.Item>
                                     </DropdownButton>
                                 </>
                             }
@@ -136,11 +125,11 @@ const Header = () => {
                                         variant={'primary'}
                                         title={<FontAwesomeIcon icon={faUser}/>}
                                         className="">
-                                        <Link to={"/profile"}><NavDropdown.Item href="/profile">Profile</NavDropdown.Item></Link>
-                                        <Link to={"/address"}><NavDropdown.Item href="/address">Address</NavDropdown.Item></Link>
-                                        <Link to={"/bill"}><NavDropdown.Item href="/bill">Bill</NavDropdown.Item></Link>
+                                        <NavDropdown.Item as={Link} to={"/profile"}>Profile</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"/address"}>Address</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"/bill"}>Bill</NavDropdown.Item>
                                         <NavDropdown.Divider />
-                                        <NavDropdown.Item onClick={() => setShowModal(true)}>Log out</NavDropdown.Item>
+                                        <NavDropdown.Item onClick={() => setShowModalHeader(true)}>Log out</NavDropdown.Item>
                                     </DropdownButton>
                                 </> : <>
                                     <DropdownButton
@@ -149,8 +138,8 @@ const Header = () => {
                                         variant={'primary'}
                                         title={<FontAwesomeIcon icon={faUser}/>}
                                         className="">
-                                        <Link to={"/login"}><NavDropdown.Item href="/login">Log in</NavDropdown.Item></Link>
-                                        <Link to={"/register"}><NavDropdown.Item href="/register">Sign up</NavDropdown.Item></Link>
+                                        <NavDropdown.Item as={Link} to={"/login"}>Log in</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"/register"}>Sign up</NavDropdown.Item>
                                     </DropdownButton>
                                 </>
                             }
@@ -159,8 +148,8 @@ const Header = () => {
                 </Container>
             </Navbar>
             <SaveChange
-                show={showModal}
-                onHide={() => setShowModal(false)}
+                show={showModalHeader}
+                onHide={() => setShowModalHeader(false)}
                 onSave={handleLogout}
                 title="Log out"
                 text="Do you want to log out?"

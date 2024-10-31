@@ -18,6 +18,6 @@ router.get('/admin', AuthenticationMiddleware, AdministratorMiddleware, (req, re
     return res.json({ message: 'Welcome Admin', user: req.user });
 });
 
-router.post('/check', AuthenticationController.register)
+router.post('/check', AuthenticationMiddleware, AuthenticationController.checkRole)
 
 module.exports = router
