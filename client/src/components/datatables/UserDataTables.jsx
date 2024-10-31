@@ -14,6 +14,7 @@ import {
     faAddressBook
 } from "@fortawesome/free-regular-svg-icons";
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import "./DataTables.css"; // Add custom styling here
 
@@ -124,13 +125,20 @@ export const UserDataTables = () => {
     const [data, setData] = useState([])
     const fetchAPI = async () => {
         const response = await axios.get("http://localhost:5172/admin/get-user")
+        console.log(response.data)
         setData(response.data)
     };
     const [data1, setData1] = useState([])
     const fetchAPI1 = async () => {
         const response = await axios.get("http://localhost:5172/admin/get-account")
+        console.log(response.data)
         setData1(response.data)
     };
+    const mergedData = data.map(user => {
+        const account = data1.find(acc => acc.idaccount === user.idaccount);
+        return { ...user, ...account };
+    });
+    console.log(mergedData)
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedEntries, setSelectedEntries] = useState([]);
@@ -158,7 +166,7 @@ export const UserDataTables = () => {
         }
     };
 
-    const filteredData = data.filter(item =>
+    const filteredData = mergedData.filter(item =>
         item.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.lastname.toLowerCase().includes(searchTerm.toLowerCase())
     );
@@ -174,7 +182,7 @@ export const UserDataTables = () => {
     //     return initials;
     // };
     const getInitials = (firstname, lastname) => {
-        return (firstname + lastname).toUpperCase();
+        return (firstname + lastname);
     };
     const handleItemsPerPageChange = (e) => {
         setItemsPerPage(Number(e.target.value));
@@ -403,12 +411,12 @@ export const UserDataTables = () => {
                                     </div>
                                 </td>
                                 <td>{item.email}</td>
-                                <td>{item.date}</td>
-                                <td>{item.salary}</td>
-                                <td>{renderStatusBadge(item.status)}</td>
+                                <td>{item.username}</td>
+                                <td> {item.role === 1 ? "Admin" : item.role === 0 ? "User" : "Unknown Role"}</td>
+                                <td>{item.phone_number}</td>
                                 <td>
                                     <Button variant="link"><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                    <Button variant="link"><FontAwesomeIcon icon={faTrash} /></Button>
+                                    {/* <Button variant="link"><FontAwesomeIcon icon={faTrash} /></Button> */}
                                 </td>
                             </tr>
                         ))}
@@ -550,7 +558,7 @@ export const DataTabless = () => {
     //     return initials;
     // }; 
     const getInitials = (firstname, lastname) => {
-        return (firstname + lastname).toUpperCase();
+        return (firstname + lastname);
     };
 
     const renderStatusBadge = (status) => {
