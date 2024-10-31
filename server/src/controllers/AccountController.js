@@ -27,16 +27,13 @@ class AccountController {
     async setAccountInfo(req, res) {
         console.log(req.body);
         try {
-            // Tìm tài khoản theo ID của người dùng từ token
             const account = await Account.findByPk(req.user.id);
             const accuser = await User.findOne({ where: { idaccount: req.user.id } });
 
-            // Kiểm tra xem cả tài khoản và người dùng có tồn tại không
             if (!account || !accuser) {
                 return res.status(404).json({ error: 'Tài khoản hoặc người dùng không tồn tại' });
             }
 
-            // Tách dữ liệu cần cập nhật cho từng bảng
             const accountData = {
                 username: req.body.username,
                 email: req.body.email
@@ -48,11 +45,9 @@ class AccountController {
                 phone: req.body.phone
             };
 
-            // Cập nhật thông tin tài khoản và người dùng
             await account.update(accountData);
             await accuser.update(userData);
 
-            // Trả về thông tin tài khoản đã cập nhật
             res.json({
                 message: 'Cập nhật thông tin tài khoản và người dùng thành công',
                 account,

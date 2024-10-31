@@ -125,7 +125,7 @@ function ProductItem(product, state) {
     const imageHeight = (1 / 8) * cardWidth;
     return (
         <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius: 10 }}>
-            <Card.Img variant="top" src={products.product_image} style={{ height: { imageHeight }, width: { cardWidth }, objectFit: 'cover' }} />
+            <Card.Img variant="top" style={{ height: { imageHeight }, width: { cardWidth }, objectFit: 'cover' }} />
             <Card.Body>
                 {/* Price and Name in the same line */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

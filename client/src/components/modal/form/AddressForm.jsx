@@ -101,8 +101,8 @@ const AddressForm = ({ address, show, onHide, onReload }) => {
                 onHide();
             }
             onReload()
-        } catch (err) {
-            setError(err.response ? err.response.data.message : 'Failed to save address');
+        } catch (error) {
+            setError(error.response ? error.response.data.message : 'Failed to save address');
         }
         // setValidated(true);
     };
@@ -132,8 +132,8 @@ const AddressForm = ({ address, show, onHide, onReload }) => {
                 onHide();
                 onReload()
             }
-        } catch (err) {
-            setError(err.response ? err.response.data.message : 'Failed to save address');
+        } catch (error) {
+            setError(error.response ? error.response.data.message : 'Failed to save address');
         }
     };
 
@@ -148,6 +148,7 @@ const AddressForm = ({ address, show, onHide, onReload }) => {
             onReload()
         } catch (error) {
             console.error("Error deleting address:", error);
+            setError(error.response ? error.response.data.message : 'Failed to save address');
         }
     };
 
@@ -287,8 +288,8 @@ const AddressForm = ({ address, show, onHide, onReload }) => {
                             </Form.Group>
                         </Row>
                         <hr/>
+                        {error && <p className="text-danger">{error}</p>}
                     </Form>
-                    {error && <p className="text-danger">{error}</p>}
                 </Modal.Body>
                 <Modal.Footer>
                     <Button onClick={onHide} variant="secondary" style={{ marginRight: "auto" }}>
@@ -322,7 +323,7 @@ const AddressForm = ({ address, show, onHide, onReload }) => {
             <SaveChange
                 show={showConfirmModal}
                 onHide={() => setShowConfirmModal(false)}
-                onSave={handleConfirmSave}
+                onSave={() => {handleConfirmSave(); setShowConfirmModal(false)}}
             />
             <SaveChange
                 show={showConfirmDelete}

@@ -25,7 +25,7 @@ import Order from '../pages/user-component/Order.jsx';
 import CheckOut from '../pages/user-component/Checkout.jsx';
 
 
-function App() {
+const UserRoutes = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userRole, setUserRole] = useState(null);
 
@@ -51,23 +51,25 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/product" element={<Product />} />
             <Route path="/search" element={<ProductList />} />
-            <Route path="/cart" element={<Cart />} />
 
             <Route path="/login" element={<Login />} />
             {/* <Route path="/signup" element={<Signup />} /> */}
             <Route path="/register" element={<Register />} />
 
             <Route path="/profile" element={<UserProfile />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/address" element={<AddressManagement />} />
             <Route path="/order" element={<Order />} />
             <Route path="/checkout" element={<CheckOut />} />
 
+            <Route path="/profile" element={<UserProfile />} />
 
-            <Route path="/profile" element={
-                <Protected isAuthenticated={isAuthenticated}>
-                    <UserProfile />
-                </Protected>
-            } />
+
+            {/*<Route path="/profile" element={*/}
+            {/*    <Protected isAuthenticated={isAuthenticated}>*/}
+            {/*        <UserProfile />*/}
+            {/*    </Protected>*/}
+            {/*} />*/}
 
             {/* <Route path="/admin" element={
                 <Manager isAuthenticated={isAuthenticated} userRole={userRole}>
@@ -80,4 +82,4 @@ function App() {
     )
 }
 
-export default App;
+export default UserRoutes;

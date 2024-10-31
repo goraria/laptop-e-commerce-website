@@ -14,86 +14,41 @@ import Home from "./pages/overview/Home.jsx";
 
 import DataTable from "./pages/DataTable.jsx";
 import { DataTables } from "./components/datatables/DataTables.jsx";
-function App() {
-    // const location = useLocation();
-    // const isAuthPath = location.pathname.includes("auth") || location.pathname.includes("error") || location.pathname.includes("under-maintenance") | location.pathname.includes("blank");
+import NotFound from "./pages/overview/NotFound.jsx";
+import ShareRoutes from "./router/ShareRoutes.jsx";
 
+
+const App = () => {
     const user = {
         isAuthenticated: true,
         role: 1
     };
 
     return (
-        <>
-            {/*{isAuthPath ? (*/}
-            {/*    <AdministratorRoutes>*/}
-            {/*        <Blank/>*/}
-            {/*    </AdministratorRoutes>*/}
-            {/*) : (*/}
-            {/*    <Layout>*/}
-            {/*        <AdministratorRoutes />*/}
-            {/*    </Layout>*/}
-            {/*)}*/}
-
-            {/* {user.isAuthenticated && user.role === 1 && (
-                <Layout><AdministratorRoutes /></Layout>
-            )}
-
-            {user.isAuthenticated && user.role === 0 && (
-                <Frame><UserRoutes /></Frame>
-            )} */}
-
-            {/* <Router>
-                <Routes>
-                    <Route path="/login" element={<Login />} />
-                    <Route
-                        path="/admin"
-                        element={
-                            <Protected
-                                isAllowed={user.isAuthenticated && user.role === 1}
-                                redirectTo="/login"
-                            >
-                                <Layout>
-                                    <DashboardPage />
-                                </Layout>
-                            </Protected>
-                        }
-                    />
-                    <Route
-                        path="/user"
-                        element={
-                            <Protected
-                                isAllowed={user.isAuthenticated && user.role === 0}
-                                redirectTo="/login"
-                            >
-                                <Frame>
-                                    <Home />
-                                </Frame>
-                            </Protected>
-                        }
-                    />
-                </Routes>
-            </Router> */}
-             {/*<Layout><AdministratorRoutes /></Layout>*/}
-            <Frame><UserRoutes /></Frame>
-            {/* <div className="container mt-5">
-                <DataTables />
-            </div> */}
-
-            {/* <Protected
-                isAllowed={user.isAuthenticated && user.role === 1}
-                redirectTo="/login"
-            >
-                <Layout><AdministratorRoutes /></Layout>
-            </Protected>
-            <Protected
-                isAllowed={user.isAuthenticated && user.role === 0}
-                redirectTo="/login"
-            >
-                <Frame><UserRoutes /></Frame>
-            </Protected> */}
-        </>
-
+        <Routes>
+            <Route path="/*" element={<Frame><ShareRoutes /></Frame>} />
+            <Route
+                path="/user/*"
+                element={
+                    <Protected isAllowed={user.isAuthenticated && user.role === 0} redirectTo="/login">
+                        <Frame>
+                            <UserRoutes />
+                        </Frame>
+                    </Protected>
+                }
+            />
+            <Route
+                path="/admin/*"
+                element={
+                    <Protected isAllowed={user.isAuthenticated && user.role === 1} redirectTo="/login">
+                        <Layout>
+                            <AdministratorRoutes />
+                        </Layout>
+                    </Protected>
+                }
+            />
+            <Route path="*" element={<NotFound />} />
+        </Routes>
     );
 }
 
