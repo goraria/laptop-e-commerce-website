@@ -1,7 +1,7 @@
-import React, {Component, useEffect, useState} from "react";
-import {Alert, Button, Card, Col, Container, Form, Image, InputGroup, Nav, Row} from "react-bootstrap";
+import React, { Component, useEffect, useState } from "react";
+import { Alert, Button, Card, Col, Container, Form, Image, InputGroup, Nav, Row } from "react-bootstrap";
 import jp from "../../assets/images/jp.jpeg";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faAt, faBullseye, faCity, faGift, faHistory, faLocationDot, faMapMarkerAlt, faMapPin,
     faPhone, faQuestionCircle, faSignOutAlt, faStar, faUser
@@ -30,7 +30,7 @@ const UserProfile = () => {
                     border: "none",
                     backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
                 }}>
-                <AccountInfo key={reloadAccountInfo} onReload={handleReloadAccountInfo}/>
+                <AccountInfo key={reloadAccountInfo} onReload={handleReloadAccountInfo} />
             </Card>
         </Profile>
     )
