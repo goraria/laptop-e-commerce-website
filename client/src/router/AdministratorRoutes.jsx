@@ -104,6 +104,7 @@ const AdministratorRoutes = () => {
     // }, []);
     return (
         <Routes>
+              
             <Route path="/admin" element={<DashboardPage />} />
 
             <Route path="/admin/layout/without-menu" element={<WithoutMenuPage />} />
@@ -188,7 +189,7 @@ const AdministratorRoutes = () => {
             {/*            </Protected>*/}
             {/*        } />*/}
 
-            {/*        <Route path="/admin" element={*/}
+            {/*        <Route path="" element={*/}
             {/*            <Manager isAuthenticated={isAuthenticated} userRole={userRole}>*/}
             {/*                <DashboardPage />*/}
             {/*            </Manager>*/}

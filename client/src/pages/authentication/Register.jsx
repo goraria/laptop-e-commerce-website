@@ -14,6 +14,8 @@ import SocialFormButton from "../../components/button/SocialFormButton.jsx";
 import jp from '../../assets/images/jp.jpeg'
 import axios from "axios";
 import Overview from "../../layouts/Overview.jsx";
+import NotifySuccess from "../../components/modal/notify/NotifySuccess.jsx";
+import NotifyError from "../../components/modal/notify/NotifyError.jsx";
 
 const sclItems = [
     // { id: 0, name: "Github", icon: faGithub, color: "secondary" },
@@ -33,7 +35,10 @@ function Register() {const [validated, setValidated] = useState(false);
         lastname: '',
         phone: ''
     });
+
     const [error, setError] = useState(null);
+    const [showSuccess, setShowSuccess] = useState(false);  // trạng thái cho NotifySuccess
+    const [showError, setShowError] = useState(false);  // trạng thái cho NotifyError
 
     const navigate = useNavigate();
 
@@ -56,7 +61,7 @@ function Register() {const [validated, setValidated] = useState(false);
 
                     if (response.status === 201) {
                         alert('Registration successful');
-                        navigate('/');  // Redirect to login after successful registration
+                        navigate('/login');  // Redirect to login after successful registration
                     }
                 } catch (error) {
                     setError(error.response ? error.response.data.message : 'Registration failed');
@@ -256,6 +261,20 @@ function Register() {const [validated, setValidated] = useState(false);
                     </Form>
                 </div>
             </Overview>
+
+            <NotifySuccess
+                title="Login Successful"
+                message="You have logged in successfully."
+                show={showSuccess}  // truyền showSuccess vào NotifySuccess
+                onHide={() => setShowSuccess(false)}  // đóng khi người dùng click
+            />
+
+            <NotifyError
+                title="Login Failed"
+                message={error}
+                show={showError}  // truyền showError vào NotifyError
+                onHide={() => setShowError(false)}  // đóng khi người dùng click
+            />
         </>
     )
 }

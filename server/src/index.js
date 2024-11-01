@@ -26,21 +26,8 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(express.static(path.join(__dirname, '../frontend/build')));
-// app.use('/api', apiRoutes);
-
-// app.get('/', (req, res) => {
-//     res.send('Hello from the backend!');
-// });
 
 routes(app)
-// app.use('/login', AuthenticationRoute);
-// app.get("/api", (req, res) => {
-//     // const { name, email } = req.body;
-//     //
-//     // console.log('Received data:', { name, email });
-//     // res.json({ message: 'Data received successfully', data: { name, email } });
-//     res.json({name: ['Japtor', 'Goraria', 'Ichibulup'] });
-// });
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);

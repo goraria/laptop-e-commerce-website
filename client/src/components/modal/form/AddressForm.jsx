@@ -111,10 +111,10 @@ const AddressForm = ({ address, show, onHide, onReload }) => {
         try {
             const token = localStorage.getItem('token');
             const response = address
-                ? await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData, {
+                ? await axios.post(`http://localhost:5172/address/update/${address.idaddress}`, formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 })
-                : await axios.post('http://localhost:5172/address/addition', formData, {
+                : await axios.put('http://localhost:5172/address/addition', formData, {
                     headers: { Authorization: `Bearer ${token}` }
                 });
 

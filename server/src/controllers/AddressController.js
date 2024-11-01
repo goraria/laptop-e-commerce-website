@@ -1,4 +1,5 @@
 const Address = require('../models/Address');
+const Account = require('../models/Account')
 
 class AddressController {
     async getAllAddresses(req, res) {
@@ -30,7 +31,7 @@ class AddressController {
         console.log(idaccount, req.body);
         try {
             const newAddress = await Address.create({
-                idaccount,
+                idaccount: req.user.id,
                 tower,
                 street,
                 district,

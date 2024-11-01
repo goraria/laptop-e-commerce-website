@@ -46,6 +46,7 @@ const AddressManagement = () => {
                 setLoading(false);
             }
         };
+
         fetchAddresses();
     }, [reloadTrigger]);  // Khi reloadTrigger thay đổi, useEffect sẽ gọi lại API //
 
