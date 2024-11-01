@@ -14,44 +14,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom'
 
 
-const Items = [
-    {
-        id: 1,
-        products_name: 'Lenovo ThinkPad X1 Carbon Gen 8',
-        brand: 'Lenovo',
-        category: 'laptop',
-        configuation: [
-            {
-                idconfiguration: 1,
-                cpu: 'AMD Ryzen 7',
-                ram: '16GB',
-                gpu: null,
-                storage: '512 SSD',
-                screen: '15 inch',
-                resolution: '1920x1080',
-                price: 999
-            },
-
-        ],
-        rating: [
-            {
-                score: 5,
-                comment: 'ok'
-            }
-
-        ],
-        description: {
-            title_description: "Laptop",
-            sub_description: "ngon bổ rẻ",
-            img_description: "ảnh laptop"
-        },
-        color: ['black', 'silver'],
-
-    }
-]
-
-
-
 function Product() {
     const location = useLocation(); // Lấy thông tin URL hiện tại
     const searchParams = new URLSearchParams(location.search);

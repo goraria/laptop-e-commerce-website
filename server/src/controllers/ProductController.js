@@ -4,7 +4,7 @@ const Description = require('../models/Description');
 const Configuration = require('../models/Configuration')
 const Rating = require("../models/Rating")
 const Color = require("../models/Color")
-
+const { Op } = require("sequelize");
 class ProductController {
 
     async loadProduct(req, res) {
@@ -144,6 +144,91 @@ class ProductController {
             res.status(500).json({ message: 'Error fetching ratings', error });
         }
     }
+
+    async loadProductWithBrand(req, res) {
+        const { Brand } = req.params; // Retrieve idProduct from request parameters
+
+        try {
+            // Find descriptions where idProduct matches the provided id
+            const product = await Product.findAll({
+                where: {
+                    brand: Brand
+                }
+            });
+
+            // If ratings are found, return them, otherwise return a 404
+            if (product.length > 0) {
+                res.status(200).json(product);
+            } else {
+                res.status(404).json({ message: `No ratings found for product with id ` });
+            }
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching ratings', error });
+        }
+    }
+
+    async loadProductWithName(req, res) {
+        const { Name } = req.params; // Retrieve idProduct from request parameters
+
+        try {
+            // Find descriptions where idProduct matches the provided id
+            const product = await Product.findAll({
+                where: {
+                    product_name:{
+                        [Op.like]: `%${Name}%`
+                    } 
+                }
+            });
+
+            // If ratings are found, return them, otherwise return a 404
+            if (product.length > 0) {
+                res.status(200).json(product);
+            } else {
+                res.status(404).json({ message: `No ratings found for product with id ` });
+            }
+
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching ratings', error });
+        }
+    }
+    
+    async loadProductWithCondition(req, res) {
+        const { CPU } = req.params;
+    
+        try {
+            // Columns to check in the Configuration table
+            const columnsToCheck = ['cpu', 'ram', 'gpu', 'storage', 'screen'];
+            let matchingColumn = null;
+            let product = null;
+    
+            // Loop through columns and find the first match for CPU value
+            for (const column of columnsToCheck) {
+                product = await Configuration.findAll({
+                    where: { [column]: CPU }
+                });
+    
+                if (product.length > 0) {
+                    matchingColumn = column;
+                    break; // Stop once a match is found
+                }
+            }
+    
+            // If a match was found, return the results
+            if (matchingColumn) {
+                res.status(200).json(product);
+            } else {
+                // If no matching column was found, return a 404
+                res.status(404).json({ message: `No products found matching the value '${CPU}'` });
+            }
+    
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching products', error });
+        }
+    }
+    
+
+
 
 }
 

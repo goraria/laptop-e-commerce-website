@@ -14,6 +14,7 @@ import axios from "axios";
 
 import DropdownConfig from "../components/button/DropdownConfig.jsx";
 import SaveChange from "../components/modal/notify/SaveChange.jsx";
+// import { search } from '../../../server/src/routes/ProductRouter.js';
 
 const dropdownContains = [
     {
@@ -53,6 +54,8 @@ const LogoutButton = () => {
 
 const Header = () => {
     const [showModalHeader, setShowModalHeader] = useState(false);
+    const [submit, setSubmit] = useState({search:''});
+
     const navigate = useNavigate();
     const token = localStorage.getItem('token');
 
@@ -70,6 +73,21 @@ const Header = () => {
         }
     };
 
+    const handleSearch = (event) => {
+        event.preventDefault();
+        navigate(`/search?search=${submit.search}`);
+        setTimeout(() => {
+            window.location.reload();
+        }, 50);
+    };
+
+
+    const handleChange = (event) => {
+        setSubmit({ ...submit, [event.target.name]: event.target.value });
+    };
+
+    
+
     return (
         <>
             <Navbar fixed="top" expand="lg" className="bg-dark bg-body-tertiary" style={{height: 56}}> {/** data-bs-theme="dark" */}
@@ -83,14 +101,17 @@ const Header = () => {
                             <Nav.Link as={Link} to={'/about'}>About</Nav.Link>
                         </Nav>
                         <Nav className="ms-auto d-flex">
-                            <Form className="d-flex">
+                            <Form className="d-flex" onSubmit={handleSearch} >
                                 <Form.Control
                                     type="search"
                                     placeholder="Search"
                                     className="me-2"
                                     aria-label="Search"
+                                    name="search"
+                                    value={submit.search}
+                                    onChange={handleChange}
                                 />
-                                <Button variant="outline-primary"><FontAwesomeIcon icon={faSearch} /></Button>
+                                <Button as={Link} to={'/search'} variant="outline-primary"><FontAwesomeIcon icon={faSearch} /></Button>
                             </Form>
                             {token ?
                                 <>

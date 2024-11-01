@@ -9,90 +9,128 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
 
-const products = [
-    { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
-    { id: 2, name: 'Product 2', price: '6', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2' },
-    { id: 3, name: 'Product 3', price: '7', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3' },
-    { id: 4, name: 'Product 4', price: '8', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4' },
-    { id: 5, name: 'Product 5', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5' },
-    { id: 6, name: 'Product 6', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6' },
-    { id: 7, name: 'Product 7', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 7' },
-    { id: 8, name: 'Product 8', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 8' },
-];
 
-var pre_total = 0;
-products.map((item) => pre_total += Number(item['price']));
 
-var discount = 0.5;
-var total = pre_total - (discount * pre_total);
+
+
+
 
 function Cart() {
     const [carts, setCart] = useState();
-    const [cartItems, setCartItem] = useState(null);
+    const [cartItems, setCartItem] = useState([]);
     const [product, setProduct] = useState([]);
     const [default_config, setdefaultconfig] = useState([]);
     const [descriptions, setArray] = useState([]);
+    const [selectedPrices, setSelectedPrices] = useState([]);
 
+    const token = localStorage.getItem('token');
+    const response = async () =>{ await axios.get('http://localhost:5172/cart/load', {
+        headers: { Authorization: `Bearer ${token}` }
+    })};
 
-    const idcart = 1;
+    // const fetchCart = async () => {
+    //     const response = await axios.get(`http://localhost:5172/cart/load-cart/${idcart}`);
+    //     setCart(response.data[0]);
+    // };
 
-    const fetchCart = async () => {
-        const response = await axios.get(`http://localhost:5172/cart/load-cart/${idcart}`);
-        setCart(response.data[0]);
-    };
-
-    const fetchCartItem = async () => {
-        const response = await axios.get(`http://localhost:5172/cart/load-cartItem/${idcart}`);
-        setCartItem(response.data[0]);
+    const fetchCartItem = async (Carts) => {
+        const response = await axios.get(`http://localhost:5172/cart/load-cartItem/${Carts.idcart}`);
+        setCartItem(response.data);
         console.log(response.data)
     };
 
-    const fetchProductDetails = async () => {
+    const fetchProductDetails = async (CartItems) => {
         if (cartItems && cartItems.idproduct) {  // Check if idproduct is available
             try {
-                const response = await fetch(`http://localhost:5172/products/load-productid/${cartItems.idproduct}`);
+                const response = await fetch(`http://localhost:5172/products/load-productid/${CartItems.idproduct}`);
                 const data = await response.json();
                 setProduct(data[0]);
-                // console.log(data)
+                console.log(data)
             } catch (error) {
                 console.error('Error fetching product details:', error);
             }
         }
     };
-    const fetchProductConfiguration = async () => {
-        try {
-            const response = await fetch(`http://localhost:5172/products/load-idconfiguration/${cartItems.idconfiguration}`);
-            const data = await response.json();
-            setdefaultconfig(data[0]); // Cập nhật thông tin sản phẩm từ backend
-            console.log(data)
-        } catch (error) {
-            console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
-        }
-    };
+    // const fetchProductConfiguration = async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:5172/products/load-idconfiguration/${cartItems.idconfiguration}`);
+    //         const data = await response.json();
+    //         setdefaultconfig(data[0]); // Cập nhật thông tin sản phẩm từ backend
+    //         console.log(data)
+    //     } catch (error) {
+    //         console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+    //     }
+    // };
 
-    const fetchProductDecription = async () => {
+    // const fetchProductDecription = async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:5172/products/load-description/${cartItems.idproduct}`);
+    //         const data = await response.json();
+    //         setArray(data[0]); // Cập nhật thông tin sản phẩm từ backend
+    //         console.log(data[0])
+
+    //     } catch (error) {
+    //         console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+    //     }
+    // };
+
+    const fetchCart = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/products/load-description/${cartItems.idproduct}`);
+            const response = await fetch(`http://localhost:5172/cart/loadcart`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
             const data = await response.json();
-            setArray(data[0]); // Cập nhật thông tin sản phẩm từ backend
-            console.log(data[0])
+            setCart(data)
+            console.log(data)
 
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }
     };
+    // const fetchProductByName = async () => {
+    //     try {
+    //         const response = await fetch(`http://localhost:5172/products/load-productName/${cartItems.idproduct}`);
+    //         const data = await response.json();
+    //         setArray(data[0]); // Cập nhật thông tin sản phẩm từ backend
+    //         console.log(data[0])
+
+    //     } catch (error) {
+    //         console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+    //     }
+    // };
+
+    const handleCheckboxChange = (price, isSelected) => {
+        setSelectedPrices((prevSelectedPrices) =>
+            isSelected
+                ? [...prevSelectedPrices, price] // Add price if checked
+                : prevSelectedPrices.filter((itemPrice) => itemPrice !== price) // Remove if unchecked
+        );
+    };
+
+    // Calculate total based on selected prices
+    var pre_total = selectedPrices.reduce((acc, price) => acc + price, 0);
+    var discount = 0; // Modify as needed
+    var total = pre_total - pre_total * discount;
+
+   
+
 
     useEffect(() => {
-        fetchCartItem();
+        fetchCart();
+        
+        // response();
     }, []);
 
     useEffect(() => {
+        fetchCartItem(carts);
         // fetchProductDetails();
         // fetchProductConfiguration();
         // fetchProductDecription();
         
-    }, [cartItems]); // Run fetchProductDetails when cartItems is updated
-
+    }, [carts]); // Run fetchProductDetails when cartItems is updated
+    
     
     return (
         <div>
@@ -110,9 +148,9 @@ function Cart() {
                                 </Button>
                             </div>
                         </Card>
-                        {products.map((item) => (
-                            <Card className="p-3 mb-2" key={item.id}>
-                                <CardItem item={item} product_name = {product.product_name} />
+                        {cartItems.map((item) => (
+                            <Card className="p-3 mb-2" key={item.idcart_item}>
+                                <CardItem Item={item} onCheckboxChange = {handleCheckboxChange} />
                             </Card>
                         ))}
                     </Col>
