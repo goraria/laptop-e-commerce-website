@@ -60,7 +60,7 @@ import { ProductConfiguration } from "../pages/management/ProductConfiguration"
 import { ProductAccessory } from "../pages/management/ProductAccessory"
 import { ProductDescription } from "../pages/management/ProductDescription"
 import { ProductColor } from "../pages/management/ProductColor"
-import { UserProfileid } from "../pages/management/UserProfileId"
+import { UserProfileid } from "../pages/admin-component/UserProfileId"
 
 ///////////////////////////////////////
 
@@ -159,7 +159,7 @@ const AdministratorRoutes = () => {
 
             <Route path="/admin/tables" element={<TablesPage />} />
             <Route path="/admin/profile" element={<AccountPage />} />
-            <Route path="/admin/profile_user" element={<UserProfileid />} />
+            <Route path="/admin/profile_user/:idaccount" element={<UserProfileid />} />
             <Route path="/admin/users" element={<UserManagement />} />
             <Route path="/admin/categories" element={<Category />} />
             <Route path="/admin/product/name" element={<ProductName />} />

@@ -4,6 +4,7 @@ const db = require('../config/database.js')
 const Account = require('../models/Account.js');
 const User = require('../models/User.js');
 const { where } = require('sequelize');
+const Category = require("../models/Category.js")
 class AdminController {
     async getAccount(req, res) {
         try {
@@ -27,7 +28,7 @@ class AdminController {
     }
     async getAccountId(req, res) {
         try {
-            const { idaccount } = req.params.idaccount
+            const { idaccount } = req.params
             const account = await Account.findAll({
                 where: {
                     idaccount: idaccount
@@ -41,7 +42,7 @@ class AdminController {
     }
     async getUserId(req, res) {
         try {
-            const { idaccount } = req.params.idaccount
+            const { idaccount } = req.params
             const user = await User.findAll({
                 where: {
                     idaccount: idaccount
@@ -55,7 +56,7 @@ class AdminController {
     }
     async deleteUser(req, res) {
         try {
-            const { idaccount } = req.params.idaccount
+            const { idaccount } = req.params
             const account = await Account.findAll({
                 where: {
                     idaccount: idaccount
@@ -78,7 +79,7 @@ class AdminController {
     }
     async updateAccount(req, res) {
         try {
-            const { idaccount } = req.params.idaccount
+            const { idaccount } = req.params
             const account = await Account.findAll({
                 where: {
                     idaccount: idaccount
@@ -98,7 +99,7 @@ class AdminController {
     }
     async updateUser(req, res) {
         try {
-            const { idaccount } = req.params.idaccount
+            const { idaccount } = req.params
             const user = await User.findAll({
                 where: {
                     idaccount: idaccount
@@ -116,6 +117,16 @@ class AdminController {
             console.error('Error updating user:', error);
             res.status(500).json({ success: false, message: 'Error updating user' });
         }
+    }
+    async getCategory(req, res) {
+        try {
+
+            const category = await Category.findAll();
+            res.status(200).json(category);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching category', error });
+        }
+
     }
 }
 module.exports = new AdminController();    
