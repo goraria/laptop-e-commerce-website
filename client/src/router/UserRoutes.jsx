@@ -24,8 +24,7 @@ import NotFound from "../pages/overview/NotFound.jsx";
 import Order from '../pages/user-component/Order.jsx';
 import CheckOut from '../pages/user-component/Checkout.jsx';
 
-
-const UserRoutes = () => {
+export const UserRoutes = () => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [userRole, setUserRole] = useState(null);
 
@@ -66,5 +65,3 @@ const UserRoutes = () => {
         </Routes>
     )
 }
-
-export default UserRoutes;
