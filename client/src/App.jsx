@@ -45,16 +45,16 @@ const App = () => {
         <Routes>
             {/*<Route path="/*" element={<Frame><ShareRoutes /></Frame>} />*/}
 
-            {/*<Route*/}
-            {/*    path="/*"*/}
-            {/*    element={*/}
-            {/*        // <Protected isAllowed={user.isAuthenticated && user.role === 0} redirectTo="/login">*/}
-            {/*            <Frame>*/}
-            {/*                <UserRoutes />*/}
-            {/*            </Frame>*/}
-            {/*        // </Protected>*/}
-            {/*    }*/}
-            {/*/>*/}
+            <Route
+                path="/*"
+                element={
+                    // <Protected isAllowed={user.isAuthenticated && user.role === 0} redirectTo="/login">
+                        <Frame>
+                            <UserRoutes />
+                        </Frame>
+                    // </Protected>
+                }
+            />
 
             <Route
                 path="/admin/*"

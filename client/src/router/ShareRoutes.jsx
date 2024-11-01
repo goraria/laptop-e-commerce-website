@@ -9,7 +9,7 @@ import ProductList from "../pages/overview/ProductList.jsx";
 import Login from "../pages/authentication/Login.jsx";
 import Register from "../pages/authentication/Register.jsx";
 
-const ShareRoutes = () => {
+export const ShareRoutes = () => {
     return (
         <Routes>
             <Route path="/" element={<Home />} />
@@ -25,5 +25,3 @@ const ShareRoutes = () => {
         </Routes>
     )
 }
-
-export default ShareRoutes
