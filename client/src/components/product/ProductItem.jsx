@@ -40,23 +40,23 @@ function ProductItem(product, state) {
     const [products, setProduct] = useState([]);
     var obj = product.obj;
 
-    const fetchAPI = async () => {
-        const response = await axios.get(`http://localhost:5172/products/load-description/${obj.idproduct}`)
-        setArray(response.data[0])
-    };
+    // const fetchAPI = async () => {
+    //     const response = await axios.get(`http://localhost:5172/products/load-description/${obj.idproduct}`)
+    //     setArray(response.data[0])
+    // };
 
-    const fetchAPI1 = async () => {
-        const response = await axios.get(`http://localhost:5172/products/load-configuration/${obj.idproduct}`)
-        setconfig(response.data[0])
-    };
-    const fetchAPI2 = async () => {
-        const response = await axios.get(`http://localhost:5172/products/load-rating/${obj.idproduct}`)
-        setRating(response.data)
-    };
-    const fetchAPI3 = async () => {
-        const response = await axios.get(`http://localhost:5172/products/load-productid/${obj.idproduct}`)
-        setProduct(response.data)
-    };
+    // const fetchAPI1 = async () => {
+    //     const response = await axios.get(`http://localhost:5172/products/load-configuration/${obj.idproduct}`)
+    //     setconfig(response.data[0])
+    // };
+    // const fetchAPI2 = async () => {
+    //     const response = await axios.get(`http://localhost:5172/products/load-rating/${obj.idproduct}`)
+    //     setRating(response.data)
+    // };
+    // const fetchAPI3 = async () => {
+    //     const response = await axios.get(`http://localhost:5172/products/load-productid/${obj.idproduct}`)
+    //     setProduct(response.data)
+    // };
     // obj.forEach(idproduct => {
     //     const fetchconfig = async () => {
     //         try {
@@ -74,7 +74,7 @@ function ProductItem(product, state) {
             const response = await fetch(`http://localhost:5172/products/load-productid/${obj.idproduct}`);
             const data = await response.json();
             setProduct(data[0]); // Cập nhật thông tin sản phẩm từ backend
-            console.log(data)
+            // console.log(data)
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
         }
@@ -84,6 +84,16 @@ function ProductItem(product, state) {
             const response = await fetch(`http://localhost:5172/products/load-description/${obj.idproduct}`);
             const data = await response.json();
             setArray(data[0]); // Cập nhật thông tin sản phẩm từ backend
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
+    const fetchProductRating = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/products/load-rating/${obj.idproduct}`);
+            const data = await response.json();
+            setRating(data); // Cập nhật thông tin sản phẩm từ backend
+            console.log(data)
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }
@@ -101,7 +111,8 @@ function ProductItem(product, state) {
         try {
             const response = await fetch(`http://localhost:5172/products/load-configuration/${obj.idproduct}`);
             const data = await response.json();
-            setconfig(data); // Cập nhật thông tin sản phẩm từ backend
+            setconfig(data[0]); // Cập nhật thông tin sản phẩm từ backend
+            // console.log(data)
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
         }
@@ -109,8 +120,9 @@ function ProductItem(product, state) {
 
     useEffect(() => {
         fetchProductDetails();
-        // fetchProductConfiguration();
-        // fetchProductDecription();
+        fetchProductConfiguration();
+        fetchProductDecription();
+        fetchProductRating();
         // fetchAPI();
         // fetchAPI1();
         // fetchAPI2();
@@ -124,8 +136,8 @@ function ProductItem(product, state) {
     const cardWidth = state;
     const imageHeight = (1 / 8) * cardWidth;
     return (
-        <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius: 10 }}>
-            <Card.Img variant="top" style={{ height: { imageHeight }, width: { cardWidth }, objectFit: 'cover' }} />
+        <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius: 10,height:cardWidth*6/5 , width: cardWidth ,objectFit: 'cover' }}>
+            <Card.Img variant="top" src = {products.product_image}  style={{  width: '100%', height: '100%', objectFit: 'cover' }} />
             <Card.Body>
                 {/* Price and Name in the same line */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -135,7 +147,7 @@ function ProductItem(product, state) {
                         overflow: 'hidden',
                         textOverflow: 'ellipsis'
                     }}>
-                        {obj.product_name}
+                        {products.product_name}
                     </Card.Title>
                     <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>${configurations.price}</span>
                 </div>

@@ -60,7 +60,7 @@ import { ProductConfiguration } from "../pages/management/ProductConfiguration"
 import { ProductAccessory } from "../pages/management/ProductAccessory"
 import { ProductDescription } from "../pages/management/ProductDescription"
 import { ProductColor } from "../pages/management/ProductColor"
-import { UserProfileid } from "../pages/management/UserProfileId"
+import { UserProfileid } from "../pages/admin-component/UserProfileId"
 
 ///////////////////////////////////////
 
@@ -104,69 +104,70 @@ const AdministratorRoutes = () => {
     // }, []);
     return (
         <Routes>
-            <Route path="/" element={<DashboardPage />} />
+              
+            <Route path="/admin" element={<DashboardPage />} />
 
-            <Route path="/layout/without-menu" element={<WithoutMenuPage />} />
-            <Route path="/layout/without-navbar" element={<WithoutNavbarPage />} />
-            <Route path="/layout/container" element={<ContainerPage />} />
-            <Route path="/layout/fluid" element={<FluidPage />} />
-            <Route path="/layout/fluid" element={<FluidPage />} />
-            <Route path="/layout/blank" element={<BlankPage />} />
+            <Route path="/admin/layout/without-menu" element={<WithoutMenuPage />} />
+            <Route path="/admin/layout/without-navbar" element={<WithoutNavbarPage />} />
+            <Route path="/admin/layout/container" element={<ContainerPage />} />
+            <Route path="/admin/layout/fluid" element={<FluidPage />} />
+            <Route path="/admin/layout/fluid" element={<FluidPage />} />
+            <Route path="/admin/layout/blank" element={<BlankPage />} />
 
-            <Route path="/ui/accordion" element={<AccordionPage />} />
-            <Route path="/ui/alerts" element={<AlertPage />} />
-            <Route path="/ui/badges" element={<BadgesPage />} />
-            <Route path="/ui/buttons" element={<ButtonPage />} />
-            <Route path="/ui/cards" element={<CardsPage />} />
-            <Route path="/ui/carousel" element={<CarouselPage />} />
-            <Route path="/ui/collapse" element={<CollapsePage />} />
-            <Route path="/ui/dropdown" element={<DropdownPage />} />
-            <Route path="/ui/footer" element={<FooterPage />} />
-            <Route path="/ui/list-group" element={<ListGroupPage />} />
-            <Route path="/ui/modals" element={<ModalPage />} />
-            <Route path="/ui/navbar" element={<NavbarPage />} />
-            <Route path="/ui/offcanvas" element={<OffcanvasPage />} />
-            <Route path="/ui/pagination-breadcrumbs" element={<PaginationBreadcrumbsPage />} />
-            <Route path="/ui/progress" element={<ProgressPage />} />
-            <Route path="/ui/spinners" element={<SpinnersPage />} />
-            <Route path="/ui/tabs-pills" element={<TabsPillPage />} />
-            <Route path="/ui/toasts" element={<ToastPage />} />
-            <Route path="/ui/tooltips-popovers" element={<TooltipPopoverPage />} />
-            <Route path="/ui/typography" element={<TypographyPage />} />
+            <Route path="/admin/ui/accordion" element={<AccordionPage />} />
+            <Route path="/admin/ui/alerts" element={<AlertPage />} />
+            <Route path="/admin/ui/badges" element={<BadgesPage />} />
+            <Route path="/admin/ui/buttons" element={<ButtonPage />} />
+            <Route path="/admin/ui/cards" element={<CardsPage />} />
+            <Route path="/admin/ui/carousel" element={<CarouselPage />} />
+            <Route path="/admin/ui/collapse" element={<CollapsePage />} />
+            <Route path="/admin/ui/dropdown" element={<DropdownPage />} />
+            <Route path="/admin/ui/footer" element={<FooterPage />} />
+            <Route path="/admin/ui/list-group" element={<ListGroupPage />} />
+            <Route path="/admin/ui/modals" element={<ModalPage />} />
+            <Route path="/admin/ui/navbar" element={<NavbarPage />} />
+            <Route path="/admin/ui/offcanvas" element={<OffcanvasPage />} />
+            <Route path="/admin/ui/pagination-breadcrumbs" element={<PaginationBreadcrumbsPage />} />
+            <Route path="/admin/ui/progress" element={<ProgressPage />} />
+            <Route path="/admin/ui/spinners" element={<SpinnersPage />} />
+            <Route path="/admin/ui/tabs-pills" element={<TabsPillPage />} />
+            <Route path="/admin/ui/toasts" element={<ToastPage />} />
+            <Route path="/admin/ui/tooltips-popovers" element={<TooltipPopoverPage />} />
+            <Route path="/admin/ui/typography" element={<TypographyPage />} />
 
 
-            <Route path="/auth/login" element={<LoginPage />} />
-            <Route path="/auth/register" element={<RegisterPage />} />
-            <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
+            <Route path="/admin/auth/login" element={<LoginPage />} />
+            <Route path="/admin/auth/register" element={<RegisterPage />} />
+            <Route path="/admin/auth/forgot-password" element={<ForgotPasswordPage />} />
 
-            <Route path="/account/settings" element={<AccountPage />} />
-            <Route path="/account/notifications" element={<NotificationPage />} />
-            <Route path="/account/connections" element={<Connections />} />
+            <Route path="/admin/account/settings" element={<AccountPage />} />
+            <Route path="/admin/account/notifications" element={<NotificationPage />} />
+            <Route path="/admin/account/connections" element={<Connections />} />
 
-            <Route path="/misc/error" element={<ErrorPage />} />
-            <Route path="/misc/under-maintenance" element={<MaintenancePage />} />
+            <Route path="/admin/misc/error" element={<ErrorPage />} />
+            <Route path="/admin/misc/under-maintenance" element={<MaintenancePage />} />
 
-            <Route path="/extended-ui/perfect-scrollbar" element={<PerfectScrollbarPage />} />
-            <Route path="/extended-ui/text-divider" element={<TextDividerPage />} />
+            <Route path="/admin/extended-ui/perfect-scrollbar" element={<PerfectScrollbarPage />} />
+            <Route path="/admin/extended-ui/text-divider" element={<TextDividerPage />} />
 
-            <Route path="/boxicons" element={<BoxiconsPage />} />
+            <Route path="/admin/boxicons" element={<BoxiconsPage />} />
 
-            <Route path="/form/basic-inputs" element={<BasicInputPage />} />
-            <Route path="/form/input-groups" element={<InputGroupPage />} />
+            <Route path="/admin/form/basic-inputs" element={<BasicInputPage />} />
+            <Route path="/admin/form/input-groups" element={<InputGroupPage />} />
 
-            <Route path="/form-layout/horizontal-form" element={<HorizontalFormPage />} />
-            <Route path="/form-layout/vertical-form" element={<VerticalFormPage />} />
+            <Route path="/admin/form-layout/horizontal-form" element={<HorizontalFormPage />} />
+            <Route path="/admin/form-layout/vertical-form" element={<VerticalFormPage />} />
 
-            <Route path="/tables" element={<TablesPage />} />
-            <Route path="/profile" element={<AccountPage />} />
-            <Route path="/profile_user" element={<UserProfileid />} />
-            <Route path="/users" element={<UserManagement />} />
-            <Route path="/categories" element={<Category />} />
-            <Route path="/product/name" element={<ProductName />} />
-            <Route path="/product/accessory" element={<ProductAccessory />} />
-            <Route path="/product/configurarion" element={<ProductConfiguration />} />
-            <Route path="/product/color" element={<ProductColor />} />
-            <Route path="/product/description" element={<ProductDescription />} />
+            <Route path="/admin/tables" element={<TablesPage />} />
+            <Route path="/admin/profile" element={<AccountPage />} />
+            <Route path="/admin/profile_user/:idaccount" element={<UserProfileid />} />
+            <Route path="/admin/users" element={<UserManagement />} />
+            <Route path="/admin/categories" element={<Category />} />
+            <Route path="/admin/product/name" element={<ProductName />} />
+            <Route path="/admin/product/accessory" element={<ProductAccessory />} />
+            <Route path="/admin/product/configurarion" element={<ProductConfiguration />} />
+            <Route path="/admin/product/color" element={<ProductColor />} />
+            <Route path="/admin/product/description" element={<ProductDescription />} />
 
             {/*<Header />*/}
             {/*<main>*/}

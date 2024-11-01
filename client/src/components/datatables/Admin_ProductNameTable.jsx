@@ -16,80 +16,70 @@ import {
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { UserForm } from "../modal/form/UserForm";
 // import "./DataTables.css"; // Add custom styling here
 
-export const UserDataTables = () => {
+export const ProductNameTable = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState([])
     const fetchAPI = async () => {
-        const response = await axios.get("http://localhost:5172/admin/get-user")
+        const response = await axios.get("http://localhost:5172/products/load-product")
         console.log(response.data)
         setData(response.data)
     };
     const [data1, setData1] = useState([])
     const fetchAPI1 = async () => {
-        const response = await axios.get("http://localhost:5172/admin/get-account")
+        const response = await axios.get("http://localhost:5172/admin/get-category")
         console.log(response.data)
         setData1(response.data)
     };
-    const mergedData = data.map(user => {
-        const account = data1.find(acc => acc.idaccount === user.idaccount);
-        return { ...user, ...account };
-    });
-    console.log(mergedData)
-    const handleModalClose = () => {
-        setModalShow(false);
-        setSelectedUser(null);
-    };
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [modalShow, setModalShow] = useState(false);
-
-
+    // const mergedData = data.map(user => {
+    //     const account = data1.find(acc => acc.idproduct === user.idproduct);
+    //     return { ...user, ...account };
+    // });
+    // console.log(mergedData)
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedEntries, setSelectedEntries] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(10);
 
-    const [reloadTrigger, setReloadTrigger] = useState(0);
     const handleSearch = (e) => {
         setSearchTerm(e.target.value);
         setCurrentPage(1);
     };
-    const handleReload = () => {
-        setReloadTrigger(reloadTrigger + 1);
-    };
-    const handleEdit = (userId) => {
-        // Tìm user theo ID
-        const userToEdit = mergedData.find(user => user.idaccount === userId);
-        if (userToEdit) {
-            setSelectedUser(userToEdit); // Lưu thông tin user vào state `selectedUser`
-            setModalShow(true); // Hiển thị modal để chỉnh sửa thông tin
-        }
-    };
+
     const handleSelectAll = (e) => {
         if (e.target.checked) {
-            const allVisibleItems = filteredData.slice(indexOfFirstItem, indexOfLastItem).map(item => item.iduser);
+            const allVisibleItems = filteredData.slice(indexOfFirstItem, indexOfLastItem).map(item => item.idproduct);
             setSelectedEntries(allVisibleItems);
         } else {
             setSelectedEntries([]);
         }
     };
-    const handleNavigate = (idaccount) => {
-        navigate(`/admin/profile_user/${idaccount}`); // điều hướng tới URL động với userId
+    const handleNavigate = (idproduct) => {
+        navigate(`/admin/profile_user/${idproduct}`); // điều hướng tới URL động với userId
     };
-    const handleSelectItem = (iduser) => {
-        if (selectedEntries.includes(iduser)) {
-            setSelectedEntries(selectedEntries.filter(item => item !== iduser));
+    const handleSelectItem = (idproduct) => {
+        if (selectedEntries.includes(idproduct)) {
+            setSelectedEntries(selectedEntries.filter(item => item !== idproduct));
         } else {
-            setSelectedEntries([...selectedEntries, iduser]);
+            setSelectedEntries([...selectedEntries, idproduct]);
+        }
+    };
+    const handleDelete = async (id) => {
+        try {
+            // Send delete request to the server
+            await axios.delete(`http://localhost:5172/products/delete/${id}`);
+
+            // Optionally, fetch the updated data again
+            fetchAPI();
+        } catch (error) {
+            console.error("Error deleting product:", error);
         }
     };
 
-    const filteredData = mergedData.filter(item =>
-        item.firstname.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.lastname.toLowerCase().includes(searchTerm.toLowerCase())
+    const filteredData = data.filter(item =>
+        item.product_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -98,13 +88,13 @@ export const UserDataTables = () => {
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
 
-    // const getInitials = (name) => {
-    //     const initials = name.split(" ").map(n => n[0]).join("");
-    //     return initials;
-    // };
-    const getInitials = (firstname, lastname) => {
-        return (firstname + lastname);
+    const getInitials = (name) => {
+        const initials = name.split(" ").map(n => n[0]).join("");
+        return initials;
     };
+    // const getInitials = (firstname, lastname) => {
+    //     return (firstname + lastname);
+    // };
     const handleItemsPerPageChange = (e) => {
         setItemsPerPage(Number(e.target.value));
         setCurrentPage(1);
@@ -204,25 +194,6 @@ export const UserDataTables = () => {
 
         return <Pagination style={{ margin: 0 }}>{paginationItems}</Pagination>;
     };
-
-
-    const renderStatusBadge = (status) => {
-        switch (status) {
-            case "Professional":
-                return <Badge bg="label-success">Professional</Badge>;
-            case "Resigned":
-                return <Badge bg="label-warning">Resigned</Badge>;
-            case "Current":
-                return <Badge bg="label-primary">Current</Badge>;
-            case "Applied":
-                return <Badge bg="label-info">Applied</Badge>;
-            case "Rejected":
-                return <Badge bg="label-danger">Rejected</Badge>;
-            default:
-                return <Badge bg="label-secondary">{status}</Badge>;
-        }
-    };
-
     useEffect(() => {
         fetchAPI();
         fetchAPI1();
@@ -235,21 +206,10 @@ export const UserDataTables = () => {
                     <div className="card-header flex-column flex-md-row pb-0">
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <div className="head-label text-center">
-                                <h5 className="card-title mb-0">User DataTable</h5>
+                                <h5 className="card-title mb-0">Product DataTable</h5>
                             </div>
                             <div className="dt-action-buttons text-end pt-6 pt-md-0">
                                 <div className="dt-buttons btn-group flex-wrap">
-                                    <div className="btn-group">
-                                        {/* <Dropdown className="me-3">
-                                            <Dropdown.Toggle variant="outline-primary" id="dropdown-basic">
-                                                Export
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                                <Dropdown.Item href="#">Export as CSV</Dropdown.Item>
-                                                <Dropdown.Item href="#">Export as PDF</Dropdown.Item>
-                                            </Dropdown.Menu>
-                                        </Dropdown> */}
-                                    </div>
                                     <div>
                                         <Button variant="primary" type="button" className="btn btn-secondary create-new btn-primary" style={{ display: "flex", textAlign: "center" }}>
                                             <FontAwesomeIcon icon={faPlus} style={{ marginRight: 10 }} />
@@ -304,12 +264,12 @@ export const UserDataTables = () => {
                                     checked={selectedEntries.length === currentItems.length && currentItems.length > 0}
                                 />
                             </th>
-                            <th>Full Name</th>
-                            <th>User Name</th>
-                            <th>Email</th>
-                            <th>Role</th>
-                            <th>Phone Number</th>
-                            <th>Actions</th>
+                            <th>Product Name</th>
+                            <th>Branch</th>
+                            {/* <th>Email</th> */}
+                            {/* <th>Role</th> */}
+                            {/* <th>Phone Number</th>
+                            <th>Actions</th> */}
                         </tr>
                     </thead>
                     <tbody>
@@ -325,20 +285,20 @@ export const UserDataTables = () => {
                                 <td>
                                     <div className="d-flex align-items-center">
                                         <div className="avatar-circle me-2">
-                                            {getInitials(item.firstname, item.lastname)}
+
                                         </div>
                                         <div>
-                                            {/* {getInitials(item.firstname, item.lastname)} */}
+                                            {item.product_name}
                                         </div>
                                     </div>
                                 </td>
-                                <td>{item.email}</td>
-                                <td>{item.username}</td>
-                                <td> {item.role === 1 ? "Admin" : item.role === 0 ? "User" : "Unknown Role"}</td>
-                                <td>{item.phone_number}</td>
+                                <td>{item.brand}</td>
+                                {/* <td>{item.product_name}</td> */}
+                                {/* <td> {item.role === 1 ? "Admin" : item.role === 0 ? "User" : "Unknown Role"}</td>
+                                <td>{item.phone_number}</td> */}
                                 <td>
-                                    <Button variant="link" onClick={() => handleEdit(item.idaccount)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                    {/* <Button variant="link"><FontAwesomeIcon icon={faTrash} /></Button> */}
+                                    <Button variant="link" onClick={() => handleNavigate(item.idproduct)}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                    <Button variant="link"><FontAwesomeIcon icon={faTrash} /></Button>
                                 </td>
                             </tr>
                         ))}
@@ -359,32 +319,9 @@ export const UserDataTables = () => {
                                 </div>
                             </div>
                         </div>
-                        {/* <div className="col-sm-12 col-md-6">
-                            <div className="dataTables_paginate paging_simple_numbers" style={{ display: "flex", justifyContent: "right", alignItems: "center" }}>
-                                <Pagination className="d-flex justify-content-center" style={{ margin: 0 }}>
-                                    {Array.from({ length: totalPages }, (_, index) => (
-                                        <Pagination.Item
-                                            key={index}
-                                            active={index + 1 === currentPage}
-                                            onClick={() => setCurrentPage(index + 1)}
-                                        >
-                                            {index + 1}
-                                        </Pagination.Item>
-                                    ))}
-                                </Pagination>
-                            </div>
-                        </div> */}
-
                         <div className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
                             {renderPagination()}
                         </div>
-                        <UserForm
-                            show={modalShow}
-                            // onHide={() => setModalShow(false)}
-                            onHide={handleModalClose}
-                            onReload='a'
-                            user={selectedUser}
-                        />
                     </div>
                 </div>
             </div>

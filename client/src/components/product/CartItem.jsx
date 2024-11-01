@@ -97,70 +97,121 @@ import { Container, Button, Form, Row, Col, Image } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 import jp from "../../assets/images/jp.jpeg";
+import { useState, useEffect } from 'react';
 
-class CardItem extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
 
-  render() {
-    const { item } = this.props;
-    const { product_name } = this.props;
+const CardItem = (Item, {onCheckboxChange }) => {
+  const item = Item['Item'];
+  const [product, setProduct] = useState([]);
+  const [default_config, setdefaultconfig] = useState([]);
+  const [descriptions, setArray] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
-    return (
-      <Row
-        className="align-items-center py-3"
-        style={{ display: "flex", flexWrap: "wrap" }}
-      >
-        {/* Product Image */}
-        <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
+  const handleCheckboxChange = () => {
+      const newCheckedState = !isChecked;
+      try {
+        setIsChecked(newCheckedState);
+        console.log(newCheckedState, item.price)
+        onCheckboxChange(item.price, newCheckedState); // Notify parent with price and new state
+      } catch (error) {
+        console.error('Error onchage form.check:', error);
+      }
+     
+  };
+
+  // console.log(item)
+  const fetchProductDetails = async () => {
+    try {
+      const response = await fetch(`http://localhost:5172/products/load-productid/${item.idproduct}`);
+      const data = await response.json();
+      setProduct(data[0]);
+    } catch (error) {
+      console.error('Error fetching product details:', error);
+    }
+  };
+  const fetchProductConfiguration = async () => {
+    try {
+      const response = await fetch(`http://localhost:5172/products/load-idconfiguration/${item.idconfiguration}`);
+      const data = await response.json();
+      setdefaultconfig(data[0]); // Cập nhật thông tin sản phẩm từ backend
+    } catch (error) {
+      console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+    }
+  };
+  const fetchProductDecription = async (Product) => {
+    try {
+      const response = await fetch(`http://localhost:5172/products/load-description/${item.idproduct}`);
+      const data = await response.json();
+      setArray(data[0]); // Cập nhật thông tin sản phẩm từ backend
+
+    } catch (error) {
+      console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchProductDetails();
+    fetchProductConfiguration();
+    fetchProductDecription();
+    // response();
+  }, []);
+  
+
+  return (
+    <Row
+      className="align-items-center py-3"
+      style={{ display: "flex", flexWrap: "wrap" }}
+    >
+      {/* Product Image */}
+      <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
         <Form.Check
-            type="checkbox"
-            className="me-3" // Adds space between checkbox and image
-          />
-          <Image
-            src={jp}
-            alt="Product"
-            style={{ objectFit: "cover", width: 112, height: 112, borderRadius: '5px' }}
-          />
-        </Col>
+          type="checkbox"
+          className="me-3" // Adds space between checkbox and image
+          checked={isChecked}
+          onChange={handleCheckboxChange}
+        />
+        <Image
+          src={product.product_image}
+          alt="Product"
+          style={{ objectFit: "cover", width: 112, height: 112, borderRadius: '5px' }}
+        />
+      </Col>
 
-        {/* Product Name and Specs */}
-        <Col xs={12} md={6} className="d-flex flex-column justify-content-center text-md-start text-center">
-          <h5>{product_name}</h5>
-          <p>{item.description}</p>
-          <p>${item.price}</p>
-          {item.gift && (
+      {/* Product Name and Specs */}
+      <Col xs={12} md={6} className="d-flex flex-column justify-content-center text-md-start text-center" style={{marginLeft:10}}>
+        <h5>{product.product_name}</h5>
+        <h6>{descriptions.title_description}</h6>
+        <h6>${default_config.price}</h6>
+        {/* {item.gift && (
             <div className="mt-2 p-2 bg-light">
               <Button variant="warning" size="sm">
                 Tặng kèm
               </Button>
               <span className="ms-2">{item.gift.description}</span>
             </div>
-          )}
-        </Col>
+          )} */}
+      </Col>
 
-        {/* Quantity Control */}
-        <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
-          <Button variant="light" onClick={item.decrementQuantity}>
-            <FontAwesomeIcon icon={faMinus} />
-          </Button>
-          <Form className="d-flex align-items-center justify-content-center mx-2">
-            <Form.Control
-              type="text"
-              placeholder="1"
-              defaultValue={item.quantity}
-              style={{ width: 56, textAlign: "center" }}
-            />
-          </Form>
-          <Button variant="light" onClick={item.incrementQuantity}>
-            <FontAwesomeIcon icon={faPlus} />
-          </Button>
-        </Col>
+      {/* Quantity Control */}
+      <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
+        <Button variant="light" >
+          <FontAwesomeIcon icon={faMinus} />
+        </Button>
+        <Form className="d-flex align-items-center justify-content-center mx-2">
+          <Form.Control
+            type="text"
+            placeholder="0"
+            defaultValue={item.quantity}
+            style={{ width: 56, textAlign: "center" }}
+          />
+        </Form>
+        <Button variant="light">
+          <FontAwesomeIcon icon={faPlus} />
+        </Button>
+      </Col>
 
-        {/* Pricing */}
-        <Col xs={12} md={2} className="text-md-end text-center">
+      {/* Pricing */}
+      {/* <Col xs={12} md={2} className="text-md-end text-center">
           {item.originalPrice && (
             <p style={{ textDecoration: "line-through", color: "#ccc" }}>
               {item.originalPrice}
@@ -169,10 +220,10 @@ class CardItem extends Component {
           <p style={{ color: "#f00", fontSize: "1.5em", fontWeight: "bold" }}>
             {item.discountedPrice}
           </p>
-        </Col>
-      </Row>
-    );
-  }
+        </Col> */}
+    </Row>
+  );
 }
+
 
 export default CardItem;
