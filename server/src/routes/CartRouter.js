@@ -5,10 +5,10 @@ const AuthenticationMiddleware = require('../middleware/AuthenticationMiddleware
 
 
 // Route để lấy tất cả người dùng
-router.get('/load-cart', cartController.loadCart);
-router.get('/load-cart/:idCart', cartController.loadCartById);
+// router.get('/load-cart', cartController.loadCart);
+// router.get('/load-cart/:idCart', cartController.loadCartById);
 router.get('/load-cartItem/:idCart', cartController.loadCartItem);
-router.get('/load', AuthenticationMiddleware , cartController.Japtor);
+router.get('/loadcart', AuthenticationMiddleware , cartController.LoadCart);
 
 
 

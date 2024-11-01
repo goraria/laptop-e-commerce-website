@@ -5,20 +5,20 @@ const CartItem = require('../models/CartItem');
 const { where } = require('sequelize');
 class CartController {
 
-    async loadCart(req, res) {
-        // const { idCart } = req.params; 
-        try {
-            const cart = await Cart.findAll();
-            res.status(200).json(cart);
-        } catch (error) {
-            res.status(500).json({ message: 'Error fetching products', error });
-        }
-    }
+    // async loadCart(req, res) {
+    //     // const { idCart } = req.params; 
+    //     try {
+    //         const cart = await Cart.findAll();
+    //         res.status(200).json(cart);
+    //     } catch (error) {
+    //         res.status(500).json({ message: 'Error fetching products', error });
+    //     }
+    // }
 
     async loadCartById(req,res){
         const { idCart } = req.params; 
         try {
-            const cart = await Cart.findAll(
+            const cart = await CartItem.findAll(
                 {
                     where: {
                         idcart: idCart
@@ -31,9 +31,9 @@ class CartController {
         }
     }
 
-    async Japtor(req,res){
-        const { id } = req.user.id;
-        
+    async LoadCart(req,res){
+        const  id  = req.user.id;
+        console.log(id,  req.user.id);
         try {
             const cart = await Cart.findOne({
                 where: {
