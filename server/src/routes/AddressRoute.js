@@ -7,9 +7,9 @@ router.get('/list', AuthenticationMiddleware, AddressController.getAllAddresses)
 
 router.get('/addresses/:idaddress', AddressController.getAddressById);
 
-router.post('/addition', AuthenticationMiddleware, AddressController.createAddress);
+router.put('/addition', AuthenticationMiddleware, AddressController.createAddress);
 
-router.put('/update/:idaddress', AuthenticationMiddleware, AddressController.updateAddress);
+router.post('/update/:idaddress', AuthenticationMiddleware, AddressController.updateAddress);
 
 router.delete('/delete/:idaddress', AuthenticationMiddleware, AddressController.deleteAddress);
 

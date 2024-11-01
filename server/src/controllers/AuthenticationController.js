@@ -106,17 +106,17 @@ class AuthenticationController {
         }
     }
 
-    async checkRole(req, res) {
+    async check(req, res) {
+        const id  = req.user.id
         try {
-            const account = await Account.findByPk(req.user.id);
-
+            const account = await Account.findByPk(id);
             if (!account) {
                 return res.status(404).json({ message: 'User not found' });
             }
 
             res.json({ role: account.role });
         } catch (error) {
-            return res.status(500).json({ message: 'Server error', error });
+            res.status(401).json({ message: 'Invalid token' });
         }
     }
 }

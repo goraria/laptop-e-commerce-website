@@ -6,18 +6,11 @@ const AdministratorMiddleware = require('../middleware/AdministratorMiddleware')
 
 // router.post('/login/authen', AuthenticationController.login.bind(AuthenticationController))
 router.post('/login', AuthenticationController.login)
+
 router.post('/register', AuthenticationController.register)
 
 router.post('/logout', AuthenticationMiddleware, AuthenticationController.logout);
 
-router.get('/profile', AuthenticationMiddleware, (req, res) => {
-    return res.json({ message: 'User profile', user: req.user });
-});
-
-router.get('/admin', AuthenticationMiddleware, AdministratorMiddleware, (req, res) => {
-    return res.json({ message: 'Welcome Admin', user: req.user });
-});
-
-router.post('/check', AuthenticationMiddleware, AuthenticationController.checkRole)
+router.get('/check', AuthenticationMiddleware, AuthenticationController.check)
 
 module.exports = router

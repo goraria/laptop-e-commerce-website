@@ -53,7 +53,7 @@ const UserRoutes = () => {
             <Route path="/search" element={<ProductList />} />
 
             <Route path="/login" element={<Login />} />
-            {/* <Route path="/signup" element={<Signup />} /> */}
+            {/*<Route path="/signup" element={<Signup />} />*/}
             <Route path="/register" element={<Register />} />
 
             <Route path="/profile" element={<UserProfile />} />
@@ -61,21 +61,6 @@ const UserRoutes = () => {
             <Route path="/address" element={<AddressManagement />} />
             <Route path="/order" element={<Order />} />
             <Route path="/checkout" element={<CheckOut />} />
-
-            <Route path="/profile" element={<UserProfile />} />
-
-
-            {/*<Route path="/profile" element={*/}
-            {/*    <Protected isAuthenticated={isAuthenticated}>*/}
-            {/*        <UserProfile />*/}
-            {/*    </Protected>*/}
-            {/*} />*/}
-
-            {/* <Route path="/admin" element={
-                <Manager isAuthenticated={isAuthenticated} userRole={userRole}>
-                    <Login />
-                </Manager>
-            } /> */}
 
             <Route path="/404" element={<NotFound />} />
         </Routes>

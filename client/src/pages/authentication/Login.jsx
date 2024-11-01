@@ -60,8 +60,7 @@ const Login = () => {
                     localStorage.setItem('role', response.data.role);
                     setShowSuccess(true);  // hiển thị NotifySuccess khi đăng nhập thành công
                     setTimeout(() => {
-                        // navigate(response.data.role === 1 ? "/admin" : "/user"); // Redirect based on role
-                        navigate('/'); // Redirect to homepage
+                        navigate(response.data.role === 1 ? "/admin" : "/profile"); // Redirect based on role
                     }, 2000);
                 }
             } catch (error) {

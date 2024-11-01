@@ -1,6 +1,9 @@
 import { React, useEffect } from "react";
 import { DataTables } from "../components/datatables/DataTables";
+import { Statistics } from "./management/Statistics.jsx";
 import Calendar from 'react-calendar';
+import 'react-calendar/dist/Calendar.css'
+import '../components/calendar/calendar.css'
 
 // type ValuePiece = Date | null;
 //
@@ -18,14 +21,18 @@ export const DashboardPage = () => {
                 <div className="col-lg-12 mb-4 order-0">
                     <div className="card">
                         <div className="d-flex align-items-end row">
-                            <Calendar/>
+                            <div className="col-sm-7">
+                                <div className="card-body">
+                                    <Calendar/>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-lg-12 mb-4 order-0">
-                    <DataTables/>
+                    <Statistics/>
                 </div>
             </div>
             <div className="row">
@@ -69,7 +76,8 @@ export const DashboardPage = () => {
                         <div className="col-lg-6 col-md-12 col-6 mb-4">
                             <div className="card">
                                 <div className="card-body">
-                                    <div className="card-title d-flex align-items-start justify-content-between">
+                                    <div
+                                        className="card-title d-flex align-items-start justify-content-between">
                                         <div className="avatar flex-shrink-0">
                                             <img aria-label='dsahboard icon image'
                                                  src="/assets/img/icons/unicons/chart-success.png"
@@ -92,10 +100,12 @@ export const DashboardPage = () => {
                                                 className="dropdown-menu dropdown-menu-end"
                                                 aria-labelledby="cardOpt3"
                                             >
-                                                <a aria-label="view more" className="dropdown-item" href="#">
+                                                <a aria-label="view more" className="dropdown-item"
+                                                   href="#">
                                                     View More
                                                 </a>
-                                                <a aria-label="delete" className="dropdown-item" href="#">
+                                                <a aria-label="delete" className="dropdown-item"
+                                                   href="#">
                                                     Delete
                                                 </a>
                                             </div>
@@ -112,7 +122,8 @@ export const DashboardPage = () => {
                         <div className="col-lg-6 col-md-12 col-6 mb-4">
                             <div className="card">
                                 <div className="card-body">
-                                    <div className="card-title d-flex align-items-start justify-content-between">
+                                    <div
+                                        className="card-title d-flex align-items-start justify-content-between">
                                         <div className="avatar flex-shrink-0">
                                             <img aria-label='dsahboard icon image'
                                                  src="/assets/img/icons/unicons/wallet-info.png"
@@ -135,10 +146,12 @@ export const DashboardPage = () => {
                                                 className="dropdown-menu dropdown-menu-end"
                                                 aria-labelledby="cardOpt6"
                                             >
-                                                <a aria-label="view more" className="dropdown-item" href="#">
+                                                <a aria-label="view more" className="dropdown-item"
+                                                   href="#">
                                                     View More
                                                 </a>
-                                                <a aria-label="delete" className="dropdown-item" href="#">
+                                                <a aria-label="delete" className="dropdown-item"
+                                                   href="#">
                                                     View More
                                                 </a>
                                             </div>
@@ -179,13 +192,16 @@ export const DashboardPage = () => {
                                                 className="dropdown-menu dropdown-menu-end"
                                                 aria-labelledby="growthReportId"
                                             >
-                                                <a aria-label="dropdown item 2021" className="dropdown-item" href="#">
+                                                <a aria-label="dropdown item 2021"
+                                                   className="dropdown-item" href="#">
                                                     2021
                                                 </a>
-                                                <a aria-label="dropdown item 2020" className="dropdown-item" href="#">
+                                                <a aria-label="dropdown item 2020"
+                                                   className="dropdown-item" href="#">
                                                     2020
                                                 </a>
-                                                <a aria-label="dropdown item 2019" className="dropdown-item" href="#">
+                                                <a aria-label="dropdown item 2019"
+                                                   className="dropdown-item" href="#">
                                                     2019
                                                 </a>
                                             </div>
@@ -231,7 +247,8 @@ export const DashboardPage = () => {
                         <div className="col-6 mb-4">
                             <div className="card">
                                 <div className="card-body">
-                                    <div className="card-title d-flex align-items-start justify-content-between">
+                                    <div
+                                        className="card-title d-flex align-items-start justify-content-between">
                                         <div className="avatar flex-shrink-0">
                                             <img aria-label='dsahboard icon image'
                                                  src="/assets/img/icons/unicons/paypal.png"
@@ -254,10 +271,12 @@ export const DashboardPage = () => {
                                                 className="dropdown-menu dropdown-menu-end"
                                                 aria-labelledby="cardOpt4"
                                             >
-                                                <a aria-label="view more" className="dropdown-item" href="#">
+                                                <a aria-label="view more" className="dropdown-item"
+                                                   href="#">
                                                     View More
                                                 </a>
-                                                <a aria-label="delete" className="dropdown-item" href="#">
+                                                <a aria-label="delete" className="dropdown-item"
+                                                   href="#">
                                                     View More
                                                 </a>
                                             </div>
@@ -274,7 +293,8 @@ export const DashboardPage = () => {
                         <div className="col-6 mb-4">
                             <div className="card">
                                 <div className="card-body">
-                                    <div className="card-title d-flex align-items-start justify-content-between">
+                                    <div
+                                        className="card-title d-flex align-items-start justify-content-between">
                                         <div className="avatar flex-shrink-0">
                                             <img aria-label='dsahboard icon image'
                                                  src="/assets/img/icons/unicons/cc-primary.png"
@@ -294,10 +314,12 @@ export const DashboardPage = () => {
                                                 <i className="bx bx-dots-vertical-rounded"></i>
                                             </button>
                                             <div className="dropdown-menu" aria-labelledby="cardOpt1">
-                                                <a aria-label="view more" className="dropdown-item" href="#">
+                                                <a aria-label="view more" className="dropdown-item"
+                                                   href="#">
                                                     View More
                                                 </a>
-                                                <a aria-label="delete" className="dropdown-item" href="#">
+                                                <a aria-label="delete" className="dropdown-item"
+                                                   href="#">
                                                     View More
                                                 </a>
                                             </div>
@@ -315,7 +337,8 @@ export const DashboardPage = () => {
                         <div className="col-12 mb-4">
                             <div className="card">
                                 <div className="card-body">
-                                    <div className="d-flex justify-content-between flex-sm-row flex-column gap-3">
+                                    <div
+                                        className="d-flex justify-content-between flex-sm-row flex-column gap-3">
                                         <div
                                             className="d-flex flex-sm-column flex-row align-items-start justify-content-between">
                                             <div className="card-title">
@@ -342,7 +365,8 @@ export const DashboardPage = () => {
             <div className="row">
                 <div className="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">
                     <div className="card h-100">
-                        <div className="card-header d-flex align-items-center justify-content-between pb-0">
+                        <div
+                            className="card-header d-flex align-items-center justify-content-between pb-0">
                             <div className="card-title mb-0">
                                 <h5 className="m-0 me-2">Order Statistics</h5>
                                 <small className="text-muted">42.82k Total Sales</small>
@@ -537,10 +561,12 @@ export const DashboardPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="incomeChart Jan Feb Mar Apr May Jun Jul" aria-label="Income Chart"></div>
+                                    <div id="incomeChart Jan Feb Mar Apr May Jun Jul"
+                                         aria-label="Income Chart"></div>
                                     <div className="d-flex justify-content-center pt-4 gap-2">
                                         <div className="flex-shrink-0">
-                                            <div id="expensesOfWeek" aria-label="Expenses of the Week $65"></div>
+                                            <div id="expensesOfWeek"
+                                                 aria-label="Expenses of the Week $65"></div>
                                         </div>
                                         <div>
                                             <p className="mb-n1 mt-1">Expenses This Week</p>
@@ -574,13 +600,16 @@ export const DashboardPage = () => {
                                     className="dropdown-menu dropdown-menu-end"
                                     aria-labelledby="transactionID"
                                 >
-                                    <a aria-label="dropdown item Last 28 Days" className="dropdown-item" href="#">
+                                    <a aria-label="dropdown item Last 28 Days" className="dropdown-item"
+                                       href="#">
                                         Last 28 Days
                                     </a>
-                                    <a aria-label="dropdown item Last Month" className="dropdown-item" href="#">
+                                    <a aria-label="dropdown item Last Month" className="dropdown-item"
+                                       href="#">
                                         Last Month
                                     </a>
-                                    <a aria-label="dropdown item Last Year" className="dropdown-item" href="#">
+                                    <a aria-label="dropdown item Last Year" className="dropdown-item"
+                                       href="#">
                                         Last Year
                                     </a>
                                 </div>
