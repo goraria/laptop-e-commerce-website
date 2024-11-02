@@ -25,35 +25,35 @@ import Order from '../pages/user-component/Order.jsx';
 import CheckOut from '../pages/user-component/Checkout.jsx';
 
 export const UserRoutes = () => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [userRole, setUserRole] = useState(null);
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            axios.get('http://localhost:5172/authentication/check', { headers: { Authorization: token } })
-                .then(response => {
-                    setIsAuthenticated(true);
-                    setUserRole(response.data.role);
-                    console.log(response.data.role)
-                })
-                .catch(() => {
-                    setIsAuthenticated(false);
-                });
-        }
-    }, []);
+    // const [isAuthenticated, setIsAuthenticated] = useState(false);
+    // const [userRole, setUserRole] = useState(null);
+    //
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token');
+    //     if (token) {
+    //         axios.get('http://localhost:5172/authentication/check', { headers: { Authorization: token } })
+    //             .then(response => {
+    //                 setIsAuthenticated(true);
+    //                 setUserRole(response.data.role);
+    //                 console.log(response.data.role)
+    //             })
+    //             .catch(() => {
+    //                 setIsAuthenticated(false);
+    //             });
+    //     }
+    // }, []);
 
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/product" element={<Product />} />
-            <Route path="/search" element={<ProductList />} />
+            {/*<Route path="/" element={<Home />} />*/}
+            {/*<Route path="/about" element={<About />} />*/}
+            {/*<Route path="/contact" element={<Contact />} />*/}
+            {/*<Route path="/product" element={<Product />} />*/}
+            {/*<Route path="/search" element={<ProductList />} />*/}
 
-            <Route path="/login" element={<Login />} />
+            {/*<Route path="/login" element={<Login />} />*/}
             {/*<Route path="/signup" element={<Signup />} />*/}
-            <Route path="/register" element={<Register />} />
+            {/*<Route path="/register" element={<Register />} />*/}
 
             <Route path="/profile" element={<UserProfile />} />
             <Route path="/cart" element={<Cart />} />

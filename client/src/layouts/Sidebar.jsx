@@ -135,12 +135,6 @@ const menuData = [
                 "icon": "bx bx-table",
                 "available": true,
                 "link": "/admin/tables"
-            },
-            {
-                "text": "Datatablse",
-                "icon": "bx bx-grid",
-                "available": false,
-                "link": "https://demos.themeselection.com/sneat-bootstrap-html-admin-template/html/vertical-menu-template/tables-datatables-basic.html"
             }
         ]
     },
@@ -151,19 +145,19 @@ const menuData = [
                 "text": "Japtor",
                 "icon": "bx bx-support",
                 "available": true,
-                "link": "#"
+                "link": "https://github.com/goraria"
             },
             {
                 "text": "Payhd",
                 "icon": "bx bx-support",
                 "available": true,
-                "link": "#"
+                "link": "https://github.com/pa106"
             },
             {
                 "text": "Locst",
                 "icon": "bx bx-support",
                 "available": true,
-                "link": "#"
+                "link": "https://github.com/LocPhamn"
             },
             {
                 "text": "Goraria",

@@ -9,23 +9,13 @@ import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
 import axios from "axios";
 import SaveChange from "../components/modal/notify/SaveChange.jsx";
 
-// const sidebarLinks = [
-//     { id: 1, title: "Account Information", href: '/profile', icon: faUser, isActive: false},
-//     { id: 2, title: "Order History", href: '/bill', icon: faHistory, isActive: false },
-//     { id: 3, title: "Voucher Wallet", href: '/voucher', icon: faGift, isActive: false },
-//     { id: 4, title: "Address", href: '/address', icon: faMapPin, isActive: false },
-//     { id: 5, title: "Rating", href: '', icon: faStar, isActive: false },
-//     { id: 6, title: "Faq", href: '', icon: faQuestionCircle, isActive: false },
-//     // { id: 7, title: "Log out", href: '', icon: faSignOutAlt, isActive: false },
-// ]
-
 const sidebarLinks = [
-    { id: 1, text: "Dashboard", icon: faUser, link: "/profile" },
-    { id: 2, text: "Order History", icon: faHistory, link: "/bill" },
-    { id: 3, text: "Voucher Wallet", icon: faGift, link: "/voucher" },
-    { id: 4, text: "Address", icon: faMapPin, link: "/address" },
-    { id: 5, text: "Rating", icon: faStar, link: "/rating" },
-    { id: 6, text: "FAQ", icon: faQuestionCircle, link: "/faq" },
+    { id: 1, text: "Account Information", icon: faUser, link: "/user/profile" },
+    { id: 2, text: "Order History", icon: faHistory, link: "/user/bill" },
+    { id: 3, text: "Voucher Wallet", icon: faGift, link: "/user/voucher" },
+    { id: 4, text: "Address", icon: faMapPin, link: "/user/address" },
+    // { id: 5, text: "Rating", icon: faStar, link: "/user/rating" },
+    // { id: 6, text: "FAQ", icon: faQuestionCircle, link: "/faq" },
     // { id: 7, text: "Log out", icon: faSignOutAlt, link: '' },
 ];
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
