@@ -8,6 +8,7 @@ import { ShareRoutes } from "./router/ShareRoutes.jsx";
 import Protected from "./utils/Protected.jsx";
 import NotFound from "./pages/overview/NotFound.jsx";
 import axios from 'axios';
+import Loading from "./pages/overview/Loading.jsx";
 
 const App = () => {
     const [auth, setAuth] = useState({
@@ -47,7 +48,7 @@ const App = () => {
         fetchData();
     }, [navigate]);
 
-    if (loading) return <div>Loading...</div>;  // Hiển thị loading nếu đang lấy dữ liệu
+    if (loading) return <Loading/>;  // Hiển thị loading nếu đang lấy dữ liệu
 
     return (
         <Routes>

@@ -64,7 +64,7 @@ const About = () => {
             </Carousel>
             <Overview mt={56} me={56}>
                 <div>
-                    <h1>About us</h1>
+                    <h2>About us</h2>
                     <p className="lead">
                         A laptop e-commerce website serves as a dynamic platform where customers can explore
                         a wide variety of laptops from different brands, compare features, read reviews, and
@@ -87,14 +87,14 @@ const About = () => {
                     <ul style={{marginLeft: 20}}>
                         <li>Order</li>
                         <li>Responsive behavior when clicking nav links perfect for a one page website</li>
-                        <li>Bootstrap's scrollspy feature which highlights which section of the page you're
+                        <li>Bootstrap&#39;s scrollspy feature which highlights which section of the page you're
                             on in the navbar
                         </li>
                         <li>Minimal custom CSS so you are free to explore your own unique design options
                         </li>
                     </ul>
                     <ImageAbout imageItems={imgItems[2]}/>
-                    <h1>Way to see</h1>
+                    <h2>Way to see</h2>
                     <p className="lead">
                         A laptop e-commerce website serves as a dynamic platform where customers can explore
                         a wide variety of laptops from different brands, compare features, read reviews, and
@@ -115,7 +115,7 @@ const About = () => {
                         needs.
                     </p>
                     <ImageAbout imageItems={imgItems[4]}/>
-                    <h1>High Quanlity</h1>
+                    <h2>High Quanlity</h2>
                     <p className="lead">
                         ASUS is a Taiwan-based, multinational computer hardware and consumer electronics company that
                         was

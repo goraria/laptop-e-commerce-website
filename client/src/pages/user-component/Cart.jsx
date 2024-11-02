@@ -8,6 +8,7 @@ import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom'
+import AddressList from "../user-infomation/AddressList.jsx";
 
 
 
@@ -34,7 +35,7 @@ function Cart() {
 
     const handleOrderClick = (event) => {
         event.preventDefault();
-        navigate('/order', {
+        navigate('/user/order', {
             state: {
                 cartData: cartItems, // Dữ liệu giỏ hàng
                 prePrice: pre_total,
@@ -154,14 +155,23 @@ function Cart() {
                 <Row>
                     {/* Left Section: Product List */}
                     <Col sm={12} md={6} lg={8} className="mb-3">
-                        <Card style={{ marginBottom: 10, padding: '10px 10px', borderRadius: 8 }}>
-                            <div className="d-flex justify-content-between align-items-center">
-                                <h2 style={{ margin: 0 }}>Giỏ hàng</h2>
-                                <Button variant="primary" style={{ borderRadius: 8, backgroundColor: '#5a67d8', borderColor: '#5a67d8' }}>
-                                    <FontAwesomeIcon icon={faPlus} className="me-2" />
-                                    <span>Thêm sản phẩm</span>
-                                </Button>
-                            </div>
+                        <Card
+                            className="sticky-summary"
+                            style={{
+                                position: "sticky",
+                                padding: '15px 12px 15px 12px',
+                                borderRadius: 10,
+                                top: 80,
+                                zIndex: 1,
+                                border: "none",
+                            }}>
+                            <Container style={{display: "flex", padding: '0 8px'}}>
+                                <h2 style={{margin: 0}}>Giỏ hàng</h2>
+                                {/*<Button variant="primary" style={{marginLeft: 'auto'}}>*/}
+                                {/*    <FontAwesomeIcon icon={faPlus} className="me-2"/>*/}
+                                {/*    <span>Thêm sản phẩm</span>*/}
+                                {/*</Button>*/}
+                            </Container>
                         </Card>
                         {cartItems.map((item) => (
                             <Card className="p-3 mb-2" key={item.idcart_item}>
@@ -173,7 +183,7 @@ function Cart() {
                     {/* Right Section: Order Summary */}
                     <Col sm={12} md={6} lg={4} className="mb-2">
                         <Card className="p-3 sticky-summary" style={{ position: 'sticky', top: 120 }}>
-                            <h5>Khuyến mãi</h5>
+                            <h2>Khuyến mãi</h2>
                             <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
                                 <option> Chọn hoặc nhập khuyến mãi</option>
                                 <option value="1">One</option>

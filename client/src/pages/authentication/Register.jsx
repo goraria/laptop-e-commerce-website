@@ -77,7 +77,7 @@ function Register() {const [validated, setValidated] = useState(false);
         <>
             <Overview mt={112} me={56}>
                 <div>
-                    <h3>Register</h3>
+                    <h2>Register</h2>
                     <div style={{display: "flex", marginBottom: 16, justifyContent: 'center'}}>
                         <Image
                             className="d-block"

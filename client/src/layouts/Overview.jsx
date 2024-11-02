@@ -14,7 +14,7 @@ const Overview = ({ children, mt, me }) => {
                         padding: '15px 12px 15px 12px',
                         margin: '0',
                         borderRadius: 10,
-                        backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0'
+                        // backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0'
                     }}>
                         {children}
                     </Row>

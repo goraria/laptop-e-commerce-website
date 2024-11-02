@@ -1,4 +1,4 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
 import TransitionBar from '../../layouts/TransitionBar.jsx';
 import CardItem from '../../components/product/CartItem.jsx';
@@ -37,13 +37,30 @@ function Order() {
         <div>
             <TransitionBar />
             <Container style={{ marginTop: 168 }}>
-                <h4>Giỏ hàng </h4>
                 <Row>
                     {/* Left Section */}
                     <Col sm={12} md={6} lg={8} className="mb-3">
                         {/* Delivery Method Selection */}
-                        <Card className="p-3 mb-3">
-                            <h5>Phương thức nhận hàng</h5>
+                        <Card
+                            className="sticky-summary mb-4"
+                            style={{
+                                position: "sticky",
+                                padding: '15px 12px 15px 12px',
+                                borderRadius: 10,
+                                top: 80,
+                                zIndex: 1,
+                                border: "none",
+                            }}>
+                            <Container style={{display: "flex", padding: '0 8px'}}>
+                                <h2 style={{margin: 0}}>Giỏ hàng</h2>
+                                {/*<Button variant="primary" style={{marginLeft: 'auto'}}>*/}
+                                {/*    <FontAwesomeIcon icon={faPlus} className="me-2"/>*/}
+                                {/*    <span>Thêm sản phẩm</span>*/}
+                                {/*</Button>*/}
+                            </Container>
+                        </Card>
+                        <Card className="p-3 mb-4"h4>
+                            <h4>Phương thức nhận hàng</h4>
                             <Form.Check
                                 type="radio"
                                 label="Tại cửa hàng"
@@ -63,8 +80,8 @@ function Order() {
                         </Card>
 
                         {/* Store Locations */}
-                        <Card className="p-3 mb-3">
-                            <h5>{city === 'Hồ Chí Minh' ? 'Thành phố Hồ Chí Minh' : 'Hà Nội'}</h5>
+                        <Card className="p-3 mb-4"h4>
+                            <h4>{city === 'Hồ Chí Minh' ? 'Thành phố Hồ Chí Minh' : 'Hà Nội'}</h4>
                             <Form.Check
                                 type="radio"
                                 label="Số 5 - 7 Nguyễn Huy Tưởng, Quận Bình Thạnh, Hồ Chí Minh"
@@ -86,8 +103,8 @@ function Order() {
                         </Card>
 
                         {/* Recipient Information */}
-                        <Card className="p-3 mb-3">
-                            <h5>Thông tin người nhận</h5>
+                        <Card className="p-3 mb-4"h4>
+                            <h4>Thông tin người nhận</h4>
                             <Form.Group controlId="formRecipientName">
                                 <Form.Label>Họ và tên</Form.Label>
                                 <Form.Control
@@ -120,7 +137,7 @@ function Order() {
                     <Col sm={12} md={6} lg={4} className="mb-2">
                         <Card className="p-3 sticky-summary mb-3 shadow-none" style={{ position: 'sticky', top: 100, backgroundColor: 'transparent', boxShadow: 'none' }}>
                             <Card className="p-3 sticky-summary">
-                                <h5>Khuyến mãi</h5>
+                                <h4>Khuyến mãi</h4>
                                 <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
                                     <option> Chọn hoặc nhập khuyến mãi</option>
                                     <option value="1">One</option>
@@ -128,7 +145,7 @@ function Order() {
                                     <option value="3">Three</option>
                                 </Form.Select>
 
-                                <h5>Tóm tắt đơn hàng</h5>
+                                <h4>Tóm tắt đơn hàng</h4>
                                 <div className="d-flex justify-content-between">
                                     <span>Tạm tính</span>
                                     <span>${prePrice}</span>
@@ -142,16 +159,16 @@ function Order() {
                                     <span>Tổng cộng</span>
                                     <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>${totalPrice}</span>
                                 </div>
-                                <Link to={`/checkout`} style={{ textDecoration: 'none' }}>
+                                <Link to={`/user/checkout`} style={{ textDecoration: 'none' }}>
                                     <Button className="w-100 mt-3" variant="danger" size="lg">
                                         Đặt hàng
                                     </Button>
                                 </Link>
                             </Card>
                             <Card className="p-3 sticky-summary mb-3" style={{marginTop:10}}>
-                                <h5>Sản phẩm trong đơn</h5>
-                                {cartData.map((item) => (
-                                    <OrderItem Item= {item} />
+                                <h4>Sản phẩm trong đơn</h4>
+                                {cartData.map((item, index) => (
+                                    <OrderItem key={index} Item= {item} />
                                 ))}
                             </Card>
                         </Card>
