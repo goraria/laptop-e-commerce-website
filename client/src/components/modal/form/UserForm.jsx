@@ -107,9 +107,9 @@ export const UserForm = ({ user, show, onHide, onReload }) => {
     const handleConfirmSave = async () => {
         try {
             // const token = localStorage.getItem('token');
-            const response = address
-                ? await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData)
-                : await axios.post('http://localhost:5172/address/addition', formData);
+            const response = user
+                ? await axios.post(`http://localhost:5172/admin//update-user/${user.idaccount}`, formData)
+                : await axios.put('http://localhost:5172/address/addition', formData);
 
             // const response = address ?
             //     await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
@@ -133,7 +133,7 @@ export const UserForm = ({ user, show, onHide, onReload }) => {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5172/address/delete/${address.idaddress}`, {
+            await axios.delete(`http://localhost:5172/admin/delete/${address.idaddress}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setShowConfirmDelete(false);
