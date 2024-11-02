@@ -148,8 +148,9 @@ function ProductItem(product, state) {
     const imageHeight = (1 / 8) * cardWidth;
     return (
         <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius: 10,height:cardWidth*6/5 , width: cardWidth ,objectFit: 'cover' }}>
-             <Link to={`/product?id=${obj.idproduct}`} style={{ textDecoration: 'none' }}>
-             <Card.Img variant="top" src = {products.product_image}  style={{  width: '100%', height: '100%', objectFit: 'cover' }} />  </Link>
+            <Link to={`/product?id=${obj.idproduct}`} style={{ textDecoration: 'none' }}>
+                <Card.Img variant="top" src = {products.product_image}  style={{  width: '100%', height: '100%', objectFit: 'cover' }} />
+            </Link>
             <Card.Body>
                 {/* Price and Name in the same line */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -176,10 +177,10 @@ function ProductItem(product, state) {
                         {renderStars(averageScore)}
                     </div>
                     {/* Buy Button */}
-                        <Button variant="danger" onClick={handleAddToCart}>
-                            <FontAwesomeIcon icon={faCartPlus} style={{ width: 56 }} />
-                        </Button>
-                  
+                    <Button variant="primary" onClick={handleAddToCart}>
+                        <FontAwesomeIcon className="me-2" icon={faCartPlus}/>
+                        <span>Buy now</span>
+                    </Button>
                 </div>
             </Card.Body>
         </Card>

@@ -5,7 +5,7 @@ import {Container, Image, Row} from "react-bootstrap";
 import jp from '../../assets/images/jp.jpeg'
 import Overview from "../../layouts/Overview.jsx";
 
-const NotFound = () => {
+const Loading = () => {
     return (
         <Overview mt={112} me={56}>
             <div>
@@ -18,10 +18,10 @@ const NotFound = () => {
                         style={{objectFit: 'cover', width: 224, height: 224, borderRadius: '5px'}}
                     />
                 </div>
-                <h1 style={{textAlign: "center"}}>404 Page Not Found.</h1>
+                <h1 style={{textAlign: "center"}}>Loading</h1>
             </div>
         </Overview>
     )
 }
 
-export default NotFound
+export default Loading

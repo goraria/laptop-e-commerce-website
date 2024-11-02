@@ -13,62 +13,62 @@ import Calendar from "react-calendar";
 
 export const Statistics = () => {
     const [data, setData] = useState([
-        {
-            idaccount: 1,
-            iduser: 1,
-            bill: [
-                {
-                    idbill: 1,
-                    discount: '10',
-                    date: '2024-11-11',
-                    bill_details: [
-                        {
-                            idbill_detail: 1,
-                            product: 'M4',
-                            price: 1000,
-                            configuration: 'Japtor',
-                            accessory: 'Nothing',
-                            color: 'primary',
-                            quantity: 1,
-                        },
-                        {
-                            idbill_detail: 2,
-                            product: 'M4 Pro',
-                            price: 1001,
-                            configuration: 'Goraria',
-                            accessory: 'Nothing',
-                            color: 'danger',
-                            quantity: 2,
-                        }
-                    ]
-                },
-                {
-                    idbill: 2,
-                    discount: '10',
-                    date: '2024-11-11',
-                    bill_details: [
-                        {
-                            idbill_detail: 3,
-                            product: 'M5',
-                            price: 1002,
-                            configuration: 'Japtor',
-                            accessory: 'Nothing',
-                            color: 'primary',
-                            quantity: 2,
-                        },
-                        {
-                            idbill_detail: 4,
-                            product: 'M5 Max',
-                            price: 1003,
-                            configuration: 'Goraria',
-                            accessory: 'Nothing',
-                            color: 'danger',
-                            quantity: 1,
-                        }
-                    ]
-                }
-            ]
-        }
+        // {
+        //     idaccount: 1,
+        //     iduser: 1,
+        //     bill: [
+        //         {
+        //             idbill: 1,
+        //             discount: '10',
+        //             date: '2024-11-11',
+        //             bill_details: [
+        //                 {
+        //                     idbill_detail: 1,
+        //                     product: 'M4',
+        //                     price: 1000,
+        //                     configuration: 'Japtor',
+        //                     accessory: 'Nothing',
+        //                     color: 'primary',
+        //                     quantity: 1,
+        //                 },
+        //                 {
+        //                     idbill_detail: 2,
+        //                     product: 'M4 Pro',
+        //                     price: 1001,
+        //                     configuration: 'Goraria',
+        //                     accessory: 'Nothing',
+        //                     color: 'danger',
+        //                     quantity: 2,
+        //                 }
+        //             ]
+        //         },
+        //         {
+        //             idbill: 2,
+        //             discount: '10',
+        //             date: '2024-11-11',
+        //             bill_details: [
+        //                 {
+        //                     idbill_detail: 3,
+        //                     product: 'M5',
+        //                     price: 1002,
+        //                     configuration: 'Japtor',
+        //                     accessory: 'Nothing',
+        //                     color: 'primary',
+        //                     quantity: 2,
+        //                 },
+        //                 {
+        //                     idbill_detail: 4,
+        //                     product: 'M5 Max',
+        //                     price: 1003,
+        //                     configuration: 'Goraria',
+        //                     accessory: 'Nothing',
+        //                     color: 'danger',
+        //                     quantity: 1,
+        //                 }
+        //             ]
+        //         }
+        //     ]
+        // }
     ]);
 
     const [searchTerm, setSearchTerm] = useState("");
