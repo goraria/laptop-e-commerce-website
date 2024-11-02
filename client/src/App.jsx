@@ -14,13 +14,13 @@ const App = () => {
         isAuthenticated: false,
         role: null
     });
+    const [loading, setLoading] = useState(true);  // Thêm trạng thái loading
     const navigate = useNavigate();
 
     const fetchData = async () => {
         const token = localStorage.getItem('token');
-        console.log(token);
         if (!token) {
-            // navigate('/404'); // Điều hướng nếu không có token
+            setLoading(false);
             return;
         }
 
@@ -37,14 +37,17 @@ const App = () => {
                 isAuthenticated: false,
                 role: null
             });
-            navigate('/404'); // Điều hướng nếu token không hợp lệ
+            navigate('/404');
+        } finally {
+            setLoading(false);  // Dừng loading sau khi fetch
         }
-        console.log(auth)
     };
 
     useEffect(() => {
         fetchData();
     }, [navigate]);
+
+    if (loading) return <div>Loading...</div>;  // Hiển thị loading nếu đang lấy dữ liệu
 
     return (
         <Routes>

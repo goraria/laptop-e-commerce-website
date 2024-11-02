@@ -57,7 +57,7 @@ const Login = () => {
 
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token);
-                    localStorage.setItem('role', response.data.token.role);
+                    // console.log(response.data.token);
                     setShowSuccess(true);  // hiển thị NotifySuccess khi đăng nhập thành công
                     setTimeout(() => {
                         // navigate(response.data.role === 1 ? "/admin" : "/user/profile"); // Redirect based on role
@@ -101,7 +101,7 @@ const Login = () => {
 
     return (
         <>
-            <Overview mt={112}>
+            <Overview mt={112} me={56}>
                 <div>
                     <h3>Log in</h3>
                     <div style={{display: "flex", marginBottom: 16, justifyContent: 'center'}}>

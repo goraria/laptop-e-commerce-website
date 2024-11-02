@@ -29,7 +29,7 @@ const banners = [
     { id: 6, name: uls, alt: "Sixth slide", title: "Sale Off 20%", description: "XDR Display" },
 ]
 
-function Home() {
+const Home = () => {
     // const [users, setUsers] = useState([]);
     // const [count, setCount] = useState(0);
     // const [array, setArray] = useState([]);

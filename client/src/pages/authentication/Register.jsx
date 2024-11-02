@@ -75,7 +75,7 @@ function Register() {const [validated, setValidated] = useState(false);
 
     return (
         <>
-            <Overview mt={112}>
+            <Overview mt={112} me={56}>
                 <div>
                     <h3>Register</h3>
                     <div style={{display: "flex", marginBottom: 16, justifyContent: 'center'}}>

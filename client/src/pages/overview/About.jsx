@@ -62,7 +62,7 @@ const About = () => {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-            <Overview mt={56}>
+            <Overview mt={56} me={56}>
                 <div>
                     <h1>About us</h1>
                     <p className="lead">

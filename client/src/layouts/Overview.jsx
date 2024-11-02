@@ -2,12 +2,12 @@ import React, {useEffect} from "react";
 import {Button, Card, Col, Container, Form, Image, Row} from "react-bootstrap";
 import jp from "../assets/images/jp.jpeg";
 
-const Overview = ({ children, mt }) => {
+const Overview = ({ children, mt, me }) => {
     useEffect(() => {
         Main();
     }, [])
     return (
-        <div style={{marginTop: mt}}>
+        <div style={{marginTop: mt, marginBottom: me}}>
             <Container style={{padding: '0, 12px'}}>
                 <Card>
                     <Row style={{
