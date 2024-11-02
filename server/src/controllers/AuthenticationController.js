@@ -107,9 +107,8 @@ class AuthenticationController {
     }
 
     async check(req, res) {
-        const id  = req.user.id
         try {
-            const account = await Account.findByPk(id);
+            const account = await Account.findByPk(req.user.id);
             if (!account) {
                 return res.status(404).json({ message: 'User not found' });
             }

@@ -124,7 +124,7 @@ const Header = () => {
                                         <NavDropdown.Item as={Link} to={"/#"}>Schweitzenburg</NavDropdown.Item>
                                         <NavDropdown.Item as={Link} to={"#"}>Braunschweig</NavDropdown.Item>
                                         <NavDropdown.Divider />
-                                        <NavDropdown.Item as={Link} to={"/cart"}>Full Cart</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"/user/cart"}>Full Cart</NavDropdown.Item>
                                     </DropdownButton>
                                 </> :
                                 <>
@@ -146,9 +146,9 @@ const Header = () => {
                                         variant={'primary'}
                                         title={<FontAwesomeIcon icon={faUser}/>}
                                         className="">
-                                        <NavDropdown.Item as={Link} to={"/profile"}>Profile</NavDropdown.Item>
-                                        <NavDropdown.Item as={Link} to={"/address"}>Address</NavDropdown.Item>
-                                        <NavDropdown.Item as={Link} to={"/bill"}>Bill</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"/user/profile"}>Profile</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"/user/address"}>Address</NavDropdown.Item>
+                                        <NavDropdown.Item as={Link} to={"/user/bill"}>Bill</NavDropdown.Item>
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item onClick={() => setShowModalHeader(true)}>Log out</NavDropdown.Item>
                                     </DropdownButton>

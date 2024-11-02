@@ -13,46 +13,62 @@ import Calendar from "react-calendar";
 
 export const Statistics = () => {
     const [data, setData] = useState([
-        { "id": 1, "name": "Alice Johnson", "email": "alice.johnson@example.com", "date": "01/01/2020", "salary": "$50000", "status": "Professional" },
-        { "id": 2, "name": "Bob Smith", "email": "bob.smith@example.com", "date": "02/02/2020", "salary": "$60000", "status": "Applied" },
-        { "id": 3, "name": "Cathy Brown", "email": "cathy.brown@example.com", "date": "03/03/2020", "salary": "$55000", "status": "Current" },
-        { "id": 4, "name": "David Wilson", "email": "david.wilson@example.com", "date": "04/04/2020", "salary": "$45000", "status": "Active" },
-        { "id": 5, "name": "Eva Green", "email": "eva.green@example.com", "date": "05/05/2020", "salary": "$70000", "status": "Active" },
-        { "id": 6, "name": "Frank Moore", "email": "frank.moore@example.com", "date": "06/06/2020", "salary": "$52000", "status": "Resigned" },
-        { "id": 7, "name": "Grace Lee", "email": "grace.lee@example.com", "date": "07/07/2020", "salary": "$48000", "status": "Applied" },
-        { "id": 8, "name": "Hank Taylor", "email": "hank.taylor@example.com", "date": "08/08/2020", "salary": "$56000", "status": "Rejected" },
-        { "id": 9, "name": "Ivy Anderson", "email": "ivy.anderson@example.com", "date": "09/09/2020", "salary": "$59000", "status": "Resigned" },
-        { "id": 10, "name": "Jack Thomas", "email": "jack.thomas@example.com", "date": "10/10/2020", "salary": "$65000", "status": "Applied" },
-        { "id": 11, "name": "Kathy Robinson", "email": "kathy.robinson@example.com", "date": "11/11/2020", "salary": "$57000", "status": "Active" },
-        { "id": 12, "name": "Leo Clark", "email": "leo.clark@example.com", "date": "12/12/2020", "salary": "$62000", "status": "Professional" },
-        { "id": 13, "name": "Mia Lewis", "email": "mia.lewis@example.com", "date": "01/13/2021", "salary": "$53000", "status": "Current" },
-        { "id": 14, "name": "Noah Walker", "email": "noah.walker@example.com", "date": "02/14/2021", "salary": "$58000", "status": "Active" },
-        { "id": 15, "name": "Olivia Hall", "email": "olivia.hall@example.com", "date": "03/15/2021", "salary": "$61000", "status": "Resigned" },
-        { "id": 16, "name": "Paul Allen", "email": "paul.allen@example.com", "date": "04/16/2021", "salary": "$64000", "status": "Professional" },
-        { "id": 17, "name": "Quinn Young", "email": "quinn.young@example.com", "date": "05/17/2021", "salary": "$57000", "status": "Active" },
-        { "id": 18, "name": "Rachel King", "email": "rachel.king@example.com", "date": "06/18/2021", "salary": "$49000", "status": "Resigned" },
-        { "id": 19, "name": "Steve Wright", "email": "steve.wright@example.com", "date": "07/19/2021", "salary": "$52000", "status": "Applied" },
-        { "id": 20, "name": "Tina Scott", "email": "tina.scott@example.com", "date": "08/20/2021", "salary": "$45000", "status": "Rejected" },
-        { "id": 21, "name": "Uma Torres", "email": "uma.torres@example.com", "date": "09/21/2021", "salary": "$54000", "status": "Resigned" },
-        { "id": 22, "name": "Vince Nguyen", "email": "vince.nguyen@example.com", "date": "10/22/2021", "salary": "$62000", "status": "Active" },
-        { "id": 23, "name": "Wendy Patel", "email": "wendy.patel@example.com", "date": "11/23/2021", "salary": "$59000", "status": "Active" },
-        { "id": 24, "name": "Xander Carter", "email": "xander.carter@example.com", "date": "12/24/2021", "salary": "$66000", "status": "Resigned" },
-        { "id": 25, "name": "Yara Rodriguez", "email": "yara.rodriguez@example.com", "date": "01/25/2022", "salary": "$53000", "status": "Professional" },
-        { "id": 26, "name": "Zoe Martinez", "email": "zoe.martinez@example.com", "date": "02/26/2022", "salary": "$60000", "status": "Current" },
-        { "id": 27, "name": "Aaron Hernandez", "email": "aaron.hernandez@example.com", "date": "03/27/2022", "salary": "$58000", "status": "Resigned" },
-        { "id": 28, "name": "Bella Lopez", "email": "bella.lopez@example.com", "date": "04/28/2022", "salary": "$52000", "status": "Rejected" },
-        { "id": 29, "name": "Cameron Cook", "email": "cameron.cook@example.com", "date": "05/29/2022", "salary": "$62000", "status": "Active" },
-        { "id": 30, "name": "Diana Adams", "email": "diana.adams@example.com", "date": "06/30/2022", "salary": "$55000", "status": "Professional" },
-        { "id": 31, "name": "Ethan Bell", "email": "ethan.bell@example.com", "date": "07/31/2022", "salary": "$67000", "status": "Active" },
-        { "id": 32, "name": "Fiona Lee", "email": "fiona.lee@example.com", "date": "08/31/2022", "salary": "$64000", "status": "Active" },
-        { "id": 33, "name": "George Kim", "email": "george.kim@example.com", "date": "09/31/2022", "salary": "$72000", "status": "Resigned" },
-        { "id": 34, "name": "Holly Perez", "email": "holly.perez@example.com", "date": "10/31/2022", "salary": "$59000", "status": "Applied" },
-        { "id": 35, "name": "Isaac Brown", "email": "isaac.brown@example.com", "date": "11/31/2022", "salary": "$50000", "status": "Active" },
-        { "id": 36, "name": "Julia Clark", "email": "julia.clark@example.com", "date": "12/31/2022", "salary": "$68000", "status": "Resigned" },
-        { "id": 37, "name": "Kyle White", "email": "kyle.white@example.com", "date": "01/31/2023", "salary": "$55000", "status": "Rejected" },
-        { "id": 38, "name": "Laura Johnson", "email": "laura.johnson@example.com", "date": "02/31/2023", "salary": "$61000", "status": "Current" },
-        { "id": 39, "name": "Mark Harris", "email": "mark.harris@example.com", "date": "03/31/2023", "salary": "$59000", "status": "Resigned" },
-        { "id": 40, "name": "Nina Evans", "email": "nina.evans@example.com", "date": "04/31/2023", "salary": "$65000", "status": "Professional" }
+        {
+            idaccount: 1,
+            iduser: 1,
+            bill: [
+                {
+                    idbill: 1,
+                    discount: '10',
+                    date: '2024-11-11',
+                    bill_details: [
+                        {
+                            idbill_detail: 1,
+                            product: 'M4',
+                            price: 1000,
+                            configuration: 'Japtor',
+                            accessory: 'Nothing',
+                            color: 'primary',
+                            quantity: 1,
+                        },
+                        {
+                            idbill_detail: 2,
+                            product: 'M4 Pro',
+                            price: 1001,
+                            configuration: 'Goraria',
+                            accessory: 'Nothing',
+                            color: 'danger',
+                            quantity: 2,
+                        }
+                    ]
+                },
+                {
+                    idbill: 2,
+                    discount: '10',
+                    date: '2024-11-11',
+                    bill_details: [
+                        {
+                            idbill_detail: 3,
+                            product: 'M5',
+                            price: 1002,
+                            configuration: 'Japtor',
+                            accessory: 'Nothing',
+                            color: 'primary',
+                            quantity: 2,
+                        },
+                        {
+                            idbill_detail: 4,
+                            product: 'M5 Max',
+                            price: 1003,
+                            configuration: 'Goraria',
+                            accessory: 'Nothing',
+                            color: 'danger',
+                            quantity: 1,
+                        }
+                    ]
+                }
+            ]
+        }
     ]);
 
     const [searchTerm, setSearchTerm] = useState("");
@@ -335,10 +351,10 @@ export const Statistics = () => {
                                 checked={selectedEntries.length === currentItems.length && currentItems.length > 0}
                             />
                         </th>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Date</th>
-                        <th>Salary</th>
+                        <th>fullname</th>
+                        <th>username</th>
+                        <th>Order Date</th>
+                        <th>Price</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -353,23 +369,14 @@ export const Statistics = () => {
                                     onChange={() => handleSelectItem(item.id)}
                                 />
                             </td>
-                            <td>
-                                <div className="d-flex align-items-center">
-                                    <div className="avatar-circle me-2">
-                                        {getInitials(item.name)}
-                                    </div>
-                                    <div>
-                                        {item.name}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>{item.email}</td>
+                            <td>{item.fullname}</td>
+                            <td>{item.username}</td>
                             <td>{item.date}</td>
                             <td>{item.salary}</td>
                             <td>{renderStatusBadge(item.status)}</td>
                             <td>
-                                <Button variant="link"><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                <Button variant="link"><FontAwesomeIcon icon={faTrash} /></Button>
+                                <Button variant="link"><FontAwesomeIcon icon={faPenToSquare}/></Button>
+                                <Button variant="link"><FontAwesomeIcon icon={faTrash}/></Button>
                             </td>
                         </tr>
                     ))}

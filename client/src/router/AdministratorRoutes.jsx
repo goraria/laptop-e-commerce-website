@@ -60,7 +60,7 @@ import { ProductConfiguration } from "../pages/management/ProductConfiguration"
 import { ProductAccessory } from "../pages/management/ProductAccessory"
 import { ProductDescription } from "../pages/management/ProductDescription"
 import { ProductColor } from "../pages/management/ProductColor"
-import { UserProfileid } from "../pages-component/UserProfileId"
+import { UserProfileid } from "../pages/admin-component/UserProfileId.jsx";
 
 ///////////////////////////////////////
 
@@ -84,7 +84,6 @@ export const AdministratorRoutes = () => {
     // }, []);
     return (
         <Routes>
-              
             <Route path="/" element={<DashboardPage />} />
 
             <Route path="/layout/without-menu" element={<WithoutMenuPage />} />
