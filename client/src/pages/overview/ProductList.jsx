@@ -59,10 +59,10 @@ function ProductList() {
         <>
             <TransitionBar/>
             <Overview mt={168} me={56}>
-                <h1>Laptop</h1>
-                <p>
+                <h2>Laptop</h2>
+                <h6 style={{padding: '0 16px'}}>
                     Laptop là một thiết bị máy tính có kích thước nhỏ gọn và di động...
-                </p>
+                </h6>
                 <Row className="justify-content-center my-3">
                     <Container style={{padding: '0 16px'}}>
                         {['Lenovo', 'Dell', 'HP', 'Acer', 'Microsoft', 'Asus', 'LG', 'Apple', 'Razer', 'Samsung'].map((brand, index) => (
@@ -80,7 +80,10 @@ function ProductList() {
                 </Row>
             </Overview>
             <Overview mt={56} me={56}>
-                <h3 className="p-2">Chọn theo tiêu chí</h3>
+                <h2>Chọn theo tiêu chí</h2>
+                <h6 style={{padding: '0 16px'}}>
+                    Lọc theo các tiêu chí...
+                </h6>
                 <Row className="justify-content-center my-3">
                     <Container style={{padding: '0 16px'}}>
                         {categories.map((category, index) => (
@@ -95,11 +98,11 @@ function ProductList() {
                 <Row>
                     {arrayG.map(product => (
                         <Col key={product.idproduct} sm={12} md={6} lg={3} className="mb-3">
-                                <ProductItem obj={product} state={count}/>
-                            </Col>
-                        ))}
-                    </Row>
-                </Container>
+                            <ProductItem obj={product} state={count}/>
+                        </Col>
+                    ))}
+                </Row>
+            </Container>
         </>
     );
 }

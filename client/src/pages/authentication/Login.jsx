@@ -103,7 +103,7 @@ const Login = () => {
         <>
             <Overview mt={112} me={56}>
                 <div>
-                    <h3>Log in</h3>
+                    <h2>Log in</h2>
                     <div style={{display: "flex", marginBottom: 16, justifyContent: 'center'}}>
                         <Image
                             className="d-block"
