@@ -18,13 +18,30 @@ function Product() {
     const location = useLocation(); // Lấy thông tin URL hiện tại
     const searchParams = new URLSearchParams(location.search);
     const id = searchParams.get('id');
-    console.log(id)
     const [descriptions, setArray] = useState([]);
     const [configurations, setconfig] = useState([]);
     const [default_config, setdefaultconfig] = useState([]);
     const [colors, setcolor] = useState([]);
     const [ratings, setRating] = useState([]);
     const [products, setProduct] = useState([]);
+    const [carts, setCart] = useState();
+    const [ChoosedColor, setChoosedColor] = useState(null);
+
+    const token = localStorage.getItem('token');
+    const fetchCart = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/cart/loadcart`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            setCart(data)
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
+
     const fetchProductDetails = async () => {
         try {
             const response = await fetch(`http://localhost:5172/products/load-productid/${id}`);
@@ -95,7 +112,29 @@ function Product() {
         fetchProductDetails();
         fetchProductDecription();
         fetchProductColor();
+        fetchCart();
     }, [id]);
+
+    const handleColorSelect = (idcolor) => {
+        setChoosedColor(idcolor); // Cập nhật idcolor đã chọn
+        console.log(idcolor)
+    };
+    const handleAddToCart = async () => {
+        try {
+            const response = await axios.put(`http://localhost:5172/cart/add-cartitem`, {
+                idcart: carts.idcart,
+                idproduct:  parseInt(id),
+                quantity: 1,
+                idcolor: ChoosedColor,
+                idconfiguration:default_config.idconfiguration,
+            });
+            if (response.status === 201) {
+                alert("Sản phẩm đã được thêm vào giỏ hàng!");
+            }
+        } catch (error) {
+            console.error('Lỗi khi thêm vào giỏ hàng:', error);
+        }
+    };
 
     return (
         <Container style={{ margin: '168px auto 56px auto' }}>
@@ -264,9 +303,9 @@ function Product() {
                                             {colors.map((colours,index) =>
                                             <Button key= {index}
                                              variant= {colours.color}
-                                              style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }
-                                              
-                                              } > {colours.color}</Button>) }
+                                              style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}
+                                              onClick={() => handleColorSelect(colours.idcolor)}
+                                             > {colours.color}</Button>) }
                                             
                                             
                                         </div>
@@ -290,7 +329,7 @@ function Product() {
                             {/* Action Buttons */}
                             <Row className="mt-3">
                                 <Col sm={12} md={6} lg={6} className="mb-3">
-                                    <Button variant="outline-danger" className="me-2" style={{ width: '100%' }}>Thêm vào giỏ</Button>
+                                    <Button variant="outline-danger" className="me-2" style={{ width: '100%' }} onClick={handleAddToCart}>Thêm vào giỏ</Button>
                                 </Col>
                                 <Link to={`/cart`} style={{ textDecoration: 'none' }}>
                                 <Col sm={12} md={3} lg={6} className="mb-3">

@@ -75,16 +75,15 @@ function CheckOut() {
                                 name="paymentMethod"
                                 value="cod"
                             />
-                           
+
                         </Card>
                     </Col>
 
                     {/* Right Section: Order Summary & Product List */}
                     <Col sm={12} md={6} lg={4} className="mb-2">
                         {/* First Card: Order Summary */}
-                        <Card className="p-3 sticky-summary mb-3" style={{ position: 'sticky', top: 120 }}>
-
-                            <Card className="p-3 sticky-summary mb-3" >
+                        <Card className="p-3 sticky-summary mb-3 shadow-none" style={{ position: 'sticky', top: 120, backgroundColor: 'transparent', boxShadow: 'none' }}>
+                            <Card className="p-3 sticky-summary mb-3">
                                 <h5>Tóm tắt đơn hàng</h5>
                                 <div className="d-flex justify-content-between">
                                     <span>Tạm tính</span>
@@ -106,12 +105,9 @@ function CheckOut() {
                                     <span>Còn lại</span>
                                     <span>{remaining.toLocaleString('vi-VN')} đ</span>
                                 </div>
-
-                                
                             </Card>
 
-                            {/* Second Card: Product List */}
-                            <Card className="p-3 sticky-summary mb-3" >
+                            <Card className="p-3 sticky-summary mb-3">
                                 <h5>Sản phẩm trong đơn</h5>
                                 {products.map((product) => (
                                     <div key={product.id} className="d-flex justify-content-between align-items-center mb-2">
@@ -127,6 +123,7 @@ function CheckOut() {
                                 ))}
                             </Card>
                         </Card>
+
                     </Col>
                 </Row>
             </Container>
