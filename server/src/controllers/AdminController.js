@@ -128,5 +128,51 @@ class AdminController {
         }
 
     }
+    async updateUserData(req, res) {
+        const { idaccount } = req.params;
+        const updatedData = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
+
+        const t = await db.sequelize.transaction(); // Bắt đầu transaction
+
+        try {
+            // Cập nhật bảng Account
+            const account = await Account.findOne({
+                where: { idaccount: idaccount },
+                transaction: t,
+            });
+
+            if (!account) {
+                return res.status(404).json({ message: `No account found with id ${idaccount}` });
+            }
+
+            await account.update({ email: updatedData.email }, { transaction: t });
+
+            // Cập nhật bảng User
+            const user = await User.findOne({
+                where: { idaccount: idaccount },
+                transaction: t,
+            });
+
+            if (!user) {
+                return res.status(404).json({ message: `No user found with id ${idaccount}` });
+            }
+
+            await user.update({
+                firstname: updatedData.firstname,
+                lastname: updatedData.lastname,
+                phone_number: updatedData.phone_number,
+                username: updatedData.username
+            }, { transaction: t });
+
+            await t.commit(); // Cam kết transaction
+            res.status(200).json({ success: true, message: 'User updated successfully', data: updatedData });
+
+        } catch (error) {
+            await t.rollback(); // Hoàn tác nếu có lỗi
+            console.error('Error updating user:', error);
+            res.status(500).json({ success: false, message: 'Error updating user', error });
+        }
+    }
 }
+
 module.exports = new AdminController();    
