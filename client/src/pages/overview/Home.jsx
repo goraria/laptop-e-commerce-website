@@ -98,7 +98,7 @@ function Home() {
                 <Row>
                     {products.map(product => (
                         <Col key={product.id} sm={12} md={6} lg={4} className="mb-4">
-                            <ProductItem obj={product} />
+                            {/* <ProductItem obj={product} /> */}
                         </Col>
                     ))}
                 </Row>

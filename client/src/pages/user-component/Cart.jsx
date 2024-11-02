@@ -7,7 +7,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 
@@ -23,10 +23,26 @@ function Cart() {
     const [descriptions, setArray] = useState([]);
     const [selectedPrices, setSelectedPrices] = useState([]);
 
+    const navigate = useNavigate();
+
     const token = localStorage.getItem('token');
-    const response = async () =>{ await axios.get('http://localhost:5172/cart/load', {
-        headers: { Authorization: `Bearer ${token}` }
-    })};
+    const response = async () => {
+        await axios.get('http://localhost:5172/cart/load', {
+            headers: { Authorization: `Bearer ${token}` }
+        })
+    };
+
+    const handleOrderClick = (event) => {
+        event.preventDefault();
+        navigate('/order', {
+            state: {
+                cartData: cartItems, // Dữ liệu giỏ hàng
+                prePrice: pre_total,
+                discount: discount,
+                totalPrice: total     // Tổng giá trị đơn hàng
+            }
+        });
+    };
 
     // const fetchCart = async () => {
     //     const response = await axios.get(`http://localhost:5172/cart/load-cart/${idcart}`);
@@ -76,7 +92,7 @@ function Cart() {
 
     const fetchCart = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/cart/loadcart`,{
+            const response = await fetch(`http://localhost:5172/cart/loadcart`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -114,12 +130,12 @@ function Cart() {
     var discount = 0; // Modify as needed
     var total = pre_total - pre_total * discount;
 
-   
+
 
 
     useEffect(() => {
         fetchCart();
-        
+
         // response();
     }, []);
 
@@ -128,10 +144,9 @@ function Cart() {
         // fetchProductDetails();
         // fetchProductConfiguration();
         // fetchProductDecription();
-        
+
     }, [carts]); // Run fetchProductDetails when cartItems is updated
-    
-    
+
     return (
         <div>
             <TransitionBar />
@@ -141,7 +156,7 @@ function Cart() {
                     <Col sm={12} md={6} lg={8} className="mb-3">
                         <Card style={{ marginBottom: 10, padding: '10px 10px', borderRadius: 8 }}>
                             <div className="d-flex justify-content-between align-items-center">
-                                <h3 style={{ margin: 0, fontSize: '1.5rem', fontWeight: 'bold', color: '#4a5568' }}>Giỏ hàng</h3>
+                                <h2 style={{ margin: 0 }}>Giỏ hàng</h2>
                                 <Button variant="primary" style={{ borderRadius: 8, backgroundColor: '#5a67d8', borderColor: '#5a67d8' }}>
                                     <FontAwesomeIcon icon={faPlus} className="me-2" />
                                     <span>Thêm sản phẩm</span>
@@ -150,7 +165,7 @@ function Cart() {
                         </Card>
                         {cartItems.map((item) => (
                             <Card className="p-3 mb-2" key={item.idcart_item}>
-                                <CardItem Item={item} onCheckboxChange = {handleCheckboxChange} />
+                                <CardItem Item={item} onCheckboxChange={handleCheckboxChange} />
                             </Card>
                         ))}
                     </Col>
@@ -179,11 +194,9 @@ function Cart() {
                                 <span>Tổng cộng</span>
                                 <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>{total}$</span>
                             </div>
-                            <Link to={`/order`} style={{ textDecoration: 'none' }}>
-                                <Button className="w-100 mt-3" variant="danger" size="lg">
-                                    Đặt hàng
-                                </Button>
-                            </Link>
+                            <Button className="w-100 mt-3" variant="danger" size="lg" onClick={handleOrderClick}>
+                                Đặt hàng
+                            </Button>
                         </Card>
                     </Col>
                 </Row>

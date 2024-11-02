@@ -62,6 +62,29 @@ class CartController {
             res.status(500).json({ message: 'Error fetching products', error });
         }
     }
+
+    async addCartItem(req, res) {
+        const { idcart, idproduct, quantity,idcolor, idconfiguration } = req.body;  // Nhận thông tin từ yêu cầu
+            console.log(req.body)
+        try {
+            // Tạo một mục mới trong bảng CartItem
+            const newCartItem = await CartItem.create({
+                idcart: idcart,
+                idproduct: idproduct,
+                quantity: quantity,
+                idcolor: idcolor,
+                idconfiguration:idconfiguration,
+            });
+    
+            res.status(201).json({
+                message: 'Cart item added successfully',
+                cartItem: newCartItem
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'Error adding cart item', error });
+        }
+    }
+    
     
 
 

@@ -3,28 +3,36 @@ import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
 import TransitionBar from '../../layouts/TransitionBar.jsx';
 import CardItem from '../../components/product/CartItem.jsx';
 import { Link } from 'react-router-dom'
+import { useLocation } from 'react-router-dom';
+import OrderItem from "../../components/product/OrderItem.jsx";
+import { useState, useEffect } from 'react';
 
-const products = [
-    { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
-    { id: 2, name: 'Product 2', price: '6', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 2' },
-    { id: 3, name: 'Product 3', price: '7', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 3' },
-    { id: 4, name: 'Product 4', price: '8', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 4' },
-    { id: 5, name: 'Product 5', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 5' },
-    { id: 6, name: 'Product 6', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 6' },
-    { id: 7, name: 'Product 7', price: '9', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 7' },
-    { id: 8, name: 'Product 8', price: '10', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 8' },
-];
 
-var pre_total = 0
-products.map((item) => pre_total += Number(item['price']))
-
-var discount = 0.5
-var total = pre_total - (discount * pre_total)
 
 function Order() {
-var city = 'Hồ Chí Minh';
+    var city = 'Hồ Chí Minh';
+    const [user, setUser] = useState([]);
 
+    const location = useLocation();
+    const { cartData, prePrice, discount, totalPrice } = location.state || {};
+    const token = localStorage.getItem('token');
+    console.log(token)
 
+    const fetchUser= async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/cart/loadcart`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            setCart(data)
+            console.log(data)
+
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
     return (
         <div>
             <TransitionBar />
@@ -41,16 +49,16 @@ var city = 'Hồ Chí Minh';
                                 label="Tại cửa hàng"
                                 name="deliveryMethod"
                                 value="store"
-                                // checked={deliveryMethod === 'store'}
-                                // onChange={this.handleInputChange}
+                            // checked={deliveryMethod === 'store'}
+                            // onChange={this.handleInputChange}
                             />
                             <Form.Check
                                 type="radio"
                                 label="Giao tận nơi"
                                 name="deliveryMethod"
                                 value="home"
-                                // checked={deliveryMethod === 'home'}
-                                // onChange={this.handleInputChange}
+                            // checked={deliveryMethod === 'home'}
+                            // onChange={this.handleInputChange}
                             />
                         </Card>
 
@@ -86,8 +94,8 @@ var city = 'Hồ Chí Minh';
                                     type="text"
                                     placeholder="Nhập họ và tên"
                                     name="recipientName"
-                                    // value={recipientName}
-                                    // onChange={this.handleInputChange}
+                                // value={recipientName}
+                                // onChange={this.handleInputChange}
                                 />
                             </Form.Group>
                             <Form.Group controlId="formPhoneNumber" className="mt-3">
@@ -96,8 +104,8 @@ var city = 'Hồ Chí Minh';
                                     type="text"
                                     placeholder="Nhập số điện thoại"
                                     name="phoneNumber"
-                                    // value={phoneNumber}
-                                    // onChange={this.handleInputChange}
+                                // value={phoneNumber}
+                                // onChange={this.handleInputChange}
                                 />
                             </Form.Group>
                         </Card>
@@ -110,34 +118,42 @@ var city = 'Hồ Chí Minh';
 
                     {/* Right Section: Order Summary */}
                     <Col sm={12} md={6} lg={4} className="mb-2">
-                        <Card className="p-3 sticky-summary" style={{ position: 'sticky', top: 120 }}>
-                            <h5>Khuyến mãi</h5>
-                            <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
-                                <option> Chọn hoặc nhập khuyến mãi</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                            </Form.Select>
+                        <Card className="p-3 sticky-summary mb-3 shadow-none" style={{ position: 'sticky', top: 100, backgroundColor: 'transparent', boxShadow: 'none' }}>
+                            <Card className="p-3 sticky-summary">
+                                <h5>Khuyến mãi</h5>
+                                <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
+                                    <option> Chọn hoặc nhập khuyến mãi</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </Form.Select>
 
-                            <h5>Tóm tắt đơn hàng</h5>
-                            <div className="d-flex justify-content-between">
-                                <span>Tạm tính</span>
-                                <span>{pre_total}$</span>
-                            </div>
-                            <div className="d-flex justify-content-between">
-                                <span>Được giảm</span>
-                                <span>{pre_total * discount}$</span>
-                            </div>
+                                <h5>Tóm tắt đơn hàng</h5>
+                                <div className="d-flex justify-content-between">
+                                    <span>Tạm tính</span>
+                                    <span>${prePrice}</span>
+                                </div>
+                                <div className="d-flex justify-content-between">
+                                    <span>Được giảm</span>
+                                    <span>{prePrice * discount}$</span>
+                                </div>
 
-                            <div className="d-flex justify-content-between mt-2">
-                                <span>Tổng cộng</span>
-                                <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>{total}$</span>
-                            </div>
-                            <Link to={`/checkout`} style={{ textDecoration: 'none' }}>
-                            <Button className="w-100 mt-3" variant="danger" size="lg">
-                                Đặt hàng
-                            </Button>
-                            </Link>
+                                <div className="d-flex justify-content-between mt-2">
+                                    <span>Tổng cộng</span>
+                                    <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>${totalPrice}</span>
+                                </div>
+                                <Link to={`/checkout`} style={{ textDecoration: 'none' }}>
+                                    <Button className="w-100 mt-3" variant="danger" size="lg">
+                                        Đặt hàng
+                                    </Button>
+                                </Link>
+                            </Card>
+                            <Card className="p-3 sticky-summary mb-3" style={{marginTop:10}}>
+                                <h5>Sản phẩm trong đơn</h5>
+                                {cartData.map((item) => (
+                                    <OrderItem Item= {item} />
+                                ))}
+                            </Card>
                         </Card>
                     </Col>
                 </Row>

@@ -38,37 +38,27 @@ function ProductItem(product, state) {
     const [configurations, setconfig] = useState([]);
     const [ratings, setRating] = useState([]);
     const [products, setProduct] = useState([]);
+    const [carts, setCart] = useState();
+    const [colors, setColor] = useState();
+
+
     var obj = product.obj;
+    const token = localStorage.getItem('token');
 
-    // const fetchAPI = async () => {
-    //     const response = await axios.get(`http://localhost:5172/products/load-description/${obj.idproduct}`)
-    //     setArray(response.data[0])
-    // };
-
-    // const fetchAPI1 = async () => {
-    //     const response = await axios.get(`http://localhost:5172/products/load-configuration/${obj.idproduct}`)
-    //     setconfig(response.data[0])
-    // };
-    // const fetchAPI2 = async () => {
-    //     const response = await axios.get(`http://localhost:5172/products/load-rating/${obj.idproduct}`)
-    //     setRating(response.data)
-    // };
-    // const fetchAPI3 = async () => {
-    //     const response = await axios.get(`http://localhost:5172/products/load-productid/${obj.idproduct}`)
-    //     setProduct(response.data)
-    // };
-    // obj.forEach(idproduct => {
-    //     const fetchconfig = async () => {
-    //         try {
-    //             const response = await fetch(`http://localhost:5172/load-configuration/${idproduct}`);
-    //             const data = await response.json();
-    //             setConfig(data); // Cập nhật thông tin sản phẩm từ backend
-    //         } catch (error) {
-    //             console.error('Lỗi khi lấy dữ liệu cấu hình:', error);
-    //         }
-    //     };
-    // }
-    // );
+    const fetchCart = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/cart/loadcart`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            setCart(data)
+            // console.log(data)
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
     const fetchProductDetails = async () => {
         try {
             const response = await fetch(`http://localhost:5172/products/load-productid/${obj.idproduct}`);
@@ -93,20 +83,21 @@ function ProductItem(product, state) {
             const response = await fetch(`http://localhost:5172/products/load-rating/${obj.idproduct}`);
             const data = await response.json();
             setRating(data); // Cập nhật thông tin sản phẩm từ backend
-            console.log(data)
+            // console.log(data)
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }
     };
-    // const fetchProductColor = async () => {
-    //     try {
-    //         const response = await fetch(`http://localhost:5172/load-productid/${id}`);
-    //         const data = await response.json();
-    //         setProduct(data); // Cập nhật thông tin sản phẩm từ backend
-    //     } catch (error) {
-    //         console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
-    //     }
-    // };
+    const fetchProductColor = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/products/load-color/${obj.idproduct}`);
+            const data = await response.json();
+            setColor(data[0]); // Cập nhật thông tin sản phẩm từ backend
+            // console.log(data)
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu sản phẩm:', error);
+        }
+    };
     const fetchProductConfiguration = async () => {
         try {
             const response = await fetch(`http://localhost:5172/products/load-configuration/${obj.idproduct}`);
@@ -123,12 +114,32 @@ function ProductItem(product, state) {
         fetchProductConfiguration();
         fetchProductDecription();
         fetchProductRating();
+        fetchCart();
+        fetchProductColor();
         // fetchAPI();
         // fetchAPI1();
         // fetchAPI2();
         // fetchAPI3();
     }, []);
 
+
+    const handleAddToCart = async () => {
+        try {
+            // console.log(carts.idcart,obj.idproduct,colors.idcolor,configurations.idconfiguration)
+            const response = await axios.put(`http://localhost:5172/cart/add-cartitem`, {
+                idcart: carts.idcart,
+                idproduct:  obj.idproduct,
+                quantity: 1,
+                idcolor: colors.idcolor,
+                idconfiguration:configurations.idconfiguration,
+            });
+            if (response.status === 201) {
+                alert("Sản phẩm đã được thêm vào giỏ hàng!");
+            }
+        } catch (error) {
+            console.error('Lỗi khi thêm vào giỏ hàng:', error);
+        }
+    };
 
 
     const totalScore = ratings.reduce((sum, rating) => sum + rating.score, 0);
@@ -137,7 +148,8 @@ function ProductItem(product, state) {
     const imageHeight = (1 / 8) * cardWidth;
     return (
         <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius: 10,height:cardWidth*6/5 , width: cardWidth ,objectFit: 'cover' }}>
-            <Card.Img variant="top" src = {products.product_image}  style={{  width: '100%', height: '100%', objectFit: 'cover' }} />
+             <Link to={`/product?id=${obj.idproduct}`} style={{ textDecoration: 'none' }}>
+             <Card.Img variant="top" src = {products.product_image}  style={{  width: '100%', height: '100%', objectFit: 'cover' }} />  </Link>
             <Card.Body>
                 {/* Price and Name in the same line */}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -164,11 +176,10 @@ function ProductItem(product, state) {
                         {renderStars(averageScore)}
                     </div>
                     {/* Buy Button */}
-                    <Link to={`/product?id=${obj.idproduct}`} style={{ textDecoration: 'none' }}>
-                        <Button variant="danger">
+                        <Button variant="danger" onClick={handleAddToCart}>
                             <FontAwesomeIcon icon={faCartPlus} style={{ width: 56 }} />
                         </Button>
-                    </Link>
+                  
                 </div>
             </Card.Body>
         </Card>
