@@ -314,7 +314,7 @@ export const NameForm = ({ name, show, onHide, onReload }) => {
                         <>
                             <Button onClick={() => setShowConfirmDelete(true)} variant="danger" className="me-3">
                                 <FontAwesomeIcon icon={faTrash} className="me-2" />
-                                <span>Delete Address</span>
+                                <span>Delete Product Name</span>
                             </Button>
                             <Button onClick={handleInvalid} variant="info">
                                 <FontAwesomeIcon icon={faCheck} className="me-2" />
@@ -323,7 +323,7 @@ export const NameForm = ({ name, show, onHide, onReload }) => {
                         </> : <>
                             <Button type="submit" variant="success" onClick={handleInvalid}>
                                 <FontAwesomeIcon icon={faPlus} className="me-2" />
-                                <span>Create Address</span>
+                                <span>Create Product Name</span>
                             </Button>
                         </>
                     }

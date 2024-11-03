@@ -17,27 +17,26 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import "./DataTables.css"; // Add custom styling here
-
+import { ProductForm } from "../modal/form/ProductForm";
 export const ProductNameTable = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState([])
     const fetchAPI = async () => {
         const response = await axios.get("http://localhost:5172/products/load-product")
-        console.log(response.data)
         setData(response.data)
     };
     const [data1, setData1] = useState([])
     const fetchAPI1 = async () => {
         const response = await axios.get("http://localhost:5172/admin/get-category")
-        console.log(response.data)
         setData1(response.data)
     };
-    // const mergedData = data.map(user => {
-    //     const account = data1.find(acc => acc.idproduct === user.idproduct);
-    //     return { ...user, ...account };
-    // });
-    // console.log(mergedData)
+    const mergedData = data.map(user => {
+        const account = data1.find(acc => acc.idcategory === user.idcategory);
+        return { ...user, ...account };
+    });
+    console.log(mergedData)
+
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedEntries, setSelectedEntries] = useState([]);
@@ -47,7 +46,22 @@ export const ProductNameTable = () => {
         setSearchTerm(e.target.value);
         setCurrentPage(1);
     };
-
+    const handleEdit = (idproduct) => {
+        // Tìm user theo ID
+        console.log(idproduct)
+        const productToEdit = mergedData.find(product => product.idproduct === idproduct);
+        console.log(productToEdit)
+        if (productToEdit) {
+            setSelectedProduct(productToEdit); // Lưu thông tin user vào state `selectedUser`
+            setModalShow(true); // Hiển thị modal để chỉnh sửa thông tin
+        }
+    };
+    const handleModalClose = () => {
+        setModalShow(false);
+        setSelectedProduct(null);
+    };
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
     const handleSelectAll = (e) => {
         if (e.target.checked) {
             const allVisibleItems = filteredData.slice(indexOfFirstItem, indexOfLastItem).map(item => item.idproduct);
@@ -68,8 +82,9 @@ export const ProductNameTable = () => {
     };
     const handleDelete = async (id) => {
         try {
+
             // Send delete request to the server
-            await axios.delete(`http://localhost:5172/products/delete/${id}`);
+            await axios.delete(`http://localhost:5172/products/delete-productname/${id}`);
 
             // Optionally, fetch the updated data again
             fetchAPI();
@@ -78,7 +93,7 @@ export const ProductNameTable = () => {
         }
     };
 
-    const filteredData = data.filter(item =>
+    const filteredData = mergedData.filter(item =>
         item.product_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
@@ -211,7 +226,7 @@ export const ProductNameTable = () => {
                             <div className="dt-action-buttons text-end pt-6 pt-md-0">
                                 <div className="dt-buttons btn-group flex-wrap">
                                     <div>
-                                        <Button variant="primary" type="button" className="btn btn-secondary create-new btn-primary" style={{ display: "flex", textAlign: "center" }}>
+                                        <Button variant="primary" type="button" className="btn btn-secondary create-new btn-primary" style={{ display: "flex", textAlign: "center" }} onClick={() => setModalShow(true)}>
                                             <FontAwesomeIcon icon={faPlus} style={{ marginRight: 10 }} />
                                             Add New Record
                                         </Button>
@@ -265,11 +280,11 @@ export const ProductNameTable = () => {
                                 />
                             </th>
                             <th>Product Name</th>
-                            <th>Branch</th>
+                            <th>Brand</th>
                             {/* <th>Email</th> */}
                             {/* <th>Role</th> */}
-                            {/* <th>Phone Number</th>
-                            <th>Actions</th> */}
+                            <th>Category</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -293,12 +308,12 @@ export const ProductNameTable = () => {
                                     </div>
                                 </td>
                                 <td>{item.brand}</td>
-                                {/* <td>{item.product_name}</td> */}
+                                <td>{item.category_name}</td>
                                 {/* <td> {item.role === 1 ? "Admin" : item.role === 0 ? "User" : "Unknown Role"}</td>
                                 <td>{item.phone_number}</td> */}
                                 <td>
-                                    <Button variant="link" onClick={() => handleNavigate(item.idproduct)}><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                    <Button variant="link"><FontAwesomeIcon icon={faTrash} /></Button>
+                                    <Button variant="link" onClick={() => handleEdit(item.idproduct)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                    <Button variant="link" onClick={() => handleDelete(item.idproduct)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faTrash} /></Button>
                                 </td>
                             </tr>
                         ))}
@@ -322,6 +337,13 @@ export const ProductNameTable = () => {
                         <div className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
                             {renderPagination()}
                         </div>
+                        <ProductForm
+                            show={modalShow}
+                            // onHide={() => setModalShow(false)}
+                            onHide={handleModalClose}
+                            onReload='a'
+                            product={selectedProduct}
+                        />
                     </div>
                 </div>
             </div>

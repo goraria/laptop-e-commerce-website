@@ -17,27 +17,46 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import "./DataTables.css"; // Add custom styling here
-
+import { CategoryForm } from "../modal/form/CategoryForm";
 export const CategoryDataTables = () => {
     const navigate = useNavigate();
 
     const [data, setData] = useState([])
     const fetchAPI = async () => {
-        const response = await axios.get("http://localhost:5172/products/load-product")
+        const response = await axios.get("http://localhost:5172/admin/get-category")
         console.log(response.data)
         setData(response.data)
     };
-    const [data1, setData1] = useState([])
-    const fetchAPI1 = async () => {
-        const response = await axios.get("http://localhost:5172/admin/get-category")
-        console.log(response.data)
-        setData1(response.data)
+    const handleEdit = (idcategory) => {
+        // Tìm user theo ID
+        console.log(idcategory)
+        const categoryToEdit = data.find(product => product.idcategory === idcategory);
+        console.log(categoryToEdit)
+        if (categoryToEdit) {
+            setSelectedCategory(categoryToEdit); // Lưu thông tin user vào state `selectedUser`
+            setModalShow(true); // Hiển thị modal để chỉnh sửa thông tin
+        }
     };
-    // const mergedData = data.map(user => {
-    //     const account = data1.find(acc => acc.idproduct === user.idproduct);
-    //     return { ...user, ...account };
-    // });
-    // console.log(mergedData)
+    const handleModalClose = () => {
+        setModalShow(false);
+        setSelectedCategory(null);
+    };
+
+    const handleDelete = async (id) => {
+        try {
+
+            // Send delete request to the server
+            await axios.delete(`http://localhost:5172/admin/delete-category/${id}`);
+
+            // Optionally, fetch the updated data again
+            fetchAPI();
+        } catch (error) {
+            console.error("Error deleting category:", error);
+        }
+    };
+
+    const [selectedCategory, setSelectedCategory] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
     const [selectedEntries, setSelectedEntries] = useState([]);
@@ -50,25 +69,22 @@ export const CategoryDataTables = () => {
 
     const handleSelectAll = (e) => {
         if (e.target.checked) {
-            const allVisibleItems = filteredData.slice(indexOfFirstItem, indexOfLastItem).map(item => item.idproduct);
+            const allVisibleItems = filteredData.slice(indexOfFirstItem, indexOfLastItem).map(item => item.idcategory);
             setSelectedEntries(allVisibleItems);
         } else {
             setSelectedEntries([]);
         }
     };
-    const handleNavigate = (idaccount) => {
-        navigate(`/admin/profile_user/${idaccount}`); // điều hướng tới URL động với userId
-    };
-    const handleSelectItem = (idproduct) => {
-        if (selectedEntries.includes(idproduct)) {
-            setSelectedEntries(selectedEntries.filter(item => item !== idproduct));
+    const handleSelectItem = (idcategory) => {
+        if (selectedEntries.includes(idcategory)) {
+            setSelectedEntries(selectedEntries.filter(item => item !== idcategory));
         } else {
-            setSelectedEntries([...selectedEntries, idproduct]);
+            setSelectedEntries([...selectedEntries, idcategory]);
         }
     };
 
     const filteredData = data.filter(item =>
-        item.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+        item.category_name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -185,7 +201,7 @@ export const CategoryDataTables = () => {
     };
     useEffect(() => {
         fetchAPI();
-        fetchAPI1();
+        // fetchAPI1();
     }, []);
 
     return (
@@ -195,12 +211,12 @@ export const CategoryDataTables = () => {
                     <div className="card-header flex-column flex-md-row pb-0">
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <div className="head-label text-center">
-                                <h5 className="card-title mb-0">Product DataTable</h5>
+                                <h5 className="card-title mb-0">Category DataTable</h5>
                             </div>
                             <div className="dt-action-buttons text-end pt-6 pt-md-0">
                                 <div className="dt-buttons btn-group flex-wrap">
                                     <div>
-                                        <Button variant="primary" type="button" className="btn btn-secondary create-new btn-primary" style={{ display: "flex", textAlign: "center" }}>
+                                        <Button variant="primary" type="button" className="btn btn-secondary create-new btn-primary" style={{ display: "flex", textAlign: "center" }} onClick={() => setModalShow(true)}>
                                             <FontAwesomeIcon icon={faPlus} style={{ marginRight: 10 }} />
                                             Add New Record
                                         </Button>
@@ -253,8 +269,8 @@ export const CategoryDataTables = () => {
                                     checked={selectedEntries.length === currentItems.length && currentItems.length > 0}
                                 />
                             </th>
-                            <th>Product Name</th>
-                            <th>Branch</th>
+                            <th>Category Name</th>
+                            <th>Action</th>
                             {/* <th>Email</th> */}
                             {/* <th>Role</th> */}
                             {/* <th>Phone Number</th>
@@ -277,17 +293,17 @@ export const CategoryDataTables = () => {
 
                                         </div>
                                         <div>
-                                            {item.product_name}
+                                            {item.category_name}
                                         </div>
                                     </div>
                                 </td>
-                                <td>{item.brand}</td>
+                                {/* <td>{item.brand}</td> */}
                                 {/* <td>{item.product_name}</td> */}
                                 {/* <td> {item.role === 1 ? "Admin" : item.role === 0 ? "User" : "Unknown Role"}</td>
                                 <td>{item.phone_number}</td> */}
                                 <td>
-                                    <Button variant="link" onClick={handleNavigate}><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                    <Button variant="link"><FontAwesomeIcon icon={faTrash} /></Button>
+                                    <Button variant="link" onClick={() => handleEdit(item.idcategory)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                    <Button variant="link" onClick={() => handleDelete(item.idcategory)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faTrash} /></Button>
                                 </td>
                             </tr>
                         ))}
@@ -311,6 +327,13 @@ export const CategoryDataTables = () => {
                         <div className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
                             {renderPagination()}
                         </div>
+                        <CategoryForm
+                            show={modalShow}
+                            // onHide={() => setModalShow(false)}
+                            onHide={handleModalClose}
+                            onReload='a'
+                            category={selectedCategory}
+                        />
                     </div>
                 </div>
             </div>

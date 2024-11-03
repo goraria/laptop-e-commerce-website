@@ -76,9 +76,6 @@ export const UserDataTables = () => {
             setSelectedEntries([]);
         }
     };
-    const handleNavigate = (idaccount) => {
-        navigate(`/admin/profile_user/${idaccount}`); // điều hướng tới URL động với userId
-    };
     const handleSelectItem = (iduser) => {
         if (selectedEntries.includes(iduser)) {
             setSelectedEntries(selectedEntries.filter(item => item !== iduser));

@@ -106,27 +106,29 @@ export const UserForm = ({ user, show, onHide, onReload }) => {
 
     const handleConfirmSave = async () => {
         try {
-            // const token = localStorage.getItem('token');
-            const response = user
-                ? await axios.post(`http://localhost:5172/admin//update-user/${user.idaccount}`, formData)
-                : await axios.put('http://localhost:5172/address/addition', formData);
+            if (user) {
+                // Chỉ thực hiện cập nhật nếu có đối tượng `user`
+                console.log('formData:', formData);
+                const response = await axios.post(`http://localhost:5172/admin/update-user/${user.idaccount}`, formData);
 
-            // const response = address ?
-            //     await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
-            //     await axios.post('http://localhost:5172/address/addition', formData, {
-            //         headers: {
-            //             Authorization: `Bearer ${token}`
-            //         }
-            //     });
-
-            if (response.status === 200 || response.status === 201) {
-                // alert(address ? 'Address updated successfully' : 'Address added successfully');
-                setShowConfirmModal(false)
-                onHide();
-                onReload()
+                if (response.status === 200 || response.status === 201) {
+                    setShowConfirmModal(false);
+                    onHide();
+                    onReload();
+                }
+            } else {
+                // Có thể hiển thị thông báo nếu `user` không tồn tại
+                setError('User not found for update');
             }
+
+            // if (response.status === 200 || response.status === 201) {
+            //     // alert(address ? 'Address updated successfully' : 'Address added successfully');
+            //     setShowConfirmModal(false)
+            //     onHide();
+            //     onReload()
+            // }
         } catch (error) {
-            setError(error.response ? error.response.data.message : 'Failed to save address');
+            setError(error.response ? error.response.data.message : 'Failed to save user');
         }
     };
 
@@ -222,15 +224,15 @@ export const UserForm = ({ user, show, onHide, onReload }) => {
                             </Form.Group> */}
                         </Row>
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="phonenumber">
+                            <Form.Group as={Col} md={5} controlId="phone_number">
                                 <Form.Label>Phone Number</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="phonenumber">
+                                    <InputGroup.Text id="phone_number">
                                         <FontAwesomeIcon icon={faPhone} />
                                     </InputGroup.Text>
                                     <Form.Control
                                         type="tel"
-                                        name="phonenumber"
+                                        name="phone_number"
                                         value={formData.phone_number}
                                         onChange={handleChange}
                                         required
@@ -312,10 +314,10 @@ export const UserForm = ({ user, show, onHide, onReload }) => {
                     {/*</Button>*/}
                     {user ?
                         <>
-                            <Button onClick={() => setShowConfirmDelete(true)} variant="danger" className="me-3">
+                            {/* <Button onClick={() => setShowConfirmDelete(true)} variant="danger" className="me-3">
                                 <FontAwesomeIcon icon={faTrash} className="me-2" />
                                 <span>Delete Address</span>
-                            </Button>
+                            </Button> */}
                             <Button onClick={handleInvalid} variant="info">
                                 <FontAwesomeIcon icon={faCheck} className="me-2" />
                                 <span>Save changes</span>
