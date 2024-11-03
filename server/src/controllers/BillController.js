@@ -17,7 +17,7 @@ class BillController {
                 include: [
                     {
                         model: Account,
-                        attributes: ['idaccount', 'username', 'email'], // Chỉ lấy `idaccount` từ Account
+                        attributes: ['idaccount', 'username', 'email'], // Chỉ lấy các trường cần thiết từ Account
                         include: [
                             {
                                 model: User,
@@ -56,10 +56,9 @@ class BillController {
 
             const result = bills.map(bill => ({
                 id: bill.idbill,
-                // discount: bill.iddiscount,
                 date: bill.date,
                 price: bill.price,
-                account: {
+                account: bill.Account ? {
                     idaccount: bill.Account.idaccount,
                     username: bill.Account.username,
                     email: bill.Account.email,
@@ -69,7 +68,7 @@ class BillController {
                         lastname: bill.Account.User.lastname,
                         phone_number: bill.Account.User.phone_number
                     } : null
-                },
+                } : null,
                 address: bill.Address ? {
                     idaddress: bill.Address.idaddress,
                     tower: bill.Address.tower,

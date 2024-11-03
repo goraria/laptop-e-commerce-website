@@ -215,6 +215,7 @@ function AccountInfo({ onReload }) {
                                     placeholder="Phone"
                                     value={formData.phone}
                                     onChange={handleChange}
+                                    maxLength={10}
                                     required
                                 />
                                 <Form.Control.Feedback type="invalid">

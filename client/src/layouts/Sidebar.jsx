@@ -52,29 +52,6 @@ const menuData = [
         "items": [
             {
                 "text": "Account Setting",
-                "icon": "bx bx-dock-top",
-                "available": true,
-                "link": "",
-                "submenu": [
-                    {
-                        "text": "Account",
-                        "available": true,
-                        "link": "/admin/account/settings"
-                    },
-                    {
-                        "text": "Notification",
-                        "available": true,
-                        "link": "/admin/account/notifications"
-                    },
-                    {
-                        "text": "Connetctions",
-                        "available": true,
-                        "link": "/admin/account/connections"
-                    }
-                ]
-            },
-            {
-                "text": "Account Setting",
                 "icon": "bx bx-user",
                 "available": true,
                 "link": "/admin/profile"
@@ -90,12 +67,6 @@ const menuData = [
                 "icon": "bx bx-category",
                 "available": true,
                 "link": "/admin/categories"
-            },
-            {
-                "text": "Product Configuration",
-                "icon": "bx bx-layer",
-                "available": true,
-                "link": "/admin/products"
             },
             {
                 "text": "Product",
