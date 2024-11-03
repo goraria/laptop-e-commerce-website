@@ -52,8 +52,12 @@ function Cart() {
     // };
 
     const fetchCartItem = async (Carts) => {
+        try {
         const response = await axios.get(`http://localhost:5172/cart/load-cartItem/${Carts.idcart}`);
         setCartItem(response.data);
+        }catch{
+            console.error('Error fetching CartItem details:', error);
+        }
     };
 
     const fetchProductDetails = async (CartItems) => {
@@ -100,7 +104,6 @@ function Cart() {
             });
             const data = await response.json();
             setCart(data)
-
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }

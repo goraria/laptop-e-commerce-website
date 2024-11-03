@@ -4,30 +4,102 @@ import TransitionBar from '../../layouts/TransitionBar.jsx';
 import { useLocation } from 'react-router-dom';
 import OrderItem from "../../components/product/OrderItem.jsx";
 import { useState, useEffect } from 'react';
+import axios from 'axios';
+import NotifySuccess from "../../components/modal/notify/NotifySuccess.jsx";
 
 
-const products = [
-    { id: 1, name: 'Dell Inspiron 14 5430', price: 15990000, description: 'i5 1340P, 16GB, 512GB, FHD+, Platinum Silver', quantity: 1 },
-    { id: 2, name: 'Chuột Không Dây M13 - Ergonomic', price: 0, description: 'Silent - Wireless 2.4Ghz, Black, Mới, Full box', quantity: 1 },
-];
 
-var pre_total = 0;
-products.map((item) => pre_total += item['price']);
+// var pre_total = 0;
+// // products.map((item) => pre_total += item['price']);
 
 var discount = 0; // Assuming no discount applied.
-var total = pre_total - (discount * pre_total);
-var paid = 0;
-var remaining = total - paid;
+// var total = pre_total - (discount * pre_total);
+// var paid = 0;
+// var remaining = total - paid;
 
 function CheckOut() {
     const location = useLocation();
     const { cartData, prePrice, discounts, totalPrice, userData, selectedaddress, selectedstoreaddress, deliverymethod } = location.state || {};
     const [paymentMethod, setPaymentMethod] = useState("qr"); // State for delivery method
+    const [status, setStatus] = useState(1); // State for delivery method
+    const [date, setDate] = useState(new Date()); // State for delivery method
+    const [address, setAdress] = useState([]); // State for delivery method
+
+
+
+    const token = localStorage.getItem('token');
+
+    const fetchAddress = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/address/addresses/${selectedaddress}`);
+            const data = await response.json();
+            setAdress(data[0])
+            console.log(data)
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
+
+    const formatDateToMySQL = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');  // Months are zero-indexed
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    };
+
+    const handleAddBill = async () => {
+        try {
+            const response = await axios.put(`http://localhost:5172/bill/add-bill`,{
+                date: formatDateToMySQL(date),
+                iddiscount:null,
+                idaddress:selectedaddress,
+                price:totalPrice,
+                status:status,
+                items: cartData
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                
+            });
+            alert("Bill đã được tạo vào thành công");
+
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
 
     const handlePaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
     };
 
+    const handleStatusChange = (status) => {
+        setStatus(status);
+        console.log(status)
+    };
+    
+    const handleRemoveItem = async () => {
+        try {
+            const response = await axios.put(`http://localhost:5172/cart/remove-cartitem`, {
+                idcartItem: item.idcart_item,
+            });
+            if (response.status === 201) {
+                alert("Sản phẩm đã được xóa vào giỏ hàng!");
+                onRemoveItem();
+            }
+
+        } catch (error) {
+            console.error('Lỗi khi xóa vào giỏ hàng:', error);
+        }
+    };
+
+    useEffect(() => {
+        fetchAddress();
+    }, []);
     return (
         <div>
             <TransitionBar />
@@ -45,7 +117,7 @@ function CheckOut() {
                                     <strong>{selectedstoreaddress}</strong>
                                 )}
                                 {deliverymethod === "Giao tận nơi" && (
-                                    <strong>{selectedaddress}</strong>
+                                    <strong>{address.street}, {address.city}, {address.district}</strong>
                                 )}
 
                             </div>
@@ -83,7 +155,11 @@ function CheckOut() {
                                             <p className="text-center">Quét mã QR bằng ứng dụng ngân hàng</p>
                                         </Col>
                                     </Row>
-                                    <Button className="w-100 mt-2" variant="primary">Tôi đã chuyển khoản</Button>
+                                    <Button className="w-100 mt-2" variant="primary" onClick={() =>{
+                                        handleStatusChange(1),
+                                        handleAddBill()
+                                        // NotifySuccess()
+                                    }}>Tôi đã chuyển khoản</Button>
                                 </Card>
                             </Card>)}
 
@@ -99,7 +175,10 @@ function CheckOut() {
                             />
                             {paymentMethod === "cod" && (
                                 <Card className="p-3 mb-3">
-                                    <Button className="w-100" variant="primary" >
+                                    <Button className="w-100" variant="primary" onClick={() =>{
+                                        handleStatusChange(0),
+                                        handleAddBill()
+                                    }}>
                                         Xác nhận thanh toán
                                     </Button>
                                 </Card>

@@ -12,9 +12,15 @@ class AddressController {
     };
 
     async getAddressById(req, res) {
-        const { id } = req.params;
+        const { idaddress } = req.params;
         try {
-            const address = await Address.findByPk(id);
+            const address = await Address.findAll(
+                {
+                    where: {
+                        idaddress: idaddress
+                    }
+                }
+                );
             if (address) {
                 res.json(address);
             } else {
