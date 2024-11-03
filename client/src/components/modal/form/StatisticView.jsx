@@ -188,7 +188,7 @@ const StatisticView = ({ item, show, onHide, onReload }) => {
                                         readOnly
                                         type="text"
                                         name="email"
-                                        value={item ? item.account.email : 'email@email.com'}
+                                        value={item ? item.account !== null ? item.account.email : 'unknown@email.com' : 'unknown@email.com'}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback/>
@@ -206,7 +206,7 @@ const StatisticView = ({ item, show, onHide, onReload }) => {
                                         readOnly
                                         type="text"
                                         name="address"
-                                        value={item ? `${item.address.tower}, ${item.address.street}, ${item.address.district}, ${item.address.city}, ${item.address.state}, ${item.address.country}` : 'Unknown?'}
+                                        value={item ? item.address ? `${item.address.tower}, ${item.address.street}, ${item.address.district}, ${item.address.city}, ${item.address.state}, ${item.address.country}` : 'Unknown?' : 'Unknown?'}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback/>
@@ -222,7 +222,7 @@ const StatisticView = ({ item, show, onHide, onReload }) => {
                                         readOnly
                                         type="text"
                                         name="voucher"
-                                        value={item ? item.discount.discount_name : 'Unknown'}
+                                        value={item ? item.discount !== null ? item.discount.discount_name : 'Unknown' : 'Unknown'}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback/>
@@ -240,7 +240,7 @@ const StatisticView = ({ item, show, onHide, onReload }) => {
                                         readOnly
                                         type="text"
                                         name="date"
-                                        value={new Date(item.date).toLocaleString()}
+                                        value={item ? item.date !== null ? new Date(item.date).toLocaleString() : 'Unknown' : 'Unknown'}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback/>
@@ -256,7 +256,7 @@ const StatisticView = ({ item, show, onHide, onReload }) => {
                                         readOnly
                                         type="text"
                                         name="price"
-                                        value={"$10000"}
+                                        value={item ? item.price !== null ? item.price : 'Unknown' : 'Unknown'}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback/>
@@ -280,7 +280,7 @@ const StatisticView = ({ item, show, onHide, onReload }) => {
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
-                            {item.bill_details ? item.bill_details.map((detail, index) => (
+                            {item ? item.bill_details.map((detail, index) => (
                                 <Form.Group key={index} as={Col} md={4} controlId="date">
                                     <Form.Label>Date</Form.Label>
                                     <InputGroup hasValidation>

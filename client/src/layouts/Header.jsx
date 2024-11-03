@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, {Component, useEffect, useState} from 'react';
 // import ReactDOM from 'react-dom/client';
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -8,7 +8,7 @@ import {
     FontAwesomeIcon
 } from "@fortawesome/react-fontawesome";
 import {
-    faShoppingCart, faUser, faSearch
+    faShoppingCart, faUser, faSearch, faBarsProgress
 } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
@@ -33,31 +33,45 @@ const dropdownContains = [
     }
 ]
 
-const LogoutButton = () => {
-    const navigate = useNavigate();
-
-    const handleLogout = async () => {
-        // const token = localStorage.getItem('token');
-        try {
-            await axios.post('/api/logout', {}, {
-                headers: { Authorization: token },
-            });
-            localStorage.removeItem('token');  // Xóa JWT
-            navigate('/login');
-        } catch (error) {
-            console.error('Logout failed', error);
-        }
-    };
-
-    return <button onClick={handleLogout}>Logout</button>;
-};
-
 const Header = () => {
     const [showModalHeader, setShowModalHeader] = useState(false);
     const [submit, setSubmit] = useState({ search: '' });
 
     const navigate = useNavigate();
+
+    const [auth, setAuth] = useState({
+        isAuthenticated: false,
+        role: null
+    });
+    const [loading, setLoading] = useState(true);  // Thêm trạng thái loading
     const token = localStorage.getItem('token');
+
+    const authenticationCheck = async () => {
+        const token = localStorage.getItem('token');
+        if (!token) {
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const response = await axios.get('http://localhost:5172/authentication/check', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setAuth({
+                isAuthenticated: true,
+                role: response.data.role
+            });
+        } catch (error) {
+            setAuth({
+                isAuthenticated: false,
+                role: null
+            });
+            localStorage.removeItem('token');
+            navigate('/404');
+        } finally {
+            setLoading(false);  // Dừng loading sau khi fetch
+        }
+    };
 
     const handleLogout = async () => {
         const token = localStorage.getItem('token');
@@ -86,12 +100,13 @@ const Header = () => {
         }
     };
 
-
     const handleChange = (event) => {
         setSubmit({ ...submit, [event.target.name]: event.target.value });
     };
 
+    useEffect(() => {
 
+    }, []);
 
     return (
         <>
@@ -118,7 +133,7 @@ const Header = () => {
                                 />
                                 <Button as={Link} to={'/search'} variant="outline-primary"><FontAwesomeIcon icon={faSearch} /></Button>
                             </Form>
-                            {token ?
+                            {token ? auth.role === 0 ?
                                 <>
                                     <DropdownButton
                                         as={ButtonGroup}
@@ -137,13 +152,23 @@ const Header = () => {
                                         as={ButtonGroup}
                                         align={{ lg: 'end' }}
                                         variant={'primary'}
+                                        title={<FontAwesomeIcon icon={faBarsProgress} />}
+                                        className="ms-2 me-2">
+                                        <NavDropdown.Item as={Link} to={"/admin"}>Dashborad</NavDropdown.Item>
+                                    </DropdownButton>
+                                </> :
+                                <>
+                                    <DropdownButton
+                                        as={ButtonGroup}
+                                        align={{ lg: 'end' }}
+                                        variant={'primary'}
                                         title={<FontAwesomeIcon icon={faShoppingCart} />}
                                         className="ms-2 me-2">
                                         <NavDropdown.Item as={Link} to={"/"}>Nothing in here now!</NavDropdown.Item>
                                     </DropdownButton>
                                 </>
                             }
-                            {token ?
+                            {token ? auth.role === 0 ?
                                 <>
                                     <DropdownButton
                                         as={ButtonGroup}
@@ -154,6 +179,17 @@ const Header = () => {
                                         <NavDropdown.Item as={Link} to={"/user/profile"}>Profile</NavDropdown.Item>
                                         <NavDropdown.Item as={Link} to={"/user/address"}>Address</NavDropdown.Item>
                                         <NavDropdown.Item as={Link} to={"/user/bill"}>Bill</NavDropdown.Item>
+                                        <NavDropdown.Divider />
+                                        <NavDropdown.Item onClick={() => setShowModalHeader(true)}>Log out</NavDropdown.Item>
+                                    </DropdownButton>
+                                </> : <>
+                                    <DropdownButton
+                                        as={ButtonGroup}
+                                        align={{ lg: "end" }}
+                                        variant={'primary'}
+                                        title={<FontAwesomeIcon icon={faUser} />}
+                                        className="">
+                                        <NavDropdown.Item as={Link} to={"/admin/profile"}>Profile</NavDropdown.Item>
                                         <NavDropdown.Divider />
                                         <NavDropdown.Item onClick={() => setShowModalHeader(true)}>Log out</NavDropdown.Item>
                                     </DropdownButton>

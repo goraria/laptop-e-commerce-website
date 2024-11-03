@@ -141,7 +141,7 @@ function Product() {
             <TransitionBar />
             <Row>
                 <Col sm={12} md={8} lg={8} style={{ alignItems: 'center' }}>
-                    <div style={{ display: "flex", marginBottom: 24, justifyContent: 'center' }}>
+                    <div className="mb-4" style={{ display: "flex", justifyContent: 'center' }}>
                         <Image
                             className="d-block"
                             src={products.product_image}
@@ -274,14 +274,13 @@ function Product() {
                             </Row>
 
                             {/* Product Options */}
-                            <Row className="mt-3">
+                            <Row className="mt-4">
                                 <Col>
                                     <h5>Phiên bản</h5>
                                     <Form>
                                         {/* Version Options */}
                                         <div className="mb-3">
                                             {configurations.map((config, index) =>
-
                                                 <Form.Check
                                                     key={index}
                                                     type="radio"
@@ -293,25 +292,17 @@ function Product() {
                                                     onChange={() => handleConfigurationChange(config)}
                                                 />
                                             )}
-
-
                                         </div>
-
                                         {/* Color Selection */}
                                         <h5>Màu</h5>
                                         <div className="d-flex gap-3 mb-3">
                                             {colors.map((colours,index) =>
-                                            <Button key= {index}
-                                             variant= {colours.color}
-                                              style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}
-                                              onClick={() => handleColorSelect(colours.idcolor)}
-                                             > {colours.color}</Button>) }
-                                            
-                                            
+                                                <Button key= {index}
+                                                        variant= {colours.color}
+                                                        style={{ boxShadow: '0px 4px 8px rgba(0, 0, 0, 0.2)' }}
+                                                        onClick={() => handleColorSelect(colours.idcolor)}
+                                                > {colours.color}</Button>) }
                                         </div>
-
-
-
                                     </Form>
                                 </Col>
                             </Row>
@@ -332,9 +323,9 @@ function Product() {
                                     <Button variant="outline-danger" className="me-2" style={{ width: '100%' }} onClick={handleAddToCart}>Thêm vào giỏ</Button>
                                 </Col>
                                 <Link to={`/cart`} style={{ textDecoration: 'none' }}>
-                                <Col sm={12} md={3} lg={6} className="mb-3">
-                                    <Button variant="danger" style={{ width: '100%' }}>Mua ngay</Button>
-                                </Col>
+                                    <Col sm={12} md={3} lg={6} className="mb-3">
+                                        <Button variant="danger" style={{ width: '100%' }}>Mua ngay</Button>
+                                    </Col>
                                 </Link>
                             </Row>
 

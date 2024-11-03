@@ -37,7 +37,6 @@ const MenuItem = ({ directory, item, isActive }) => {
             <FontAwesomeIcon icon={directory.icon} className="me-2" style={{ width: 28 }} />
             <span>{directory.text}</span>
         </Button>
-
     )
 }
 
@@ -60,6 +59,7 @@ const UserSidebar = () => {
             console.error('Logout failed', error);
         }
     };
+
     return (
         <>
             <Nav defaultActiveKey="/account" className="flex-column">

@@ -60,6 +60,7 @@ import { ProductConfiguration } from "../pages/management/ProductConfiguration"
 import { ProductAccessory } from "../pages/management/ProductAccessory"
 import { ProductDescription } from "../pages/management/ProductDescription"
 import { ProductColor } from "../pages/management/ProductColor"
+import { AdminProfile } from "../pages/admin-component/AdminProfile.jsx";
 import { UserProfileid } from "../pages/admin-component/UserProfileId.jsx";
 
 ///////////////////////////////////////
@@ -138,7 +139,9 @@ export const AdministratorRoutes = () => {
             <Route path="/form-layout/vertical-form" element={<VerticalFormPage />} />
 
             <Route path="/tables" element={<TablesPage />} />
-            <Route path="/profile" element={<AccountPage />} />
+            <Route path="/profile-old" element={<AccountPage />} />
+            <Route path="/profile" element={<AdminProfile />} />
+
             <Route path="/profile_user/:idaccount" element={<UserProfileid />} />
             <Route path="/users" element={<UserManagement />} />
             <Route path="/categories" element={<Category />} />
