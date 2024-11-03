@@ -27,5 +27,10 @@ router.delete('/delete-color/:idColor', AdminController.deleteColor);
 router.post('/update-color/:idColor', AdminController.updateColor);
 router.put('/create-color', AdminController.createColor);
 
+router.get('/get-description', AdminController.getDescription);
+router.delete('/delete-description/:idDescription', AdminController.deleteDescription);
+router.post('/update-description/:idDescription', AdminController.updateDescription);
+router.put('/create-description', AdminController.createDescription);
+
 router.get('/payhd', AdminController.payhd);
 module.exports = router;

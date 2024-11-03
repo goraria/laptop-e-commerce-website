@@ -67,6 +67,7 @@ export const ColorForm = ({ color, show, onHide, onReload }) => {
     const handleConfirmSave = async () => {
         try {
             // const token = localStorage.getItem('token');
+            console.log(formData);
             const response = color
                 ? await axios.post(`http://localhost:5172/admin/update-color/${color.idcolor}`, formData)
                 : await axios.put('http://localhost:5172/admin/create-color', formData);

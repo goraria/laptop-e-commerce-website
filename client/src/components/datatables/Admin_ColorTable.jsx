@@ -19,39 +19,52 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ColorForm } from "../modal/form/ColorForm";
 export const ColorTable = () => {
     const [data, setData] = useState([])
-    const fetchAPI = async () => {
-        const response = await axios.get("http://localhost:5172/admin/get-color")
-        setData(response.data)
-    };
+    // const fetchAPI = async () => {
+    //     const response = await axios.get("http://localhost:5172/admin/get-color")
+    //     setData(response.data)
+    // };
     const [data1, setData1] = useState([])
-    const fetchAPI1 = async () => {
-        try {
-            const response = await axios.get("http://localhost:5172/products/load-product")
-            setData1(response.data)
-            console.log(response.data)
-            console.log(data1)
-        } catch (error) {
-            console.log(error)
-        }
+    // const fetchAPI1 = async () => {
+    //     try {
+    //         const response = await axios.get("http://localhost:5172/products/load-product")
+    //         setData1(response.data)
+    //         console.log(response.data)
+    //         console.log(data1)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
 
-    };
-    const [data2, setData2] = useState([])
-    const fetchAPI2 = async () => {
-        try {
-            const response = await axios.get("http://localhost:5172/admin/payhd")
-            setData2(response.data)
-            console.log(response.data)
-            console.log(data2)
-        } catch (error) {
-            console.log(error)
-        }
+    // };
+    // const [data2, setData2] = useState([false])
+    // const fetchAPI2 = async () => {
+    //     try {
+    //         const response = await axios.get("http://localhost:5172/admin/payhd")
+    //         setData2(response.data)
+    //         console.log(response.data)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
 
+    // };
+    const fetchData = async () => {
+        try {
+            const [colorsResponse, productsResponse] = await Promise.all([
+                axios.get("http://localhost:5172/admin/get-color"),
+                axios.get("http://localhost:5172/products/load-product"),
+                // axios.get("http://localhost:5172/admin/payhd"),
+            ]);
+            setData(colorsResponse.data);
+            setData1(productsResponse.data);
+            // setData2(payhdResponse.data);
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
     };
     const mergedData = data.map(user => {
         const account = data1.find(acc => acc.idproduct === user.idproduct);
         return { ...user, ...account };
     });
-    console.log(mergedData)
+    // console.log(mergedData)
 
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -64,15 +77,16 @@ export const ColorTable = () => {
     };
     const handleEdit = (idcolor) => {
         // Tìm user theo ID
-        console.log(idcolor)
+        // console.log(idcolor)
         const colorToEdit = mergedData.find(product => product.idcolor === idcolor);
-        console.log(colorToEdit)
+        // console.log(colorToEdit)
         if (colorToEdit) {
             setSelectedColor(colorToEdit); // Lưu thông tin user vào state `selectedUser`
             setModalShow(true); // Hiển thị modal để chỉnh sửa thông tin
         }
     };
     const handleModalClose = () => {
+        fetchData();
         setModalShow(false);
         setSelectedColor(null);
     };
@@ -101,14 +115,14 @@ export const ColorTable = () => {
             await axios.delete(`http://localhost:5172/admin/delete-color/${id}`);
 
             // Optionally, fetch the updated data again
-            fetchAPI();
+            fetchData();
         } catch (error) {
             console.error("Error deleting product:", error);
         }
     };
 
     const filteredData = mergedData.filter(item =>
-        // item.product_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.product_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         item.color.toLowerCase().includes(searchTerm.toLowerCase())
     );
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -225,7 +239,7 @@ export const ColorTable = () => {
     useEffect(() => {
         // fetchAPI();
         // fetchAPI1();
-        fetchAPI2();
+        fetchData();
     }, []);
 
     return (

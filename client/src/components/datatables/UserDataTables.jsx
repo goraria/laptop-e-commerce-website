@@ -40,6 +40,8 @@ export const UserDataTables = () => {
     });
     console.log(mergedData)
     const handleModalClose = () => {
+        fetchAPI1();
+        fetchAPI1();
         setModalShow(false);
         setSelectedUser(null);
     };

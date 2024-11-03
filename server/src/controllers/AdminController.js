@@ -8,6 +8,7 @@ const Category = require("../models/Category.js");
 const Product = require('../models/Product.js');
 const Configuration = require('../models/Configuration.js')
 const Color = require('../models/Color.js')
+const Description = require('../models/Description.js')
 class AdminController {
     async getAccount(req, res) {
         try {
@@ -400,15 +401,17 @@ class AdminController {
     }
     async createColor(req, res) {
         const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
-        // console.log(Data)
+        console.log(Data)
         try {
             const product = await Product.findOne({
                 where: {
                     product_name: Data.product_name
                 }
             })
+            // console.log(product)
             const newColor = await Color.create({
                 color: Data.color,
+                idproduct: product.idproduct
             });
 
             console.log('color created successfully:', newColor);
@@ -423,12 +426,13 @@ class AdminController {
     async deleteColor(req, res) {
         try {
             const { idColor } = req.params
-            // console.log(idConfiguration)
+            // console.log(idColor)
             const color = await Color.findOne({
                 where: {
-                    color: color
+                    idcolor: idColor
                 }
             });
+            // console.log(color)
             await color.destroy();
             res.status(200).json({ success: true, message: 'Color deleted successfully' });
         } catch (error) {
@@ -450,6 +454,83 @@ class AdminController {
         } catch (error) {
             console.error('Error paying order:', error);
             res.status(500).json({ success: false, message: 'Error paying order', error });
+        }
+    }
+
+    //----------------------------------------------------------------
+    async getDescription(req, res) {
+        try {
+
+            const description = await Description.findAll();
+            res.status(200).json(description);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching color', error });
+        }
+
+    }
+    async updateDescription(req, res) {
+        const { idDescription } = req.params;
+        const updatedData = req.body;
+
+        try {
+            const description = await Description.findOne({
+                where: { iddescription: idDescription },
+            });
+
+            if (!description) {
+                return res.status(404).json({ message: `No description found with id ${description}` });
+            }
+
+            await description.update(updatedData); // Cập nhật dữ liệu từ client
+
+            res.status(200).json({ success: true, message: 'description updated successfully', data: description });
+
+        } catch (error) {
+            console.error('Error updating description:', error);
+            res.status(500).json({ success: false, message: 'Error updating description', error });
+        }
+    }
+    async createDescription(req, res) {
+        const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
+        // console.log(Data)
+        try {
+            const product = await Product.findOne({
+                where: {
+                    product_name: Data.product_name
+                }
+            })
+            // console.log(product)
+            const newDescription = await Description.create({
+                title_description: Data.title_description,
+                idproduct: product.idproduct,
+                sub_description: Data.sub_description,
+                img_description: Data.img_description
+            });
+
+            console.log('Description created successfully:', newDescription);
+            return res.status(201).json({
+                description: newDescription,
+            });
+        } catch (error) {
+            // console.log(error)
+            res.status(500).json({ success: false, message: 'Error create description', error });
+        }
+    }
+    async deleteDescription(req, res) {
+        try {
+            const { idDescription } = req.params
+            // console.log(idColor)
+            const description = await Description.findOne({
+                where: {
+                    iddescription: idDescription
+                }
+            });
+            // console.log(color)
+            await description.destroy();
+            res.status(200).json({ success: true, message: 'Description deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting description:', error);
+            res.status(500).json({ success: false, message: 'Error deleting description', error });
         }
     }
 }
