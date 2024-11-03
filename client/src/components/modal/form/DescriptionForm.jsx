@@ -17,14 +17,13 @@ import {
     faPhone,
     faMailBulk
 } from "@fortawesome/free-solid-svg-icons";
-export const NameForm = ({ description, show, onHide, onReload }) => {
+export const DescriptionForm = ({ description, show, onHide, onReload }) => {
     const [validated, setValidated] = useState(false);
     const [formData, setFormData] = useState({
-        firstname: '',
-        lastname: '',
-        email: '',
-        phone_number: '',
-        username: '',
+        title_description: '',
+        product_name: '',
+        sub_description: ' ',
+        img_description: ' ',
     });
     const [error, setError] = useState(null);
     const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -32,19 +31,17 @@ export const NameForm = ({ description, show, onHide, onReload }) => {
     useEffect(() => {
         if (description) {
             setFormData({
-                firstname: description.firstname || '',
-                lastname: description.lastname || '',
-                email: description.email || '',
-                phone_number: description.phone_number || '',
-                username: description.username || '',
+                title_description: description.title_description || '',
+                product_name: description.product_name || '',
+                sub_description: description.sub_description || '',
+                img_description: description.img_description || '',
             });
         } else {
             setFormData({
-                firstname: '',
-                lastname: '',
-                email: '',
-                phone_number: '',
-                username: '',
+                title_description: '',
+                product_name: '',
+                sub_description: ' ',
+                img_description: ' ',
             });
         }
     }, [description]);
@@ -73,51 +70,14 @@ export const NameForm = ({ description, show, onHide, onReload }) => {
         }
     };
 
-    // const handleSubmit = async (event) => {
-    //     event.preventDefault();
-    //     event.stopPropagation();
-
-    //     const form = event.currentTarget;
-    //     if (form.checkValidity() === false) {
-    //         setValidated(true);
-    //         return;
-    //     }
-
-    //     try {
-    //         const token = localStorage.getItem('token');
-    //         const response = address ?
-    //             await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
-    //             await axios.post('http://localhost:5172/address/addition', formData, {
-    //                 headers: {
-    //                     Authorization: `Bearer ${token}`
-    //                 }
-    //             });
-
-    //         if (response.status === 200 || response.status === 201) {
-    //             // alert(address ? 'Address updated successfully' : 'Address added successfully');
-    //             onHide();
-    //         }
-    //         onReload()
-    //     } catch (error) {
-    //         setError(error.response ? error.response.data.message : 'Failed to save address');
-    //     }
-    //     // setValidated(true);
-    // };
-
     const handleConfirmSave = async () => {
         try {
             // const token = localStorage.getItem('token');
+            console.log(formData);
             const response = description
-                ? await axios.post(`http://localhost:5172/admin//update-user/${description.idaccount}`, formData)
-                : await axios.put('http://localhost:5172/address/addition', formData);
+                ? await axios.post(`http://localhost:5172/admin/update-description/${description.iddescription}`, formData)
+                : await axios.put('http://localhost:5172/admin/create-description', formData);
 
-            // const response = address ?
-            //     await axios.put(`http://localhost:5172/address/update/${address.idaddress}`, formData) :
-            //     await axios.post('http://localhost:5172/address/addition', formData, {
-            //         headers: {
-            //             Authorization: `Bearer ${token}`
-            //         }
-            //     });
 
             if (response.status === 200 || response.status === 201) {
                 // alert(address ? 'Address updated successfully' : 'Address added successfully');
@@ -133,7 +93,7 @@ export const NameForm = ({ description, show, onHide, onReload }) => {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem('token');
-            await axios.delete(`http://localhost:5172/admin/delete/${description.idaddress}`, {
+            await axios.delete(`http://localhost:5172/admin/delete/${color.idaddress}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setShowConfirmDelete(false);
@@ -156,7 +116,7 @@ export const NameForm = ({ description, show, onHide, onReload }) => {
             >
                 <Modal.Header >
                     <Modal.Title id="contained-modal-title-vcenter">
-                        <h3>Edit Description</h3>
+                        <h3>Edit Color</h3>
                     </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -166,39 +126,39 @@ export const NameForm = ({ description, show, onHide, onReload }) => {
                     </p> */}
                     <Form noValidate validated={validated} onSubmit={handleInvalid}> {/*onSubmit={handleSubmit, openConfirmModal}*/}
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="firstname">
-                                <Form.Label>First Name</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="product_name">
+                                <Form.Label>Product Name</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="firstname">
+                                    <InputGroup.Text id="product_name">
                                         <FontAwesomeIcon icon={faUser} />
                                     </InputGroup.Text>
                                     <Form.Control
                                         required
                                         type="text"
-                                        name="firstname"
-                                        value={formData.firstname}
+                                        name="product_name"
+                                        value={formData.product_name}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your First Name.
+                                        Please enter your Product Name.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="lastname">
-                                <Form.Label>Last Name</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="title_description">
+                                <Form.Label>Title Description</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="lastname">
+                                    <InputGroup.Text id="title_description">
                                         <FontAwesomeIcon icon={faUser} />
                                     </InputGroup.Text>
                                     <Form.Control
                                         required
                                         type="text"
-                                        name="lastname"
-                                        value={formData.lastname}
+                                        name="title_description"
+                                        value={formData.title_description}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your last name.
+                                        Please enter Title Description.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -222,39 +182,39 @@ export const NameForm = ({ description, show, onHide, onReload }) => {
                             </Form.Group> */}
                         </Row>
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="phonenumber">
-                                <Form.Label>Phone Number</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="sub_description">
+                                <Form.Label>Sub Description</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="phonenumber">
+                                    <InputGroup.Text id="sub_description">
                                         <FontAwesomeIcon icon={faPhone} />
                                     </InputGroup.Text>
                                     <Form.Control
-                                        type="tel"
-                                        name="phonenumber"
-                                        value={formData.phone_number}
+                                        type="text"
+                                        name="sub_description"
+                                        value={formData.sub_description}
                                         onChange={handleChange}
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your phone number.
+                                        Please enter Sub Description.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="email">
-                                <Form.Label>Email</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="img_description">
+                                <Form.Label>Img Description</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="email">
+                                    <InputGroup.Text id="img_description">
                                         <FontAwesomeIcon icon={faMailBulk} />
                                     </InputGroup.Text>
                                     <Form.Control
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
+                                        type="text"
+                                        name="img_description"
+                                        value={formData.img_description}
                                         onChange={handleChange}
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your email.
+                                        Please enter Img Description.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -312,10 +272,10 @@ export const NameForm = ({ description, show, onHide, onReload }) => {
                     {/*</Button>*/}
                     {description ?
                         <>
-                            <Button onClick={() => setShowConfirmDelete(true)} variant="danger" className="me-3">
+                            {/* <Button onClick={() => setShowConfirmDelete(true)} variant="danger" className="me-3">
                                 <FontAwesomeIcon icon={faTrash} className="me-2" />
                                 <span>Delete Address</span>
-                            </Button>
+                            </Button> */}
                             <Button onClick={handleInvalid} variant="info">
                                 <FontAwesomeIcon icon={faCheck} className="me-2" />
                                 <span>Save changes</span>

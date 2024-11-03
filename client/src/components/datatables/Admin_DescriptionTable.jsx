@@ -14,28 +14,32 @@ import {
     faAddressBook
 } from "@fortawesome/free-regular-svg-icons";
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import "./DataTables.css"; // Add custom styling here
-import { ConfigurationForm } from "../modal/form/ConfigurationForm";
-export const ConfigurationTable = () => {
-    const navigate = useNavigate();
-
+import { DescriptionForm } from "../modal/form/DescriptionForm";
+export const DescriptionTable = () => {
     const [data, setData] = useState([])
-    const fetchAPI = async () => {
-        const response = await axios.get("http://localhost:5172/admin/get-configration")
-        setData(response.data)
-    };
+
     const [data1, setData1] = useState([])
-    const fetchAPI1 = async () => {
-        const response = await axios.get("http://localhost:5172/products/load-product")
-        setData1(response.data)
+    const fetchData = async () => {
+        try {
+            const [descriptionResponse, productsResponse] = await Promise.all([
+                axios.get("http://localhost:5172/admin/get-description"),
+                axios.get("http://localhost:5172/products/load-product"),
+                // axios.get("http://localhost:5172/admin/payhd"),
+            ]);
+            setData(descriptionResponse.data);
+            setData1(productsResponse.data);
+            // setData2(payhdResponse.data);
+        } catch (error) {
+            console.error("Error fetching data", error);
+        }
     };
     const mergedData = data.map(user => {
         const account = data1.find(acc => acc.idproduct === user.idproduct);
         return { ...user, ...account };
     });
-    console.log(mergedData)
+    // console.log(mergedData)
 
     const [searchTerm, setSearchTerm] = useState("");
     const [currentPage, setCurrentPage] = useState(1);
@@ -46,35 +50,30 @@ export const ConfigurationTable = () => {
         setSearchTerm(e.target.value);
         setCurrentPage(1);
     };
-    const handleEdit = (idconfiguration) => {
-        // Tìm user theo ID
-        console.log(idconfiguration)
-        const configurationToEdit = mergedData.find(product => product.idconfiguration === idconfiguration);
-        console.log(configurationToEdit)
-        if (configurationToEdit) {
-            setSelectedConfiguration(configurationToEdit); // Lưu thông tin user vào state `selectedUser`
+    const handleEdit = (iddescription) => {
+
+        const DescriptionToEdit = mergedData.find(product => product.iddescription === iddescription);
+        if (DescriptionToEdit) {
+            setSelectedDescription(DescriptionToEdit); // Lưu thông tin user vào state `selectedUser`
             setModalShow(true); // Hiển thị modal để chỉnh sửa thông tin
         }
     };
     const handleModalClose = () => {
-        fetchAPI();
-        fetchAPI1();
+        fetchData();
         setModalShow(false);
-        setSelectedConfiguration(null);
+        setSelectedDescription(null);
     };
-    const [selectedConfiguration, setSelectedConfiguration] = useState(null);
+    const [selectedDescription, setSelectedDescription] = useState(null);
     const [modalShow, setModalShow] = useState(false);
     const handleSelectAll = (e) => {
         if (e.target.checked) {
-            const allVisibleItems = filteredData.slice(indexOfFirstItem, indexOfLastItem).map(item => item.idconfi);
+            const allVisibleItems = filteredData.slice(indexOfFirstItem, indexOfLastItem).map(item => item.iddescription);
             setSelectedEntries(allVisibleItems);
         } else {
             setSelectedEntries([]);
         }
     };
-    const handleNavigate = (idproduct) => {
-        navigate(`/admin/profile_user/${idproduct}`); // điều hướng tới URL động với userId
-    };
+
     const handleSelectItem = (idproduct) => {
         if (selectedEntries.includes(idproduct)) {
             setSelectedEntries(selectedEntries.filter(item => item !== idproduct));
@@ -86,28 +85,19 @@ export const ConfigurationTable = () => {
         try {
 
             // Send delete request to the server
-            await axios.delete(`http://localhost:5172/admin/delete-configuration/${id}`);
+            await axios.delete(`http://localhost:5172/admin/delete-description/${id}`);
 
             // Optionally, fetch the updated data again
-            fetchAPI();
+            fetchData();
         } catch (error) {
             console.error("Error deleting product:", error);
         }
     };
 
-    const filteredData = mergedData.filter(item => {
-        const searchNumber = Number(searchTerm); // Chuyển đổi searchTerm thành số
-        const isNumberSearch = !isNaN(searchNumber); // Kiểm tra xem searchNumber có phải là số
-
-        return (item.cpu.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (isNumberSearch && item.ram === searchNumber) || // So sánh chỉ khi là số
-            (isNumberSearch && item.screen === searchNumber) || // So sánh chỉ khi là số
-            (isNumberSearch && item.price === searchNumber) ||
-            item.resolution.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            (isNumberSearch && item.storage === searchNumber) ||
-            item.gpu.toLowerCase().includes(searchTerm.toLowerCase()))
-
-    }
+    const filteredData = mergedData.filter(item =>
+        item.title_description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.sub_description.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        item.img_description.toLowerCase().includes(searchTerm.toLowerCase())
     );
     const indexOfLastItem = currentPage * itemsPerPage;
     const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -221,8 +211,9 @@ export const ConfigurationTable = () => {
         return <Pagination style={{ margin: 0 }}>{paginationItems}</Pagination>;
     };
     useEffect(() => {
-        fetchAPI();
-        fetchAPI1();
+        // fetchAPI();
+        // fetchAPI1();
+        fetchData();
     }, []);
 
     return (
@@ -232,7 +223,7 @@ export const ConfigurationTable = () => {
                     <div className="card-header flex-column flex-md-row pb-0">
                         <div className="d-flex justify-content-between align-items-center mb-3">
                             <div className="head-label text-center">
-                                <h5 className="card-title mb-0">Configuration DataTable</h5>
+                                <h5 className="card-title mb-0">Description DataTable</h5>
                             </div>
                             <div className="dt-action-buttons text-end pt-6 pt-md-0">
                                 <div className="dt-buttons btn-group flex-wrap">
@@ -291,14 +282,9 @@ export const ConfigurationTable = () => {
                                 />
                             </th>
                             <th>Product Name</th>
-                            <th>CPU</th>
-                            <th>Ram</th>
-                            <th>GPU</th>
-                            <th>Storage</th>
-                            <th>Screen</th>
-                            <th>Resolution</th>
-                            <th>Price</th>
-                            <th>Action</th>
+                            <th>Title Description</th>
+                            <th>Sub Description</th>
+                            <th>Img Description</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -307,8 +293,8 @@ export const ConfigurationTable = () => {
                                 <td>
                                     <Form.Check
                                         type="checkbox"
-                                        checked={selectedEntries.includes(item.id)}
-                                        onChange={() => handleSelectItem(item.id)}
+                                        checked={selectedEntries.includes(item.iddescription)}
+                                        onChange={() => handleSelectItem(item.iddescription)}
                                     />
                                 </td>
                                 <td>
@@ -321,16 +307,13 @@ export const ConfigurationTable = () => {
                                         </div>
                                     </div>
                                 </td>
-                                <td>{item.cpu}</td>
-                                <td>{item.ram}</td>
-                                <td> {item.gpu}</td>
-                                <td>{item.storage}</td>
-                                <td> {item.screen}</td>
-                                <td>{item.resolution}</td>
-                                <td>{item.price}</td>
+                                <td>{item.title_description}</td>
+                                <td>{item.sub_description}</td>
+                                <td>{item.img_description}</td>
+
                                 <td>
-                                    <Button variant="link" onClick={() => handleEdit(item.idconfiguration)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                    <Button variant="link" onClick={() => handleDelete(item.idconfiguration)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faTrash} /></Button>
+                                    <Button variant="link" onClick={() => handleEdit(item.iddescription)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                    <Button variant="link" onClick={() => handleDelete(item.iddescription)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faTrash} /></Button>
                                 </td>
                             </tr>
                         ))}
@@ -354,12 +337,12 @@ export const ConfigurationTable = () => {
                         <div className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
                             {renderPagination()}
                         </div>
-                        <ConfigurationForm
+                        <DescriptionForm
                             show={modalShow}
                             // onHide={() => setModalShow(false)}
                             onHide={handleModalClose}
                             onReload='a'
-                            configuration={selectedConfiguration}
+                            description={selectedDescription}
                         />
                     </div>
                 </div>

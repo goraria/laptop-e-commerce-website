@@ -38,6 +38,7 @@ export const CategoryDataTables = () => {
         }
     };
     const handleModalClose = () => {
+        fetchAPI();
         setModalShow(false);
         setSelectedCategory(null);
     };

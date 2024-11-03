@@ -57,6 +57,8 @@ export const ProductNameTable = () => {
         }
     };
     const handleModalClose = () => {
+        fetchAPI();
+        fetchAPI1();
         setModalShow(false);
         setSelectedProduct(null);
     };
