@@ -84,6 +84,60 @@ class CartController {
             res.status(500).json({ message: 'Error adding cart item', error });
         }
     }
+
+    async removeCartItem(req, res) {
+        const { idcartItem } = req.body;  // Nhận thông tin từ yêu cầu
+            console.log(req.body)
+        try {
+            // Tạo một mục mới trong bảng CartItem
+            const cartItem = await CartItem.findOne(
+                {
+                    where:{
+                        idcart_item: idcartItem
+                    }
+                }
+            )
+            await cartItem.destroy()
+    
+            res.status(201).json({
+                message: 'Cart item remove successfully',
+                cartItem: cartItem
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'Error adding cart item', error });
+        }
+    }
+
+    async updateCartItemQuantity(req, res) {
+        const { idcartItem, quantity } = req.body;  // Receive item ID and new quantity from the request
+        console.log(req.body);
+    
+        try {
+            // Find the cart item by its ID
+            const cartItem = await CartItem.findOne({
+                where: {
+                    idcart_item: idcartItem
+                }
+            });
+    
+            // Check if the cart item exists
+            if (!cartItem) {
+                return res.status(404).json({ message: 'Cart item not found' });
+            }
+    
+            // Update the quantity of the cart item
+            cartItem.quantity = quantity;
+            await cartItem.save();  // Save the updated item to the database
+    
+            res.status(200).json({
+                message: 'Cart item quantity updated successfully',
+                cartItem: cartItem
+            });
+        } catch (error) {
+            res.status(500).json({ message: 'Error updating cart item quantity', error });
+        }
+    }
+    
     
     
 

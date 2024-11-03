@@ -23,6 +23,7 @@ function Cart() {
     const [default_config, setdefaultconfig] = useState([]);
     const [descriptions, setArray] = useState([]);
     const [selectedPrices, setSelectedPrices] = useState([]);
+    const [selectedCartItems, setSelectedCartItems] = useState([]);
 
     const navigate = useNavigate();
 
@@ -37,7 +38,7 @@ function Cart() {
         event.preventDefault();
         navigate('/user/order', {
             state: {
-                cartData: cartItems, // Dữ liệu giỏ hàng
+                cartData: selectedCartItems, // Dữ liệu giỏ hàng
                 prePrice: pre_total,
                 discount: discount,
                 totalPrice: total     // Tổng giá trị đơn hàng
@@ -53,7 +54,6 @@ function Cart() {
     const fetchCartItem = async (Carts) => {
         const response = await axios.get(`http://localhost:5172/cart/load-cartItem/${Carts.idcart}`);
         setCartItem(response.data);
-        console.log(response.data)
     };
 
     const fetchProductDetails = async (CartItems) => {
@@ -100,7 +100,6 @@ function Cart() {
             });
             const data = await response.json();
             setCart(data)
-            console.log(data)
 
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
@@ -118,12 +117,24 @@ function Cart() {
     //     }
     // };
 
-    const handleCheckboxChange = (price, isSelected) => {
+    const handleCheckboxChange = (price, isSelected,item) => {
         setSelectedPrices((prevSelectedPrices) =>
             isSelected
-                ? [...prevSelectedPrices, price] // Add price if checked
-                : prevSelectedPrices.filter((itemPrice) => itemPrice !== price) // Remove if unchecked
+                ? [...prevSelectedPrices, price *item.quantity] // Add price if checked
+                : prevSelectedPrices.filter((itemPrice) => itemPrice !==  price *item.quantity) // Remove if unchecked
         );
+
+        setSelectedCartItems((prevSelectedCartItems) =>
+            isSelected
+                ? [...prevSelectedCartItems, item]
+                : prevSelectedCartItems.filter((cartItem) => cartItem.idcart_item !== item.idcart_item)
+        );
+    };
+
+    const removeCartItem = () => {
+        fetchCartItem(carts);
+
+            
     };
 
     // Calculate total based on selected prices
@@ -156,7 +167,7 @@ function Cart() {
                     {/* Left Section: Product List */}
                     <Col sm={12} md={6} lg={8} className="mb-3">
                         <Card
-                            className="sticky-summary"
+                            className="sticky-summary mb-4"
                             style={{
                                 position: "sticky",
                                 padding: '15px 12px 15px 12px',
@@ -167,15 +178,15 @@ function Cart() {
                             }}>
                             <Container style={{display: "flex", padding: '0 8px'}}>
                                 <h2 style={{margin: 0}}>Giỏ hàng</h2>
-                                {/*<Button variant="primary" style={{marginLeft: 'auto'}}>*/}
-                                {/*    <FontAwesomeIcon icon={faPlus} className="me-2"/>*/}
-                                {/*    <span>Thêm sản phẩm</span>*/}
-                                {/*</Button>*/}
+                                <Button as={Link} to={'/search'} variant="primary" style={{marginLeft: 'auto'}}>
+                                   <FontAwesomeIcon icon={faPlus} className="me-2"/>
+                                   <span>Thêm sản phẩm</span>
+                                </Button>
                             </Container>
                         </Card>
                         {cartItems.map((item) => (
-                            <Card className="p-3 mb-2" key={item.idcart_item}>
-                                <CardItem Item={item} onCheckboxChange={handleCheckboxChange} />
+                            <Card className="p-3 mb-4" key={item.idcart_item}>
+                                <CardItem Item={item} onCheckboxChange={handleCheckboxChange} onRemoveItem={removeCartItem}/>
                             </Card>
                         ))}
                     </Col>

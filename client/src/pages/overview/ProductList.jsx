@@ -23,7 +23,6 @@ function ProductList() {
     // Extract search query from URL
     const query = new URLSearchParams(location.search);
     const searchQuery = query.get("search");
-    console.log(searchQuery)
     const fetchAPI = async () => {
         const response = await axios.get("http://localhost:5172/products/load-product");
         setArrayG(response.data);
@@ -35,8 +34,13 @@ function ProductList() {
     };
 
     const fetchProductByName= async () => {
-        const response = await axios.get(`http://localhost:5172/products/load-productName/${searchQuery}`);
-        setArrayG(response.data);
+        try {
+           const response = await axios.get(`http://localhost:5172/products/load-productName/${searchQuery}`);
+        setArrayG(response.data); 
+        } catch (error) {
+            console.log('chưa nhập tên tìm kiếm')
+        }
+        
     };
 
     useEffect(() => {

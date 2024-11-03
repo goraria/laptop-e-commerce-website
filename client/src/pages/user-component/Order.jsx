@@ -6,33 +6,81 @@ import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
 import OrderItem from "../../components/product/OrderItem.jsx";
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom'
 
 
 
 function Order() {
-    var city = 'Hồ Chí Minh';
     const [user, setUser] = useState([]);
+    const [address, setAdress] = useState([]);
+    const [selectedAddress, setSelectedAddress] = useState(""); // State to track selected address
+    const [selectedStoreAddress, setSelectedStoreAddress] = useState("");
+    const [deliveryMethod, setDeliveryMethod] = useState("Tại cửa hàng"); // State for delivery method
 
     const location = useLocation();
     const { cartData, prePrice, discount, totalPrice } = location.state || {};
-    const token = localStorage.getItem('token');
-    console.log(token)
 
-    const fetchUser= async () => {
+    const token = localStorage.getItem('token');
+
+    const navigate = useNavigate();
+    const handleOrderClick = (event) => {
+        event.preventDefault();
+        navigate('/user/checkout', {
+            state: {
+                cartData: cartData, // Dữ liệu giỏ hàng
+                prePrice: prePrice,
+                discount: discount,
+                totalPrice: totalPrice,
+                userData: user,
+                selectedaddress:selectedAddress,
+                selectedstoreaddress:selectedStoreAddress,
+                deliverymethod: deliveryMethod
+            }
+        });
+    };
+
+    const fetchUser = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/cart/loadcart`, {
+            const response = await fetch(`http://localhost:5172/account//get-info`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
             });
             const data = await response.json();
-            setCart(data)
-            console.log(data)
-
+            setUser(data)
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }
     };
+
+    const fetchAddress = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/address/list`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            setAdress(data)
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
+
+    const handleDeliveryMethodChange = (event) => {
+        setDeliveryMethod(event.target.value);
+    };
+
+    const handleStoreAddressChange = (event) => {
+        setSelectedStoreAddress(event.target.value);
+    };
+
+    useEffect(() => {
+        fetchUser();
+        fetchAddress();
+        // response();
+    }, []);
+
     return (
         <div>
             <TransitionBar />
@@ -51,59 +99,58 @@ function Order() {
                                 zIndex: 1,
                                 border: "none",
                             }}>
-                            <Container style={{display: "flex", padding: '0 8px'}}>
-                                <h2 style={{margin: 0}}>Giỏ hàng</h2>
+                            <Container style={{ display: "flex", padding: '0 8px' }}>
+                                <h2 style={{ margin: 0 }}>Giỏ hàng</h2>
                                 {/*<Button variant="primary" style={{marginLeft: 'auto'}}>*/}
                                 {/*    <FontAwesomeIcon icon={faPlus} className="me-2"/>*/}
                                 {/*    <span>Thêm sản phẩm</span>*/}
                                 {/*</Button>*/}
                             </Container>
                         </Card>
-                        <Card className="p-3 mb-4"h4>
+                        <Card className="p-3 mb-4" h4>
                             <h4>Phương thức nhận hàng</h4>
                             <Form.Check
                                 type="radio"
                                 label="Tại cửa hàng"
                                 name="deliveryMethod"
-                                value="store"
-                            // checked={deliveryMethod === 'store'}
-                            // onChange={this.handleInputChange}
+                                value="Tại cửa hàng"
+                                checked={deliveryMethod === 'Tại cửa hàng'} // Always checked by default
+                                onChange={handleDeliveryMethodChange}
                             />
                             <Form.Check
                                 type="radio"
                                 label="Giao tận nơi"
                                 name="deliveryMethod"
-                                value="home"
-                            // checked={deliveryMethod === 'home'}
-                            // onChange={this.handleInputChange}
+                                value="Giao tận nơi"
+                                checked={deliveryMethod === 'Giao tận nơi'}
+                                onChange={handleDeliveryMethodChange}
                             />
                         </Card>
 
                         {/* Store Locations */}
-                        <Card className="p-3 mb-4"h4>
-                            <h4>{city === 'Hồ Chí Minh' ? 'Thành phố Hồ Chí Minh' : 'Hà Nội'}</h4>
+                        <Card className="p-3 mb-4" h4>
+                            <h4>Địa chỉ cửa hàng</h4>
                             <Form.Check
                                 type="radio"
-                                label="Số 5 - 7 Nguyễn Huy Tưởng, Quận Bình Thạnh, Hồ Chí Minh"
+                                label="Đại học kiến trúc"
+                                value="Đại học kiến trúc"
                                 name="storeLocation"
-                                disabled={city !== 'Hồ Chí Minh'}
+                                checked={selectedStoreAddress === "Đại học kiến trúc"}
+                                onChange={handleStoreAddressChange}
                             />
                             <Form.Check
                                 type="radio"
-                                label="95 Trần Thiện Chánh, F12, Q10, Hồ Chí Minh"
+                                label="Ngõ 2 Ao Sen"
+                                value="Ngõ 2 Ao Sen"
                                 name="storeLocation"
-                                disabled={city !== 'Hồ Chí Minh'}
+                                checked={selectedStoreAddress === "Ngõ 2 Ao Sen"}
+                                onChange={handleStoreAddressChange}
                             />
-                            <Form.Check
-                                type="radio"
-                                label="53 Thái Hà, Trung Liệt, Đống Đa, Hà Nội"
-                                name="storeLocation"
-                                disabled={city !== 'Hà Nội'}
-                            />
+
                         </Card>
 
                         {/* Recipient Information */}
-                        <Card className="p-3 mb-4"h4>
+                        <Card className="p-3 mb-4" h4>
                             <h4>Thông tin người nhận</h4>
                             <Form.Group controlId="formRecipientName">
                                 <Form.Label>Họ và tên</Form.Label>
@@ -111,6 +158,7 @@ function Order() {
                                     type="text"
                                     placeholder="Nhập họ và tên"
                                     name="recipientName"
+                                    defaultValue={`${user.firstname} ${user.lastname}`}
                                 // value={recipientName}
                                 // onChange={this.handleInputChange}
                                 />
@@ -121,10 +169,28 @@ function Order() {
                                     type="text"
                                     placeholder="Nhập số điện thoại"
                                     name="phoneNumber"
+                                    defaultValue={user.phone}
                                 // value={phoneNumber}
                                 // onChange={this.handleInputChange}
                                 />
                             </Form.Group>
+                            {deliveryMethod === 'Giao tận nơi' && (
+                                <Form.Group controlId="formAddress" className="mt-3">
+                                    <Form.Label>Địa chỉ giao hàng</Form.Label>
+                                    <Form.Select
+                                        aria-label="Chọn địa chỉ giao hàng"
+                                        value={selectedAddress}
+                                        onChange={(e) => setSelectedAddress(e.target.value)}
+                                    >
+                                        <option value="">Chọn địa chỉ</option>
+                                        {address.map((addr, index) => (
+                                            <option key={index} value={addr.id}>
+                                                {addr.street}, {addr.city}, {addr.district}
+                                            </option>
+                                        ))}
+                                    </Form.Select>
+                                </Form.Group>
+                            )}
                         </Card>
 
                         {/* Product List */}
@@ -159,16 +225,14 @@ function Order() {
                                     <span>Tổng cộng</span>
                                     <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>${totalPrice}</span>
                                 </div>
-                                <Link to={`/user/checkout`} style={{ textDecoration: 'none' }}>
-                                    <Button className="w-100 mt-3" variant="danger" size="lg">
+                                    <Button className="w-100 mt-3" variant="danger" size="lg" onClick={handleOrderClick}>
                                         Đặt hàng
                                     </Button>
-                                </Link>
                             </Card>
-                            <Card className="p-3 sticky-summary mb-3" style={{marginTop:10}}>
+                            <Card className="p-3 sticky-summary mb-3" style={{ marginTop: 10 }}>
                                 <h4>Sản phẩm trong đơn</h4>
                                 {cartData.map((item, index) => (
-                                    <OrderItem key={index} Item= {item} />
+                                    <OrderItem key={index} Item={item} />
                                 ))}
                             </Card>
                         </Card>
