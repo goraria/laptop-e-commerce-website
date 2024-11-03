@@ -5,8 +5,8 @@ const AuthenticationMiddleware = require('../middleware/AuthenticationMiddleware
 
 router.get('/list-all', BillController.getAllBill);
 
-router.get('/list', AuthenticationMiddleware, BillController.getAllBillByAccount);
+// router.get('/list', AuthenticationMiddleware, BillController.getAllBillByAccount);
 
-router.get('/read:id', BillController.getBillById);
+// router.get('/read:id', BillController.getBillById);
 
 module.exports = router;

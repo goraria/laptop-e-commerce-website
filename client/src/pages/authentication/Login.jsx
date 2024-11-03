@@ -57,11 +57,11 @@ const Login = () => {
 
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token);
-                    // console.log(response.data.token);
+                    console.log(response.data.token.role);
                     setShowSuccess(true);  // hiển thị NotifySuccess khi đăng nhập thành công
                     setTimeout(() => {
-                        // navigate(response.data.role === 1 ? "/admin" : "/user/profile"); // Redirect based on role
-                        navigate("/"); // Redirect based on role
+                        navigate(response.data.role === 1 ? "/admin" : "/user/profile"); // Redirect based on role
+                        // navigate("/"); // Redirect based on role
                     }, 2000);
                 }
             } catch (error) {

@@ -2,7 +2,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Account = require('./Account');
-const Discount = require('./Discount');
+const Address = require('./Address');
 
 const Bill = sequelize.define('Bill', {
     idbill: {
@@ -19,15 +19,19 @@ const Bill = sequelize.define('Bill', {
     },
     iddiscount: {
         type: DataTypes.INTEGER,
-        references: {
-            model: Discount,
-            key: 'iddiscount',
-        },
-        allowNull: true,
     },
-    date: {
-        type: DataTypes.DATE,
-        allowNull: false,
+    idaddress: {
+        type: DataTypes.INTEGER,
+        references: {
+            model: Address,
+            key: 'idaddress',
+        }
+    },
+    date: DataTypes.DATE,
+    price: DataTypes.INTEGER,
+    status: {
+        type: DataTypes.TINYINT,
+        defaultValue: 0,
     },
 }, {
     tableName: 'bill',
@@ -36,5 +40,7 @@ const Bill = sequelize.define('Bill', {
 
 Account.hasMany(Bill, { foreignKey: 'idaccount' });
 Bill.belongsTo(Account, { foreignKey: 'idaccount' });
+Address.hasMany(Bill, { foreignKey: 'idaddress' });
+Bill.belongsTo(Address, { foreignKey: 'idaddress' });
 
 module.exports = Bill;

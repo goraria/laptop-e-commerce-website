@@ -3,10 +3,6 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Bill = require('./Bill');
 const Product = require('./Product');
-const Configuration = require('./Configuration');
-const Colors = require('./Color');
-const { Col } = require('sequelize/lib/utils');
-
 
 const BillDetail = sequelize.define('BillDetail', {
     idbill_details: {
@@ -28,28 +24,10 @@ const BillDetail = sequelize.define('BillDetail', {
             key: 'idproduct',
         }
     },
-    idconfiguration: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Configuration,
-            key: 'idconfiguration',
-        }
-    },
-    idcolor: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Colors,
-            key: 'idcolor',
-        }
-    },
-    quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    price: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
+    idcolor: DataTypes.INTEGER,
+    idconfiguration: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER,
+    price: DataTypes.INTEGER,
 }, {
     tableName: 'bill_detail',
     timestamps: false,

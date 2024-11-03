@@ -16,24 +16,15 @@ const Accessory = sequelize.define('Accessory', {
             key: 'idproduct',
         }
     },
-    nums_key: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    switch_type: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    connection: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
+    nums_key: DataTypes.INTEGER,
+    switch_type: DataTypes.STRING,
+    connection: DataTypes.STRING,
 }, {
-    tableName: 'bill',
+    tableName: 'accessory',
     timestamps: false,
 });
 
-Account.hasMany(Bill, { foreignKey: 'idaccount' });
-Bill.belongsTo(Account, { foreignKey: 'idaccount' });
+Product.hasOne(Accessory, { foreignKey: 'idproduct' });
+Accessory.belongsTo(Product, { foreignKey: 'idproduct' });
 
 module.exports = Accessory;

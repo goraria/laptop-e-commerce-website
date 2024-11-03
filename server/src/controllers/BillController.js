@@ -1,4 +1,4 @@
-const Bill = require('../models/Address');
+const Bill = require('../models/Bill');
 const BillDetail = require('../models/BillDetail')
 const Product = require('../models/Product')
 const Color = require('../models/Color');
@@ -11,16 +11,43 @@ const User = require('../models/User');
 class BillController {
     async getAllBill(req, res) {
         try {
-            const accounts = await Account.findAll();
+            const bills = await Bill.findAll({
+                attributes: ['idbill', 'iddiscount', 'date'], // Chỉ lấy các trường cần thiết từ Bill
+                include: [
+                    {
+                        model: Account,
+                        attributes: ['idaccount', 'username', 'email'], // Chỉ lấy `idaccount` từ Account
+                        include: [
+                            {
+                                model: User,
+                                attributes: ['iduser', 'firstname', 'lastname', 'phone_number'], // Các trường cần từ User
+                            }
+                        ]
+                    }
+                ]
+            });
 
-            let accusers = []
-            for (const acc in accounts) {
-                const accuser = await User.findOne( {where: {idaccount: acc.idaccount}} );
-                accusers.join(accuser)
-            }
-            const bill = await Bill.findAll();
-            // res.json(bill);
+            const result = bills.map(bill => ({
+                id: bill.idbill,
+                discount: bill.iddiscount,
+                date: bill.date,
+                price: bill.price,
+                account: {
+                    idaccount: bill.Account.idaccount,
+                    username: bill.Account.username,
+                    email: bill.Account.email,
+                    user: bill.Account.User ? {
+                        iduser: bill.Account.User.iduser,
+                        firstname: bill.Account.User.firstname,
+                        lastname: bill.Account.User.lastname,
+                        phone_number: bill.Account.User.phone_number
+                    } : null
+                }
+            }));
+
+            res.json(result);
         } catch (error) {
+            console.error('Error fetching bills:', error);
             res.status(500).json({ error: 'Có lỗi xảy ra khi lấy dữ liệu' });
         }
     };

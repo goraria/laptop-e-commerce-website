@@ -8,22 +8,10 @@ const Discount = sequelize.define('Discount', {
         primaryKey: true,
         autoIncrement: true,
     },
-    discount_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    percentage_discount: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    start_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    },
-    end_date: {
-        type: DataTypes.DATE,
-        allowNull: false,
-    }
+    discount_name: DataTypes.STRING,
+    percentage_discount: DataTypes.INTEGER,
+    start_date: DataTypes.DATE,
+    end_date: DataTypes.DATE,
 }, {
     tableName: 'discount',
     timestamps: false,

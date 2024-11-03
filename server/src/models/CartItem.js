@@ -3,8 +3,8 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Cart = require('./Cart');
 const Product = require('./Product');
-const Color = require('./Color');
 const Configuration = require('./Configuration');
+const Color = require('./Color');
 
 const CartItem = sequelize.define('CartItem', {
     idcart_item: {
@@ -26,24 +26,9 @@ const CartItem = sequelize.define('CartItem', {
             key: 'idproduct',
         }
     },
-    idcolor: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Color,
-            key: 'idcolor',
-        }
-    },
-    idconfiguration: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Configuration,
-            key: 'idconfiguration',
-        }
-    },
-    quantity: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
+    idcolor: DataTypes.INTEGER,
+    idconfiguration: DataTypes.INTEGER,
+    quantity: DataTypes.INTEGER,
 }, {
     tableName: 'cart_item',
     timestamps: false,
@@ -51,5 +36,7 @@ const CartItem = sequelize.define('CartItem', {
 
 Cart.hasMany(CartItem, { foreignKey: 'idcart' });
 CartItem.belongsTo(Cart, { foreignKey: 'idcart' });
+Product.hasMany(CartItem, { foreignKey: 'idproduct' });
+CartItem.belongsTo(Product, { foreignKey: 'idproduct' });
 
 module.exports = CartItem;
