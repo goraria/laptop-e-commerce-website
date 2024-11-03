@@ -7,6 +7,7 @@ const { where } = require('sequelize');
 const Category = require("../models/Category.js");
 const Product = require('../models/Product.js');
 const Configuration = require('../models/Configuration.js')
+const Color = require('../models/Color.js')
 class AdminController {
     async getAccount(req, res) {
         try {
@@ -133,7 +134,7 @@ class AdminController {
     async deleteCategory(req, res) {
         try {
             const { idCategory } = req.params
-            console.log(idCategory)
+
             const category = await Category.findOne({
                 where: {
                     idCategory: idCategory
@@ -149,14 +150,14 @@ class AdminController {
     }
     async updateCategory(req, res) {
         const { idCategory } = req.params;
-        console.log(idCategory);
+
 
         if (!idCategory) {
             return res.status(400).json({ message: 'Category ID is required' });
         }
 
         const updatedData = req.body; // Dữ liệu cập nhật
-        console.log(updatedData)
+
 
         if (!updatedData || Object.keys(updatedData).length === 0) {
             return res.status(400).json({ message: 'No update data provided' });
@@ -182,7 +183,7 @@ class AdminController {
     }
     async createCategory(req, res) {
         const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
-        console.log(Data)
+
         try {
 
             const newCategory = await Category.create({
@@ -199,10 +200,8 @@ class AdminController {
     }
     async updateUserData(req, res) {
         const { idaccount } = req.params;
-        console.log(idaccount)
         const updatedData = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
 
-        // const t = await db.sequelize.transaction(); // Bắt đầu transaction
 
         try {
             // Cập nhật bảng Account
@@ -271,9 +270,61 @@ class AdminController {
             const configuration = await Configuration.findAll();
             res.status(200).json(configuration);
         } catch (error) {
-            res.status(500).json({ message: 'Error fetching category', error });
+            res.status(500).json({ message: 'Error fetching configuration', error });
         }
 
+    }
+    async updateConfiguration(req, res) {
+        const { idConfiguration } = req.params;
+        console.log(idConfiguration);
+        const updatedData = req.body;
+
+        try {
+            const configuration = await Configuration.findOne({
+                where: { idconfiguration: idConfiguration },
+            });
+
+            if (!configuration) {
+                return res.status(404).json({ message: `No configuration found with id ${idConfiguration}` });
+            }
+
+            await configuration.update(updatedData); // Cập nhật dữ liệu từ client
+
+            res.status(200).json({ success: true, message: 'Configuration updated successfully', data: configuration });
+
+        } catch (error) {
+            console.error('Error updating configuration:', error);
+            res.status(500).json({ success: false, message: 'Error updating configuration', error });
+        }
+    }
+    async createConfiguration(req, res) {
+        const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
+        console.log(Data)
+        try {
+            const product = await Product.findOne({
+                where: {
+                    product_name: Data.product_name
+                }
+            })
+            const newConfiguration = await Configuration.create({
+                cpu: Data.cpu,
+                ram: Data.ram,
+                gpu: Data.gpu,
+                storage: Data.storage,
+                screen: Data.screen,
+                resolution: Data.resolution,
+                price: Data.price,
+                idproduct: product.idproduct
+            });
+
+            console.log('newConfiguration created successfully:', newConfiguration);
+            return res.status(201).json({
+                configuration: newConfiguration,
+            });
+        } catch (error) {
+            // console.log(error)
+            res.status(500).json({ success: false, message: 'Error create configuration', error });
+        }
     }
     async deleteConfiguration(req, res) {
         try {
@@ -292,60 +343,113 @@ class AdminController {
             res.status(500).json({ success: false, message: 'Error deleting Configuration', error });
         }
     }
-    async updateConfiguration(req, res) {
-        const { idConfiguration } = req.params;
-        console.log(idConfiguration);
+    // async updateConfiguration(req, res) {
+    //     const { idConfiguration } = req.params;
+    //     console.log(idConfiguration);
+    //     const updatedData = req.body;
 
-        if (!idconfiguration) {
-            return res.status(400).json({ message: 'Category ID is required' });
+    //     try {
+    //         const configuration = await Configuration.findOne({
+    //             where: { idconfiguration: idConfiguration },
+    //         });
+
+    //         if (!configuration) {
+    //             return res.status(404).json({ message: `No configuration found with id ${idConfiguration}` });
+    //         }
+
+    //         await configuration.update(updatedData); // Cập nhật dữ liệu từ client
+
+    //         res.status(200).json({ success: true, message: 'Configuration updated successfully', data: configuration });
+
+    //     } catch (error) {
+    //         console.error('Error updating configuration:', error);
+    //         res.status(500).json({ success: false, message: 'Error updating configuration', error });
+    //     }
+    // }
+    async getColor(req, res) {
+        try {
+
+            const color = await Color.findAll();
+            res.status(200).json(color);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching color', error });
         }
 
-        const updatedData = req.body; // Dữ liệu cập nhật
-        console.log(updatedData)
-
-        if (!updatedData || Object.keys(updatedData).length === 0) {
-            return res.status(400).json({ message: 'No update data provided' });
-        }
+    }
+    async updateColor(req, res) {
+        const { idColor } = req.params;
+        const updatedData = req.body;
 
         try {
-            const configuration = await Category.findOne({
-                where: { idconfiguration: idConfiguration },
+            const color = await Color.findOne({
+                where: { idcolor: idColor },
             });
 
-            if (!configuration) {
-                return res.status(404).json({ message: `No category found with id ${idConfiguration}` });
+            if (!color) {
+                return res.status(404).json({ message: `No color found with id ${idColor}` });
             }
 
-            await configuration.update(updatedData); // Cập nhật dữ liệu từ client
+            await color.update(updatedData); // Cập nhật dữ liệu từ client
 
-            res.status(200).json({ success: true, message: 'Configuration updated successfully', data: configuration });
+            res.status(200).json({ success: true, message: 'Color updated successfully', data: color });
 
         } catch (error) {
-            console.error('Error updating configuration:', error);
-            res.status(500).json({ success: false, message: 'Error updating configuration', error });
+            console.error('Error updating color:', error);
+            res.status(500).json({ success: false, message: 'Error updating color', error });
         }
     }
-    async createConfiguration(req, res) {
+    async createColor(req, res) {
         const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
-        console.log(Data)
+        // console.log(Data)
         try {
-
-            const newConfiguration = await Category.create({
-                cpu: Data.cpu,
-                ram: Data.ram,
-                gpu: Data.gpu,
-                storage: Data.storage,
-                screen: Data.screen,
-                resolution: Data.resolution,
-                price: Data.price
+            const product = await Product.findOne({
+                where: {
+                    product_name: Data.product_name
+                }
+            })
+            const newColor = await Color.create({
+                color: Data.color,
             });
 
-            console.log('newConfiguration created successfully:', newConfiguration);
+            console.log('color created successfully:', newColor);
             return res.status(201).json({
-                configuration: newConfiguration,
+                color: newColor,
             });
         } catch (error) {
-            res.status(500).json({ success: false, message: 'Error create user', error });
+            // console.log(error)
+            res.status(500).json({ success: false, message: 'Error create color', error });
+        }
+    }
+    async deleteColor(req, res) {
+        try {
+            const { idColor } = req.params
+            // console.log(idConfiguration)
+            const color = await Color.findOne({
+                where: {
+                    color: color
+                }
+            });
+            await color.destroy();
+            res.status(200).json({ success: true, message: 'Color deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting Category:', error);
+            res.status(500).json({ success: false, message: 'Error deleting color', error });
+        }
+    }
+    async payhd(req, res) {
+        try {
+            const color = await Color.findAll({
+                attributes: ["color"],
+                include: [{
+                    model: Product,
+                    attributes: ["product_name", "idproduct"],
+                }]
+            });
+            console.log(color)
+            res.status(200).json(color);
+        } catch (error) {
+            console.error('Error paying order:', error);
+            res.status(500).json({ success: false, message: 'Error paying order', error });
         }
     }
 }

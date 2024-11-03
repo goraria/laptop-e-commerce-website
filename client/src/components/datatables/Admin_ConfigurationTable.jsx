@@ -84,7 +84,7 @@ export const ConfigurationTable = () => {
         try {
 
             // Send delete request to the server
-            await axios.delete(`http://localhost:5172/products/delete-productname/${id}`);
+            await axios.delete(`http://localhost:5172/admin/delete-configuration/${id}`);
 
             // Optionally, fetch the updated data again
             fetchAPI();
@@ -327,8 +327,8 @@ export const ConfigurationTable = () => {
                                 <td>{item.resolution}</td>
                                 <td>{item.price}</td>
                                 <td>
-                                    <Button variant="link" onClick={() => handleEdit(item.idproduct)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
-                                    <Button variant="link" onClick={() => handleDelete(item.idproduct)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faTrash} /></Button>
+                                    <Button variant="link" onClick={() => handleEdit(item.idconfiguration)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faPenToSquare} /></Button>
+                                    <Button variant="link" onClick={() => handleDelete(item.idconfiguration)} style={{ marginLeft: 'auto' }}><FontAwesomeIcon icon={faTrash} /></Button>
                                 </td>
                             </tr>
                         ))}
