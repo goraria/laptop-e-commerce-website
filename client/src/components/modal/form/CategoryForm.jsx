@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { formToJSON } from "axios";
 import SaveChange from "../notify/SaveChange.jsx";
 import React, { useEffect, useState } from "react";
 import { Button, Col, Form, InputGroup, Modal, Row } from "react-bootstrap";
@@ -54,14 +54,12 @@ export const CategoryForm = ({ category, show, onHide, onReload }) => {
         event.stopPropagation();
 
         const form = event.currentTarget;
-        const datastring = convertFormDataToString(formData)
-        // Log giá trị của formData
-        // console.log('FormData:', formData);
-
+        // const datastring = convertFormDataToString(formData)
+        console.log(formData)
         if (form.checkValidity() === false) {
             setValidated(true);
         } else {
-            const allFieldsFilled = Object.values(datastring).every(value => value.trim() !== "");
+            const allFieldsFilled = Object.values(formData.category_name).every(value => value.trim() !== "");
 
             if (allFieldsFilled) {
                 setShowConfirmModal(true);
@@ -75,23 +73,17 @@ export const CategoryForm = ({ category, show, onHide, onReload }) => {
 
     const handleConfirmSave = async () => {
         try {
-            // const token = localStorage.getItem('token');
-            console.log("asdsafsagsagsagsagsagsagsa")
-            console.log(formData.idcategory)
+            console.log("aaaaaaaaaaa")
             const response = category
-                ? await axios.post(`http://localhost:5172/admin/update-category/${category.idcategory}`, formData.category_name)
-                : await axios.put('http://localhost:5172/admin/create-category', formData.category_name);
-
-
-
+                ? await axios.post(`http://localhost:5172/admin/update-category/${category.idcategory}`, formData)
+                : await axios.put('http://localhost:5172/admin/create-category', formData);
             if (response.status === 200 || response.status === 201) {
-                // alert(address ? 'Address updated successfully' : 'Address added successfully');
                 setShowConfirmModal(false)
                 onHide();
                 onReload()
             }
         } catch (error) {
-            setError(error.response ? error.response.data.message : 'Failed to save address');
+            setError(error.response ? error.response.data.message : 'Failed to save category');
         }
     };
 

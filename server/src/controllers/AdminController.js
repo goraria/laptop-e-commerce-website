@@ -6,6 +6,7 @@ const User = require('../models/User.js');
 const { where } = require('sequelize');
 const Category = require("../models/Category.js");
 const Product = require('../models/Product.js');
+const Configuration = require('../models/Configuration.js')
 class AdminController {
     async getAccount(req, res) {
         try {
@@ -145,22 +146,34 @@ class AdminController {
             console.error('Error deleting Category:', error);
             res.status(500).json({ success: false, message: 'Error deleting Category', error });
         }
-    } async updateCategory(req, res) {
+    }
+    async updateCategory(req, res) {
         const { idCategory } = req.params;
-        console.log(idCategory)
-        const updatedData = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
+        console.log(idCategory);
+
+        if (!idCategory) {
+            return res.status(400).json({ message: 'Category ID is required' });
+        }
+
+        const updatedData = req.body; // Dữ liệu cập nhật
+        console.log(updatedData)
+
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            return res.status(400).json({ message: 'No update data provided' });
+        }
 
         try {
             const category = await Category.findOne({
                 where: { idcategory: idCategory },
             });
+
             if (!category) {
                 return res.status(404).json({ message: `No category found with id ${idCategory}` });
             }
 
-            await category.update({ idcategory: updatedData.idcategory });
-            // await t.commit(); // Cam kết transaction
-            res.status(200).json({ success: true, message: 'User updated successfully', data: updatedData });
+            await category.update(updatedData); // Cập nhật dữ liệu từ client
+
+            res.status(200).json({ success: true, message: 'Category updated successfully', data: category });
 
         } catch (error) {
             console.error('Error updating category:', error);
@@ -169,7 +182,7 @@ class AdminController {
     }
     async createCategory(req, res) {
         const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
-        console.log(req.body)
+        console.log(Data)
         try {
 
             const newCategory = await Category.create({
@@ -250,6 +263,89 @@ class AdminController {
             })
         } catch (error) {
             console.log(error)
+        }
+    }
+    async getConfiguration(req, res) {
+        try {
+
+            const configuration = await Configuration.findAll();
+            res.status(200).json(configuration);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching category', error });
+        }
+
+    }
+    async deleteConfiguration(req, res) {
+        try {
+            const { idConfiguration } = req.params
+            console.log(idConfiguration)
+            const configuration = await Configuration.findOne({
+                where: {
+                    idconfiguration: idConfiguration
+                }
+            });
+            // Xóa người dùng
+            await configuration.destroy();
+            res.status(200).json({ success: true, message: 'Configuration deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting Category:', error);
+            res.status(500).json({ success: false, message: 'Error deleting Configuration', error });
+        }
+    }
+    async updateConfiguration(req, res) {
+        const { idConfiguration } = req.params;
+        console.log(idConfiguration);
+
+        if (!idconfiguration) {
+            return res.status(400).json({ message: 'Category ID is required' });
+        }
+
+        const updatedData = req.body; // Dữ liệu cập nhật
+        console.log(updatedData)
+
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            return res.status(400).json({ message: 'No update data provided' });
+        }
+
+        try {
+            const configuration = await Category.findOne({
+                where: { idconfiguration: idConfiguration },
+            });
+
+            if (!configuration) {
+                return res.status(404).json({ message: `No category found with id ${idConfiguration}` });
+            }
+
+            await configuration.update(updatedData); // Cập nhật dữ liệu từ client
+
+            res.status(200).json({ success: true, message: 'Configuration updated successfully', data: configuration });
+
+        } catch (error) {
+            console.error('Error updating configuration:', error);
+            res.status(500).json({ success: false, message: 'Error updating configuration', error });
+        }
+    }
+    async createConfiguration(req, res) {
+        const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
+        console.log(Data)
+        try {
+
+            const newConfiguration = await Category.create({
+                cpu: Data.cpu,
+                ram: Data.ram,
+                gpu: Data.gpu,
+                storage: Data.storage,
+                screen: Data.screen,
+                resolution: Data.resolution,
+                price: Data.price
+            });
+
+            console.log('newConfiguration created successfully:', newConfiguration);
+            return res.status(201).json({
+                configuration: newConfiguration,
+            });
+        } catch (error) {
+            res.status(500).json({ success: false, message: 'Error create user', error });
         }
     }
 }

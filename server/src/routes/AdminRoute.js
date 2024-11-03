@@ -16,4 +16,10 @@ router.delete('/delete-category/:idCategory', AdminController.deleteCategory);
 router.post('/update-category/:idCategory', AdminController.updateCategory);
 router.put('/create-category', AdminController.createCategory);
 router.put('/abc', AdminController.createdejaptor);
+
+router.get('/get-configration', AdminController.getConfiguration);
+router.delete('/delete-configration/:idConfigration', AdminController.deleteConfiguration);
+router.post('/update-configration/:idConfigration', AdminController.updateConfiguration);
+router.put('/create-configration', AdminController.createConfiguration);
+
 module.exports = router;

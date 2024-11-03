@@ -80,19 +80,19 @@ export const ProductForm = ({ product, show, onHide, onReload }) => {
         const idCategory = findIdCategoryByName(dataAsString.category_name)
         const stringid = String(idCategory)
         dataAsString.idcategory = stringid;
-        console.log(dataAsString)
+        console.log(formData)
         if (form.checkValidity() === false) {
             console.log("0")
             setValidated(true);
         } else {
             const allFieldsFilled = Object.values(dataAsString).every(value => value.trim() !== "");
-            console.log("1")
+
             if (allFieldsFilled) {
                 setShowConfirmModal(true);
-                console.log("2")
+
             } else {
                 setValidated(true);
-                console.log("3")
+
             }
         }
     };
@@ -132,7 +132,7 @@ export const ProductForm = ({ product, show, onHide, onReload }) => {
         try {
             const dataAsString = convertFormDataToString(formData);
             // const token = localStorage.getItem('token');
-            console.log(product)
+            console.log(formData)
             const response = product
                 ? await axios.post(`http://localhost:5172/products/update-productname/${product.idproduct}`, dataAsString)
                 : await axios.put('http://localhost:5172/admin/abc', formData)
