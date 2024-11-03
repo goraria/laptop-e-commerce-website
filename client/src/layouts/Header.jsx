@@ -105,7 +105,7 @@ const Header = () => {
     };
 
     useEffect(() => {
-
+        authenticationCheck()
     }, []);
 
     return (
