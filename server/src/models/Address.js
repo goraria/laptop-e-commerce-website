@@ -14,14 +14,32 @@ const Address = sequelize.define('Address', {
         references: {
             model: Account,
             key: 'idaccount',
-        }
+        },
     },
-    tower: DataTypes.STRING,
-    street: DataTypes.STRING,
-    district: DataTypes.STRING,
-    city: DataTypes.STRING,
-    state: DataTypes.STRING,
-    country: DataTypes.STRING,
+    tower: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    street: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    district: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    city: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    state: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+    country: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 }, {
     tableName: 'address',
     timestamps: false,

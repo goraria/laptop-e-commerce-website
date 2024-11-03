@@ -14,7 +14,8 @@ const User = sequelize.define('User', {
         references: {
             model: Account,
             key: 'idaccount',
-        }
+        },
+        allowNull: false,
     },
     firstname: {
         type: DataTypes.STRING,
@@ -30,6 +31,10 @@ const User = sequelize.define('User', {
     },
     avatar: {
         type: DataTypes.STRING,
+        allowNull: true,
+    },
+    birthday: {
+        type: DataTypes.DATE,
         allowNull: true,
     }
 }, {

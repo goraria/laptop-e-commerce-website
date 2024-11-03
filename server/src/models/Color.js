@@ -14,9 +14,12 @@ const Color = sequelize.define('Color', {
         references: {
             model: Product,
             key: 'idproduct',
-        }
+        },
     },
-    color: DataTypes.STRING,
+    color: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
 }, {
     tableName: 'color',
     timestamps: false,
