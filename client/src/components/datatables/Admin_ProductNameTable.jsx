@@ -293,8 +293,8 @@ export const ProductNameTable = () => {
                                 <td>
                                     <Form.Check
                                         type="checkbox"
-                                        checked={selectedEntries.includes(item.id)}
-                                        onChange={() => handleSelectItem(item.id)}
+                                        checked={selectedEntries.includes(item.idproduct)}
+                                        onChange={() => handleSelectItem(item.idproduct)}
                                     />
                                 </td>
                                 <td>

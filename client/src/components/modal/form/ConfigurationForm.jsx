@@ -62,17 +62,22 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
         const { name, value } = event.target;
         setFormData(prevData => ({ ...prevData, [name]: value }));
     };
-
+    const convertFormDataToString = (data) => {
+        return Object.fromEntries(
+            Object.entries(data).map(([key, value]) => [key, String(value || "")])
+        );
+    };
     const handleInvalid = (event) => {
         event.preventDefault();
         event.stopPropagation();
 
         const form = event.currentTarget;
-
+        const datastring = convertFormDataToString(formData)
+        console.log(datastring)
         if (form.checkValidity() === false) {
             setValidated(true);
         } else {
-            const allFieldsFilled = Object.values(formData).every(value => value.trim() !== "");
+            const allFieldsFilled = Object.values(datastring).every(value => value.trim() !== "");
 
             if (allFieldsFilled) {
                 console.log("1")
@@ -87,9 +92,10 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
     const handleConfirmSave = async () => {
         try {
             // const token = localStorage.getItem('token');
+            console.log(formData)
             const response = configuration
-                ? await axios.post(`http://localhost:5172/admin/update-configration/${configuration.idconfiguration}`, formData)
-                : await axios.put('http://localhost:5172/admin/create-configration', formData);
+                ? await axios.post(`http://localhost:5172/admin/update-configuration/${configuration.idconfiguration}`, formData)
+                : await axios.put('http://localhost:5172/admin/create-configuration', formData);
 
 
             if (response.status === 200 || response.status === 201) {
@@ -99,7 +105,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                 onReload()
             }
         } catch (error) {
-            setError(error.response ? error.response.data.message : 'Failed to save address');
+            setError(error.response ? error.response.data.message : 'Failed to save configuration');
         }
     };
 
@@ -175,114 +181,114 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="lastname">
-                                <Form.Label>CPU</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="gpu">
+                                <Form.Label>GPU</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="lastname">
+                                    <InputGroup.Text id="gpu">
                                         <FontAwesomeIcon icon={faUser} />
                                     </InputGroup.Text>
                                     <Form.Control
                                         required
                                         type="text"
-                                        name="lastname"
-                                        value={formData.lastname}
+                                        name="gpu"
+                                        value={formData.gpu}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your last name.
+                                        Please enter GPU.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="email">
-                                <Form.Label>Email</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="storage">
+                                <Form.Label>Storage</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="email">
+                                    <InputGroup.Text id="storage">
                                         <FontAwesomeIcon icon={faUser} />
                                     </InputGroup.Text>
                                     <Form.Control
                                         type="email"
-                                        name="email"
-                                        value={formData.district}
+                                        name="storage"
+                                        value={formData.storage}
                                         onChange={handleChange}
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your email.
+                                        Please enter storage.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="phonenumber">
-                                <Form.Label>Phone Number</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="screen">
+                                <Form.Label>Screen</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="phonenumber">
+                                    <InputGroup.Text id="screen">
                                         <FontAwesomeIcon icon={faPhone} />
                                     </InputGroup.Text>
                                     <Form.Control
-                                        type="tel"
-                                        name="phonenumber"
-                                        value={formData.phone_number}
+                                        type="text"
+                                        name="screen"
+                                        value={formData.screen}
                                         onChange={handleChange}
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your phone number.
+                                        Please enter screen.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="email">
-                                <Form.Label>Email</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="resolution">
+                                <Form.Label>Resolution</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="email">
+                                    <InputGroup.Text id="resolution">
                                         <FontAwesomeIcon icon={faMailBulk} />
                                     </InputGroup.Text>
                                     <Form.Control
-                                        type="email"
-                                        name="email"
-                                        value={formData.email}
+                                        type="text"
+                                        name="resolution"
+                                        value={formData.resolution}
                                         onChange={handleChange}
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your email.
+                                        Please enter resolution.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="state">
-                                <Form.Label>State</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="price">
+                                <Form.Label>Price</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="state">
+                                    <InputGroup.Text id="price">
                                         <FontAwesomeIcon icon={faFlag} />
                                     </InputGroup.Text>
                                     <Form.Control
                                         type="text"
-                                        name="state"
-                                        value={formData.state}
+                                        name="price"
+                                        value={formData.price}
                                         onChange={handleChange}
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your state.
+                                        Please enter price.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
 
-                            <Form.Group as={Col} md={5} controlId="country">
-                                <Form.Label>Country</Form.Label>
+                            <Form.Group as={Col} md={5} controlId="product_name">
+                                <Form.Label>Product Name</Form.Label>
                                 <InputGroup hasValidation>
-                                    <InputGroup.Text id="country">
+                                    <InputGroup.Text id="product_name">
                                         <FontAwesomeIcon icon={faGlobe} />
                                     </InputGroup.Text>
                                     <Form.Control
                                         type="text"
-                                        name="country"
-                                        value={formData.country}
+                                        name="product_name"
+                                        value={formData.product_name}
                                         onChange={handleChange}
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please enter your country.
+                                        Please enter Product Name.
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
@@ -303,10 +309,10 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                     {/*</Button>*/}
                     {configuration ?
                         <>
-                            <Button onClick={() => setShowConfirmDelete(true)} variant="danger" className="me-3">
+                            {/* <Button onClick={() => setShowConfirmDelete(true)} variant="danger" className="me-3">
                                 <FontAwesomeIcon icon={faTrash} className="me-2" />
                                 <span>Delete Address</span>
-                            </Button>
+                            </Button> */}
                             <Button onClick={handleInvalid} variant="info">
                                 <FontAwesomeIcon icon={faCheck} className="me-2" />
                                 <span>Save changes</span>
@@ -314,7 +320,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                         </> : <>
                             <Button type="submit" variant="success" onClick={handleInvalid}>
                                 <FontAwesomeIcon icon={faPlus} className="me-2" />
-                                <span>Create Address</span>
+                                <span>Create Configuration</span>
                             </Button>
                         </>
                     }
