@@ -12,7 +12,7 @@ class BillController {
     async getAllBill(req, res) {
         try {
             const bills = await Bill.findAll({
-                attributes: ['idbill', 'iddiscount', 'date'], // Chỉ lấy các trường cần thiết từ Bill
+                attributes: ['idbill', 'iddiscount', 'date', 'status'], // Chỉ lấy các trường cần thiết từ Bill
                 include: [
                     {
                         model: Account,
@@ -31,6 +31,7 @@ class BillController {
                 id: bill.idbill,
                 date: bill.date,
                 price: bill.price,
+                status: bill.status,
                 account: bill.Account ? {
                     idaccount: bill.Account.idaccount,
                     username: bill.Account.username,

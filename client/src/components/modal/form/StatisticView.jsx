@@ -272,7 +272,7 @@ const StatisticView = ({ item, show, onHide, onReload }) => {
                                         readOnly
                                         type="text"
                                         name="status"
-                                        value={"On Hold"}
+                                        value={item ? item.status !== null && item.status !== '' ? item.status === 1 ? 'Paid' : 'Ordered' : 'Unknown' : 'Unknown'}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback/>

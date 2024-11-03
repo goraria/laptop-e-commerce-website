@@ -418,7 +418,7 @@ export const Statistics = () => {
                                 <td>{item.account?.username || "N/A"}</td>
                                 <td>{item.date ? new Date(item.date).toLocaleString() : "N/A"}</td>
                                 <td>{item.price ? item.price : "$?"}</td>
-                                <td>{renderStatusBadge(item.status)}</td>
+                                <td>{renderStatusBadge(item.status === 1 ? 'Paid' : 'Ordered')}</td>
                                 <td>
                                     <Button variant="link" onClick={() => handleItemClick(item)}><FontAwesomeIcon icon={faEye}/></Button>
                                 </td>
