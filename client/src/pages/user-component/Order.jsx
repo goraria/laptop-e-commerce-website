@@ -7,6 +7,7 @@ import { useLocation } from 'react-router-dom';
 import OrderItem from "../../components/product/OrderItem.jsx";
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 
 
@@ -16,6 +17,8 @@ function Order() {
     const [selectedAddress, setSelectedAddress] = useState(""); // State to track selected address
     const [selectedStoreAddress, setSelectedStoreAddress] = useState("");
     const [deliveryMethod, setDeliveryMethod] = useState("Tại cửa hàng"); // State for delivery method
+    const [status, setStatus] = useState(1); // State for delivery method
+    const [date, setDate] = useState(new Date()); // State for delivery method
 
     const location = useLocation();
     const { cartData, prePrice, discount, totalPrice } = location.state || {};
@@ -24,6 +27,7 @@ function Order() {
 
     const navigate = useNavigate();
     const handleOrderClick = (event) => {
+        // handleAddBill();
         event.preventDefault();
         navigate('/user/checkout', {
             state: {
@@ -37,11 +41,59 @@ function Order() {
                 deliverymethod: deliveryMethod
             }
         });
+
+    };
+
+    const formatDateToMySQL = (date) => {
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');  // Months are zero-indexed
+        const day = String(date.getDate()).padStart(2, '0');
+        const hours = String(date.getHours()).padStart(2, '0');
+        const minutes = String(date.getMinutes()).padStart(2, '0');
+        const seconds = String(date.getSeconds()).padStart(2, '0');
+
+        return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    };
+
+    const handleAddBill = async () => {
+        try {
+            const response = await axios.put(`http://localhost:5172/bill/add-bill`,{
+                date: formatDateToMySQL(date),
+                iddiscount:null,
+                idaddress:selectedAddress,
+                price:totalPrice,
+                status:status,
+                items: cartData
+            }, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
+                
+            });
+            alert("Bill đã được tạo vào thành công");
+
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
+    };
+
+    const fetchBill = async () => {
+        try {
+            const response = await fetch(`http://localhost:5172/account/get-info`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            const data = await response.json();
+            setUser(data)
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+        }
     };
 
     const fetchUser = async () => {
         try {
-            const response = await fetch(`http://localhost:5172/account//get-info`, {
+            const response = await fetch(`http://localhost:5172/account/get-info`, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
@@ -62,6 +114,7 @@ function Order() {
             });
             const data = await response.json();
             setAdress(data)
+            console.log(data)
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }
@@ -180,11 +233,14 @@ function Order() {
                                     <Form.Select
                                         aria-label="Chọn địa chỉ giao hàng"
                                         value={selectedAddress}
-                                        onChange={(e) => setSelectedAddress(e.target.value)}
+                                        onChange={(e) => {
+                                            setSelectedAddress(e.target.value);
+
+                                        }}
                                     >
                                         <option value="">Chọn địa chỉ</option>
                                         {address.map((addr, index) => (
-                                            <option key={index} value={addr.id}>
+                                            <option key={index} value={addr.idaddress}>
                                                 {addr.street}, {addr.city}, {addr.district}
                                             </option>
                                         ))}
