@@ -14,6 +14,9 @@ router.get('/load-productCPU/:CPU', productController.loadProductWithCondition);
 router.get('/load-productBrand/:Brand', productController.loadProductWithBrand);
 router.get('/load-productName/:Name', productController.loadProductWithName);
 
+router.post('/update-productname/:idProduct', productController.updateProductName);
+router.delete('/delete-productname/:idProduct', productController.deleteProductName);
+router.put('/create-productname', productController.createProductName);
 
 
 
