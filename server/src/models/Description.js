@@ -14,11 +14,21 @@ const Description = sequelize.define('Description', {
         references: {
             model: Product,
             key: 'idproduct',
-        }
+        },
+        allowNull: false,
     },
-    title_description: DataTypes.STRING,
-    sub_description: DataTypes.STRING,
-    img_description: DataTypes.STRING,
+    title_description: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    sub_description: {
+        type: DataTypes.STRING(2047),
+        allowNull: true,
+    },
+    img_description: {
+        type: DataTypes.STRING(45),
+        allowNull: true,
+    },
 }, {
     tableName: 'description',
     timestamps: false,

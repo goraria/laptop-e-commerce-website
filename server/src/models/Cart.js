@@ -14,7 +14,7 @@ const Cart = sequelize.define('Cart', {
         references: {
             model: Account,
             key: 'idaccount',
-        }
+        },
     },
 }, {
     tableName: 'cart',

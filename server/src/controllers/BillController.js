@@ -7,12 +7,13 @@ const Configuration = require('../models/Configuration');
 const Discount = require('../models/Discount');
 const Account = require('../models/Account')
 const User = require('../models/User');
+const Address = require('../models/Address');
 
 class BillController {
     async getAllBill(req, res) {
         try {
             const bills = await Bill.findAll({
-                attributes: ['idbill', 'iddiscount', 'date'], // Chỉ lấy các trường cần thiết từ Bill
+                attributes: ['idbill', 'iddiscount', 'date', 'price'], // Chỉ lấy các trường cần thiết từ Bill
                 include: [
                     {
                         model: Account,
@@ -23,10 +24,134 @@ class BillController {
                                 attributes: ['iduser', 'firstname', 'lastname', 'phone_number'], // Các trường cần từ User
                             }
                         ]
+                    },
+                    {
+                        model: Address,
+                        attributes: ['idaddress', 'tower', 'street', 'district', 'city', 'state', 'country'],
+                    },
+                    {
+                        model: Discount,
+                        attributes: ['iddiscount', 'discount_name', 'percentage_discount', 'start_date', 'end_date'],
+                    },
+                    {
+                        model: BillDetail,
+                        attributes: ['idbill_details', 'idproduct', 'price', 'quantity'],
+                        include: [
+                            {
+                                model: Product,
+                                attributes: ['product_name', 'brand'],
+                            },
+                            {
+                                model: Color,
+                                attributes: ['color'],
+                            },
+                            {
+                                model: Configuration,
+                                attributes: ['cpu', 'ram', 'gpu', 'storage', 'screen', 'resolution'],
+                            }
+                        ]
                     }
                 ]
             });
 
+            const result = bills.map(bill => ({
+                id: bill.idbill,
+                // discount: bill.iddiscount,
+                date: bill.date,
+                price: bill.price,
+                account: {
+                    idaccount: bill.Account.idaccount,
+                    username: bill.Account.username,
+                    email: bill.Account.email,
+                    user: bill.Account.User ? {
+                        iduser: bill.Account.User.iduser,
+                        firstname: bill.Account.User.firstname,
+                        lastname: bill.Account.User.lastname,
+                        phone_number: bill.Account.User.phone_number
+                    } : null
+                },
+                address: bill.Address ? {
+                    idaddress: bill.Address.idaddress,
+                    tower: bill.Address.tower,
+                    street: bill.Address.street,
+                    district: bill.Address.district,
+                    city: bill.Address.city,
+                    state: bill.Address.state,
+                    country: bill.Address.country,
+                } : null,
+                discount: bill.Discount ? {
+                    iddiscount: bill.Discount.iddiscount,
+                    discount_name: bill.Discount.discount_name,
+                    percentage_discount: bill.Discount.percentage_discount,
+                    start_date: bill.Discount.start_date,
+                    end_date: bill.Discount.end_date
+                } : null,
+                bill_details: bill.BillDetails ? bill.BillDetails.map(detail => ({
+                    idbill_detail: detail.idbill_details,
+                    product: detail.Product ? detail.Product.product_name : null,
+                    brand: detail.Product ? detail.Product.brand : null,
+                    price: detail.price,
+                    configuration: detail.Configuration ? {
+                        cpu: detail.Configuration.cpu,
+                        ram: detail.Configuration.ram,
+                        gpu: detail.Configuration.gpu,
+                        storage: detail.Configuration.storage,
+                        screen: detail.Configuration.screen,
+                        resolution: detail.Configuration.resolution,
+                    } : null,
+                    color: detail.Color ? detail.Color.color : null,
+                    quantity: detail.quantity
+                })) : []
+            }));
+
+            res.json(result);
+        } catch (error) {
+            console.error('Error fetching bills:', error);
+            res.status(500).json({ error: 'Có lỗi xảy ra khi lấy dữ liệu' });
+        }
+    };
+
+    async getAllBill0(req, res) {
+        try {
+            const bills = await Bill.findAll({
+                attributes: ['idbill', 'iddiscount', 'date', 'price'], // Thêm 'price' vào các trường được lấy
+                include: [
+                    {
+                        model: Account,
+                        attributes: ['idaccount', 'username', 'email'],
+                        include: [
+                            {
+                                model: User,
+                                attributes: ['iduser', 'firstname', 'lastname', 'phone_number'],
+                            }
+                        ]
+                    },
+                    {
+                        model: Address,
+                        attributes: ['idaddress', 'tower', 'street', 'district', 'city', 'state', 'country'],
+                    },
+                    {
+                        model: BillDetail,
+                        attributes: ['idbill_details', 'idproduct', 'price', 'quantity'],
+                        include: [
+                            {
+                                model: Product,
+                                attributes: ['product_name', 'brand'],
+                            },
+                            {
+                                model: Color,
+                                attributes: ['color'],
+                            },
+                            {
+                                model: Configuration,
+                                attributes: ['cpu', 'ram', 'gpu', 'storage', 'screen', 'resolution'],
+                            }
+                        ]
+                    }
+                ]
+            });
+
+            // Định dạng dữ liệu JSON theo yêu cầu
             const result = bills.map(bill => ({
                 id: bill.idbill,
                 discount: bill.iddiscount,
@@ -40,9 +165,34 @@ class BillController {
                         iduser: bill.Account.User.iduser,
                         firstname: bill.Account.User.firstname,
                         lastname: bill.Account.User.lastname,
-                        phone_number: bill.Account.User.phone_number
+                        phone_number: bill.Account.User.phone_number,
                     } : null
-                }
+                },
+                address: bill.Address ? {
+                    idaddress: bill.Address.idaddress,
+                    tower: bill.Address.tower,
+                    street: bill.Address.street,
+                    district: bill.Address.district,
+                    city: bill.Address.city,
+                    state: bill.Address.state,
+                    country: bill.Address.country,
+                } : null,
+                bill_details: bill.BillDetails ? bill.BillDetails.map(detail => ({
+                    idbill_detail: detail.idbill_details,
+                    product: detail.Product ? detail.Product.product_name : null,
+                    brand: detail.Product ? detail.Product.brand : null,
+                    price: detail.price,
+                    configuration: detail.Configuration ? {
+                        cpu: detail.Configuration.cpu,
+                        ram: detail.Configuration.ram,
+                        gpu: detail.Configuration.gpu,
+                        storage: detail.Configuration.storage,
+                        screen: detail.Configuration.screen,
+                        resolution: detail.Configuration.resolution,
+                    } : null,
+                    color: detail.Color ? detail.Color.color : null,
+                    quantity: detail.quantity
+                })) : []
             }));
 
             res.json(result);
@@ -50,7 +200,7 @@ class BillController {
             console.error('Error fetching bills:', error);
             res.status(500).json({ error: 'Có lỗi xảy ra khi lấy dữ liệu' });
         }
-    };
+    }
 
     async getAllBillByAccount(req, res) {
         try {

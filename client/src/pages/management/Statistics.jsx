@@ -11,6 +11,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "react-calendar";
 import axios from "axios";
+import StatisticView from "../../components/modal/form/StatisticView.jsx";
 
 export const Statistics = () => {
     const [data, setData] = useState([
@@ -86,13 +87,24 @@ export const Statistics = () => {
     const toCalendarRef = useRef(null);
 
     const [showModal, setShowModal] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
     const [modalData, setModalData] = useState(null);
+
+    const handleItemClick = (item) => {
+        setSelectedItem(item);
+        setShowModal(true);
+    };
+
+    const handleModalClose = () => {
+        setShowModal(false);
+        setSelectedItem(null);
+    };
 
     const fetchStatistics = async () => {
         try {
             const response = await axios.get('http://localhost:5172/bill/list-all');
             setData(response.data);
-            console.log(response.data)
+            console.log(response.data);
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu:', error);
         } finally {
@@ -300,139 +312,150 @@ export const Statistics = () => {
     // setFromDate(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
 
     return (
-        <div className="card">
-            <div className="card-datatable table-responsive">
-                <div className="dataTables_wrapper dt-bootstrap5 no-footer">
-                    <div className="card-header flex-column flex-md-row pb-0">
-                        <div className="d-flex justify-content-between align-items-center mb-3">
-                            <div className="head-label text-center">
-                                <h5 className="card-title mb-0">Statistics</h5>
-                            </div>
-                            <div className="dt-action-buttons text-end pt-6 pt-md-0">
-                                <div className="dt-buttons btn-group flex-wrap">
-                                    <div style={{position: 'relative'}} ref={toCalendarRef}> {/* Đặt vị trí tương đối */}
-                                        <Button variant="outline-primary" className="me-2" onClick={handleFromDateClick} style={{width: 200}}>
-                                            From date: {fromDate ? fromDate.toLocaleDateString() : "Select date"}
-                                        </Button>
-                                        {showFromCalendar && (
-                                            <div style={{position: 'absolute', zIndex: 1, top: '100%', left: 0}}>
-                                                <Calendar onChange={onFromDateChange} value={fromDate}/>
-                                            </div>
-                                        )}
-                                    </div>
-                                    <div style={{position: 'relative'}} ref={toCalendarRef}> {/* Đặt vị trí tương đối */}
-                                        <Button variant="outline-primary" onClick={handleToDateClick} style={{width: 200}}>
-                                            To date: {toDate ? toDate.toLocaleDateString() : "Select date"}
-                                        </Button>
-                                        {showToCalendar && (
-                                            <div style={{position: 'absolute', zIndex: 1, top: '100%', right: 0}}>
-                                                <Calendar onChange={onToDateChange} value={toDate}/>
-                                            </div>
-                                        )}
+        <>
+            <div className="card">
+                <div className="card-datatable table-responsive">
+                    <div className="dataTables_wrapper dt-bootstrap5 no-footer">
+                        <div className="card-header flex-column flex-md-row pb-0">
+                            <div className="d-flex justify-content-between align-items-center mb-3">
+                                <div className="head-label text-center">
+                                    <h5 className="card-title mb-0">Statistics</h5>
+                                </div>
+                                <div className="dt-action-buttons text-end pt-6 pt-md-0">
+                                    <div className="dt-buttons btn-group flex-wrap">
+                                        <div style={{position: 'relative'}}
+                                             ref={toCalendarRef}> {/* Đặt vị trí tương đối */}
+                                            <Button variant="outline-primary" className="me-2"
+                                                    onClick={handleFromDateClick} style={{width: 200}}>
+                                                From date: {fromDate ? fromDate.toLocaleDateString() : "Select date"}
+                                            </Button>
+                                            {showFromCalendar && (
+                                                <div style={{position: 'absolute', zIndex: 1, top: '100%', left: 0}}>
+                                                    <Calendar onChange={onFromDateChange} value={fromDate}/>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div style={{position: 'relative'}}
+                                             ref={toCalendarRef}> {/* Đặt vị trí tương đối */}
+                                            <Button variant="outline-primary" onClick={handleToDateClick}
+                                                    style={{width: 200}}>
+                                                To date: {toDate ? toDate.toLocaleDateString() : "Select date"}
+                                            </Button>
+                                            {showToCalendar && (
+                                                <div style={{position: 'absolute', zIndex: 1, top: '100%', right: 0}}>
+                                                    <Calendar onChange={onToDateChange} value={toDate}/>
+                                                </div>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="row mb-3">
-                            <div className="col-sm-12 col-md-6">
-                                <div className="dataTables_length">
-                                    <label style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
-                                        <span>Show</span>
-                                        <select
-                                            name="DataTables_Table_0_length"
-                                            aria-controls="DataTables_Table_0"
-                                            className="form-select ms-3 me-3"
-                                            style={{width: "80px"}}
-                                            onChange={handleItemsPerPageChange}
-                                            value={itemsPerPage}
-                                        >
-                                            <option value="10">10</option>
-                                            <option value="25">25</option>
-                                            <option value="50">50</option>
-                                        </select>
-                                        <span>entries</span>
-                                    </label>
+                            <div className="row mb-3">
+                                <div className="col-sm-12 col-md-6">
+                                    <div className="dataTables_length">
+                                        <label style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
+                                            <span>Show</span>
+                                            <select
+                                                name="DataTables_Table_0_length"
+                                                aria-controls="DataTables_Table_0"
+                                                className="form-select ms-3 me-3"
+                                                style={{width: "80px"}}
+                                                onChange={handleItemsPerPageChange}
+                                                value={itemsPerPage}
+                                            >
+                                                <option value="10">10</option>
+                                                <option value="25">25</option>
+                                                <option value="50">50</option>
+                                            </select>
+                                            <span>entries</span>
+                                        </label>
+                                    </div>
                                 </div>
-                            </div>
-                            <div
-                                className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end mt-n6 mt-md-0">
-                            <Form.Control
-                                    type="text"
-                                    placeholder="Search..."
-                                    value={searchTerm}
-                                    onChange={handleSearch}
-                                    style={{ width: "295px" }}
-                                />
+                                <div
+                                    className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end mt-n6 mt-md-0">
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Search..."
+                                        value={searchTerm}
+                                        onChange={handleSearch}
+                                        style={{width: "295px"}}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <Table striped bordered hover responsive className="datatable">
-                    <thead>
-                    <tr>
-                        <th>
-                            <Form.Check
-                                type="checkbox"
-                                onChange={handleSelectAll}
-                                checked={selectedEntries.length === currentItems.length && currentItems.length > 0}
-                            />
-                        </th>
-                        <th>fullname</th>
-                        <th>username</th>
-                        <th>Order Date</th>
-                        <th>Price</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {currentItems.map((item, index) => (
-                        <tr key={index}>
-                            <td>
+                    <Table striped bordered hover responsive className="datatable">
+                        <thead>
+                        <tr>
+                            <th>
                                 <Form.Check
                                     type="checkbox"
-                                    checked={selectedEntries.includes(item.id)}
-                                    onChange={() => handleSelectItem(item.id)}
+                                    onChange={handleSelectAll}
+                                    checked={selectedEntries.length === currentItems.length && currentItems.length > 0}
                                 />
-                            </td>
-                            <td>
-                                {item.account?.user ? `${item.account.user.firstname} ${item.account.user.lastname}` : "N/A"}
-                            </td>
-                            <td>{item.account?.username || "N/A"}</td>
-                            <td>{item.date ? new Date(item.date).toLocaleString() : "N/A"}</td>
-                            <td>{item.price ? item.price : "$?"}</td>
-                            <td>{renderStatusBadge(item.status)}</td>
-                            <td>
-                                <Button variant="link"><FontAwesomeIcon icon={faEye}/></Button>
-                            </td>
+                            </th>
+                            <th>fullname</th>
+                            <th>username</th>
+                            <th>Order Date</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
-                    ))}
-                    </tbody>
-                </Table>
-                <div className="card-footer flex-column flex-md-row pb-0 pb-4">
-                    <div className="row">
-                        <div className="col-sm-12 col-md-6" style={{display: "flex"}}>
-                            <div className="dataTables_info"
-                                 style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
-                                <div className="text-center mt-2">
-                                    {/* Calculate starting and ending entries */}
-                                    {`Showing entries from ${indexOfFirstItem + 1} to ${Math.min(indexOfLastItem, filteredData.length)} of ${filteredData.length} entries`}
+                        </thead>
+                        <tbody>
+                        {currentItems.map((item, index) => (
+                            <tr key={index}>
+                                <td>
+                                    <Form.Check
+                                        type="checkbox"
+                                        checked={selectedEntries.includes(item.id)}
+                                        onChange={() => handleSelectItem(item.id)}
+                                    />
+                                </td>
+                                <td>
+                                    {item.account?.user ? `${item.account.user.firstname} ${item.account.user.lastname}` : "N/A"}
+                                </td>
+                                <td>{item.account?.username || "N/A"}</td>
+                                <td>{item.date ? new Date(item.date).toLocaleString() : "N/A"}</td>
+                                <td>{item.price ? item.price : "$?"}</td>
+                                <td>{renderStatusBadge(item.status)}</td>
+                                <td>
+                                    <Button variant="link" onClick={() => handleItemClick(item)}><FontAwesomeIcon icon={faEye}/></Button>
+                                </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </Table>
+                    <div className="card-footer flex-column flex-md-row pb-0 pb-4">
+                        <div className="row">
+                            <div className="col-sm-12 col-md-6" style={{display: "flex"}}>
+                                <div className="dataTables_info"
+                                     style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
+                                    <div className="text-center mt-2">
+                                        {/* Calculate starting and ending entries */}
+                                        {`Showing entries from ${indexOfFirstItem + 1} to ${Math.min(indexOfLastItem, filteredData.length)} of ${filteredData.length} entries`}
+                                    </div>
+                                </div>
+                                <div className="ms-2 me-2"></div>
+                                <div className="dataTables_select"
+                                     style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
+                                    <div className="text-center mt-2">
+                                        Selected {selectedEntries.length} entries
+                                    </div>
                                 </div>
                             </div>
-                            <div className="ms-2 me-2"></div>
-                            <div className="dataTables_select"
-                                 style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
-                                <div className="text-center mt-2">
-                                    Selected {selectedEntries.length} entries
-                                </div>
+                            <div className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
+                                {renderPagination()}
                             </div>
-                        </div>
-                        <div className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
-                            {renderPagination()}
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+            <StatisticView
+                show={showModal}
+                onHide={() => setShowModal(false)}
+                item={selectedItem}
+            />
+        </>
     );
 };

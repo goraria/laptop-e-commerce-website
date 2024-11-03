@@ -14,15 +14,36 @@ const Configuration = sequelize.define('Configuration', {
         references: {
             model: Product,
             key: 'idproduct',
-        }
+        },
     },
-    cpu: DataTypes.STRING,
-    ram: DataTypes.INTEGER,
-    gpu: DataTypes.STRING,
-    storage: DataTypes.INTEGER,
-    screen: DataTypes.INTEGER,
-    resolution: DataTypes.STRING,
-    price: DataTypes.INTEGER,
+    cpu: {
+        type: DataTypes.STRING,
+        allowNull: true,
+    },
+    ram: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    gpu: {
+        type: DataTypes.STRING,
+        defaultValue: 'Onboard',
+    },
+    storage: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+    },
+    screen: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
+    resolution: {
+        type: DataTypes.STRING(15),
+        allowNull: false,
+    },
+    price: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    },
 }, {
     tableName: 'configuration',
     timestamps: false,
