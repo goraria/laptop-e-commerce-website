@@ -16,4 +16,16 @@ router.delete('/delete-category/:idCategory', AdminController.deleteCategory);
 router.post('/update-category/:idCategory', AdminController.updateCategory);
 router.put('/create-category', AdminController.createCategory);
 router.put('/abc', AdminController.createdejaptor);
+
+router.get('/get-configration', AdminController.getConfiguration);
+router.delete('/delete-configuration/:idConfiguration', AdminController.deleteConfiguration);
+router.post('/update-configuration/:idConfiguration', AdminController.updateConfiguration);
+router.put('/create-configuration', AdminController.createConfiguration);
+
+router.get('/get-color', AdminController.getColor);
+router.delete('/delete-color/:idColor', AdminController.deleteColor);
+router.post('/update-color/:idColor', AdminController.updateColor);
+router.put('/create-color', AdminController.createColor);
+
+router.get('/payhd', AdminController.payhd);
 module.exports = router;

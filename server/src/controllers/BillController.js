@@ -16,7 +16,7 @@ class BillController {
                 include: [
                     {
                         model: Account,
-                        attributes: ['idaccount', 'username', 'email'], // Chỉ lấy `idaccount` từ Account
+                        attributes: ['idaccount', 'username', 'email'], // Chỉ lấy các trường cần thiết từ Account
                         include: [
                             {
                                 model: User,
@@ -29,10 +29,9 @@ class BillController {
 
             const result = bills.map(bill => ({
                 id: bill.idbill,
-                discount: bill.iddiscount,
                 date: bill.date,
                 price: bill.price,
-                account: {
+                account: bill.Account ? {
                     idaccount: bill.Account.idaccount,
                     username: bill.Account.username,
                     email: bill.Account.email,
@@ -42,7 +41,39 @@ class BillController {
                         lastname: bill.Account.User.lastname,
                         phone_number: bill.Account.User.phone_number
                     } : null
-                }
+                } : null,
+                address: bill.Address ? {
+                    idaddress: bill.Address.idaddress,
+                    tower: bill.Address.tower,
+                    street: bill.Address.street,
+                    district: bill.Address.district,
+                    city: bill.Address.city,
+                    state: bill.Address.state,
+                    country: bill.Address.country,
+                } : null,
+                discount: bill.Discount ? {
+                    iddiscount: bill.Discount.iddiscount,
+                    discount_name: bill.Discount.discount_name,
+                    percentage_discount: bill.Discount.percentage_discount,
+                    start_date: bill.Discount.start_date,
+                    end_date: bill.Discount.end_date
+                } : null,
+                bill_details: bill.BillDetails ? bill.BillDetails.map(detail => ({
+                    idbill_detail: detail.idbill_details,
+                    product: detail.Product ? detail.Product.product_name : null,
+                    brand: detail.Product ? detail.Product.brand : null,
+                    price: detail.price,
+                    configuration: detail.Configuration ? {
+                        cpu: detail.Configuration.cpu,
+                        ram: detail.Configuration.ram,
+                        gpu: detail.Configuration.gpu,
+                        storage: detail.Configuration.storage,
+                        screen: detail.Configuration.screen,
+                        resolution: detail.Configuration.resolution,
+                    } : null,
+                    color: detail.Color ? detail.Color.color : null,
+                    quantity: detail.quantity
+                })) : []
             }));
 
             res.json(result);

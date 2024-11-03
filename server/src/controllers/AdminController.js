@@ -6,6 +6,8 @@ const User = require('../models/User.js');
 const { where } = require('sequelize');
 const Category = require("../models/Category.js");
 const Product = require('../models/Product.js');
+const Configuration = require('../models/Configuration.js')
+const Color = require('../models/Color.js')
 class AdminController {
     async getAccount(req, res) {
         try {
@@ -132,7 +134,7 @@ class AdminController {
     async deleteCategory(req, res) {
         try {
             const { idCategory } = req.params
-            console.log(idCategory)
+
             const category = await Category.findOne({
                 where: {
                     idCategory: idCategory
@@ -145,22 +147,34 @@ class AdminController {
             console.error('Error deleting Category:', error);
             res.status(500).json({ success: false, message: 'Error deleting Category', error });
         }
-    } async updateCategory(req, res) {
+    }
+    async updateCategory(req, res) {
         const { idCategory } = req.params;
-        console.log(idCategory)
-        const updatedData = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
+
+
+        if (!idCategory) {
+            return res.status(400).json({ message: 'Category ID is required' });
+        }
+
+        const updatedData = req.body; // Dữ liệu cập nhật
+
+
+        if (!updatedData || Object.keys(updatedData).length === 0) {
+            return res.status(400).json({ message: 'No update data provided' });
+        }
 
         try {
             const category = await Category.findOne({
                 where: { idcategory: idCategory },
             });
+
             if (!category) {
                 return res.status(404).json({ message: `No category found with id ${idCategory}` });
             }
 
-            await category.update({ idcategory: updatedData.idcategory });
-            // await t.commit(); // Cam kết transaction
-            res.status(200).json({ success: true, message: 'User updated successfully', data: updatedData });
+            await category.update(updatedData); // Cập nhật dữ liệu từ client
+
+            res.status(200).json({ success: true, message: 'Category updated successfully', data: category });
 
         } catch (error) {
             console.error('Error updating category:', error);
@@ -169,7 +183,7 @@ class AdminController {
     }
     async createCategory(req, res) {
         const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
-        console.log(req.body)
+
         try {
 
             const newCategory = await Category.create({
@@ -186,10 +200,8 @@ class AdminController {
     }
     async updateUserData(req, res) {
         const { idaccount } = req.params;
-        console.log(idaccount)
         const updatedData = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
 
-        // const t = await db.sequelize.transaction(); // Bắt đầu transaction
 
         try {
             // Cập nhật bảng Account
@@ -250,6 +262,194 @@ class AdminController {
             })
         } catch (error) {
             console.log(error)
+        }
+    }
+    async getConfiguration(req, res) {
+        try {
+
+            const configuration = await Configuration.findAll();
+            res.status(200).json(configuration);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching configuration', error });
+        }
+
+    }
+    async updateConfiguration(req, res) {
+        const { idConfiguration } = req.params;
+        console.log(idConfiguration);
+        const updatedData = req.body;
+
+        try {
+            const configuration = await Configuration.findOne({
+                where: { idconfiguration: idConfiguration },
+            });
+
+            if (!configuration) {
+                return res.status(404).json({ message: `No configuration found with id ${idConfiguration}` });
+            }
+
+            await configuration.update(updatedData); // Cập nhật dữ liệu từ client
+
+            res.status(200).json({ success: true, message: 'Configuration updated successfully', data: configuration });
+
+        } catch (error) {
+            console.error('Error updating configuration:', error);
+            res.status(500).json({ success: false, message: 'Error updating configuration', error });
+        }
+    }
+    async createConfiguration(req, res) {
+        const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
+        console.log(Data)
+        try {
+            const product = await Product.findOne({
+                where: {
+                    product_name: Data.product_name
+                }
+            })
+            const newConfiguration = await Configuration.create({
+                cpu: Data.cpu,
+                ram: Data.ram,
+                gpu: Data.gpu,
+                storage: Data.storage,
+                screen: Data.screen,
+                resolution: Data.resolution,
+                price: Data.price,
+                idproduct: product.idproduct
+            });
+
+            console.log('newConfiguration created successfully:', newConfiguration);
+            return res.status(201).json({
+                configuration: newConfiguration,
+            });
+        } catch (error) {
+            // console.log(error)
+            res.status(500).json({ success: false, message: 'Error create configuration', error });
+        }
+    }
+    async deleteConfiguration(req, res) {
+        try {
+            const { idConfiguration } = req.params
+            console.log(idConfiguration)
+            const configuration = await Configuration.findOne({
+                where: {
+                    idconfiguration: idConfiguration
+                }
+            });
+            // Xóa người dùng
+            await configuration.destroy();
+            res.status(200).json({ success: true, message: 'Configuration deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting Category:', error);
+            res.status(500).json({ success: false, message: 'Error deleting Configuration', error });
+        }
+    }
+    // async updateConfiguration(req, res) {
+    //     const { idConfiguration } = req.params;
+    //     console.log(idConfiguration);
+    //     const updatedData = req.body;
+
+    //     try {
+    //         const configuration = await Configuration.findOne({
+    //             where: { idconfiguration: idConfiguration },
+    //         });
+
+    //         if (!configuration) {
+    //             return res.status(404).json({ message: `No configuration found with id ${idConfiguration}` });
+    //         }
+
+    //         await configuration.update(updatedData); // Cập nhật dữ liệu từ client
+
+    //         res.status(200).json({ success: true, message: 'Configuration updated successfully', data: configuration });
+
+    //     } catch (error) {
+    //         console.error('Error updating configuration:', error);
+    //         res.status(500).json({ success: false, message: 'Error updating configuration', error });
+    //     }
+    // }
+    async getColor(req, res) {
+        try {
+
+            const color = await Color.findAll();
+            res.status(200).json(color);
+        } catch (error) {
+            res.status(500).json({ message: 'Error fetching color', error });
+        }
+
+    }
+    async updateColor(req, res) {
+        const { idColor } = req.params;
+        const updatedData = req.body;
+
+        try {
+            const color = await Color.findOne({
+                where: { idcolor: idColor },
+            });
+
+            if (!color) {
+                return res.status(404).json({ message: `No color found with id ${idColor}` });
+            }
+
+            await color.update(updatedData); // Cập nhật dữ liệu từ client
+
+            res.status(200).json({ success: true, message: 'Color updated successfully', data: color });
+
+        } catch (error) {
+            console.error('Error updating color:', error);
+            res.status(500).json({ success: false, message: 'Error updating color', error });
+        }
+    }
+    async createColor(req, res) {
+        const Data = req.body; // Giả sử dữ liệu cập nhật được gửi từ client trong body
+        // console.log(Data)
+        try {
+            const product = await Product.findOne({
+                where: {
+                    product_name: Data.product_name
+                }
+            })
+            const newColor = await Color.create({
+                color: Data.color,
+            });
+
+            console.log('color created successfully:', newColor);
+            return res.status(201).json({
+                color: newColor,
+            });
+        } catch (error) {
+            // console.log(error)
+            res.status(500).json({ success: false, message: 'Error create color', error });
+        }
+    }
+    async deleteColor(req, res) {
+        try {
+            const { idColor } = req.params
+            // console.log(idConfiguration)
+            const color = await Color.findOne({
+                where: {
+                    color: color
+                }
+            });
+            await color.destroy();
+            res.status(200).json({ success: true, message: 'Color deleted successfully' });
+        } catch (error) {
+            console.error('Error deleting Category:', error);
+            res.status(500).json({ success: false, message: 'Error deleting color', error });
+        }
+    }
+    async payhd(req, res) {
+        try {
+            const color = await Color.findAll({
+                attributes: ["color"],
+                include: [{
+                    model: Product,
+                    attributes: ["product_name", "idproduct"],
+                }]
+            });
+            console.log(color)
+            res.status(200).json(color);
+        } catch (error) {
+            console.error('Error paying order:', error);
+            res.status(500).json({ success: false, message: 'Error paying order', error });
         }
     }
 }

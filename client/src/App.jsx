@@ -18,7 +18,7 @@ const App = () => {
     const [loading, setLoading] = useState(true);  // Thêm trạng thái loading
     const navigate = useNavigate();
 
-    const fetchData = async () => {
+    const authenticationCheck = async () => {
         const token = localStorage.getItem('token');
         if (!token) {
             setLoading(false);
@@ -46,7 +46,7 @@ const App = () => {
     };
 
     useEffect(() => {
-        fetchData();
+        authenticationCheck();
     }, [navigate]);
 
     if (loading) return <Frame><Loading/></Frame>;  // Hiển thị loading nếu đang lấy dữ liệu
