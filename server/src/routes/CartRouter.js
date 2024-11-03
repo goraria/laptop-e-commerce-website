@@ -10,6 +10,10 @@ const AuthenticationMiddleware = require('../middleware/AuthenticationMiddleware
 router.get('/load-cartItem/:idCart', cartController.loadCartItem);
 router.get('/loadcart', AuthenticationMiddleware , cartController.LoadCart);
 router.put('/add-cartitem', cartController.addCartItem);
+router.put('/remove-cartitem', cartController.removeCartItem);
+router.put('/update-cartitem', cartController.updateCartItemQuantity);
+
+
 
 
 

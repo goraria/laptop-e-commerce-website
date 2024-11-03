@@ -1,20 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Row, Col, Image, Form, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faMinus, faTrash } from "@fortawesome/free-solid-svg-icons";
+import axios from 'axios';
 
-const CardItem = ({ Item, onCheckboxChange }) => {
+const CardItem = ({ Item, onCheckboxChange, onRemoveItem }) => {
     const item = Item;
     const [product, setProduct] = useState([]);
     const [default_config, setdefaultconfig] = useState([]);
     const [descriptions, setArray] = useState([]);
     const [isChecked, setIsChecked] = useState(false);
-
-    const handleCheckboxChange = () => {
-        const newCheckedState = !isChecked;
-        setIsChecked(newCheckedState);
-        onCheckboxChange(default_config.price, newCheckedState); // Notify parent with price and new state
-    };
+    const [quantity, setQuantity] = useState(item.quantity);
+    const [reload, setReload] = useState(false);  // State to trigger re-render
 
     const fetchProductDetails = async () => {
         try {
@@ -46,11 +43,59 @@ const CardItem = ({ Item, onCheckboxChange }) => {
         }
     };
 
+
+
     useEffect(() => {
         fetchProductDetails();
         fetchProductConfiguration();
         fetchProductDescription();
     }, []);
+
+    const handleCheckboxChange = () => {
+        const newCheckedState = !isChecked;
+        setIsChecked(newCheckedState);
+        onCheckboxChange(default_config.price, newCheckedState, item); // Notify parent with price and new state
+    };
+
+    const handleRemoveItem = async () => {
+        try {
+            const response = await axios.put(`http://localhost:5172/cart/remove-cartitem`, {
+                idcartItem: item.idcart_item,
+            });
+            if (response.status === 201) {
+                alert("Sản phẩm đã được xóa vào giỏ hàng!");
+                onRemoveItem();
+            }
+
+        } catch (error) {
+            console.error('Lỗi khi xóa vào giỏ hàng:', error);
+        }
+    };
+
+    const handleUpdateQuantityItem = async (newQuantity) => {
+        try {
+            const response = await axios.put(`http://localhost:5172/cart/update-cartitem`, {
+                idcartItem: item.idcart_item,
+                quantity: newQuantity
+            });
+        } catch (error) {
+            console.error('Lỗi khi cập nhật vào giỏ hàng:', error);
+        }
+    };
+    const handleQuantityChange = (newQuantity) => {
+        if (newQuantity < 1) return;
+
+        setQuantity(newQuantity);
+        handleUpdateQuantityItem(newQuantity);  // Update quantity in the backend
+        console.log(newQuantity) // Update local quantity state
+    };
+    
+    useEffect(() => {
+        // fetchUser();
+        // fetchAddress();
+        // response();
+    }, []);
+
 
     return (
         <Row className="align-items-center py-3" style={{ display: "flex", flexWrap: "wrap" }}>
@@ -74,18 +119,23 @@ const CardItem = ({ Item, onCheckboxChange }) => {
             </Col>
             <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
                 <Button variant="light">
-                    <FontAwesomeIcon icon={faMinus} />
+                    <FontAwesomeIcon icon={faMinus} onClick={() => handleQuantityChange(quantity - 1)} />
                 </Button>
                 <Form className="d-flex align-items-center justify-content-center mx-2">
                     <Form.Control
                         type="text"
                         placeholder="0"
-                        defaultValue={item.quantity}
+                        // defaultValue={quantity}
+                        value={quantity}
+                        // onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
                         style={{ width: 56, textAlign: "center" }}
                     />
                 </Form>
                 <Button variant="light">
-                    <FontAwesomeIcon icon={faPlus} />
+                    <FontAwesomeIcon icon={faPlus} onClick={() => handleQuantityChange(quantity + 1)} />
+                </Button>
+                <Button variant="light" onClick={handleRemoveItem}>
+                    <FontAwesomeIcon icon={faTrash} />
                 </Button>
             </Col>
         </Row>

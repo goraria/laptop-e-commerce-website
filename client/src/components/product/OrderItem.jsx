@@ -5,7 +5,6 @@ import { faPlus, faMinus } from "@fortawesome/free-solid-svg-icons";
 
 const OrderItem = (Item ) => {
     const item = Item['Item'];
-    console.log(item)
     const [product, setProduct] = useState([]);
     const [default_config, setdefaultconfig] = useState([]);
     const [descriptions, setArray] = useState([]);
