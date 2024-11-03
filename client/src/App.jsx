@@ -38,6 +38,7 @@ const App = () => {
                 isAuthenticated: false,
                 role: null
             });
+            localStorage.removeItem('token');
             navigate('/404');
         } finally {
             setLoading(false);  // Dừng loading sau khi fetch
@@ -48,7 +49,7 @@ const App = () => {
         fetchData();
     }, [navigate]);
 
-    if (loading) return <Loading/>;  // Hiển thị loading nếu đang lấy dữ liệu
+    if (loading) return <Frame><Loading/></Frame>;  // Hiển thị loading nếu đang lấy dữ liệu
 
     return (
         <Routes>

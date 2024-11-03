@@ -16,11 +16,16 @@ const AddressManagement = () => {
     const [addresses, setAddresses] = useState([]);
     const [loading, setLoading] = useState(true);
     // const [reloadAddressManagement, setReloadAddressManagement] = useState(0);
-    const [reloadTrigger, setReloadTrigger] = useState(0);
+    const [reloadTrigger, setReloadTrigger] = useState(false);
+
+    const handleReload = () => {
+        setReloadTrigger(!reloadTrigger);
+    };
 
     useEffect(() => {
         const fetchAddresses = async () => {
             try {
+                // setLoading(true);
                 const token = localStorage.getItem('token');
                 const response = await axios.get('http://localhost:5172/address/list', {
                     headers: {
@@ -31,32 +36,17 @@ const AddressManagement = () => {
             } catch (error) {
                 console.error('Lỗi khi lấy dữ liệu:', error);
             } finally {
-                setLoading(false);
-            }
-        };
-
-        const fetchAddresses0 = async () => {
-            try {
-                const response = await axios.get('http://localhost:5172/address/list');
-                console.log(response.data)
-                setAddresses(response.data);
-            } catch (error) {
-                console.error('Lỗi khi lấy dữ liệu:', error);
-            } finally {
-                setLoading(false);
+                // setLoading(false);
             }
         };
 
         fetchAddresses();
     }, [reloadTrigger]);  // Khi reloadTrigger thay đổi, useEffect sẽ gọi lại API //
 
-    const handleReload = () => {
-        setReloadTrigger(reloadTrigger + 1);
-    };
-
     // if (loading) {
     //     return <p>Đang tải dữ liệu...</p>;
     // }
+
     return (
         <Profile>
             <Card

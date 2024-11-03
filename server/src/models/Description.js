@@ -1,7 +1,7 @@
 // models/Description.js
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
-const Product = require('./Product')
+const Product = require('./Product');
 
 const Description = sequelize.define('Description', {
     iddescription: {
@@ -9,28 +9,22 @@ const Description = sequelize.define('Description', {
         primaryKey: true,
         autoIncrement: true,
     },
-    idproduct:{
+    idproduct: {
         type: DataTypes.INTEGER,
         references: {
             model: Product,
-            key: 'idproduct'
+            key: 'idproduct',
         }
     },
-    title_description: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    },
-    sub_description: {
-        type: DataTypes.STRING(2047),
-        allowNull: true,
-    },
-    img_description: {
-        type: DataTypes.STRING,
-        allowNull: true,
-    }
+    title_description: DataTypes.STRING,
+    sub_description: DataTypes.STRING,
+    img_description: DataTypes.STRING,
 }, {
     tableName: 'description',
     timestamps: false,
 });
+
+Product.hasMany(Description, { foreignKey: 'idproduct' });
+Description.belongsTo(Product, { foreignKey: 'idproduct' });
 
 module.exports = Description;

@@ -6,10 +6,11 @@ import {
     faAngleRight,
     faAnglesLeft,
     faAnglesRight,
-    faEllipsis, faPenToSquare,
+    faEllipsis, faEye, faPenToSquare,
     faPlus, faTrash
 } from "@fortawesome/free-solid-svg-icons";
 import Calendar from "react-calendar";
+import axios from "axios";
 
 export const Statistics = () => {
     const [data, setData] = useState([
@@ -76,7 +77,6 @@ export const Statistics = () => {
     const [selectedEntries, setSelectedEntries] = useState([]);
     const [itemsPerPage, setItemsPerPage] = useState(10);
 
-
     const [fromDate, setFromDate] = useState(null);
     const [toDate, setToDate] = useState(null);
     const [showFromCalendar, setShowFromCalendar] = useState(false);
@@ -84,6 +84,21 @@ export const Statistics = () => {
     const [error, setError] = useState("");
     const fromCalendarRef = useRef(null);
     const toCalendarRef = useRef(null);
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalData, setModalData] = useState(null);
+
+    const fetchStatistics = async () => {
+        try {
+            const response = await axios.get('http://localhost:5172/bill/list-all');
+            setData(response.data);
+            console.log(response.data)
+        } catch (error) {
+            console.error('Lỗi khi lấy dữ liệu:', error);
+        } finally {
+            // setLoading(false);
+        }
+    }
 
     const handleFromDateClick = () => {
         setShowFromCalendar(!showFromCalendar);
@@ -128,6 +143,7 @@ export const Statistics = () => {
     };
 
     useEffect(() => {
+        fetchStatistics()
         document.addEventListener('mousedown', handleClickOutside);
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, []);
@@ -155,8 +171,11 @@ export const Statistics = () => {
     };
 
     const filteredData = data.filter(item =>
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.email.toLowerCase().includes(searchTerm.toLowerCase())
+        // item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        // item.email.toLowerCase().includes(searchTerm.toLowerCase())
+
+        item.account?.username?.toLowerCase().includes(searchTerm.toLowerCase())
+
     );
 
     const indexOfLastItem = currentPage * itemsPerPage;
@@ -272,6 +291,13 @@ export const Statistics = () => {
                 return <Badge bg="label-secondary">{status}</Badge>;
         }
     };
+    const handleOpenModal = (item) => {
+        setModalData(item); // Cập nhật dữ liệu cho modal
+        setShowModal(true);  // Mở modal
+    };
+
+    console.log(new Date(fromDate).toLocaleString(), new Date(toDate).toLocaleString())
+    // setFromDate(`${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`);
 
     return (
         <div className="card">
@@ -369,14 +395,15 @@ export const Statistics = () => {
                                     onChange={() => handleSelectItem(item.id)}
                                 />
                             </td>
-                            <td>{item.fullname}</td>
-                            <td>{item.username}</td>
-                            <td>{item.date}</td>
-                            <td>{item.salary}</td>
+                            <td>
+                                {item.account?.user ? `${item.account.user.firstname} ${item.account.user.lastname}` : "N/A"}
+                            </td>
+                            <td>{item.account?.username || "N/A"}</td>
+                            <td>{item.date ? new Date(item.date).toLocaleString() : "N/A"}</td>
+                            <td>{item.price ? item.price : "$?"}</td>
                             <td>{renderStatusBadge(item.status)}</td>
                             <td>
-                                <Button variant="link"><FontAwesomeIcon icon={faPenToSquare}/></Button>
-                                <Button variant="link"><FontAwesomeIcon icon={faTrash}/></Button>
+                                <Button variant="link"><FontAwesomeIcon icon={faEye}/></Button>
                             </td>
                         </tr>
                     ))}

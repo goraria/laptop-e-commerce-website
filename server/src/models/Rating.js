@@ -24,18 +24,9 @@ const Rating = sequelize.define('Rating', {
             key: 'idproduct',
         }
     },
-    score: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    },
-    comment: {
-        type: DataTypes.STRING(1023),
-        allowNull: true,
-    },
-    rating_date: {
-        type: DataTypes.DATE,
-        allowNull: true,
-    }
+    score: DataTypes.INTEGER,
+    comment: DataTypes.STRING,
+    rating_date: DataTypes.DATE,
 }, {
     tableName: 'rating',
     timestamps: false,
@@ -43,7 +34,6 @@ const Rating = sequelize.define('Rating', {
 
 Account.hasMany(Rating, { foreignKey: 'idaccount' });
 Rating.belongsTo(Account, { foreignKey: 'idaccount' });
-
 Product.hasMany(Rating, { foreignKey: 'idproduct' });
 Rating.belongsTo(Product, { foreignKey: 'idproduct' });
 

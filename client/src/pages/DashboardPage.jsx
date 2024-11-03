@@ -19,19 +19,6 @@ export const DashboardPage = () => {
         <>
             <div className="row">
                 <div className="col-lg-12 mb-4 order-0">
-                    <div className="card">
-                        <div className="d-flex align-items-end row">
-                            <div className="col-sm-7">
-                                <div className="card-body">
-                                    <Calendar/>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-lg-12 mb-4 order-0">
                     <Statistics/>
                 </div>
             </div>

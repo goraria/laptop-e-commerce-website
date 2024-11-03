@@ -15,13 +15,13 @@ const Cart = sequelize.define('Cart', {
             model: Account,
             key: 'idaccount',
         }
-    }
+    },
 }, {
     tableName: 'cart',
     timestamps: false,
 });
 
-Account.hasOne(Cart, { foreignKey: 'idaccount' });
+Account.hasMany(Cart, { foreignKey: 'idaccount' });
 Cart.belongsTo(Account, { foreignKey: 'idaccount' });
 
 module.exports = Cart;

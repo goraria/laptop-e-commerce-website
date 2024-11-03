@@ -222,7 +222,33 @@ const Sidebar = () => {
     );
 };
 
-const MenuItem = (item) => {
+const MenuItem = (item, index) => {
+    const location = useLocation();
+    const isActive = location.pathname === item.link;
+    const hasSubmenu = item.submenu && item.submenu.length > 0;
+    const isSubmenuActive = hasSubmenu && item.submenu.some(subitem => location.pathname === subitem.link);
+
+    return (
+        <li key={index} className={`menu-item ${isActive || isSubmenuActive ? 'active' : ''} ${hasSubmenu && isSubmenuActive ? 'open' : ''}`}>
+            <NavLink
+                aria-label={`Navigate to ${item.text} ${!item.available ? 'Pro' : ''}`}
+                to={item.link}
+                className={`menu-link ${item.submenu ? 'menu-toggle' : ''}`}
+                target={item.link.includes('http') ? '_blank' : undefined}
+            >
+                <i className={`menu-icon tf-icons ${item.icon}`}></i>
+                <div>{item.text}</div> {item.available === false && (
+                <div className="badge bg-label-primary fs-tiny rounded-pill ms-auto">Pro</div>
+            )}
+            </NavLink>
+            {item.submenu && (
+                <ul className="menu-sub">{item.submenu.map((subitem, subindex) => MenuItem(subitem, subindex))}</ul>
+            )}
+        </li>
+    );
+};
+
+const MenuItem0 = (item) => {
     const location = useLocation();
     const isActive = location.pathname === item.link;
     const hasSubmenu = item.submenu && item.submenu.length > 0;

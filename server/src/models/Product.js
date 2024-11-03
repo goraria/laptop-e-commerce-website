@@ -2,8 +2,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Category = require('./Category');
-const Configuration = require('./Configuration');
-const Description = require('./Description');
 
 const Product = sequelize.define('Product', {
     idproduct: {
@@ -11,33 +9,19 @@ const Product = sequelize.define('Product', {
         primaryKey: true,
         autoIncrement: true,
     },
-    product_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    brand: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-    product_image: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
     idcategory: {
         type: DataTypes.INTEGER,
         references: {
             model: Category,
             key: 'idcategory',
         }
-    }
-   
+    },
+    product_name: DataTypes.STRING,
+    brand: DataTypes.STRING,
+    product_image: DataTypes.STRING,
 }, {
     tableName: 'product',
     timestamps: false,
 });
 
-Category.hasMany(Product, { foreignKey: 'idcategory' });
-Product.belongsTo(Category, { foreignKey: 'idcategory' });
-Product.hasOne(Description, {foreignKey: 'idproduct'});
-Description.belongsTo(Product, {foreignKey: 'idproduct'})
 module.exports = Product;
