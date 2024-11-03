@@ -6,6 +6,7 @@ import OrderItem from "../../components/product/OrderItem.jsx";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import NotifySuccess from "../../components/modal/notify/NotifySuccess.jsx";
+import { useNavigate } from 'react-router-dom'
 
 
 
@@ -25,7 +26,7 @@ function CheckOut() {
     const [date, setDate] = useState(new Date()); // State for delivery method
     const [address, setAdress] = useState([]); // State for delivery method
 
-
+    const navigate = useNavigate();
 
     const token = localStorage.getItem('token');
 
@@ -67,7 +68,7 @@ function CheckOut() {
                 
             });
             alert("Bill đã được tạo vào thành công");
-
+            navigate('/')
         } catch (error) {
             console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
         }
