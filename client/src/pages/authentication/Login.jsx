@@ -14,6 +14,8 @@ import Overview from "../../layouts/Overview.jsx";
 import SaveChange from "../../components/modal/notify/SaveChange.jsx";
 import NotifySuccess from "../../components/modal/notify/NotifySuccess.jsx";
 import NotifyError from "../../components/modal/notify/NotifyError.jsx";
+import Frame from "../../layouts/Frame.jsx";
+import Loading from "../overview/Loading.jsx";
 
 const sclItems = [
     // { id: 0, name: "Github", icon: faGithub, color: "secondary" },
@@ -23,7 +25,7 @@ const sclItems = [
     // { id: 4, name: "Twitter", icon: faTwitter },
 ]
 
-const Login = () => {
+const Login = ({ authenticationCheck }) => {
     // const [modalShow, setModalShow] = useState(false);
     const [check, setCheck] = useState(false);
     const [validated, setValidated] = useState(false);
@@ -32,17 +34,64 @@ const Login = () => {
         password: ''
     });
 
+    const [auth, setAuth] = useState({
+        isAuthenticated: false,
+        role: null
+    });
+
     const [error, setError] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);  // trạng thái cho NotifySuccess
     const [showError, setShowError] = useState(false);  // trạng thái cho NotifyError
-
+    const [loading, setLoading] = useState(false);  // Thêm trạng thái loading
     const navigate = useNavigate();
+
+    const authenticationCheck0 = async () => {
+        const token = localStorage.getItem('token');
+        setLoading(true);
+
+        if (!token) {
+            setAuth({
+                isAuthenticated: false,
+                role: null
+            });
+            setLoading(false);
+            navigate('/login');
+            return;
+        }
+
+        try {
+            const response = await axios.get('http://localhost:5172/authentication/check', {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            const rolex = response.data.role;
+            setAuth({
+                isAuthenticated: true,
+                role: rolex
+            });
+
+            if (userRole === 1) {
+                navigate("/admin");
+            } else if (userRole === 0) {
+                navigate("/user/profile");
+            }
+        } catch (error) {
+            setAuth({
+                isAuthenticated: false,
+                role: null
+            });
+            localStorage.removeItem('token');
+            navigate('/404');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit0 = async (event) => {
+        setLoading(true);
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
@@ -57,29 +106,31 @@ const Login = () => {
 
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token);
-                    console.log(response.data.token.role);
                     setShowSuccess(true);  // hiển thị NotifySuccess khi đăng nhập thành công
-                    setTimeout(() => {
-                        navigate(response.data.role === 1 ? "/admin" : "/user/profile"); // Redirect based on role
-                        // navigate("/"); // Redirect based on role
-                    }, 2000);
+                    // setTimeout(() => {
+                    //     navigate(response.data.role === 1 ? "/admin" : "/user/profile"); // Redirect based on role
+                    //     // navigate("/"); // Redirect based on role
+                    // }, 2000);
+                    // setTimeout(authenticationCheck(), 2000)
+                    await authenticationCheck()
                 }
             } catch (error) {
                 setError(error.response ? error.response.data.message : 'Login failed');
                 setShowError(true);  // hiển thị NotifyError khi đăng nhập thất bại
+            } finally {
+                setLoading(false);
             }
         }
         setValidated(true);
     };
 
-    const handleSubmit0 = async (event) => {
+    const handleSubmit = async (event) => {
+        event.preventDefault();
         const form = event.currentTarget;
-
         if (form.checkValidity() === false) {
-            event.preventDefault();
             event.stopPropagation();
         } else {
-            event.preventDefault();
+            setLoading(true);
             try {
                 const response = await axios.post('http://localhost:5172/authentication/login', {
                     username: formData.username,
@@ -88,16 +139,25 @@ const Login = () => {
 
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token);
-                    // alert('Login successful');
-                    navigate('/');
+                    setShowSuccess(true);
+
+                    await authenticationCheck();
                 }
             } catch (error) {
-                // alert('Login fail');
                 setError(error.response ? error.response.data.message : 'Login failed');
+                setShowError(true);
+            } finally {
+                setLoading(false);
             }
         }
         setValidated(true);
     };
+
+    // useEffect(() => {
+    //     authenticationCheck();
+    // }, [navigate]);
+
+    if (loading) return <Frame><Loading/></Frame>
 
     return (
         <>
@@ -159,13 +219,20 @@ const Login = () => {
                                 </Form.Group>
                             </Col>
                             <Col xs={6} className="text-end">
-                                <Button variant="link"
-                                        style={{padding: 0, color: '#696cff', textDecoration: "none", fontWeight: 'bold'}}>
+                                <Button
+                                    variant="link"
+                                    style={{
+                                        padding: 0,
+                                        color: '#696cff',
+                                        textDecoration: "none",
+                                        fontWeight: 'bold'
+                                    }}>
                                     Forgot password?
                                 </Button>
                             </Col>
                         </Row>
-                        <Button variant="primary" type="submit" style={{width: '100%'}} onClick={() => setCheck(true)}>
+                        <Button variant="primary" type="submit" style={{width: '100%'}}
+                                onClick={() => setCheck(true)}>
                             Log in
                         </Button>
                         <hr/>

@@ -6,7 +6,6 @@ const NotifyWarning = ({ title, message, show, onHide }) => {
         <Modal
             show={show}
             onHide={onHide}
-            size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >

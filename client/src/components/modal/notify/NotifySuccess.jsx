@@ -6,7 +6,6 @@ const NotifySuccess = ({ title, message, show, onHide }) => {
         <Modal
             show={show}
             onHide={onHide} // đóng Modal khi người dùng nhấn Close
-            size="lg"
             aria-labelledby="contained-modal-title-vcenter"
             centered
         >
