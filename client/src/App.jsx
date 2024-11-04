@@ -9,19 +9,27 @@ import Protected from "./utils/Protected.jsx";
 import NotFound from "./pages/overview/NotFound.jsx";
 import axios from 'axios';
 import Loading from "./pages/overview/Loading.jsx";
+import Login from "./pages/authentication/Login.jsx";
 
 const App = () => {
     const [auth, setAuth] = useState({
         isAuthenticated: false,
         role: null
     });
-    const [loading, setLoading] = useState(true);  // Thêm trạng thái loading
+    const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
 
     const authenticationCheck = async () => {
         const token = localStorage.getItem('token');
+        setLoading(true);
+
         if (!token) {
+            setAuth({
+                isAuthenticated: false,
+                role: null
+            });
             setLoading(false);
+            navigate('/login');
             return;
         }
 
@@ -29,10 +37,17 @@ const App = () => {
             const response = await axios.get('http://localhost:5172/authentication/check', {
                 headers: { Authorization: `Bearer ${token}` }
             });
+            const rolex = response.data.role;
             setAuth({
                 isAuthenticated: true,
-                role: response.data.role
+                role: rolex
             });
+
+            if (rolex === 1) {
+                navigate("/admin");
+            } else if (rolex === 0) {
+                navigate("/user/profile");
+            }
         } catch (error) {
             setAuth({
                 isAuthenticated: false,
@@ -41,15 +56,15 @@ const App = () => {
             localStorage.removeItem('token');
             navigate('/404');
         } finally {
-            setLoading(false);  // Dừng loading sau khi fetch
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         authenticationCheck();
-    }, [navigate]);
+    }, []); // navigate
 
-    if (loading) return <Frame><Loading/></Frame>;  // Hiển thị loading nếu đang lấy dữ liệu
+    if (loading) return <Frame><Loading/></Frame>;
 
     return (
         <Routes>
@@ -76,6 +91,8 @@ const App = () => {
                     </Protected>
                 }
             />
+
+            <Route path="/login" element={<Frame><Login authenticationCheck={authenticationCheck} /></Frame>} />
 
             <Route path="*" element={<NotFound />} />
         </Routes>

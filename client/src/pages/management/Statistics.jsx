@@ -289,14 +289,14 @@ export const Statistics = () => {
 
     const renderStatusBadge = (status) => {
         switch (status) {
-            case "Professional":
-                return <Badge bg="label-success">Professional</Badge>;
-            case "Resigned":
-                return <Badge bg="label-warning">Resigned</Badge>;
-            case "Current":
-                return <Badge bg="label-primary">Current</Badge>;
-            case "Applied":
-                return <Badge bg="label-info">Applied</Badge>;
+            case "Delivered":
+                return <Badge bg="label-success">Delivered</Badge>;
+            case "Ordered":
+                return <Badge bg="label-warning">Ordered</Badge>;
+            case "Delivering":
+                return <Badge bg="label-primary">Delivering</Badge>;
+            case "Paid":
+                return <Badge bg="label-info">Paid</Badge>;
             case "Rejected":
                 return <Badge bg="label-danger">Rejected</Badge>;
             default:
