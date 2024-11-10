@@ -69,8 +69,6 @@ export const CategoryForm = ({ category, show, onHide, onReload }) => {
         }
     };
 
-
-
     const handleConfirmSave = async () => {
         try {
             console.log("aaaaaaaaaaa")

@@ -30,5 +30,5 @@ Routes {
 Verify {
     send mail
     take email
-
+    huong dan cach tao
 }

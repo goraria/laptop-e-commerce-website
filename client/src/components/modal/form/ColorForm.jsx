@@ -120,7 +120,7 @@ export const ColorForm = ({ color, show, onHide, onReload }) => {
                     </p> */}
                     <Form noValidate validated={validated} onSubmit={handleInvalid}> {/*onSubmit={handleSubmit, openConfirmModal}*/}
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="product_name">
+                            <Form.Group as={Col} md={7} controlId="product_name">
                                 <Form.Label>Product Name</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="product_name">

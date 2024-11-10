@@ -182,7 +182,7 @@ export const ProductForm = ({ product, show, onHide, onReload }) => {
                     </p> */}
                     <Form noValidate validated={validated} onSubmit={handleInvalid}> {/*onSubmit={handleSubmit, openConfirmModal}*/}
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="product_name">
+                            <Form.Group as={Col} md={7} controlId="product_name">
                                 <Form.Label>Product Name</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="product_name">
@@ -238,7 +238,7 @@ export const ProductForm = ({ product, show, onHide, onReload }) => {
                             </Form.Group> */}
                         </Row>
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="category_name">
+                            <Form.Group as={Col} md={12} controlId="category_name">
                                 <Form.Label>Category</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="category_name">
