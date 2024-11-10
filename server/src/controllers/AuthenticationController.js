@@ -6,7 +6,11 @@ const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
 const { Op } = require('sequelize');
 require('dotenv').config();
+const crypto = require('crypto');
 
+const generateToken = () => {
+    return crypto.randomBytes(20).toString('hex');
+};
 class AuthenticationController {
     async login(req, res) {
         const { username, password } = req.body;
@@ -48,8 +52,9 @@ class AuthenticationController {
 
     async register(req, res) {
         const { username, password, email, firstname, lastname, phone, avatar } = req.body;
-        console.log(req.body)
+        // console.log(req.body)
         try {
+            const token = generateToken();
             const existingAccount = await Account.findOne({
                 where: { [Op.or]: [{ username }, { email }] }
             });
@@ -64,42 +69,45 @@ class AuthenticationController {
 
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            // const newAccount = await Account.create({
-            //     username,
-            //     password: hashedPassword,
-            //     email,
-            //     role: 0,
-            //     status: 0,
-            // });
-            //
-            // const newUser = await User.create({
-            //     idaccount: newAccount.idaccount,
-            //     firstname,
-            //     lastname,
-            //     phone_number: phone,
-            //     avatar: null,
-            // });
-            //
-            // const newCart = await Cart.create({
-            //     idaccount: newAccount.idaccount
-            // });
+            const newAccount = await Account.create({
+                username,
+                password: hashedPassword,
+                email,
+                role: 0,
+                status: 0,
+                verificationtoken: token,
+                isverify: false,
+            });
 
-            await AuthenticationController.sendConfirmationEmail(email, req, res);
+            const newUser = await User.create({
+                idaccount: newAccount.idaccount,
+                firstname,
+                lastname,
+                phone_number: phone,
+                avatar: null,
+            });
+
+            const newCart = await Cart.create({
+                idaccount: newAccount.idaccount
+            });
+
+            await AuthenticationController.sendConfirmationEmail(email, token, req, res);
 
             return res.status(201).json({
                 message: 'User registered successfully and confirmation email sent',
-                // account: newAccount,
-                // user: newUser,
-                // cart: newCart
+                account: newAccount,
+                user: newUser,
+                cart: newCart
             });
 
         } catch (error) {
             console.error('Registration error:', error);
-            return res.status(500).json({ error: 'Error registering user' });
+            // return res.status(500).json({ error: 'Error registering user' });
         }
     }
 
-    static async sendConfirmationEmail(email, req, res) {
+    static async sendConfirmationEmail(email, token, req, res) {
+        const verificationLink = `http://localhost:5172/authentication/verify-email?token=${token}`;
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -107,13 +115,13 @@ class AuthenticationController {
                 pass: process.env.EMAIL_APSS,
             },
         });
-
+        //process.env.EMAIL_USER
         const mailOptions = {
             from: "Gorth Inc.",
             to: email,
             subject: 'Welcome to Our Service!',
             text: 'Thank you for registering! We are excited to have you on board.',
-            html: '<h1>Welcome!</h1><p>Thank you for registering with our service. We are excited to have you on board.</p>',
+            html: `<p>Nhấp vào link sau để xác minh tài khoản của bạn:</p><a href="${verificationLink}">Xác minh email</a>`,
         };
 
         try {
@@ -121,6 +129,7 @@ class AuthenticationController {
             // console.log('Confirmation email sent successfully');
         } catch (error) {
             // console.error('Error sending confirmation email:', error);
+            console.log(error)
             return res.status(500).json({ error: 'Error registering user' });
         }
     }
@@ -138,6 +147,21 @@ class AuthenticationController {
             res.status(401).json({ message: 'Invalid token' });
         }
     }
+    async verifyEmail(req, res) {
+        const { token } = req.query;
+
+        const user = await Account.findOne({ where: { verificationtoken: token } });
+
+        if (user) {
+            user.isverify = true;
+            user.verificationtoken = null;
+            await user.save();
+
+            res.send('Email của bạn đã được xác minh thành công!');
+        } else {
+            res.send('Link xác minh không hợp lệ hoặc đã hết hạn.');
+        }
+    };
 }
 
 module.exports = new AuthenticationController();

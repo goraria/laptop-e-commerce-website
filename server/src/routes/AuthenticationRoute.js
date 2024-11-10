@@ -13,4 +13,6 @@ router.post('/logout', AuthenticationMiddleware, AuthenticationController.logout
 
 router.get('/check', AuthenticationMiddleware, AuthenticationController.check)
 
+router.get('/verify-email', AuthenticationController.verifyEmail)
+
 module.exports = router
