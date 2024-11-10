@@ -145,7 +145,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                     </p> */}
                     <Form noValidate validated={validated} onSubmit={handleInvalid}> {/*onSubmit={handleSubmit, openConfirmModal}*/}
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="cpu">
+                            <Form.Group as={Col} md={8} controlId="cpu">
                                 <Form.Label>CPU</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="cpu">
@@ -163,7 +163,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="ram">
+                            <Form.Group as={Col} md={4} controlId="ram">
                                 <Form.Label>RAM</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="ram">
@@ -181,7 +181,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="gpu">
+                            <Form.Group as={Col} md={8} controlId="gpu">
                                 <Form.Label>GPU</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="gpu">
@@ -199,7 +199,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="storage">
+                            <Form.Group as={Col} md={4} controlId="storage">
                                 <Form.Label>Storage</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="storage">
@@ -219,7 +219,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                             </Form.Group>
                         </Row>
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="screen">
+                            <Form.Group as={Col} md={4} controlId="screen">
                                 <Form.Label>Screen</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="screen">
@@ -237,7 +237,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="resolution">
+                            <Form.Group as={Col} md={8} controlId="resolution">
                                 <Form.Label>Resolution</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="resolution">
@@ -274,7 +274,7 @@ export const ConfigurationForm = ({ configuration, show, onHide, onReload }) => 
                                 </InputGroup>
                             </Form.Group>
 
-                            <Form.Group as={Col} md={5} controlId="product_name">
+                            <Form.Group as={Col} md={7} controlId="product_name">
                                 <Form.Label>Product Name</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="product_name">

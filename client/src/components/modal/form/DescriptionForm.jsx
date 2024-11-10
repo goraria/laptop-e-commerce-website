@@ -126,7 +126,7 @@ export const DescriptionForm = ({ description, show, onHide, onReload }) => {
                     </p> */}
                     <Form noValidate validated={validated} onSubmit={handleInvalid}> {/*onSubmit={handleSubmit, openConfirmModal}*/}
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="product_name">
+                            <Form.Group as={Col} md={7} controlId="product_name">
                                 <Form.Label>Product Name</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="product_name">
@@ -182,7 +182,7 @@ export const DescriptionForm = ({ description, show, onHide, onReload }) => {
                             </Form.Group> */}
                         </Row>
                         <Row className="mb-3">
-                            <Form.Group as={Col} md={5} controlId="sub_description">
+                            <Form.Group as={Col} md={12} controlId="sub_description">
                                 <Form.Label>Sub Description</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="sub_description">
@@ -200,7 +200,9 @@ export const DescriptionForm = ({ description, show, onHide, onReload }) => {
                                     </Form.Control.Feedback>
                                 </InputGroup>
                             </Form.Group>
-                            <Form.Group as={Col} md={5} controlId="img_description">
+                        </Row>
+                        <Row className="mb-3">
+                            <Form.Group as={Col} md={12} controlId="img_description">
                                 <Form.Label>Img Description</Form.Label>
                                 <InputGroup hasValidation>
                                     <InputGroup.Text id="img_description">
