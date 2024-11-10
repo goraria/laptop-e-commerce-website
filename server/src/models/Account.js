@@ -30,6 +30,16 @@ const Account = sequelize.define('Account', {
         allowNull: false,
         defaultValue: 0,
     },
+    verificationtoken: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        defaultValue: null,
+    },
+    isverify: {
+        type: DataTypes.TINYINT,
+        allowNull: false,
+        defaultValue: 0,
+    },
 }, {
     tableName: 'account',
     timestamps: false,
