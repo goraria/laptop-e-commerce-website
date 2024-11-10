@@ -215,6 +215,7 @@ function AccountInfo({ onReload }) {
                                     placeholder="Phone"
                                     value={formData.phone}
                                     onChange={handleChange}
+                                    minLength={10}
                                     maxLength={10}
                                     required
                                 />

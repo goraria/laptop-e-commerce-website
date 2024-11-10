@@ -26,3 +26,9 @@ Routes {
     User
     Account
 }
+
+Verify {
+    send mail
+    take email
+
+}

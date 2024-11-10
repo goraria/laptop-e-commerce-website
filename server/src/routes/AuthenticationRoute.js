@@ -7,7 +7,7 @@ const AdministratorMiddleware = require('../middleware/AdministratorMiddleware')
 // router.post('/login/authen', AuthenticationController.login.bind(AuthenticationController))
 router.post('/login', AuthenticationController.login)
 
-router.post('/register', AuthenticationController.register)
+router.put('/register', AuthenticationController.register)
 
 router.post('/logout', AuthenticationMiddleware, AuthenticationController.logout);
 

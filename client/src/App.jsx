@@ -29,7 +29,7 @@ const App = () => {
                 role: null
             });
             setLoading(false);
-            navigate('/login');
+            // navigate('/login');
             return;
         }
 
@@ -53,7 +53,7 @@ const App = () => {
                 isAuthenticated: false,
                 role: null
             });
-            localStorage.removeItem('token');
+            // localStorage.removeItem('token');
             navigate('/404');
         } finally {
             setLoading(false);

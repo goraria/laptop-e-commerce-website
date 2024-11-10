@@ -25,7 +25,8 @@ const sclItems = [
     // { id: 4, name: "Twitter", icon: faTwitter },
 ]
 
-function Register() {const [validated, setValidated] = useState(false);
+const Register = () => {
+    const [validated, setValidated] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
         password: '',
@@ -57,17 +58,20 @@ function Register() {const [validated, setValidated] = useState(false);
 
             if (formData.password === formData.retypepass) {
                 try {
-                    const response = await axios.post('http://localhost:5172/authentication/register', formData);
+                    const response = await axios.put('http://localhost:5172/authentication/register', formData);
 
                     if (response.status === 201) {
-                        alert('Registration successful');
-                        navigate('/login');  // Redirect to login after successful registration
+                        setShowSuccess(true)
+                        // navigate('/login');  // Redirect to login after successful registration
+                        // setTimeout(() => navigate('/login'), 2000);
                     }
                 } catch (error) {
                     setError(error.response ? error.response.data.message : 'Registration failed');
+                    setShowError(true);
                 }
             } else {
-                alert('Password is not match!');
+                setError('Password is not match!');
+                setShowError(true);
             }
         }
         setValidated(true);
@@ -88,6 +92,28 @@ function Register() {const [validated, setValidated] = useState(false);
                     </div>
                     <Form noValidate validated={validated} onSubmit={handleSubmit}>
                         <Row className="mb-3">
+                            {/*<Form.Group as={Col} md={7} controlId="email">*/}
+                            {/*    <Form.Label>Email address</Form.Label>*/}
+                            {/*    <InputGroup hasValidation>*/}
+                            {/*        <InputGroup.Text id="inputGroupPrepend">*/}
+                            {/*            <FontAwesomeIcon icon={faAt}/>*/}
+                            {/*        </InputGroup.Text>*/}
+                            {/*        <Form.Control*/}
+                            {/*            required*/}
+                            {/*            type="email"*/}
+                            {/*            name="email"*/}
+                            {/*            placeholder="email@email.com"*/}
+                            {/*            value={formData.email}*/}
+                            {/*            onChange={handleChange}*/}
+                            {/*        />*/}
+                            {/*        <Form.Control.Feedback type="invalid">*/}
+                            {/*            Please choose a email.*/}
+                            {/*        </Form.Control.Feedback>*/}
+                            {/*        /!*<Form.Control.Feedback>*!/*/}
+                            {/*        /!*    Looks good!*!/*/}
+                            {/*        /!*</Form.Control.Feedback>*!/*/}
+                            {/*    </InputGroup>*/}
+                            {/*</Form.Group>*/}
                             <Form.Group as={Col} md={7} controlId="email">
                                 <Form.Label>Email address</Form.Label>
                                 <InputGroup hasValidation>
@@ -101,11 +127,13 @@ function Register() {const [validated, setValidated] = useState(false);
                                         placeholder="email@email.com"
                                         value={formData.email}
                                         onChange={handleChange}
-                                        defaultValue=""
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Looks good!
+                                        Please choose a email.
                                     </Form.Control.Feedback>
+                                    {/*<Form.Control.Feedback>*/}
+                                    {/*    Looks good!*/}
+                                    {/*</Form.Control.Feedback>*/}
                                 </InputGroup>
                             </Form.Group>
                             <Form.Group as={Col} md={5} controlId="username">
@@ -126,6 +154,9 @@ function Register() {const [validated, setValidated] = useState(false);
                                     <Form.Control.Feedback type="invalid">
                                         Please choose a username.
                                     </Form.Control.Feedback>
+                                    {/*<Form.Control.Feedback>*/}
+                                    {/*    Looks good!*/}
+                                    {/*</Form.Control.Feedback>*/}
                                 </InputGroup>
                             </Form.Group>
                         </Row>
@@ -138,12 +169,16 @@ function Register() {const [validated, setValidated] = useState(false);
                                         name="password"
                                         type="password"
                                         placeholder="Password"
+                                        minLength={8}
                                         value={formData.password}
                                         onChange={handleChange}
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Looks good!
+                                        Please enter your password.
                                     </Form.Control.Feedback>
+                                    {/*<Form.Control.Feedback>*/}
+                                    {/*    Looks good!*/}
+                                    {/*</Form.Control.Feedback>*/}
                                 </InputGroup>
                             </Form.Group>
                             <Form.Group as={Col} md={6} controlId="retypepass">
@@ -153,14 +188,18 @@ function Register() {const [validated, setValidated] = useState(false);
                                         type="password"
                                         name="retypepass"
                                         placeholder="Re-type password"
+                                        minLength={8}
                                         value={formData.retypepass}
                                         onChange={handleChange}
                                         aria-describedby="inputGroupPrepend"
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
-                                        Please choose a username.
+                                        Please retype your password.
                                     </Form.Control.Feedback>
+                                    {/*<Form.Control.Feedback>*/}
+                                    {/*    Looks good!*/}
+                                    {/*</Form.Control.Feedback>*/}
                                 </InputGroup>
                             </Form.Group>
                         </Row>
@@ -174,11 +213,13 @@ function Register() {const [validated, setValidated] = useState(false);
                                     placeholder="First name"
                                     value={formData.firstname}
                                     onChange={handleChange}
-                                    defaultValue=""
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Looks good!
+                                    Please enter your Firstname.
                                 </Form.Control.Feedback>
+                                {/*<Form.Control.Feedback>*/}
+                                {/*    Looks good!*/}
+                                {/*</Form.Control.Feedback>*/}
                             </Form.Group>
                             <Form.Group as={Col} md={4} controlId="lastname">
                                 <Form.Label>Last name</Form.Label>
@@ -189,11 +230,13 @@ function Register() {const [validated, setValidated] = useState(false);
                                     placeholder="Last name"
                                     value={formData.lastname}
                                     onChange={handleChange}
-                                    defaultValue=""
                                 />
                                 <Form.Control.Feedback type="invalid">
-                                    Looks good!
+                                    Please enter your Lastname.
                                 </Form.Control.Feedback>
+                                {/*<Form.Control.Feedback>*/}
+                                {/*    Looks good!*/}
+                                {/*</Form.Control.Feedback>*/}
                             </Form.Group>
                             <Form.Group as={Col} md={4} controlId="phone">
                                 <Form.Label>Phone</Form.Label>
@@ -208,12 +251,18 @@ function Register() {const [validated, setValidated] = useState(false);
                                         placeholder="Phone"
                                         value={formData.phone}
                                         onChange={handleChange}
+                                        minLength={10}
+                                        maxLength={10}
                                         aria-describedby="inputGroupPrepend"
                                         required
                                     />
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a valid state.
+                                        Please enter your phone number.
                                     </Form.Control.Feedback>
+                                    {/*<Form.Control.Feedback>*/}
+                                    {/*    Looks good!*/}
+                                    {/*</Form.Control.Feedback>*/}
                                 </InputGroup>
                             </Form.Group>
                         </Row>
@@ -263,14 +312,14 @@ function Register() {const [validated, setValidated] = useState(false);
             </Overview>
 
             <NotifySuccess
-                title="Login Successful"
-                message="You have logged in successfully."
+                title="'Registration successful'"
+                message="You have register in successfully."
                 show={showSuccess}  // truyền showSuccess vào NotifySuccess
                 onHide={() => setShowSuccess(false)}  // đóng khi người dùng click
             />
 
             <NotifyError
-                title="Login Failed"
+                title="Registration Failed"
                 message={error}
                 show={showError}  // truyền showError vào NotifyError
                 onHide={() => setShowError(false)}  // đóng khi người dùng click

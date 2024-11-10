@@ -32,9 +32,9 @@ class CartController {
     }
 
     async LoadCart(req,res){
-        const  id  = req.user.id;
-        console.log(id,  req.user.id);
         try {
+            const  id  = req.user.id;
+            console.log(id,  req.user.id);
             const cart = await Cart.findOne({
                 where: {
                     idaccount: id
