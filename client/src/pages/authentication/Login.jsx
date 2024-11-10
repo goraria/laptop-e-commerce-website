@@ -106,7 +106,7 @@ const Login = ({ authenticationCheck }) => {
 
                 if (response.data.token) {
                     localStorage.setItem('token', response.data.token);
-                    setShowSuccess(true);  // hiển thị NotifySuccess khi đăng nhập thành công
+                    setShowSuccess(true);
                     // setTimeout(() => {
                     //     navigate(response.data.role === 1 ? "/admin" : "/user/profile"); // Redirect based on role
                     //     // navigate("/"); // Redirect based on role

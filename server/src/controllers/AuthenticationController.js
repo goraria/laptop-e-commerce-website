@@ -3,19 +3,20 @@ const User = require('../models/User');
 const Cart = require('../models/Cart');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer');
+const { Op } = require('sequelize');
+require('dotenv').config();
 
 class AuthenticationController {
     async login(req, res) {
         const { username, password } = req.body;
         try {
             const account = await Account.findOne({ where: { username } });
-
             if (!account) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
 
             const validPassword = await bcrypt.compare(password, account.password);
-            // const validPassword = password === account.password;
             if (!validPassword) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
@@ -27,11 +28,10 @@ class AuthenticationController {
                 role: account.role,
                 status: account.status
             }, process.env.JWT_SECRET || 'gorth', { expiresIn: '1h' });
-            // const token = jwt.sign({ id: account.idaccount, username: account.username }, 'gorth', { expiresIn: '1h' });
 
             return res.json({ message: 'Login successful', token });
         } catch (error) {
-            console.error(error);
+            console.error('Login error:', error);
             return res.status(500).json({ message: 'Server error' });
         }
     }
@@ -41,67 +41,86 @@ class AuthenticationController {
             await Account.update({ status: 0 }, { where: { idaccount: req.user.id } });
             return res.json({ message: 'Logout successful' });
         } catch (error) {
+            console.error('Logout error:', error);
             res.status(500).json({ message: 'Logout failed', error });
         }
-
-        // try {
-        //     const userId = req.user.id; // Lấy userId từ token hoặc session
-        //     const account = await Account.findByPk(userId);
-        //
-        //     if (!account) {
-        //         return res.status(404).json({ message: 'User not found' });
-        //     }
-        //
-        //     // Cập nhật status về 0
-        //     account.status = 0;
-        //     await account.save();
-        //
-        //     res.json({ message: 'Logged out successfully' });
-        // } catch (error) {
-        //     return res.status(500).json({ message: 'Server error', error });
-        // }
     }
 
     async register(req, res) {
         const { username, password, email, firstname, lastname, phone, avatar } = req.body;
-
-        console.log(req.body);
+        console.log(req.body)
         try {
-            const existingAccount = await Account.findOne({ where: { username } });
+            const existingAccount = await Account.findOne({
+                where: { [Op.or]: [{ username }, { email }] }
+            });
             if (existingAccount) {
-                return res.status(400).json({ error: 'Username already exists' });
+                if (existingAccount.username === username) {
+                    return res.status(400).json({ error: 'Username already exists' });
+                }
+                if (existingAccount.email === email) {
+                    return res.status(400).json({ error: 'Email already exists' });
+                }
             }
 
             const hashedPassword = await bcrypt.hash(password, 10);
 
-            const newAccount = await Account.create({
-                username,
-                password: hashedPassword,
-                email,
-                role: 0,
-                status: 0,
-            });
+            // const newAccount = await Account.create({
+            //     username,
+            //     password: hashedPassword,
+            //     email,
+            //     role: 0,
+            //     status: 0,
+            // });
+            //
+            // const newUser = await User.create({
+            //     idaccount: newAccount.idaccount,
+            //     firstname,
+            //     lastname,
+            //     phone_number: phone,
+            //     avatar: null,
+            // });
+            //
+            // const newCart = await Cart.create({
+            //     idaccount: newAccount.idaccount
+            // });
 
-            const newUser = await User.create({
-                idaccount: newAccount.idaccount,
-                firstname,
-                lastname,
-                phone_number: phone,
-                avatar: null,
-            });
-
-            const newCart = await Cart.create({
-                idaccount: newAccount.idaccount
-            });
+            await AuthenticationController.sendConfirmationEmail(email, req, res);
 
             return res.status(201).json({
-                message: 'User registered successfully',
-                account: newAccount,
-                user: newUser,
-                cart: newCart
+                message: 'User registered successfully and confirmation email sent',
+                // account: newAccount,
+                // user: newUser,
+                // cart: newCart
             });
 
         } catch (error) {
+            console.error('Registration error:', error);
+            return res.status(500).json({ error: 'Error registering user' });
+        }
+    }
+
+    static async sendConfirmationEmail(email, req, res) {
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_APSS,
+            },
+        });
+
+        const mailOptions = {
+            from: "Gorth Inc.",
+            to: email,
+            subject: 'Welcome to Our Service!',
+            text: 'Thank you for registering! We are excited to have you on board.',
+            html: '<h1>Welcome!</h1><p>Thank you for registering with our service. We are excited to have you on board.</p>',
+        };
+
+        try {
+            await transporter.sendMail(mailOptions);
+            // console.log('Confirmation email sent successfully');
+        } catch (error) {
+            // console.error('Error sending confirmation email:', error);
             return res.status(500).json({ error: 'Error registering user' });
         }
     }
@@ -115,9 +134,10 @@ class AuthenticationController {
 
             res.json({ role: account.role });
         } catch (error) {
+            console.error('Token validation error:', error);
             res.status(401).json({ message: 'Invalid token' });
         }
     }
 }
 
-module.exports = new AuthenticationController()
+module.exports = new AuthenticationController();
