@@ -15,7 +15,7 @@ class AuthenticationController {
     async login(req, res) {
         const { username, password } = req.body;
         try {
-            const account = await Account.findOne({ where: { username } });
+            const account = await Account.findOne({ where: { username, isverify: true } });
             if (!account) {
                 return res.status(401).json({ message: 'Invalid username or password' });
             }
@@ -143,10 +143,11 @@ class AuthenticationController {
 
             res.json({ role: account.role });
         } catch (error) {
-            console.error('Token validation error:', error);
+            // console.error('Token validation error:', error);
             res.status(401).json({ message: 'Invalid token' });
         }
     }
+
     async verifyEmail(req, res) {
         const { token } = req.query;
 

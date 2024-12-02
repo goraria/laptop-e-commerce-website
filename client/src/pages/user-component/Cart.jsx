@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
-import TransitionBar from '../../layouts/TransitionBar.jsx';
+import Transitionbar from '../../layouts/Transitionbar.jsx';
 import CardItem from '../../components/product/CartItem.jsx';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -16,7 +16,7 @@ import AddressList from "../user-infomation/AddressList.jsx";
 
 
 
-function Cart() {
+const Cart = () => {
     const [carts, setCart] = useState();
     const [cartItems, setCartItem] = useState([]);
     const [product, setProduct] = useState([]);
@@ -145,9 +145,6 @@ function Cart() {
     var discount = 0; // Modify as needed
     var total = pre_total - pre_total * discount;
 
-
-
-
     useEffect(() => {
         fetchCart();
 
@@ -163,40 +160,39 @@ function Cart() {
     }, [carts]); // Run fetchProductDetails when cartItems is updated
 
     return (
-        <div>
-            <TransitionBar />
-            <Container style={{ marginTop: 168 }}>
+        <>
+            <Transitionbar />
+            <div className="container">
                 <Row>
                     {/* Left Section: Product List */}
-                    <Col sm={12} md={6} lg={8} className="mb-3">
-                        <Card
-                            className="sticky-summary mb-4"
+                    <Col sm={12} md={6} lg={8}>
+                        <div
+                            className="card sticky-summary mb-4"
                             style={{
                                 position: "sticky",
                                 padding: '15px 12px 15px 12px',
-                                borderRadius: 10,
                                 top: 80,
                                 zIndex: 1,
                                 border: "none",
                             }}>
                             <Container style={{display: "flex", padding: '0 8px'}}>
-                                <h2 style={{margin: 0}}>Giỏ hàng</h2>
+                                <h2 className="m-0">Giỏ hàng</h2>
                                 <Button as={Link} to={'/search'} variant="primary" style={{marginLeft: 'auto'}}>
                                    <FontAwesomeIcon icon={faPlus} className="me-2"/>
                                    <span>Thêm sản phẩm</span>
                                 </Button>
                             </Container>
-                        </Card>
+                        </div>
                         {cartItems.map((item) => (
-                            <Card className="p-3 mb-4" key={item.idcart_item}>
+                            <div className="card p-3 mb-4" key={item.idcart_item}>
                                 <CardItem Item={item} onCheckboxChange={handleCheckboxChange} onRemoveItem={removeCartItem}/>
-                            </Card>
+                            </div>
                         ))}
                     </Col>
 
                     {/* Right Section: Order Summary */}
-                    <Col sm={12} md={6} lg={4} className="mb-2">
-                        <Card className="p-3 sticky-summary" style={{ position: 'sticky', top: 120 }}>
+                    <Col sm={12} md={6} lg={4} className="mb-4">
+                        <div className="card p-3 sticky-summary" style={{ position: 'sticky', top: 120 }}>
                             <h2>Khuyến mãi</h2>
                             <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
                                 <option> Chọn hoặc nhập khuyến mãi</option>
@@ -221,11 +217,11 @@ function Cart() {
                             <Button className="w-100 mt-3" variant="danger" size="lg" onClick={handleOrderClick}>
                                 Đặt hàng
                             </Button>
-                        </Card>
+                        </div>
                     </Col>
                 </Row>
-            </Container>
-        </div>
+            </div>
+        </>
     );
 }
 

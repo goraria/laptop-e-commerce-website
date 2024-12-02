@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
-import TransitionBar from '../../layouts/TransitionBar.jsx';
+import Transitionbar from '../../layouts/Transitionbar.jsx';
 import CardItem from '../../components/product/CartItem.jsx';
 import { Link } from 'react-router-dom'
 import { useLocation } from 'react-router-dom';
@@ -11,7 +11,7 @@ import axios from 'axios';
 
 
 
-function Order() {
+const Order = () => {
     const [user, setUser] = useState([]);
     const [address, setAdress] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState(""); // State to track selected address
@@ -135,32 +135,31 @@ function Order() {
     }, []);
 
     return (
-        <div>
-            <TransitionBar />
-            <Container style={{ marginTop: 168 }}>
+        <>
+            <Transitionbar />
+            <div className="container">
                 <Row>
                     {/* Left Section */}
-                    <Col sm={12} md={6} lg={8} className="mb-3">
+                    <Col sm={12} md={6} lg={8}>
                         {/* Delivery Method Selection */}
-                        <Card
-                            className="sticky-summary mb-4"
+                        <div
+                            className="card sticky-summary mb-4"
                             style={{
                                 position: "sticky",
                                 padding: '15px 12px 15px 12px',
-                                borderRadius: 10,
                                 top: 80,
                                 zIndex: 1,
                                 border: "none",
                             }}>
-                            <Container style={{ display: "flex", padding: '0 8px' }}>
-                                <h2 style={{ margin: 0 }}>Giỏ hàng</h2>
+                            <div className="container" style={{ display: "flex", padding: '0 8px' }}>
+                                <h2 className="m-0">Giỏ hàng</h2>
                                 {/*<Button variant="primary" style={{marginLeft: 'auto'}}>*/}
                                 {/*    <FontAwesomeIcon icon={faPlus} className="me-2"/>*/}
                                 {/*    <span>Thêm sản phẩm</span>*/}
                                 {/*</Button>*/}
-                            </Container>
-                        </Card>
-                        <Card className="p-3 mb-4" h4>
+                            </div>
+                        </div>
+                        <div className="card p-3 mb-4">
                             <h4>Phương thức nhận hàng</h4>
                             <Form.Check
                                 type="radio"
@@ -178,10 +177,9 @@ function Order() {
                                 checked={deliveryMethod === 'Giao tận nơi'}
                                 onChange={handleDeliveryMethodChange}
                             />
-                        </Card>
-
+                        </div>
                         {/* Store Locations */}
-                        <Card className="p-3 mb-4" h4>
+                        <div className="card p-3 mb-4">
                             <h4>Địa chỉ cửa hàng</h4>
                             <Form.Check
                                 type="radio"
@@ -199,11 +197,9 @@ function Order() {
                                 checked={selectedStoreAddress === "Ngõ 2 Ao Sen"}
                                 onChange={handleStoreAddressChange}
                             />
-
-                        </Card>
-
+                        </div>
                         {/* Recipient Information */}
-                        <Card className="p-3 mb-4" h4>
+                        <div className="card p-3 mb-4">
                             <h4>Thông tin người nhận</h4>
                             <Form.Group controlId="formRecipientName">
                                 <Form.Label>Họ và tên</Form.Label>
@@ -247,18 +243,16 @@ function Order() {
                                     </Form.Select>
                                 </Form.Group>
                             )}
-                        </Card>
-
+                        </div>
                         {/* Product List */}
                         {/* <Card className="p-3">
                             {products.map((item) => <CardItem key={item.id} item={item} />)}
                         </Card> */}
                     </Col>
-
                     {/* Right Section: Order Summary */}
                     <Col sm={12} md={6} lg={4} className="mb-2">
-                        <Card className="p-3 sticky-summary mb-3 shadow-none" style={{ position: 'sticky', top: 100, backgroundColor: 'transparent', boxShadow: 'none' }}>
-                            <Card className="p-3 sticky-summary">
+                        <div className="card sticky-summary mb-3 shadow-none" style={{ position: 'sticky', top: 100, backgroundColor: 'transparent', boxShadow: 'none' }}>
+                            <div className="card p-3 sticky-summary">
                                 <h4>Khuyến mãi</h4>
                                 <Form.Select aria-label="Default select example" style={{ padding: 10, margin: '1px 0 10px 0' }}>
                                     <option> Chọn hoặc nhập khuyến mãi</option>
@@ -284,18 +278,18 @@ function Order() {
                                     <Button className="w-100 mt-3" variant="danger" size="lg" onClick={handleOrderClick}>
                                         Đặt hàng
                                     </Button>
-                            </Card>
-                            <Card className="p-3 sticky-summary mb-3" style={{ marginTop: 10 }}>
+                            </div>
+                            <div className="card p-3 sticky-summary mb-4 mt-4">
                                 <h4>Sản phẩm trong đơn</h4>
                                 {cartData.map((item, index) => (
                                     <OrderItem key={index} Item={item} />
                                 ))}
-                            </Card>
-                        </Card>
+                            </div>
+                        </div>
                     </Col>
                 </Row>
-            </Container>
-        </div>
+            </div>
+        </>
     )
 
 }

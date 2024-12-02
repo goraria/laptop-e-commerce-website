@@ -24,25 +24,26 @@ const AddressItem = (props, onReload) => {
 
     return (
         <>
-            <Container style={{padding: '0 8px'}}>
-                <div style={{display: "flex", textAlign: "center", alignItems: "center", justifyContent: "center"}}> {/**/}
-                    <h4 style={{margin: '0 auto 0 8px'}}>Address</h4>
+            <div className="container p-0">
+                <div className="d-flex text-center align-items-center justify-content-center px-2 mx-2 my-3">
+                    <h5 className="m-0 ps-2 me-auto">Address</h5>
                     <Button variant="warning" onClick={() => handleCardClick(item)}>
-                        <FontAwesomeIcon icon={faEdit} className="me-2"/>
+                        <i className='bx bxs-edit me-2'></i>
                         <span>Edit Address</span>
                     </Button>
                 </div>
                 <hr/>
-                <div>
+                <div className="m-3">
                     {/*<h6 style={{margin: 8}}>{item.idaddress}</h6>*/}
-                    <h6 style={{margin: 8}}>{item.tower}</h6>
-                    <h6 style={{margin: 8}}>{item.street}</h6>
-                    <h6 style={{margin: 8}}>{item.district}</h6>
-                    <h6 style={{margin: 8}}>{item.city}</h6>
-                    <h6 style={{margin: 8}}>{item.state}</h6>
-                    <h6 style={{margin: 8}}>{item.country}</h6>
+                    {
+                        [item.tower, item.street, item.district, item.city, item.state, item.country].map((element, index) => (
+                            <h6 key={index} className="m-2">
+                                {element ? element : 'N/A'}
+                            </h6>
+                        ))
+                    }
                 </div>
-            </Container>
+            </div>
             <AddressForm
                 show={modalShow}
                 // onHide={() => setModalShow(false)}

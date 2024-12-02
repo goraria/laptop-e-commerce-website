@@ -8,7 +8,9 @@ import { faStar, faStarHalfAlt, faCartPlus } from '@fortawesome/free-solid-svg-i
 import { faStar as faStarEmpty } from '@fortawesome/free-regular-svg-icons';
 import { noAuto } from "@fortawesome/fontawesome-svg-core"
 import jp from '../../assets/images/jp.jpeg'
-function renderStars(rating) {
+
+
+const renderStars = (rating) => {
     // Sanitize rating to be between 0 and 5
     const sanitizedRating = Math.max(0, Math.min(rating, 5));
     const fullStars = Math.floor(sanitizedRating); // Full stars count
@@ -20,19 +22,22 @@ function renderStars(rating) {
 
         <>
             {/* Full stars */}
-            {Array.from({ length: fullStars }).map((_, i) => (
-                <FontAwesomeIcon key={`full-${i}`} icon={faStar} color="#f39c12" />
+            {Array.from({ length: fullStars }).map((index) => (
+                // <FontAwesomeIcon key={`full-${i}`} icon={faStar} color="#f39c12"/>
+                <i className='bx bxs-star bx-sm' key={index}></i>
             ))}
             {/* Half star */}
-            {halfStar === 1 && <FontAwesomeIcon icon={faStarHalfAlt} color="#f39c12" />}
+            {halfStar === 1 && <i className='bx bxs-star-half bx-sm' ></i>/*<FontAwesomeIcon icon={faStarHalfAlt} color="#f39c12"/>*/}
             {/* Empty stars */}
-            {Array.from({ length: emptyStars }).map((_, i) => (
-                <FontAwesomeIcon key={`empty-${i}`} icon={faStarEmpty} color="#f39c12" />
+            {Array.from({ length: emptyStars }).map((index) => (
+                // <FontAwesomeIcon key={`empty-${i}`} icon={faStarEmpty} color="#f39c12"/>
+                <i className='bx bx-star bx-sm' key={index}></i>
             ))}
         </>
     );
 }
-function ProductItem(product, state) {
+
+const ProductItem = (product, state) => {
 
     const [descriptions, setArray] = useState([]);
     const [configurations, setconfig] = useState([]);
@@ -147,44 +152,82 @@ function ProductItem(product, state) {
     const cardWidth = state;
     const imageHeight = (1 / 8) * cardWidth;
     return (
-        <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius: 10,height:cardWidth*6/5 , width: cardWidth ,objectFit: 'cover' }}>
-            <Link to={`/product?id=${obj.idproduct}`} style={{ textDecoration: 'none' }}>
-                <Card.Img variant="top" src = {products.product_image}  style={{  width: '100%', height: '100%', objectFit: 'cover' }} />
-            </Link>
-            <Card.Body>
-                {/* Price and Name in the same line */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    <Card.Title style={{
-                        marginBottom: '0',
-                        whiteSpace: 'nowrap',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis'
-                    }}>
-                        {products.product_name}
-                    </Card.Title>
-                    <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>${configurations.price}</span>
-                </div>
-
-                {/* Truncated Description */}
-                <Card.Text style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {descriptions.title_description}
-                </Card.Text>
-
-                {/* Rating and Buy Button */}
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                    {/* Rating Section */}
-                    <div style={{ color: '#f39c12', fontSize: '1.2rem' }}>
-                        {renderStars(averageScore)}
+        // <Card style={{ border: 'none', backgroundColor: '#f8f9fa', borderRadius: 10,height:cardWidth*6/5 , width: cardWidth ,objectFit: 'cover' }}>
+        //     <Link to={`/product?id=${obj.idproduct}`} style={{ textDecoration: 'none' }}>
+        //         <Card.Img variant="top" src = {products.product_image}  style={{  width: '100%', height: '100%', objectFit: 'cover' }} />
+        //     </Link>
+        //     <Card.Body>
+        //         {/* Price and Name in the same line */}
+        //         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        //             <Card.Title style={{
+        //                 marginBottom: '0',
+        //                 whiteSpace: 'nowrap',
+        //                 overflow: 'hidden',
+        //                 textOverflow: 'ellipsis'
+        //             }}>
+        //                 {products.product_name}
+        //             </Card.Title>
+        //             <span style={{ fontWeight: 'bold', fontSize: '1.2rem' }}>${configurations.price}</span>
+        //         </div>
+        //
+        //         {/* Truncated Description */}
+        //         <Card.Text style={{ whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+        //             {descriptions.title_description}
+        //         </Card.Text>
+        //
+        //         {/* Rating and Buy Button */}
+        //         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        //             {/* Rating Section */}
+        //             <div style={{ color: '#f39c12', fontSize: '1.2rem' }}>
+        //                 {renderStars(averageScore)}
+        //             </div>
+        //             {/* Buy Button */}
+        //             <Button variant="primary" onClick={handleAddToCart}>
+        //                 <FontAwesomeIcon className="me-2" icon={faCartPlus}/>
+        //                 <span>Buy now</span>
+        //             </Button>
+        //         </div>
+        //     </Card.Body>
+        // </Card>
+        <>
+            <div className="card border-0 bg-light rounded-3" style={{height: cardWidth * 6 / 5, width: cardWidth}}>
+                <a href={`/product?id=${obj.idproduct}`} style={{textDecoration: 'none'}}>
+                    <img
+                        src={products.product_image}
+                        alt={products.product_name}
+                        className="card-img-top object-fit-cover"
+                        style={{width: '100%', height: '100%'}}
+                    />
+                </a>
+                <div className="card-body">
+                    {/* Price and Name in the same line */}
+                    <div className="d-flex justify-content-between align-items-center">
+                        <h5 className="card-title m-0 text-truncate" style={{maxWidth: '70%'}}>
+                            {products.product_name}
+                        </h5>
+                        <span className="fw-bold fs-5">${configurations.price}</span>
                     </div>
-                    {/* Buy Button */}
-                    <Button variant="primary" onClick={handleAddToCart}>
-                        <FontAwesomeIcon className="me-2" icon={faCartPlus}/>
-                        <span>Buy now</span>
-                    </Button>
-                </div>
-            </Card.Body>
-        </Card>
 
+                    {/* Truncated Description */}
+                    <p className="card-text text-truncate" style={{maxWidth: '100%'}}>
+                        {descriptions.title_description}
+                    </p>
+
+                    {/* Rating and Buy Button */}
+                    <div className="d-flex justify-content-between align-items-center">
+                        {/* Rating Section */}
+                        <div className="text-warning fs-4">
+                            {renderStars(averageScore)}
+                        </div>
+                        {/* Buy Button */}
+                        <button className="btn btn-primary d-flex align-items-center" onClick={handleAddToCart}>
+                            <i className='bx bxs-cart-add me-2'></i>
+                            <span>Buy now</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </>
     );
 }
 

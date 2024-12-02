@@ -34,94 +34,25 @@ const Login = ({ authenticationCheck }) => {
         password: ''
     });
 
-    const [auth, setAuth] = useState({
-        isAuthenticated: false,
-        role: null
-    });
-
     const [error, setError] = useState(null);
     const [showSuccess, setShowSuccess] = useState(false);  // trạng thái cho NotifySuccess
     const [showError, setShowError] = useState(false);  // trạng thái cho NotifyError
     const [loading, setLoading] = useState(false);  // Thêm trạng thái loading
     const navigate = useNavigate();
+    let role = null;
 
-    const authenticationCheck0 = async () => {
-        const token = localStorage.getItem('token');
-        setLoading(true);
-
-        if (!token) {
-            setAuth({
-                isAuthenticated: false,
-                role: null
-            });
-            setLoading(false);
-            navigate('/login');
-            return;
+    const handleNavigate = (r) => {
+        if (r === 1) {
+            navigate("/admin");
+        } else if (r === 0) {
+            navigate("/user");
+        } else {
+            navigate("/404");
         }
-
-        try {
-            const response = await axios.get('http://localhost:5172/authentication/check', {
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            const rolex = response.data.role;
-            setAuth({
-                isAuthenticated: true,
-                role: rolex
-            });
-
-            if (userRole === 1) {
-                navigate("/admin");
-            } else if (userRole === 0) {
-                navigate("/user/profile");
-            }
-        } catch (error) {
-            setAuth({
-                isAuthenticated: false,
-                role: null
-            });
-            localStorage.removeItem('token');
-            navigate('/404');
-        } finally {
-            setLoading(false);
-        }
-    };
+    }
 
     const handleChange = (event) => {
         setFormData({ ...formData, [event.target.name]: event.target.value });
-    };
-
-    const handleSubmit0 = async (event) => {
-        setLoading(true);
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        } else {
-            event.preventDefault();
-            try {
-                const response = await axios.post('http://localhost:5172/authentication/login', {
-                    username: formData.username,
-                    password: formData.password
-                });
-
-                if (response.data.token) {
-                    localStorage.setItem('token', response.data.token);
-                    setShowSuccess(true);
-                    // setTimeout(() => {
-                    //     navigate(response.data.role === 1 ? "/admin" : "/user/profile"); // Redirect based on role
-                    //     // navigate("/"); // Redirect based on role
-                    // }, 2000);
-                    // setTimeout(authenticationCheck(), 2000)
-                    await authenticationCheck()
-                }
-            } catch (error) {
-                setError(error.response ? error.response.data.message : 'Login failed');
-                setShowError(true);  // hiển thị NotifyError khi đăng nhập thất bại
-            } finally {
-                setLoading(false);
-            }
-        }
-        setValidated(true);
     };
 
     const handleSubmit = async (event) => {
@@ -137,11 +68,41 @@ const Login = ({ authenticationCheck }) => {
                     password: formData.password
                 });
 
+                // if (response.data.token) {
+                //     localStorage.setItem('token', response.data.token);
+                //     setShowSuccess(true);
+                //
+                //     const checker = await authenticationCheck();
+                //     console.log(checker)
+                //     if (checker.role === 1) {
+                //         navigate("/admin");
+                //     } else if (checker.role === 0) {
+                //         navigate("/user/profile");
+                //     }
+                // }
+
                 if (response.data.token) {
+                    // Lưu token vào localStorage
                     localStorage.setItem('token', response.data.token);
+
                     setShowSuccess(true);
 
-                    await authenticationCheck();
+                    // Gọi authenticationCheck để xác thực và lấy role
+                    const token = localStorage.getItem('token');
+                    const authResponse = await axios.get('http://localhost:5172/authentication/check', {
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+
+                    role = authResponse.data.role;
+                    // if (role === 1) {
+                    //     navigate("/admin");
+                    // } else if (role === 0) {
+                    //     navigate("/user/profile");
+                    // }
+
+                    setTimeout(() => {
+                        handleNavigate(role)
+                    }, 3000)
                 }
             } catch (error) {
                 setError(error.response ? error.response.data.message : 'Login failed');

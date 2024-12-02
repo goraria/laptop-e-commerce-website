@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "proxy": "http://localhost:5172",
   "overrides": {
     "nth-check": "2.0.1",
     "object-path": "0.11.8",
@@ -22,6 +23,8 @@
     "@fortawesome/react-fontawesome": "^0.2.2",
     "axios": "^1.7.7",
     "bootstrap": "^5.3.3",
+    "boxicons": "^2.1.4",
+    "dotenv": "^16.4.5",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.4",
     "perfect-scrollbar": "^1.5.5",

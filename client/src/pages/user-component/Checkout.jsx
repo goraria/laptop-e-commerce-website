@@ -1,6 +1,6 @@
 import { Component } from "react";
 import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
-import TransitionBar from '../../layouts/TransitionBar.jsx';
+import Transitionbar from '../../layouts/Transitionbar.jsx';
 import { useLocation } from 'react-router-dom';
 import OrderItem from "../../components/product/OrderItem.jsx";
 import { useState, useEffect } from 'react';
@@ -102,14 +102,14 @@ function CheckOut() {
         fetchAddress();
     }, []);
     return (
-        <div>
-            <TransitionBar />
-            <Container style={{ marginTop: 168 }}>
-                <Row>
+        <>
+            <Transitionbar />
+            <div className="container">
+                <div className="row">
                     {/* Left Section: Order Info and Payment Method */}
-                    <Col sm={12} md={6} lg={8} className="mb-3">
+                    <Col sm={12} md={6} lg={8}>
                         {/* Order Information */}
-                        <Card className="p-3 mb-3">
+                        <div className="card p-3 mb-4">
                             <h5>Thông tin đơn hàng</h5>
                             <div>Mã đặt hàng: <strong>DH2410160005</strong></div>
                             <div>Người nhận: <strong>{userData.firstname} {userData.lastname}</strong></div>
@@ -120,12 +120,10 @@ function CheckOut() {
                                 {deliverymethod === "Giao tận nơi" && (
                                     <strong>{address.street}, {address.city}, {address.district}</strong>
                                 )}
-
                             </div>
-                        </Card>
-
+                        </div>
                         {/* Payment Method */}
-                        <Card className="p-3 mb-3">
+                        <div className="card p-3 mb-4">
                             <h5>Phương thức thanh toán</h5>
                             <Form.Check
                                 type="radio"
@@ -135,36 +133,35 @@ function CheckOut() {
                                 checked={paymentMethod == "qr"}
                                 onChange={handlePaymentMethodChange}
                             />
-                            {paymentMethod === "qr" && (<Card className="p-3 mb-3">
-                                <h6>Hướng dẫn chuyển khoản</h6>
-                                <div><strong>Cách 1:</strong> Dùng ứng dụng ngân hàng để quét mã QR.</div>
-                                <div><strong>Cách 2:</strong> Nhập thông tin chuyển khoản bên dưới. Lưu ý nhập chính xác số tiền, nội dung chuyển khoản.</div>
-                                <div>Sau khi chuyển khoản thành công, bấm nút "Tôi đã chuyển khoản". Hệ thống sẽ mất khoảng 30 giây để xác minh đã nhận được tiền.</div>
-
-                                {/* Bank Info */}
-                                <Card className="p-3 mt-3">
-                                    <Row>
-                                        <Col>
-                                            <p>Ngân hàng: <strong>Ngân hàng TMCP Ngoại thương Việt Nam (Vietcombank)</strong></p>
-                                            <p>Tên tài khoản: <strong>Lê Tuấn Linh</strong></p>
-                                            <p>Số tài khoản: <strong>9968727279</strong></p>
-                                            <p>Nội dung CK: <strong>212410160005 RYPRGG</strong></p>
-                                            <p>Số tiền: <strong>${totalPrice}</strong></p>
-                                        </Col>
-                                        <Col>
-                                            <img src="https://via.placeholder.com/150" alt="QR Code" />
-                                            <p className="text-center">Quét mã QR bằng ứng dụng ngân hàng</p>
-                                        </Col>
-                                    </Row>
-                                    <Button className="w-100 mt-2" variant="primary" onClick={() =>{
-                                        handleStatusChange(1),
-                                        handleAddBill()
-                                        // NotifySuccess()
-                                    }}>Tôi đã chuyển khoản</Button>
-                                </Card>
-                            </Card>)}
-
-
+                            {paymentMethod === "qr" && (
+                                <div className="card p-3 mb-4">
+                                    <h6>Hướng dẫn chuyển khoản</h6>
+                                    <div><strong>Cách 1:</strong> Dùng ứng dụng ngân hàng để quét mã QR.</div>
+                                    <div><strong>Cách 2:</strong> Nhập thông tin chuyển khoản bên dưới. Lưu ý nhập chính xác số tiền, nội dung chuyển khoản.</div>
+                                    <div>Sau khi chuyển khoản thành công, bấm nút "Tôi đã chuyển khoản". Hệ thống sẽ mất khoảng 30 giây để xác minh đã nhận được tiền.</div>
+                                    {/* Bank Info */}
+                                    <div className="card p-3 mt-4">
+                                        <Row>
+                                            <Col>
+                                                <p>Ngân hàng: <strong>Ngân hàng TMCP Ngoại thương Việt Nam (Vietcombank)</strong></p>
+                                                <p>Tên tài khoản: <strong>Lê Tuấn Linh</strong></p>
+                                                <p>Số tài khoản: <strong>9968727279</strong></p>
+                                                <p>Nội dung CK: <strong>212410160005 RYPRGG</strong></p>
+                                                <p>Số tiền: <strong>${totalPrice}</strong></p>
+                                            </Col>
+                                            <Col>
+                                                <img src="https://via.placeholder.com/150" alt="QR Code" />
+                                                <p className="text-center">Quét mã QR bằng ứng dụng ngân hàng</p>
+                                            </Col>
+                                        </Row>
+                                        <Button className="w-100 mt-2" variant="primary" onClick={() => {
+                                            handleStatusChange(1);
+                                            handleAddBill()
+                                            // NotifySuccess()
+                                        }}>Tôi đã chuyển khoản</Button>
+                                    </div>
+                                </div>
+                            )}
                             {/* Other Payment Methods */}
                             <Form.Check
                                 type="radio"
@@ -175,24 +172,24 @@ function CheckOut() {
                                 onChange={handlePaymentMethodChange}
                             />
                             {paymentMethod === "cod" && (
-                                <Card className="p-3 mb-3">
+                                <div className="card p-3 mb-3">
                                     <Button className="w-100" variant="primary" onClick={() =>{
                                         handleStatusChange(0),
                                         handleAddBill()
                                     }}>
                                         Xác nhận thanh toán
                                     </Button>
-                                </Card>
+                                </div>
                             )}
 
-                        </Card>
+                        </div>
                     </Col>
 
                     {/* Right Section: Order Summary & Product List */}
-                    <Col sm={12} md={6} lg={4} className="mb-2">
+                    <Col sm={12} md={6} lg={4} className="mb-4">
                         {/* First Card: Order Summary */}
-                        <Card className="p-3 sticky-summary mb-3 shadow-none" style={{ position: 'sticky', top: 120, backgroundColor: 'transparent', boxShadow: 'none' }}>
-                            <Card className="p-3 sticky-summary mb-3">
+                        <div className="card sticky-summary mb-4 shadow-none" style={{ position: 'sticky', top: 120, backgroundColor: 'transparent', boxShadow: 'none' }}>
+                            <div className="card p-3 sticky-summary mb-4">
                                 <h5>Tóm tắt đơn hàng</h5>
                                 <div className="d-flex justify-content-between">
                                     <span>Tạm tính</span>
@@ -214,20 +211,18 @@ function CheckOut() {
                                     <span>Còn lại</span>
                                     <span>${totalPrice}</span>
                                 </div> */}
-                            </Card>
-
-                            <Card className="p-3 sticky-summary mb-3">
+                            </div>
+                            <div className="card p-3 sticky-summary mb-4">
                                 <h4>Sản phẩm trong đơn</h4>
                                 {cartData.map((item, index) => (
                                     <OrderItem key={index} Item={item} />
                                 ))}
-                            </Card>
-                        </Card>
-
+                            </div>
+                        </div>
                     </Col>
-                </Row>
-            </Container>
-        </div>
+                </div>
+            </div>
+        </>
     );
 }
 

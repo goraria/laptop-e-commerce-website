@@ -9,7 +9,7 @@ const Loading = () => {
     return (
         <Overview mt={112} me={56}>
             <div>
-                <h2>Bill Cipher</h2>
+                <h2>Cipher</h2>
                 <div style={{display: "flex", marginBottom: 16, justifyContent: 'center'}}>
                     <Image
                         className="d-block"

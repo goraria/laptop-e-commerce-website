@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import SaveChange from "../../components/modal/notify/SaveChange.jsx";
 
-function AccountInfo({ onReload }) {
+const AccountInfo = ({ onReload }) => {
     const [validated, setValidated] = useState(false);
     const [formData, setFormData] = useState({
         username: '',
@@ -131,8 +131,8 @@ function AccountInfo({ onReload }) {
 
     return (
         <>
-            <Container style={{ padding: '0 8px' }}>
-                <h2>Account Information</h2>
+            <div className="container p-0">
+                {/*<h2>Account Information</h2>*/}
                 <Form noValidate validated={validated} onSubmit={handleInvalid}>
                     <Row className="mb-3">
                         <Form.Group as={Col} md={7} controlId="email">
@@ -228,20 +228,20 @@ function AccountInfo({ onReload }) {
                     <hr />
                     <Row>
                         <Col sm={12} md={5} lg={4}>
-                            <Button variant="primary" type="reset" className="mb-2" style={{ width: '100%' }}>
+                            <Button variant="primary" type="reset" className="">
                                 Change Password
                             </Button>
                         </Col>
                         <Col sm={0} md={2} lg={4}></Col>
                         <Col sm={12} md={5} lg={4}>
-                            <Button variant="primary" type="submit" className="mb-2" style={{ width: '100%' }}>
+                            <Button variant="primary" type="submit" className="">
                                 Save
                             </Button>
                         </Col>
                     </Row>
                 </Form>
                 {/*{error && <p className="text-danger">{error}</p>}*/}
-            </Container>
+            </div>
             <SaveChange show={showModal} onHide={() => setShowModal(false)} onSave={handleSaveChanges} />
         </>
     );

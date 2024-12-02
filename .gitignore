@@ -3,8 +3,9 @@
 .vs
 
 /frontend/node_modules/
-/backend/node_modules/
+/mobile/node_modules/
 /client/node_modules/
 /server/node_modules/
 /node_modules/
 /server/.env
+/client/.env
