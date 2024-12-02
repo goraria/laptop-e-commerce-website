@@ -284,7 +284,7 @@ export const Statistics = () => {
             />
         );
 
-        return <Pagination>{paginationItems}</Pagination>;
+        return <Pagination className="m-0">{paginationItems}</Pagination>;
     };
 
     const renderStatusBadge = (status) => {
@@ -354,11 +354,11 @@ export const Statistics = () => {
                                 <div className="col-sm-12 col-md-6">
                                     <div className="dataTables_length">
                                         <label style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
-                                            <span>Show</span>
+                                            {/*<span>Show</span>*/}
                                             <select
                                                 name="DataTables_Table_0_length"
                                                 aria-controls="DataTables_Table_0"
-                                                className="form-select ms-3 me-3"
+                                                className="form-select" // ms-3 me-3
                                                 style={{width: "80px"}}
                                                 onChange={handleItemsPerPageChange}
                                                 value={itemsPerPage}
@@ -367,85 +367,93 @@ export const Statistics = () => {
                                                 <option value="25">25</option>
                                                 <option value="50">50</option>
                                             </select>
-                                            <span>entries</span>
+                                            {/*<span>entries</span>*/}
                                         </label>
                                     </div>
                                 </div>
                                 <div
-                                    className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end mt-n6 mt-md-0">
+                                    className="dataTables_filter mb-0 mb-md-6 col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end mt-n6 mt-md-0">
                                     <Form.Control
-                                        type="text"
+                                        className="form-control"
+                                        type="search"
                                         placeholder="Search..."
                                         value={searchTerm}
                                         onChange={handleSearch}
-                                        style={{width: "295px"}}
+                                        style={{width: "410px"}}
                                     />
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <Table striped bordered hover responsive className="datatable">
-                        <thead>
-                        <tr>
-                            <th>
-                                <Form.Check
-                                    type="checkbox"
-                                    onChange={handleSelectAll}
-                                    checked={selectedEntries.length === currentItems.length && currentItems.length > 0}
-                                />
-                            </th>
-                            <th>fullname</th>
-                            <th>username</th>
-                            <th>Order Date</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {currentItems.map((item, index) => (
-                            <tr key={index}>
-                                <td>
-                                    <Form.Check
-                                        type="checkbox"
-                                        checked={selectedEntries.includes(item.id)}
-                                        onChange={() => handleSelectItem(item.id)}
-                                    />
-                                </td>
-                                <td>
-                                    {item.account?.user ? `${item.account.user.firstname} ${item.account.user.lastname}` : "N/A"}
-                                </td>
-                                <td>{item.account?.username || "N/A"}</td>
-                                <td>{item.date ? new Date(item.date).toLocaleString() : "N/A"}</td>
-                                <td>{item.price ? item.price : "$?"}</td>
-                                <td>{renderStatusBadge(item.status === 1 ? 'Paid' : 'Ordered')}</td>
-                                <td>
-                                    <Button variant="link" onClick={() => handleItemClick(item)}><FontAwesomeIcon icon={faEye}/></Button>
-                                </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </Table>
-                    <div className="card-footer flex-column flex-md-row pb-0 pb-4">
-                        <div className="row">
-                            <div className="col-sm-12 col-md-6" style={{display: "flex"}}>
-                                <div className="dataTables_info"
-                                     style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
-                                    <div className="text-center mt-2">
-                                        {/* Calculate starting and ending entries */}
-                                        {`Showing entries from ${indexOfFirstItem + 1} to ${Math.min(indexOfLastItem, filteredData.length)} of ${filteredData.length} entries`}
+                        <Table hover responsive className="table border-top dataTable no-footer dtr-column">
+                            <thead style={{height: 64}}>
+                                <tr>
+                                    <th
+                                        className="sorting_disabled dt-checkboxes-cell dt-checkboxes-select-all"
+                                        style={{verticalAlign: "middle", fontSize: 16, width: 18}}
+                                    >
+                                        <Form.Check
+                                            type="checkbox"
+                                            onChange={handleSelectAll}
+                                            checked={selectedEntries.length === currentItems.length && currentItems.length > 0}
+                                        />
+                                    </th>
+                                    {
+                                        ["Fullname", "Username", "Order Date", "Price", "Status"].map((item, index) => (
+                                            <th className="sorting" key={index} style={{verticalAlign: "middle", fontSize: 13}}>
+                                                {item}
+                                            </th>
+                                        ))
+                                    }
+                                    <th className="sorting_disabled" style={{verticalAlign: "middle", fontSize: 13, width: 128}}>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {currentItems.map((item, index) => (
+                                <tr key={index} style={{height: 64}}>
+                                    <td>
+                                        <Form.Check
+                                            className="dt-checkboxes-cell"
+                                            type="checkbox"
+                                            checked={selectedEntries.includes(item.id)}
+                                            onChange={() => handleSelectItem(item.id)}
+                                        />
+                                    </td>
+                                    <td>
+                                        {item.account?.user ? `${item.account.user.firstname} ${item.account.user.lastname}` : "N/A"}
+                                    </td>
+                                    <td>{item.account?.username || "N/A"}</td>
+                                    <td>{item.date ? new Date(item.date).toLocaleString() : "N/A"}</td>
+                                    <td>{item.price ? item.price : "$?"}</td>
+                                    <td>{renderStatusBadge(item.status === 1 ? 'Paid' : 'Ordered')}</td>
+                                    <td>
+                                        <Button variant="link" onClick={() => handleItemClick(item)}>
+                                            <i className='bx bx-bullseye'></i>
+                                        </Button>
+                                    </td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </Table>
+                        <div className="card-footer flex-column flex-md-row pb-0 pb-4">
+                            <div className="row">
+                                <div className="col-sm-12 col-md-6" style={{display: "flex"}}>
+                                    <div className="dataTables_info"
+                                         style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
+                                        <div className="text-center mt-2">
+                                            {`Showing from ${indexOfFirstItem + 1} to ${Math.min(indexOfLastItem, filteredData.length)} of ${filteredData.length} entries`}
+                                        </div>
+                                    </div>
+                                    <div className="ms-2 me-2"></div>
+                                    <div className="dataTables_select"
+                                         style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
+                                        <div className="text-center mt-2">
+                                            Selected {selectedEntries.length} entries
+                                        </div>
                                     </div>
                                 </div>
-                                <div className="ms-2 me-2"></div>
-                                <div className="dataTables_select"
-                                     style={{display: "flex", justifyContent: "left", alignItems: "center"}}>
-                                    <div className="text-center mt-2">
-                                        Selected {selectedEntries.length} entries
-                                    </div>
+                                <div className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
+                                    {renderPagination()}
                                 </div>
-                            </div>
-                            <div className="col-sm-12 col-md-6 d-flex justify-content-center justify-content-md-end">
-                                {renderPagination()}
                             </div>
                         </div>
                     </div>

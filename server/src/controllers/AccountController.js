@@ -7,7 +7,7 @@ class AccountController {
         try {
             const account = await Account.findByPk(req.user.id);
             const accuser = await User.findOne({ where: { idaccount: req.user.id } });
-            console.log(account, accuser)
+            // console.log(account, accuser)
             if (account) {
                 res.json({
                     username: account.username,
@@ -25,7 +25,7 @@ class AccountController {
     }
 
     async setAccountInfo(req, res) {
-        console.log(req.body);
+        // console.log(req.body);
         try {
             const account = await Account.findByPk(req.user.id);
             const accuser = await User.findOne({ where: { idaccount: req.user.id } });
@@ -42,7 +42,7 @@ class AccountController {
             const userData = {
                 firstname: req.body.firstname,
                 lastname: req.body.lastname,
-                phone: req.body.phone
+                phone_number: req.body.phone
             };
 
             await account.update(accountData);
@@ -54,7 +54,7 @@ class AccountController {
                 user: accuser
             });
         } catch (error) {
-            console.error('Lỗi khi cập nhật thông tin tài khoản và người dùng:', error);
+            // console.error('Lỗi khi cập nhật thông tin tài khoản và người dùng:', error);
             res.status(500).json({ error: 'Có lỗi xảy ra khi cập nhật thông tin' });
         }
     }

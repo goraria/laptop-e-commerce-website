@@ -23,44 +23,17 @@ import Manager from "../utils/Manager.jsx";
 import NotFound from "../pages/overview/NotFound.jsx";
 import Order from '../pages/user-component/Order.jsx';
 import CheckOut from '../pages/user-component/Checkout.jsx';
+import VoucherWallet from "../pages/user-infomation/VoucherWallet.jsx";
 
 export const UserRoutes = () => {
-    // const [isAuthenticated, setIsAuthenticated] = useState(false);
-    // const [userRole, setUserRole] = useState(null);
-    //
-    // useEffect(() => {
-    //     const token = localStorage.getItem('token');
-    //     if (token) {
-    //         axios.get('http://localhost:5172/authentication/check', { headers: { Authorization: token } })
-    //             .then(response => {
-    //                 setIsAuthenticated(true);
-    //                 setUserRole(response.data.role);
-    //                 console.log(response.data.role)
-    //             })
-    //             .catch(() => {
-    //                 setIsAuthenticated(false);
-    //             });
-    //     }
-    // }, []);
-
     return (
         <Routes>
-            {/*<Route path="/" element={<Home />} />*/}
-            {/*<Route path="/about" element={<About />} />*/}
-            {/*<Route path="/contact" element={<Contact />} />*/}
-            {/*<Route path="/product" element={<Product />} />*/}
-            {/*<Route path="/search" element={<ProductList />} />*/}
-
-            {/*<Route path="/login" element={<Login />} />*/}
-            {/*<Route path="/signup" element={<Signup />} />*/}
-            {/*<Route path="/register" element={<Register />} />*/}
-
             <Route path="/profile" element={<UserProfile />} />
-            <Route path="/cart" element={<Cart />} />
             <Route path="/address" element={<AddressManagement />} />
-            <Route path="/order" element={<Order />} />
-            <Route path="/checkout" element={<CheckOut />} />
+            <Route path="/voucher" element={<VoucherWallet />} />
 
+            <Route path="/bill" element={<NotFound />} />
+            <Route path="/rating" element={<NotFound />} />
             <Route path="/404" element={<NotFound />} />
         </Routes>
     )

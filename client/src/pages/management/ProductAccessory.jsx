@@ -10,6 +10,7 @@ export const ProductAccessory = () => {
     }
     return (
         <>
+            <div>Quy Dinh</div>
             <AccessoryForm
                 address={obj}
                 onHide={() => true}

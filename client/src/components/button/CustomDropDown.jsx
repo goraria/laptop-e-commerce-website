@@ -10,7 +10,6 @@ const CustomDropDown = ({ category, onSelect }) => {
             variant={category.varient}
             title={category.categorical}
             // style={{ margin: '0px 16px 16px 0px' }}
-            className="me-3"
         >
             {category.item.map((product, index) => (
                 <Dropdown.Item 

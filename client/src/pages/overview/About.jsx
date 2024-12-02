@@ -35,7 +35,7 @@ const ImageAbout = ({ imageItems }) => {
 
 const About = () => {
     return (
-        <div style={{marginTop: 56}}>
+        <div className="mt-4">
             <Carousel fade>
                 <Carousel.Item>
                     <Image
@@ -45,7 +45,7 @@ const About = () => {
                         style={{objectFit: 'cover', height: '500px'}}
                     />
                     <Carousel.Caption>
-                        <h3>Bill Cipher</h3>
+                        <h3>Cipher</h3>
                         <p>Famous Brand in our website</p>
                     </Carousel.Caption>
                 </Carousel.Item>
@@ -62,7 +62,7 @@ const About = () => {
                     </Carousel.Caption>
                 </Carousel.Item>
             </Carousel>
-            <Overview mt={56} me={56}>
+            <Overview>
                 <div>
                     <h2>About us</h2>
                     <p className="lead">

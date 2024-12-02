@@ -43,8 +43,6 @@ const CardItem = ({ Item, onCheckboxChange, onRemoveItem }) => {
         }
     };
 
-
-
     useEffect(() => {
         fetchProductDetails();
         fetchProductConfiguration();
@@ -98,47 +96,49 @@ const CardItem = ({ Item, onCheckboxChange, onRemoveItem }) => {
 
 
     return (
-        <Row className="align-items-center py-3" style={{ display: "flex", flexWrap: "wrap" }}>
-            <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
-                <Form.Check
-                    type="checkbox"
-                    className="me-3"
-                    checked={isChecked}
-                    onChange={handleCheckboxChange}
-                />
-                <Image
-                    src={product.product_image}
-                    alt="Product"
-                    style={{ objectFit: "cover", width: 112, height: 112, borderRadius: "5px" }}
-                />
-            </Col>
-            <Col xs={12} md={6} className="d-flex flex-column justify-content-center text-md-start text-center" style={{ marginLeft: 10 }}>
-                <h5>{product.product_name}</h5>
-                <h6>{descriptions.title_description}</h6>
-                <h6>${default_config.price}</h6>
-            </Col>
-            <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
-                <Button variant="light">
-                    <FontAwesomeIcon icon={faMinus} onClick={() => handleQuantityChange(quantity - 1)} />
-                </Button>
-                <Form className="d-flex align-items-center justify-content-center mx-2">
-                    <Form.Control
-                        type="text"
-                        placeholder="0"
-                        // defaultValue={quantity}
-                        value={quantity}
-                        // onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
-                        style={{ width: 56, textAlign: "center" }}
+        <>
+            <div className="row align-items-center py-3" style={{ display: "flex", flexWrap: "wrap" }}>
+                <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
+                    <Form.Check
+                        type="checkbox"
+                        className="me-3"
+                        checked={isChecked}
+                        onChange={handleCheckboxChange}
                     />
-                </Form>
-                <Button variant="light">
-                    <FontAwesomeIcon icon={faPlus} onClick={() => handleQuantityChange(quantity + 1)} />
-                </Button>
-                <Button variant="light" onClick={handleRemoveItem}>
-                    <FontAwesomeIcon icon={faTrash} />
-                </Button>
-            </Col>
-        </Row>
+                    <Image
+                        src={product.product_image}
+                        alt="Product"
+                        style={{ objectFit: "cover", width: 112, height: 112, borderRadius: "5px" }}
+                    />
+                </Col>
+                <Col xs={12} md={6} className="d-flex flex-column justify-content-center text-md-start text-center" style={{ marginLeft: 10 }}>
+                    <h5>{product.product_name}</h5>
+                    <h6>{descriptions.title_description}</h6>
+                    <h6>${default_config.price}</h6>
+                </Col>
+                <Col xs={12} md={2} className="d-flex align-items-center justify-content-center justify-content-md-start">
+                    <Button variant="light">
+                        <FontAwesomeIcon icon={faMinus} onClick={() => handleQuantityChange(quantity - 1)} />
+                    </Button>
+                    <Form className="d-flex align-items-center justify-content-center mx-2">
+                        <Form.Control
+                            type="text"
+                            placeholder="0"
+                            // defaultValue={quantity}
+                            value={quantity}
+                            // onChange={(e) => handleQuantityChange(parseInt(e.target.value) || 1)}
+                            style={{ width: 56, textAlign: "center" }}
+                        />
+                    </Form>
+                    <Button variant="light">
+                        <FontAwesomeIcon icon={faPlus} onClick={() => handleQuantityChange(quantity + 1)} />
+                    </Button>
+                    <Button variant="light" onClick={handleRemoveItem}>
+                        <FontAwesomeIcon icon={faTrash} />
+                    </Button>
+                </Col>
+            </div>
+        </>
     );
 };
 

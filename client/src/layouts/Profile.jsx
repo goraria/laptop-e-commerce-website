@@ -9,7 +9,7 @@ const Profile = ({ children }) => {
     }, [])
     return (
         <>
-            <Container style={{marginTop: 112, marginBottom: 56}}>
+            <div className="container mt-4 mb-4">
                 <Row lg="8">
                     <Col sm={12} md={3} lg={3}>
                         <Card
@@ -30,7 +30,7 @@ const Profile = ({ children }) => {
                         {children}
                     </Col>
                 </Row>
-            </Container>
+            </div>
         </>
     )
 }

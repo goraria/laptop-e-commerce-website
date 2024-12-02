@@ -48,50 +48,66 @@ const AddressManagement = () => {
     // }
 
     return (
-        <Profile>
-            <Card
-                className="sticky-summary"
-                style={{
-                    position: "sticky",
-                    padding: '15px 12px 15px 12px',
-                    borderRadius: 10,
-                    top: 80,
-                    zIndex: 1,
-                    border: "none",
-                    backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
-                }}>
-                <AddressList key={reloadTrigger} onReload={handleReload}/>
-            </Card>
-            <Row>
+        // <Profile>
+        //     <Card
+        //         className="sticky-summary"
+        //         style={{
+        //             position: "sticky",
+        //             padding: '15px 12px 15px 12px',
+        //             borderRadius: 10,
+        //             top: 80,
+        //             zIndex: 1,
+        //             border: "none",
+        //             backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
+        //         }}>
+        //         <AddressList key={reloadTrigger} onReload={handleReload}/>
+        //     </Card>
+        //     <Row>
+        //         {addresses.map((address, index) => (
+        //             <Col key={index} sm={12} md={12} lg={6}>
+        //                 <Card
+        //                     className="sticky-summary mt-4"
+        //                     style={{
+        //                         position: "sticky",
+        //                         padding: '15px 12px 15px 12px',
+        //                         borderRadius: 10,
+        //                         top: 80,
+        //                         border: "none",
+        //                         backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
+        //                     }}>
+        //                     <AddressItem item={address} key={reloadTrigger} onReload={handleReload}/>
+        //                 </Card>
+        //             </Col>
+        //         ))}
+        //     </Row>
+        // </Profile>
+        <>
+            <div className="row">
+                <div className="col-12 mb-4">
+                    <div
+                        className="card px-3 py-3 light bg-body-tertiary align-items-center bg-navbar-theme">
+                        <AddressList key={reloadTrigger} onReload={handleReload}/>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
                 {addresses.map((address, index) => (
-                    <Col key={index} sm={12} md={12} lg={6}>
-                        <Card
-                            className="sticky-summary mt-4"
+                    <div className="col-lg-4 col-md-6 col-sm-12 mb-0" key={index}>
+                        <div
+                            className="card sticky-summary p-0 mb-4"
                             style={{
                                 position: "sticky",
                                 padding: '15px 12px 15px 12px',
-                                borderRadius: 10,
                                 top: 80,
                                 border: "none",
-                                backgroundColor: '#f8f9fa', // backgroundColor: '#eaedf0' '0, 12px'
                             }}>
                             <AddressItem item={address} key={reloadTrigger} onReload={handleReload}/>
-                        </Card>
-                    </Col>
+                        </div>
+                    </div>
                 ))}
-            </Row>
-        </Profile>
+            </div>
+        </>
     )
 }
-
-// class AddressManagement extends Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {}
-//     }
-//
-//     render() {
-//     }
-// }
 
 export default AddressManagement

@@ -3,6 +3,7 @@ const { Sequelize } = require("sequelize");
 const sequelize = new Sequelize('wt_proj', 'root', 'Japtor@1999', {
     host: 'localhost',
     dialect: 'mysql',
+    dialectModule: require('mysql2'),
     logging: false,
 });
 

@@ -10,6 +10,7 @@ import xps from "../../assets/images/xps.jpeg"
 import pri from "../../assets/images/pri.jpeg"
 import uls from "../../assets/images/uls.jpeg"
 import axios from "axios";
+import Overview from "../../layouts/Overview.jsx";
 
 const products = [
     { id: 1, name: 'Product 1', price: '5', image: 'https://via.placeholder.com/300x200', description: 'Mô tả ngắn về Product 1' },
@@ -46,7 +47,7 @@ const Home = () => {
 
     return (
         <div>
-            <Carousel style={{marginTop: 56}}>
+            <Carousel>
                 {/*<Carousel.Item>*/}
                 {/*    <Image*/}
                 {/*        className="d-block w-100"*/}
@@ -86,8 +87,10 @@ const Home = () => {
                     </Carousel.Item>
                 ))}
             </Carousel>
+            <Overview mt={24}>
+                <h2 className="text-center m-0">Sản phẩm nổi bật</h2>
+            </Overview>
             <Container className="my-4">
-                <h2 className="text-center mb-4">Sản phẩm nổi bật</h2>
                 {/*<Row style={{height: 100}}>*/}
                 {/*    {array.map((product, index) => (*/}
                 {/*        <Col key={index} sm={12} md={6} lg={4} className="mb-4">*/}

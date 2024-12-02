@@ -7,11 +7,11 @@ import Overview from "../../layouts/Overview.jsx";
 
 const NotFound = () => {
     return (
-        <Overview mt={112} me={56}>
+        <Overview>
             <div>
-                <h2>Bill Cipher</h2>
+                <h2>Cipher</h2>
                 <div style={{display: "flex", marginBottom: 16, justifyContent: 'center'}}>
-                    <Image
+                    <img
                         className="d-block"
                         src={jp}
                         alt="Second slide"
