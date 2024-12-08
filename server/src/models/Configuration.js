@@ -44,6 +44,11 @@ const Configuration = sequelize.define('Configuration', {
         type: DataTypes.INTEGER,
         allowNull: false,
     },
+    quantity: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+    },
 }, {
     tableName: 'configuration',
     timestamps: false,
