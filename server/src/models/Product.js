@@ -28,6 +28,11 @@ const Product = sequelize.define('Product', {
         type: DataTypes.STRING,
         allowNull: false,
     },
+    status: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 1,
+    },
 }, {
     tableName: 'product',
     timestamps: false,

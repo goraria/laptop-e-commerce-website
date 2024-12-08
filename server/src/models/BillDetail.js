@@ -53,6 +53,11 @@ const BillDetail = sequelize.define('BillDetail', {
         },
         allowNull: true,
     },
+    product_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: '',
+    },
     quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
