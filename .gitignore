@@ -1,8 +1,11 @@
 .idea
 .vscode
 .vs
+.DS_Store
+/mobile/.DS_Store
+/client/.DS_Store
+/server/.DS_Store
 
-/frontend/node_modules/
 /mobile/node_modules/
 /client/node_modules/
 /server/node_modules/
