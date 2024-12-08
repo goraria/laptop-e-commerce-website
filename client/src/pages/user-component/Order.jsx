@@ -29,15 +29,15 @@ const Order = () => {
     const handleOrderClick = (event) => {
         // handleAddBill();
         event.preventDefault();
-        navigate('/user/checkout', {
+        navigate('/pay/checkout', {
             state: {
                 cartData: cartData, // Dữ liệu giỏ hàng
                 prePrice: prePrice,
                 discount: discount,
                 totalPrice: totalPrice,
                 userData: user,
-                selectedaddress:selectedAddress,
-                selectedstoreaddress:selectedStoreAddress,
+                selectedaddress: selectedAddress,
+                selectedstoreaddress: selectedStoreAddress,
                 deliverymethod: deliveryMethod
             }
         });
@@ -54,21 +54,20 @@ const Order = () => {
 
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     };
-
     const handleAddBill = async () => {
         try {
-            const response = await axios.put(`http://localhost:5172/bill/add-bill`,{
+            const response = await axios.put(`http://localhost:5172/bill/add-bill`, {
                 date: formatDateToMySQL(date),
-                iddiscount:null,
-                idaddress:selectedAddress,
-                price:totalPrice,
-                status:status,
+                iddiscount: null,
+                idaddress: selectedAddress,
+                price: totalPrice,
+                status: status,
                 items: cartData
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
-                
+
             });
             alert("Bill đã được tạo vào thành công");
 
@@ -131,7 +130,7 @@ const Order = () => {
     useEffect(() => {
         fetchUser();
         fetchAddress();
-        // response();
+
     }, []);
 
     return (
@@ -275,9 +274,9 @@ const Order = () => {
                                     <span>Tổng cộng</span>
                                     <span style={{ fontWeight: 'bold', fontSize: '1.5em' }}>${totalPrice}</span>
                                 </div>
-                                    <Button className="w-100 mt-3" variant="danger" size="lg" onClick={handleOrderClick}>
-                                        Đặt hàng
-                                    </Button>
+                                <Button className="w-100 mt-3" variant="danger" size="lg" onClick={handleOrderClick}>
+                                    Đặt hàng
+                                </Button>
                             </div>
                             <div className="card p-3 sticky-summary mb-4 mt-4">
                                 <h4>Sản phẩm trong đơn</h4>

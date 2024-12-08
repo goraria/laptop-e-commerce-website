@@ -5,7 +5,7 @@ const AccountRoute = require('./AccountRoute')
 const AdminRoute = require('./AdminRoute')
 const CartRoute = require('./CartRouter')
 const BillRoute = require('./BillRoute')
-
+const PaypalRoute = require('./PaypalRoute')
 function routes(app) {
     app.use('/authentication', AuthenticationRoute);
     app.use('/products', ProductRouter);
@@ -14,6 +14,7 @@ function routes(app) {
     app.use('/address', AddressRoute);
     app.use('/admin', AdminRoute);
     app.use('/account', AccountRoute);
+    app.use('/paypal', PaypalRoute);
 }
 
 module.exports = routes;

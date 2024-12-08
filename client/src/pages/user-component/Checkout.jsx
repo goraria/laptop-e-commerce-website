@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { Container, Button, Row, Col, Card, Form } from 'react-bootstrap';
 import Transitionbar from '../../layouts/Transitionbar.jsx';
-import { useLocation } from 'react-router-dom';
+import { redirect, useLocation } from 'react-router-dom';
 import OrderItem from "../../components/product/OrderItem.jsx";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -25,9 +25,8 @@ function CheckOut() {
     const [status, setStatus] = useState(1); // State for delivery method
     const [date, setDate] = useState(new Date()); // State for delivery method
     const [address, setAdress] = useState([]); // State for delivery method
-
+    const [isPaypalSelected, setIsPaypalSelected] = useState(false);
     const navigate = useNavigate();
-
     const token = localStorage.getItem('token');
 
     const fetchAddress = async () => {
@@ -35,9 +34,9 @@ function CheckOut() {
             const response = await fetch(`http://localhost:5172/address/addresses/${selectedaddress}`);
             const data = await response.json();
             setAdress(data[0])
-            console.log(data)
         } catch (error) {
-            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+            console.log(error);
+            console.error('Lỗi khi lấy địa chỉ:', error);
         }
     };
 
@@ -51,38 +50,73 @@ function CheckOut() {
 
         return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
     };
-
+    const paypalAPI = async () => {
+        // Kiểm tra nếu PayPal đã được tải trước
+        if (window.paypal) {
+            paypal.Buttons({
+                createOrder: function (data, actions) {
+                    return fetch('http://localhost:5172/paypal/create-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ totalPrice: totalPrice })
+                    }).then(res => res.json())
+                        .then(order => order.id);
+                },
+                onApprove: function (data, actions) {
+                    return fetch('http://localhost:5172/paypal/capture-order', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ orderID: data.orderID }),
+                    }).then(res => res.json())
+                        .then(details => {
+                            alert('Thanh toán thành công');
+                            handleStatusChange(1);
+                            handleAddBill()
+                        });
+                },
+                onError: function (err) {
+                    console.error(err);
+                    alert('Có lỗi xảy ra trong quá trình thanh toán');
+                }
+            }).render('#paypal-button-container');
+        }
+    };
     const handleAddBill = async () => {
         try {
-            const response = await axios.put(`http://localhost:5172/bill/add-bill`,{
+            const response = await axios.put(`http://localhost:5172/bill/add-bill`, {
                 date: formatDateToMySQL(date),
-                iddiscount:null,
-                idaddress:selectedaddress,
-                price:totalPrice,
-                status:status,
+                iddiscount: null,
+                idaddress: selectedaddress,
+                price: totalPrice,
+                status: status,
                 items: cartData
             }, {
                 headers: {
                     Authorization: `Bearer ${token}`
                 },
-                
+
             });
-            alert("Bill đã được tạo vào thành công");
+            alert("Hóa đơn đã được tạo vào thành công");
             navigate('/')
         } catch (error) {
-            console.error('Lỗi khi lấy dữ liệu mô tả của sản phẩm:', error);
+            console.error('Lỗi khi tạo hóa đơn:', error);
         }
     };
 
     const handlePaymentMethodChange = (event) => {
         setPaymentMethod(event.target.value);
+        setIsPaypalSelected(event.target.value === "paypal"); // Set to true if PayPal is selected
     };
 
     const handleStatusChange = (status) => {
         setStatus(status);
         console.log(status)
     };
-    
+
     const handleRemoveItem = async () => {
         try {
             const response = await axios.put(`http://localhost:5172/cart/remove-cartitem`, {
@@ -100,7 +134,20 @@ function CheckOut() {
 
     useEffect(() => {
         fetchAddress();
-    }, []);
+
+        if (isPaypalSelected) {
+            const script = document.createElement('script');
+            script.src = "https://www.paypal.com/sdk/js?client-id=AdhVzROq2s2WBCyzBViwG2txjK55M54O6K_swNa_do0hEpOGo5PQf49TYCoz3evn0s3PF_jdXovGzKb3&currency=USD";
+            script.async = true;
+            script.onload = () => {
+                paypalAPI(); // Call PayPal API when PayPal is selected
+            };
+            document.body.appendChild(script);
+            return () => {
+                document.body.removeChild(script);
+            };
+        }
+    }, [isPaypalSelected]); // Only run when PayPal is selected
     return (
         <>
             <Transitionbar />
@@ -173,15 +220,26 @@ function CheckOut() {
                             />
                             {paymentMethod === "cod" && (
                                 <div className="card p-3 mb-3">
-                                    <Button className="w-100" variant="primary" onClick={() =>{
+                                    <Button className="w-100" variant="primary" onClick={() => {
                                         handleStatusChange(0),
-                                        handleAddBill()
+                                            handleAddBill()
                                     }}>
                                         Xác nhận thanh toán
                                     </Button>
                                 </div>
                             )}
-
+                            <Form.Check
+                                type="radio"
+                                label="Paypal"
+                                name="paymentMethod"
+                                value="paypal"
+                                checked={paymentMethod == "paypal"}
+                                onChange={handlePaymentMethodChange}
+                            />
+                            {paymentMethod === "paypal" && (
+                                <div className="card p-3 mb-3" id="paypal-button-container">
+                                </div>
+                            )}
                         </div>
                     </Col>
 

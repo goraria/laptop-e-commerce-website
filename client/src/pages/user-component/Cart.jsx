@@ -36,7 +36,7 @@ const Cart = () => {
 
     const handleOrderClick = (event) => {
         event.preventDefault();
-        navigate('/user/order', {
+        navigate('/pay/order', {
             state: {
                 cartData: selectedCartItems, // Dữ liệu giỏ hàng
                 prePrice: pre_total,
@@ -53,10 +53,10 @@ const Cart = () => {
 
     const fetchCartItem = async (Carts) => {
         try {
-        const response = await axios.get(`http://localhost:5172/cart/load-cartItem/${Carts.idcart}`);
-        setCartItem(response.data);
-        }catch{
-            console.error('Error fetching CartItem details:', error);
+            const response = await axios.get(`http://localhost:5172/cart/load-cartItem/${Carts.idcart}`);
+            setCartItem(response.data);
+        } catch {
+            console.error('Error fetching CartItem details:');
         }
     };
 
@@ -120,11 +120,11 @@ const Cart = () => {
     //     }
     // };
 
-    const handleCheckboxChange = (price, isSelected,item) => {
+    const handleCheckboxChange = (price, isSelected, item) => {
         setSelectedPrices((prevSelectedPrices) =>
             isSelected
-                ? [...prevSelectedPrices, price *item.quantity] // Add price if checked
-                : prevSelectedPrices.filter((itemPrice) => itemPrice !==  price *item.quantity) // Remove if unchecked
+                ? [...prevSelectedPrices, price * item.quantity] // Add price if checked
+                : prevSelectedPrices.filter((itemPrice) => itemPrice !== price * item.quantity) // Remove if unchecked
         );
 
         setSelectedCartItems((prevSelectedCartItems) =>
@@ -137,7 +137,7 @@ const Cart = () => {
     const removeCartItem = () => {
         fetchCartItem(carts);
 
-            
+
     };
 
     // Calculate total based on selected prices
@@ -175,17 +175,17 @@ const Cart = () => {
                                 zIndex: 1,
                                 border: "none",
                             }}>
-                            <Container style={{display: "flex", padding: '0 8px'}}>
+                            <Container style={{ display: "flex", padding: '0 8px' }}>
                                 <h2 className="m-0">Giỏ hàng</h2>
-                                <Button as={Link} to={'/search'} variant="primary" style={{marginLeft: 'auto'}}>
-                                   <FontAwesomeIcon icon={faPlus} className="me-2"/>
-                                   <span>Thêm sản phẩm</span>
+                                <Button as={Link} to={'/search'} variant="primary" style={{ marginLeft: 'auto' }}>
+                                    <FontAwesomeIcon icon={faPlus} className="me-2" />
+                                    <span>Thêm sản phẩm</span>
                                 </Button>
                             </Container>
                         </div>
                         {cartItems.map((item) => (
                             <div className="card p-3 mb-4" key={item.idcart_item}>
-                                <CardItem Item={item} onCheckboxChange={handleCheckboxChange} onRemoveItem={removeCartItem}/>
+                                <CardItem Item={item} onCheckboxChange={handleCheckboxChange} onRemoveItem={removeCartItem} />
                             </div>
                         ))}
                     </Col>
